@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Texture.h"
 #include "../Utilities/TGA.h"
 #include <iostream>

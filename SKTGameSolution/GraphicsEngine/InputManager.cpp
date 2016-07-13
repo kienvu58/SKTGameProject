@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "InputManager.h"
 #include "Globals.h"
 

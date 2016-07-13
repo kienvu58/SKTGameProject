@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "HelperFunctions.h"

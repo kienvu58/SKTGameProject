@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Object.h"
 #include "Globals.h"
 #include "Camera.h"
@@ -27,7 +26,7 @@ void Object::Draw() {
 	
 	/*Set Texture*/
 	GLuint iTexLocation = m_pShader->locationUniformTex;
-	const GLint* samplers;
+	const GLint* samplers(nullptr);
 	int size;
 	if (m_typType == TypeObject::OBJECT) {
 		samplers = new GLint[m_vec2DTextures.size()];

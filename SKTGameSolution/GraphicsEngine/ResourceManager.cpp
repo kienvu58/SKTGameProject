@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "ResourceManager.h"
 #include <iostream>
 #include <string>
