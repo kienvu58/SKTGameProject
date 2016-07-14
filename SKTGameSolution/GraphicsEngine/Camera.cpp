@@ -1,95 +1,117 @@
 #include "Camera.h"
 #include <iostream>
+#include "Globals.h"
 
-Camera* Camera::instance = 0;
-
-Camera::Camera()
+Camera::Camera(): m_bIsViewDirty(true),
+                  m_bIsProjectionDirty(true),
+                  m_fNear(0),
+                  m_fFar(0),
+                  m_fFov(0),
+                  m_fSpeed(0.4f),
+                  m_fSensitivity(0.05f),
+                  m_fPitch(0),
+                  m_fYaw(-90.0f)
 {
-	cameraPos = Vector3(0.0f, 0.0f, 0.0f);
-	cameraFront = Vector3(0.0f, 0.0f, -1.0f);
-	cameraUp = Vector3(0.0f, 1.0f, 0.0f);
-	m_fSpeed = 0.4;
-	pitch = 0;
-	yaw = -90;
+	m_vCameraPos = Vector3(0.0f, 0.0f, 3.0f);
+	m_vCameraFront = Vector3(0.0f, 0.0f, -1.0f);
+	m_vCameraUp = Vector3(0.0f, 1.0f, 0.0f);
 }
 
 Camera::~Camera()
 {
 }
 
-Camera* Camera::GetInstance() {
-	if (instance == 0) {
-		instance = new Camera;
-	}
-	return instance;
+Matrix Camera::GetViewMatrix()
+{
+	return m_matView;
 }
 
-Matrix Camera::GetLookAt(Vector3 &cameraPosition, Vector3 &targetPosition, Vector3 &up) {
-	//calculate camera dirction vector.
-	Vector3 cameraDirection = cameraPosition - targetPosition;
-	cameraDirection.Normalize();
-	//calculate camera right vector.
-	Vector3 cameraRight = up.Cross(cameraDirection);
-	cameraRight.Normalize();
-	//calculate the up vecotr of the camera.
+void Camera::UpdateViewMatrix()
+{
+	if (m_bIsViewDirty)
+	{
+		m_matView = GetLookAt(m_vCameraPos, m_vCameraPos + m_vCameraFront, m_vCameraUp);
+		m_bIsViewDirty = false;
+	}
+}
+
+Matrix Camera::GetProjectionMatrix()
+{
+	return m_matProjection;
+}
+
+void Camera::UpdateProjectionMatrix()
+{
+	if (m_bIsProjectionDirty)
+	{
+		m_matProjection.SetPerspective(m_fFov, float(Globals::screenWidth) / float(Globals::screenHeight), m_fNear, m_fFar);
+		m_bIsProjectionDirty = false;
+	}
+}
+
+Matrix Camera::GetLookAt(Vector3& cameraPosition, Vector3& targetPosition, Vector3& up)
+{
+	Vector3 cameraDirection = (cameraPosition - targetPosition).Normalize();
+	Vector3 cameraRight = up.Cross(cameraDirection).Normalize();
 	Vector3 cameraUp = cameraDirection.Cross(cameraRight);
 
-	Matrix left, right;
-	int i, j;
-	
-	left.m[0][0] = cameraRight.x;
-	left.m[0][1] = cameraRight.y;
-	left.m[0][2] = cameraRight.z;
-	left.m[0][3] = 0;
+	Matrix matView;
+	matView.m[0][0] = cameraRight.x;
+	matView.m[0][1] = cameraUp.x;
+	matView.m[0][2] = cameraDirection.x;
+	matView.m[0][3] = 0;
+	matView.m[1][0] = cameraRight.y;
+	matView.m[1][1] = cameraUp.y;
+	matView.m[1][2] = cameraDirection.y;
+	matView.m[1][3] = 0;
+	matView.m[2][0] = cameraRight.z;
+	matView.m[2][1] = cameraUp.z;
+	matView.m[2][2] = cameraDirection.z;
+	matView.m[2][3] = 0;
+	matView.m[3][0] = -cameraRight.Dot(cameraPosition);
+	matView.m[3][1] = -cameraUp.Dot(cameraPosition);
+	matView.m[3][2] = -cameraDirection.Dot(cameraPosition);
+	matView.m[3][3] = 1;
 
-	left.m[1][0] = cameraUp.x;
-	left.m[1][1] = cameraUp.y;
-	left.m[1][2] = cameraUp.z;
-	left.m[1][3] = 0;
-
-	left.m[2][0] = cameraDirection.x;
-	left.m[2][1] = cameraDirection.y;
-	left.m[2][2] = cameraDirection.z;
-	left.m[2][3] = 0;
-
-	left.m[3][0] = 0;
-	left.m[3][1] = 0;
-	left.m[3][2] = 0;
-	left.m[3][3] = 1;
-	////
-	right.m[0][0] = 1;
-	right.m[0][1] = 0;
-	right.m[0][2] = 0;
-	right.m[0][3] = -cameraPosition.x;
-
-	right.m[1][0] = 0;
-	right.m[1][1] = 1;
-	right.m[1][2] = 0;
-	right.m[1][3] = -cameraPosition.y;
-
-	right.m[2][0] = 0;
-	right.m[2][1] = 0;
-	right.m[2][2] = 1;
-	right.m[2][3] = -cameraPosition.z;
-
-	right.m[3][0] = 0;
-	right.m[3][1] = 0;
-	right.m[3][2] = 0;
-	right.m[3][3] = 1;
-	
-	Matrix view = left*right;
-
-	return view.Transpose(); 
+	return matView;
 }
 
-void Camera::SetInfo(float n, float f, float fov, float speed) {
+void Camera::SetInfo(float n, float f, float fov, float speed, float sensitivity)
+{
 	m_fNear = n;
 	m_fFar = f;
 	m_fFov = fov;
 	m_fSpeed = speed;
+	m_fSensitivity = sensitivity;
+	m_bIsProjectionDirty = true;
 }
 
-Matrix Camera::GetCurrentViewMatrix() {
-	return GetLookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+void Camera::Move(Vector3 direction, float deltaTime)
+{
+	if (direction.Length() > 0)
+	{
+		Vector3 deltaMove;
+		Vector3 zaxis = (-m_vCameraFront).Normalize();
+		Vector3 xaxis = m_vCameraUp.Cross(zaxis).Normalize();
+		Vector3 yaxis = zaxis.Cross(xaxis);
+		deltaMove = (zaxis * direction.z + xaxis * direction.x + yaxis * direction.y).Normalize();
+		deltaMove *= deltaTime * m_fSpeed;
+		m_vCameraPos += deltaMove;
+		m_bIsViewDirty = true;
+	}
 }
 
+void Camera::Rotate(Vector2 offset, float deltaTime)
+{
+	if (offset.Length() > 0)
+	{
+		m_fPitch -= offset.y * m_fSensitivity;
+		m_fYaw += offset.x * m_fSensitivity;
+		m_fPitch = m_fPitch < 89.0f ? m_fPitch : 89.0f;
+		m_fPitch = m_fPitch > -89.0f ? m_fPitch : -89.0f;
+		m_vCameraFront.x = cos(Radians(m_fPitch)) * cos(Radians(m_fYaw));
+		m_vCameraFront.y = sin(Radians(m_fPitch));
+		m_vCameraFront.z = cos(Radians(m_fPitch)) * sin(Radians(m_fYaw));
+		m_bIsViewDirty = true;
+	}
+}

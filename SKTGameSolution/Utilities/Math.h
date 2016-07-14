@@ -1,5 +1,8 @@
 #pragma once
 
+#define RADIAN_PER_DEGREE (3.1415926535897932384626433832795f / 180.0f);
+
+
 #include "esUtil.h"
 
 //Vector2
@@ -168,3 +171,9 @@ public:
 	//data members
 	GLfloat m[4][4];
 };
+
+
+inline float Radians(float degree)
+{
+	return degree * RADIAN_PER_DEGREE;
+}
