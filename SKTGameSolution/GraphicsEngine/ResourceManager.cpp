@@ -199,3 +199,9 @@ void ResourceManager::Clear()
 	ClearMap<CubeTexture>(m_mapCubeTextures);
 	ClearMap<Shaders>(m_mapShaders);
 }
+
+void ResourceManager::InsertModel(Model* model)
+{
+	m_mapModels->insert(std::pair<int, Model*>(m_iNumModel, model));
+	m_iNumModel++;
+}

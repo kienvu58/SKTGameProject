@@ -21,7 +21,8 @@ void Object::Draw()
 	m_pShader->EnableStates();
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_pModel->GetVboId());
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_pModel->GetIboId());
+	if (m_typType != TypeObject::SPRITE)
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_pModel->GetIboId());
 
 	/*Set Position*/
 	if (m_pShader->locationAttributePos != -1)
@@ -34,7 +35,7 @@ void Object::Draw()
 	GLuint iTexLocation = m_pShader->locationUniformTex;
 	const GLint* samplers(nullptr);
 	int size = 0;
-	if (m_typType == TypeObject::OBJECT)
+	if (m_typType != TypeObject::SKYBOX)
 	{
 		samplers = new GLint[m_vec2DTextures.size()];
 		size = m_vec2DTextures.size();
@@ -92,12 +93,18 @@ void Object::Draw()
 	}
 
 	//glDrawArrays(GL_TRIANGLES, 0, 3);
-	glDrawElements(GL_TRIANGLES, m_pModel->GetNumIndices(), GL_UNSIGNED_INT, 0);
+	if (m_typType != TypeObject::SPRITE)
+		glDrawElements(GL_TRIANGLES, m_pModel->GetNumIndices(), GL_UNSIGNED_INT, 0);
+	else
+	{
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	}
 
 	m_pShader->DisableStates();
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	if (m_typType != TypeObject::SPRITE)
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	if (m_typType == TypeObject::OBJECT)
 		glBindTexture(GL_TEXTURE_2D, 0);
 	else if (m_typType == TypeObject::SKYBOX)

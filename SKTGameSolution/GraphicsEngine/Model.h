@@ -21,10 +21,11 @@ public:
 	int GetNumIndices() const { return m_iNumIndices; }
 	int GetSizeVertices() const { return m_iNumVertices * sizeof(Vertex); }
 	int GetSizeIndices() const { return m_iNumIndices * sizeof(unsigned int); }
-	void Clear() const { delete[] m_pIndices; delete[] m_pVertices; }
+	void Clear() const { if (m_pIndices)delete[] m_pIndices; delete[] m_pVertices; }
 	GLuint GetVboId() const	{ return m_iVboId; }
 	GLuint GetIboId() const	{ return m_iIboId; }
 	void Init(char* filePath, char* heightMapPath);
 	void SetHeightMap(char* filePath);
+	void Init(Vertex* vertices, int numVertices);
 };
 

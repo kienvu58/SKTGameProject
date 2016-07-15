@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include <iostream>
 #include "InputManager.h"
+#include "Sprite.h"
 
 SceneManager* SceneManager::s_Instance = nullptr;
 
@@ -54,7 +55,7 @@ void SceneManager::Init(char* filePath)
 	{
 		fscanf(pfile, "\n");
 
-		Object* obj = new Object();
+		Object* obj;
 
 		int id;
 		fscanf(pfile, "ID %d\n", &id);
@@ -62,9 +63,22 @@ void SceneManager::Init(char* filePath)
 		char typeObject[200];
 		fscanf(pfile, "TYPE %s\n", typeObject);
 
-		int modelId;
-		fscanf(pfile, "MODEL %d\n", &modelId);
-		obj->SetModel(ResourceManager::GetInstance()->GetModelById(modelId));
+		if (strcmp(typeObject, "SPRITE") == 0)
+		{
+			obj = new Sprite();
+			float spriteX, spriteY, spriteW, spriteH, textureW, textureH;
+			fscanf(pfile, "COORD %f %f %f %f %f %f\n", 
+				&spriteX, &spriteY, &spriteW, &spriteH, &textureW, &textureH);
+			dynamic_cast<Sprite*>(obj)->InitModel(spriteX, spriteH, spriteW, spriteH, textureW, textureH,
+				Vector2(0,0));
+		}
+		else
+		{
+			obj = new Object();
+			int modelId;
+			fscanf(pfile, "MODEL %d\n", &modelId);
+			obj->SetModel(ResourceManager::GetInstance()->GetModelById(modelId));
+		}
 
 		int num2dTextures;
 		fscanf(pfile, "TEXTURES %d\n", &num2dTextures);
@@ -95,6 +109,9 @@ void SceneManager::Init(char* filePath)
 		else if (strcmp(typeObject, "SKYBOX") == 0)
 		{
 			obj->SetType(TypeObject::SKYBOX);
+		}else
+		{
+			obj->SetType(TypeObject::SPRITE);
 		}
 
 		char tmp[200];
@@ -115,16 +132,17 @@ void SceneManager::Init(char* filePath)
 		m_mapObjects->insert(std::pair<int, Object*>(id, obj));
 	}
 	//read info for camera.
-	float n, f, fov, speed;
+	float n, f, fov, speed, sensitivity;
 	fscanf(pfile, "\n");
 	fscanf(pfile, "#CAMERA\n");
 	fscanf(pfile, "NEAR %f\n", &n);
 	fscanf(pfile, "FAR %f\n", &f);
 	fscanf(pfile, "FOV %f\n", &fov);
 	fscanf(pfile, "SPEED %f\n", &speed);
+	fscanf(pfile, "SENSITIVITY %f\n", &sensitivity);
 	fclose(pfile);
 	m_pCamera = new Camera();
-	m_pCamera->SetInfo(n, f, fov, speed, 0.5f);
+	m_pCamera->SetInfo(n, f, fov, speed, sensitivity);
 	m_pCamera->UpdateProjectionMatrix();
 	auto it = m_mapObjects->begin();
 	while (it != m_mapObjects->end())

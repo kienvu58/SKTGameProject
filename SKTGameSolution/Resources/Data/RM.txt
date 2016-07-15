@@ -22,7 +22,7 @@ ID 5
 FILE fire.nfg
 HEIGHT_MAP NO
 
-#2D Textures: 10
+#2D Textures: 11
 ID 0
 FILE Woman1.tga
 TILING REPEAT
@@ -53,6 +53,9 @@ TILING REPEAT
 ID 9
 FILE fire_mask.tga
 TILING REPEAT
+ID 10
+FILE sprite_pinball.tga
+TILING REPEAT
 
 #Cube Textures: 1
 ID 0
@@ -61,8 +64,8 @@ TILING CLAMP
 
 #Shader: 4
 ID 0
-VS Woman1VS.vs
-FS Woman1FS.fs
+VS ObjectVS.vs
+FS ObjectFS.fs
 STATES 2
 STATE CULLING
 STATE DEPTH_TEST

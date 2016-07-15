@@ -16,6 +16,7 @@ public:
 	Shaders* GetShaderById(int id) const;
 	void Init(char *resourcePath);
 	void Clear();
+	void InsertModel(Model *model);
 	~ResourceManager();
 private:
 	std::map<int, Model*> *m_mapModels;

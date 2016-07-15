@@ -99,3 +99,17 @@ void Model::SetHeightMap(char* filePath)
 	}
 	delete []data;
 }
+
+/*This init function for sprite*/
+void Model::Init(Vertex* vertices, int numVertices)
+{
+	m_pVertices = vertices;
+	m_iNumVertices = numVertices;
+	//buffer object
+	glGenBuffers(1, &m_iVboId);
+	glBindBuffer(GL_ARRAY_BUFFER, m_iVboId);
+	glBufferData(GL_ARRAY_BUFFER, GetSizeVertices(), m_pVertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	this->Clear();
+};

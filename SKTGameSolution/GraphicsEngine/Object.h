@@ -6,7 +6,7 @@
 #include "Model.h"
 #include "Shaders.h"
 
-enum class TypeObject {OBJECT, SKYBOX, TERRAIN};
+enum class TypeObject {OBJECT, SKYBOX, TERRAIN, SPRITE};
 
 class Object
 {
@@ -22,7 +22,7 @@ public:
 	void SetViewMatrix(Matrix matView);
 	void SetProjectionMatrix(Matrix matProjection);
 	void SetType(TypeObject type);
-private:
+protected:
 	TypeObject m_typType;
 	Model *m_pModel;
 	std::vector<Texture*> m_vec2DTextures;
