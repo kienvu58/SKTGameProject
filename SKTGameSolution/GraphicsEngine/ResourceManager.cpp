@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include "Shaders.h"
 
+#define MAX_CHAR_LENGTH 100
+
 ResourceManager* ResourceManager::s_Instance = nullptr;
 
 ResourceManager::ResourceManager() : m_mapModels(nullptr),
@@ -72,9 +74,9 @@ void ResourceManager::Init(char* resourcePath)
 		return;
 	}
 
-	char modelPrefix[100];
-	char texturePrefix[100];
-	char shaderPrefix[100];
+	char modelPrefix[MAX_CHAR_LENGTH];
+	char texturePrefix[MAX_CHAR_LENGTH];
+	char shaderPrefix[MAX_CHAR_LENGTH];
 
 	fscanf(pfile, "MODEL_PREFIX %s\n", modelPrefix);
 	fscanf(pfile, "TEXTURE_PREFIX %s\n", texturePrefix);
@@ -88,10 +90,10 @@ void ResourceManager::Init(char* resourcePath)
 	for (i = 0; i < m_iNumModel; i++)
 	{
 		int id;
-		char filePath[100];
-		char prefix[100];
-		char heightMapPath[100];
-		char tmpHeightMap[100];
+		char filePath[MAX_CHAR_LENGTH];
+		char prefix[MAX_CHAR_LENGTH];
+		char heightMapPath[MAX_CHAR_LENGTH];
+		char tmpHeightMap[MAX_CHAR_LENGTH];
 		fscanf(pfile, "ID %d\n", &id);
 		fscanf(pfile, "FILE %s\n", filePath);
 		fscanf(pfile, "HEIGHT_MAP %s\n", heightMapPath);
@@ -110,9 +112,9 @@ void ResourceManager::Init(char* resourcePath)
 	for (i = 0; i < m_iNum2DTexture; i++)
 	{
 		int id;
-		char filePath[100];
-		char prefix[100];
-		char type[100];
+		char filePath[MAX_CHAR_LENGTH];
+		char prefix[MAX_CHAR_LENGTH];
+		char type[MAX_CHAR_LENGTH];
 		fscanf(pfile, "ID %d\n", &id);
 		fscanf(pfile, "FILE %s\n", filePath);
 		fgets(type, sizeof(type), pfile);
@@ -128,15 +130,15 @@ void ResourceManager::Init(char* resourcePath)
 	for (i = 0; i < m_iNumCubeTexture; i++)
 	{
 		int id;
-		char filePath[100];
-		char prefix[100];
-		char type[100];
+		char filePath[MAX_CHAR_LENGTH];
+		char prefix[MAX_CHAR_LENGTH];
+		char type[MAX_CHAR_LENGTH];
 		fscanf(pfile, "ID %d\n", &id);
 		fscanf(pfile, "FILE %s\n", filePath);
 		fgets(type, sizeof(type), pfile);
 		std::vector<char*> paths;
 		strcat(strcpy(prefix, texturePrefix), filePath);
-		char tmp[6][100];
+		char tmp[6][MAX_CHAR_LENGTH];
 		paths.push_back(strcat(strcpy(tmp[0], prefix), "right.tga"));
 		paths.push_back(strcat(strcpy(tmp[1], prefix), "left.tga"));
 		paths.push_back(strcat(strcpy(tmp[2], prefix), "bottom.tga"));
@@ -155,14 +157,14 @@ void ResourceManager::Init(char* resourcePath)
 	for (i = 0; i < m_iNumShader; i++)
 	{
 		int id;
-		char vsPath[100];
-		char fsPath[100];
-		char prefix[100];
+		char vsPath[MAX_CHAR_LENGTH];
+		char fsPath[MAX_CHAR_LENGTH];
+		char prefix[MAX_CHAR_LENGTH];
 		fscanf(pfile, "ID %d\n", &id);
 		fscanf(pfile, "VS %s\n", vsPath);
 		fscanf(pfile, "FS %s\n", fsPath);
 		Shaders* s = new Shaders();
-		char tmp[100];
+		char tmp[MAX_CHAR_LENGTH];
 		strcpy(tmp, shaderPrefix);
 		strcat(tmp, fsPath);
 		s->Init(strcat(strcpy(prefix, shaderPrefix), vsPath),
@@ -171,7 +173,7 @@ void ResourceManager::Init(char* resourcePath)
 		fscanf(pfile, "STATES %d\n", &numStates);
 		for (int j = 0; j < numStates; j++)
 		{
-			char type[100];
+			char type[MAX_CHAR_LENGTH];
 			fscanf(pfile, "STATE %s\n", type);
 			if (strcmp(type, "CULLING") == 0)
 			{

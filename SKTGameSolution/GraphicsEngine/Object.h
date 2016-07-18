@@ -31,5 +31,6 @@ protected:
 	Matrix m_matWorld;
 	Matrix m_matView;
 	Matrix m_matProjection;
+	Matrix m_matOthorProjection;
 };
 

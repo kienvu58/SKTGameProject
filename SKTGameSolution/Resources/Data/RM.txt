@@ -2,88 +2,17 @@ MODEL_PREFIX ../Resources/Models/
 TEXTURE_PREFIX ../Resources/Textures/
 SHADER_PREFIX ../Resources/Shaders/
 
-#Models: 6
-ID 0
-FILE Woman1.nfg
-HEIGHT_MAP NO
-ID 1
-FILE SkyBox.nfg
-HEIGHT_MAP NO
-ID 2
-FILE Woman2.nfg
-HEIGHT_MAP NO
-ID 3
-FILE Croco.nfg
-HEIGHT_MAP NO
-ID 4
-FILE Terrain.nfg
-HEIGHT_MAP heightmap_converted.raw 
-ID 5
-FILE fire.nfg
-HEIGHT_MAP NO
+#Models: 0
 
-#2D Textures: 11
+#2D Textures: 1
 ID 0
-FILE Woman1.tga
-TILING REPEAT
-ID 1
-FILE Woman2.tga
-TILING REPEAT
-ID 2
-FILE Croco.tga
-TILING REPEAT
-ID 3
-FILE Terrain_blend_map.tga
-TILING REPEAT
-ID 4
-FILE Dirt.tga
-TILING REPEAT
-ID 5
-FILE Grass.tga
-TILING REPEAT
-ID 6
-FILE Rock.tga
-TILING REPEAT
-ID 7
-FILE fire3.tga
-TILING REPEAT
-ID 8
-FILE DisplacementMap.tga
-TILING REPEAT
-ID 9
-FILE fire_mask.tga
-TILING REPEAT
-ID 10
 FILE sprite_pinball.tga
 TILING REPEAT
 
-#Cube Textures: 1
-ID 0
-FILE Skybox/
-TILING CLAMP
+#Cube Textures: 0
 
-#Shader: 4
+#Shader: 1
 ID 0
 VS ObjectVS.vs
 FS ObjectFS.fs
-STATES 2
-STATE CULLING
-STATE DEPTH_TEST
-ID 1
-VS SkyBoxVS.vs
-FS SkyBoxFS.fs
-STATES 2
-STATE DEPTH_TEST
-STATE ALPHA
-ID 2
-VS TerrainVS.vs
-FS TerrainFS.fs
-STATES 2
-STATE CULLING
-STATE DEPTH_TEST
-ID 3
-VS FireVS.vs
-FS FireFS.fs
-STATES 2
-STATE ALPHA
-STATE DEPTH_TEST
+STATES 0

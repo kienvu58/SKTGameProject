@@ -44,7 +44,14 @@ void Camera::UpdateProjectionMatrix()
 {
 	if (m_bIsProjectionDirty)
 	{
-		m_matProjection.SetPerspective(m_fFov, float(Globals::screenWidth) / float(Globals::screenHeight), m_fNear, m_fFar);
+		if (m_CameraType == CameraType::PERSPECTIVE)
+		{
+			m_matProjection.SetPerspective(m_fFov, float(Globals::screenWidth) / float(Globals::screenHeight), m_fNear, m_fFar);
+		}
+		else
+		{
+			m_matProjection.SetOrthographic(-240, 240, 854/2, -854/2, 0.1, 40.0);
+		}
 		m_bIsProjectionDirty = false;
 	}
 }
@@ -60,14 +67,17 @@ Matrix Camera::GetLookAt(Vector3& cameraPosition, Vector3& targetPosition, Vecto
 	matView.m[0][1] = cameraUp.x;
 	matView.m[0][2] = cameraDirection.x;
 	matView.m[0][3] = 0;
+
 	matView.m[1][0] = cameraRight.y;
 	matView.m[1][1] = cameraUp.y;
 	matView.m[1][2] = cameraDirection.y;
 	matView.m[1][3] = 0;
+
 	matView.m[2][0] = cameraRight.z;
 	matView.m[2][1] = cameraUp.z;
 	matView.m[2][2] = cameraDirection.z;
 	matView.m[2][3] = 0;
+
 	matView.m[3][0] = -cameraRight.Dot(cameraPosition);
 	matView.m[3][1] = -cameraUp.Dot(cameraPosition);
 	matView.m[3][2] = -cameraDirection.Dot(cameraPosition);
@@ -99,6 +109,11 @@ void Camera::Move(Vector3 direction, float deltaTime)
 		m_vCameraPos += deltaMove;
 		m_bIsViewDirty = true;
 	}
+}
+
+void Camera::SetCameraType(CameraType cameraType)
+{
+	m_CameraType = cameraType;
 }
 
 void Camera::Rotate(Vector2 offset, float deltaTime)

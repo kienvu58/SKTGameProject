@@ -8,6 +8,7 @@ float tt;
 
 Object::Object(): m_typType(), m_pModel(nullptr), m_pShader(nullptr)
 {
+	m_matOthorProjection.SetIdentity();
 }
 
 Object::~Object()

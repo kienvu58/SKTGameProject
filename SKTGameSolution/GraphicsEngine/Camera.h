@@ -2,6 +2,8 @@
 #include "../Utilities/utilities.h"
 #include "Math.h"
 
+enum class CameraType { ORTHOGRAPHIC, PERSPECTIVE};
+
 class Camera
 {
 public:
@@ -14,6 +16,7 @@ public:
 	static Matrix GetLookAt(Vector3 &cameraPosition, Vector3 &targetPosition, Vector3 &up);
 	void SetInfo(float n, float f, float fov, float speed, float sensitivity);
 	void Move(Vector3 direction, float deltaTime);
+	void SetCameraType(CameraType cameraType);
 	void Rotate(Vector2 offset, float deltaTime);
 private:
 	Vector3 m_vCameraPos;
@@ -30,5 +33,6 @@ private:
 	float m_fSensitivity;
 	float m_fPitch;
 	float m_fYaw;
+	CameraType m_CameraType;
 };
 

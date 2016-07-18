@@ -6,6 +6,8 @@
 #include "InputManager.h"
 #include "Sprite.h"
 
+#define MAX_CHAR_LENGTH 100
+
 SceneManager* SceneManager::s_Instance = nullptr;
 
 
@@ -58,19 +60,19 @@ void SceneManager::Init(char* filePath)
 		Object* obj;
 
 		int id;
-		fscanf(pfile, "ID %d\n", &id);
+		fscanf(pfile, "ID %d %*s\n", &id);
 
-		char typeObject[200];
+		char typeObject[MAX_CHAR_LENGTH];
 		fscanf(pfile, "TYPE %s\n", typeObject);
 
 		if (strcmp(typeObject, "SPRITE") == 0)
 		{
 			obj = new Sprite();
 			float spriteX, spriteY, spriteW, spriteH, textureW, textureH;
-			fscanf(pfile, "COORD %f %f %f %f %f %f\n", 
-				&spriteX, &spriteY, &spriteW, &spriteH, &textureW, &textureH);
-			dynamic_cast<Sprite*>(obj)->InitModel(spriteX, spriteH, spriteW, spriteH, textureW, textureH,
-				Vector2(0,0));
+			fscanf(pfile, "COORD %f %f %f %f %f %f\n",
+			       &spriteX, &spriteY, &spriteW, &spriteH, &textureW, &textureH);
+			dynamic_cast<Sprite*>(obj)->InitModel(spriteX, spriteY, spriteW, spriteH, textureW, textureH,
+			                                      Vector2(480/2, 854/2));
 		}
 		else
 		{
@@ -109,23 +111,24 @@ void SceneManager::Init(char* filePath)
 		else if (strcmp(typeObject, "SKYBOX") == 0)
 		{
 			obj->SetType(TypeObject::SKYBOX);
-		}else
+		}
+		else
 		{
 			obj->SetType(TypeObject::SPRITE);
 		}
 
-		char tmp[200];
+		char tmp[MAX_CHAR_LENGTH];
 		Vector3 position;
 		fgets(tmp, sizeof(tmp), pfile);
-		sscanf(tmp, "POSITION %f, %f, %f\n", &position.x, &position.y, &position.z);
+		sscanf(tmp, "POSITION %f %f %f\n", &position.x, &position.y, &position.z);
 
 		Vector3 rotation;
 		fgets(tmp, sizeof(tmp), pfile);
-		sscanf(tmp, "ROTATION %f, %f, %f\n", &rotation.x, &rotation.y, &rotation.z);
+		sscanf(tmp, "ROTATION %f %f %f\n", &rotation.x, &rotation.y, &rotation.z);
 
 		Vector3 scale;
 		fgets(tmp, sizeof(tmp), pfile);
-		sscanf(tmp, "SCALE %f, %f, %f\n", &scale.x, &scale.y, &scale.z);
+		sscanf(tmp, "SCALE %f %f %f\n", &scale.x, &scale.y, &scale.z);
 
 		obj->SetWorldMatrix(position, rotation, scale);
 
@@ -133,8 +136,10 @@ void SceneManager::Init(char* filePath)
 	}
 	//read info for camera.
 	float n, f, fov, speed, sensitivity;
+	char cameraType[MAX_CHAR_LENGTH];
 	fscanf(pfile, "\n");
 	fscanf(pfile, "#CAMERA\n");
+	fscanf(pfile, "TYPE %s\n", &cameraType);
 	fscanf(pfile, "NEAR %f\n", &n);
 	fscanf(pfile, "FAR %f\n", &f);
 	fscanf(pfile, "FOV %f\n", &fov);
@@ -142,6 +147,14 @@ void SceneManager::Init(char* filePath)
 	fscanf(pfile, "SENSITIVITY %f\n", &sensitivity);
 	fclose(pfile);
 	m_pCamera = new Camera();
+	if (strcmp(cameraType, "ORTHOGRAPHIC") == 0)
+	{
+		m_pCamera->SetCameraType(CameraType::ORTHOGRAPHIC);
+	}
+	else
+	{
+		m_pCamera->SetCameraType(CameraType::PERSPECTIVE);
+	}
 	m_pCamera->SetInfo(n, f, fov, speed, sensitivity);
 	m_pCamera->UpdateProjectionMatrix();
 	auto it = m_mapObjects->begin();

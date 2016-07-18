@@ -125,6 +125,10 @@
       <Project>{0d44529e-f7dd-4454-8ead-9afd857f53b4}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Resources\Data\RM.txt" />
+    <Text Include="..\Resources\Data\SM.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
