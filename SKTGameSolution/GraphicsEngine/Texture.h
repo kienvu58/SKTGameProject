@@ -6,9 +6,10 @@ class Texture
 public:
 	Texture();
 	~Texture();
-	GLuint GetId() const { return m_iTextureId;	};
-	void LoadTGAFile(char* filePath);
+	GLuint GetTextureID() const;
+	void LoadTGAFile(const char* filePath);
 private:
-	GLuint m_iTextureId;
-	void SetTextureParameter();
+	GLuint m_ID;
+	GLuint m_TextureID;
+	static void SetTextureParameter();
 };

@@ -112,18 +112,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Utilities\Utilities.vcxproj">
-      <Project>{0d44529e-f7dd-4454-8ead-9afd857f53b4}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeTexture.h" />
+    <ClInclude Include="Frame.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="GraphicalObject.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shaders.h" />
@@ -132,16 +129,35 @@
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeTexture.cpp" />
+    <ClCompile Include="Frame.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="GraphicalObject.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Shaders\FireFS.fs" />
+    <None Include="..\Resources\Shaders\FireVS.vs" />
+    <None Include="..\Resources\Shaders\ObjectFS.fs" />
+    <None Include="..\Resources\Shaders\ObjectVS.vs" />
+    <None Include="..\Resources\Shaders\SkyBoxFS.fs" />
+    <None Include="..\Resources\Shaders\SkyBoxVS.vs" />
+    <None Include="..\Resources\Shaders\SpriteFS.fs" />
+    <None Include="..\Resources\Shaders\SpriteVS.vs" />
+    <None Include="..\Resources\Shaders\TerrainFS.fs" />
+    <None Include="..\Resources\Shaders\TerrainVS.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\Utilities.vcxproj">
+      <Project>{0d44529e-f7dd-4454-8ead-9afd857f53b4}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,5 @@
 #include "Shaders.h"
+#include <GLES2/gl2.h>
 
 int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 {

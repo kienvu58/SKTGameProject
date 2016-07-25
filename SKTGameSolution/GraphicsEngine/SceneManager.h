@@ -1,6 +1,6 @@
 #pragma once
 #include <map>
-#include "Object.h"
+#include "GraphicalObject.h"
 #include "Camera.h"
 
 class SceneManager
@@ -14,13 +14,13 @@ public:
 	void Clear();
 	void Update(float deltaTime);
 
-	Object* GetObjectById(int id);
+	GraphicalObject* GetObjectById(int id);
 	~SceneManager();
 private:
 	static SceneManager* s_Instance;
 	int m_iNumObjects;
 	Camera* m_pCamera;
-	std::map<int, Object*> *m_mapObjects;
+	std::map<int, GraphicalObject*> *m_mapObjects;
 
 	SceneManager();
 };

@@ -1,11 +1,17 @@
 #pragma once
-#include "Object.h"
+#include "GraphicalObject.h"
 
-class Sprite : public Object
+class Frame;
+
+class Sprite : public GraphicalObject
 {
 public:
 	Sprite();
 	~Sprite();
-	void InitModel(float x, float y, float w, float h, float texW, float texH, Vector2 origin);
+	void Render() override;
+	void Update(void* data) override;
+private:
+	int m_iIndex;
+	Vector2 m_vec2Position;
 };
 

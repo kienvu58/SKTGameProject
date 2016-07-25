@@ -1,17 +1,19 @@
-#include <Box2D/Box2d.h>
 #include "../Utilities/utilities.h"
+#include <Box2D/Box2d.h>
 #include <iostream>
 #include <conio.h>
 #include "../GraphicsEngine/Globals.h"
 #include "../GraphicsEngine/ResourceManager.h"
 #include "../GraphicsEngine/SceneManager.h"
 #include "../GraphicsEngine/InputManager.h"
+#include "Game.h"
+#include <GLES2/gl2.h>
+#include <EGL/egl.h>
 
 int Init(ESContext* esContext)
 {
-	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-	ResourceMgr->Init("../Resources/Data/RM.txt");
-	SceneMgr->Init("../Resources/Data/SM.txt");
+//	ResourceMgr->Init("../Resources/Data/RM.txt");
+//	SceneMgr->Init("../Resources/Data/SM.txt");
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	return 0;
@@ -19,8 +21,10 @@ int Init(ESContext* esContext)
 
 void Draw(ESContext* esContext)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	SceneMgr->Draw();
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+//	SceneMgr->Draw();
+	Game::GetInstance()->Render();
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 
@@ -28,7 +32,8 @@ void Update(ESContext* esContext, float deltaTime)
 {
 	if (deltaTime)
 	{
-		SceneMgr->Update(deltaTime);
+//		SceneMgr->Update(deltaTime);
+		Game::GetInstance()->Update();
 	}
 }
 
@@ -65,8 +70,8 @@ void MouseDown(ESContext* esContext, float x, float y)
 void CleanUp()
 {
 	InputMgr->DestroyInstance();
-	SceneMgr->DestroyInstance();
-	ResourceMgr->DestroyInstance();
+//	SceneMgr->DestroyInstance();
+//	ResourceMgr->DestroyInstance();
 }
 
 int main(int argc, char* argv[])

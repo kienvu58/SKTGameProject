@@ -1,6 +1,7 @@
 #pragma once
 #include "../Utilities/utilities.h"
 #include <vector>
+#include <GLES2/gl2.h>
 
 enum class ShaderState {CULLING, DEPTH_TEST, ALPHA};
 

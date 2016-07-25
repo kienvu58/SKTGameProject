@@ -115,7 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityPlayer.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="PlayerMovingState.cpp" />
+    <ClCompile Include="PlayerStandingState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicsEngine\GraphicsEngine.vcxproj">
@@ -128,6 +135,15 @@
   <ItemGroup>
     <Text Include="..\Resources\Data\RM.txt" />
     <Text Include="..\Resources\Data\SM.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityPlayer.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GamePlayState.h" />
+    <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="PlayerMovingState.h" />
+    <ClInclude Include="PlayerStandingState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
