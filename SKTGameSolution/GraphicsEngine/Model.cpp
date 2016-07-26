@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "Vertex.h"
 
 //#include <iostream>
 //#include <fstream>
@@ -119,6 +120,10 @@ Model::Model(): m_ID(0), m_VboID(0), m_IboID(0)
 {
 }
 
+Model::Model(int ID): m_ID(ID), m_VboID(0), m_IboID(0)
+{
+}
+
 Model::~Model()
 {
 }
@@ -127,8 +132,23 @@ void Model::LoadModel(Vertex* vertices, int nVertices)
 {
 	glGenBuffers(1, &m_VboID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VboID);
-	glBufferData(GL_ARRAY_BUFFER, nVertices, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, nVertices * sizeof(Vertex), vertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Model::Init(int spriteX, int spriteY, int spriteW, int spriteH, int textureW, int textureH)
+{
+	Vertex verticesData[4];
+	verticesData[0].pos = Vector3(-(float)spriteW / 2, -(float)spriteH / 2, 0.0f);
+	verticesData[1].pos = Vector3((float)spriteW / 2, -(float)spriteH / 2, 0.0f);
+	verticesData[2].pos = Vector3(-(float)spriteW / 2, (float)spriteH / 2, 0.0f);
+	verticesData[3].pos = Vector3((float)spriteW / 2, (float)spriteH / 2, 0.0f);
+
+	verticesData[0].uv = Vector2((float)spriteX / textureW, (float)(textureH - spriteY - spriteH) / textureH);
+	verticesData[1].uv = Vector2((float)(spriteX + spriteW) / textureW, (float)(textureH - spriteY - spriteH) / textureH);
+	verticesData[2].uv = Vector2((float)spriteX / textureW, (float)(textureH - spriteY) / textureH);
+	verticesData[3].uv = Vector2((float)(spriteX + spriteW) / textureW, (float)(textureH - spriteY) / textureH);
+	LoadModel(verticesData, 4);
 }
 
 GLuint Model::GetVboID() const

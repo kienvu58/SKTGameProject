@@ -113,6 +113,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="FrameManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeTexture.h" />
     <ClInclude Include="Frame.h" />
@@ -125,11 +127,14 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="FrameManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeTexture.cpp" />
     <ClCompile Include="Frame.cpp" />
@@ -140,6 +145,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>

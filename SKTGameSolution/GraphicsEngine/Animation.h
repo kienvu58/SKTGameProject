@@ -5,16 +5,17 @@
 class Animation
 {
 public:
-	Animation();
+	Animation(int id);
 	~Animation();
 
+	void Init(std::vector<int> frameIds);
 	void Reset();
-	const Frame& GetNextFrame() const;
+	Frame* GetNextFrame();
 private:
 	std::vector<Frame*> m_Frames;
-	int m_iFrameCount;
+	int m_iDelay;
 	int m_iCurrentFrame;
 	int m_iTotalFrames;
-	bool m_bIsStopped;
+	int m_Id;
 };
 

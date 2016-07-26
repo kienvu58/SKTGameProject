@@ -158,10 +158,6 @@ void GraphicalObject::Render()
 {
 }
 
-void GraphicalObject::Update(void* data)
-{
-}
-
 void GraphicalObject::SetModel(Model* pModel)
 {
 	m_pModel = pModel;

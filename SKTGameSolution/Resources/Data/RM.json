@@ -1,0 +1,31 @@
+{
+	"models": 
+		[
+			{ 
+				"id": 1, 
+				"spriteX": 0,
+				"spriteY": 0,
+				"spriteW": 128,
+				"spriteH": 128,
+				"textureW": 1024,
+				"textureH": 1024
+			}
+		],
+	"spriteSheets":
+		[
+			{
+				"id": 1,
+				"path": "../Resources/Textures/SpriteSheetSSGoku.tga",
+				"nRows": 8,
+				"nColumns": 8
+			}
+		],
+	"shaders":
+		[
+			{
+				"id": 1,
+				"vsPath": "../Resources/Shaders/SpriteVS.vs",
+				"fsPath": "../Resources/Shaders/SpriteFS.fs"
+			}
+		]
+}

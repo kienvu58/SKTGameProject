@@ -2,22 +2,22 @@
 #include <map>
 
 template <class T>
-T* GetResourceById(int id, std::map<int, T*>* m)
+T* GetResourceById(int id, const std::map<int, T*>& m)
 {
-	auto it = m->find(id);
-	if (it == m->end())
+	auto it = m.find(id);
+	if (it == m.end())
+	{
 		return nullptr;
+	}
 	return it->second;
 };
 
 template <class T>
-void ClearMap(std::map<int, T*>* m)
+void ClearMap(std::map<int, T*>& m)
 {
-	auto it = m->begin();
-	while (it != m->end())
-	{
-		delete it->second;
-		++it;
-	}
-	delete m;
+	 for (auto it : m)
+	 {
+		 delete it.second;
+	 }
+	 m.clear();
 }

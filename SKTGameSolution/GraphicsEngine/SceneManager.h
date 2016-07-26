@@ -20,7 +20,7 @@ private:
 	static SceneManager* s_Instance;
 	int m_iNumObjects;
 	Camera* m_pCamera;
-	std::map<int, GraphicalObject*> *m_mapObjects;
+	std::map<int, GraphicalObject*> m_mapObjects;
 
 	SceneManager();
 };

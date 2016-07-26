@@ -1,6 +1,7 @@
 #include "Shaders.h"
 #include <GLES2/gl2.h>
 
+
 int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 {
 	vertexShader = esLoadShader(GL_VERTEX_SHADER, fileVertexShader);
@@ -23,6 +24,7 @@ int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 	locationUniformMVP = glGetUniformLocation(program, "u_mvp");
 	locationUniformTex = glGetUniformLocation(program, "u_texture");
 	locationUniformTime = glGetUniformLocation(program, "u_time");
+	locationUniformDelta = glGetUniformLocation(program, "u_delta");
 
 	return 0;
 }

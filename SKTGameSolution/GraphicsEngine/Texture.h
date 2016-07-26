@@ -5,6 +5,7 @@ class Texture
 {
 public:
 	Texture();
+	explicit Texture(int ID);
 	~Texture();
 	GLuint GetTextureID() const;
 	void LoadTGAFile(const char* filePath);

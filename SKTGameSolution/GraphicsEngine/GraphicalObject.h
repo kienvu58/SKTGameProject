@@ -10,7 +10,6 @@ public:
 	virtual ~GraphicalObject();
 
 	virtual void Render();
-	virtual void Update(void* data);
 	void SetModel(Model* pModel);
 	void SetTexture(Texture* pTexture);
 	void SetShaders(Shaders* pShaders);
@@ -18,6 +17,7 @@ protected:
 	Model* m_pModel;
 	Texture* m_pTexture;
 	Shaders* m_pShaders;
+	Matrix m_matMVP;
 };
 
 //#include "../Utilities/utilities.h"

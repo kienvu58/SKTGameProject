@@ -71,7 +71,7 @@ void SceneManager::Init(char* filePath)
 //			float spriteX, spriteY, spriteW, spriteH, textureW, textureH;
 //			fscanf(pfile, "COORD %f %f %f %f %f %f\n",
 //			       &spriteX, &spriteY, &spriteW, &spriteH, &textureW, &textureH);
-//			dynamic_cast<Sprite*>(obj)->InitModel(spriteX, spriteY, spriteW, spriteH, textureW, textureH,
+//			dynamic_cast<Sprite*>(obj)->InitSprite(spriteX, spriteY, spriteW, spriteH, textureW, textureH,
 //			                                      Vector2(480/2, 854/2));
 //		}
 //		else
@@ -102,7 +102,7 @@ void SceneManager::Init(char* filePath)
 //
 //		int shaderId;
 //		fscanf(pfile, "SHADER %d\n", &shaderId);
-//		obj->SetShader(ResourceManager::GetInstance()->GetShaderById(shaderId));
+//		obj->SetShader(ResourceManager::GetInstance()->GetShadersById(shaderId));
 //
 //		if (strcmp(typeObject, "OBJECT") == 0)
 //		{
@@ -167,12 +167,12 @@ void SceneManager::Init(char* filePath)
 
 void SceneManager::Draw()
 {
-	auto it = m_mapObjects->begin();
-	while (it != m_mapObjects->end())
-	{
-		it->second->Render();
-		++it;
-	}
+//	auto it = m_mapObjects->begin();
+//	while (it != m_mapObjects->end())
+//	{
+//		it->second->Render();
+//		++it;
+//	}
 }
 
 void SceneManager::Clear()

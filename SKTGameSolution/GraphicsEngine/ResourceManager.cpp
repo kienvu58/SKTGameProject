@@ -1,7 +1,6 @@
+#include <json.hpp>
 #include "ResourceManager.h"
-#include <iostream>
-#include <string>
-#include <vector>
+#include <fstream>
 #include "HelperFunctions.h"
 #include "Camera.h"
 #include "Shaders.h"
@@ -10,20 +9,15 @@
 
 ResourceManager* ResourceManager::s_Instance = nullptr;
 
-ResourceManager::ResourceManager() : m_mapModels(nullptr),
-                                     m_map2DTextures(nullptr),
-                                     m_mapCubeTextures(nullptr),
-                                     m_mapShaders(nullptr),
-                                     m_iNumModel(0),
-                                     m_iNum2DTexture(0),
-                                     m_iNumCubeTexture(0),
-                                     m_iNumShader(0)
+ResourceManager::ResourceManager()
 {
 };
 
 ResourceManager::~ResourceManager()
 {
-	Clear();
+	ClearMap<Shaders>(m_mapShaders);
+	ClearMap<Model>(m_mapModels);
+	ClearMap<SpriteSheet>(m_mapSpiteSheets);
 }
 
 ResourceManager* ResourceManager::GetInstance()
@@ -49,23 +43,66 @@ Model* ResourceManager::GetModelById(int id) const
 	return GetResourceById<Model>(id, m_mapModels);
 }
 
-Texture* ResourceManager::GetTexturelById(int id) const
+SpriteSheet* ResourceManager::GetSpriteSheetById(int id) const
 {
-	return GetResourceById<Texture>(id, m_map2DTextures);
+	return GetResourceById<SpriteSheet>(id, m_mapSpiteSheets);
 }
 
-CubeTexture* ResourceManager::GetCubeTextureById(int id) const
-{
-	return GetResourceById<CubeTexture>(id, m_mapCubeTextures);
-}
-
-Shaders* ResourceManager::GetShaderById(int id) const
+Shaders* ResourceManager::GetShadersById(int id) const
 {
 	return GetResourceById<Shaders>(id, m_mapShaders);
 }
 
-void ResourceManager::Init(char* resourcePath)
+void ResourceManager::Init(const char* resourcePath)
 {
+	std::ifstream fin(resourcePath);
+	nlohmann::json data(fin);
+	fin.close();
+
+	// init models
+	for (auto it : data["models"])
+	{
+		int id, spriteX, spriteY, spriteW, spriteH, textureW, textureH;
+		id = it["id"].get<int>();
+		spriteX = it["spriteX"].get<int>();
+		spriteY = it["spriteY"].get<int>();
+		spriteW = it["spriteW"].get<int>();
+		spriteH = it["spriteH"].get<int>();
+		textureW = it["textureW"].get<int>();
+		textureH = it["textureH"].get<int>();
+
+		Model* model = new Model(id);
+		model->Init(spriteX, spriteY, spriteW, spriteH, textureW, textureH);
+		m_mapModels.insert(std::pair<int, Model*>(id, model));
+	}
+
+	// init spriteSheets
+	for (auto it : data["spriteSheets"])
+	{
+		int id, nRows, nColumns;
+		id = it["id"].get<int>();
+		nRows = it["nRows"].get<int>();
+		nColumns = it["nColumns"].get<int>();
+		auto path = it["path"].get<std::string>();
+
+		SpriteSheet* spriteSheet = new SpriteSheet(id, nRows, nColumns);
+		spriteSheet->LoadTGAFile(path.c_str());
+		m_mapSpiteSheets.insert(std::pair<int, SpriteSheet*>(id, spriteSheet));
+	}
+
+	// init shaders
+	for (auto it : data["shaders"])
+	{
+		int id;
+		id = it["id"].get<int>();
+		auto vsPath = it["vsPath"].get<std::string>();
+		auto fsPath = it["fsPath"].get<std::string>();
+		Shaders* shader = new Shaders();
+		shader->Init(const_cast<char*>(vsPath.c_str()), const_cast<char*>(fsPath.c_str()));
+		m_mapShaders.insert(std::pair<int, Shaders*>(id, shader));
+	}
+}
+
 //	FILE* pfile = fopen(resourcePath, "r");
 //
 //	if (!pfile)
@@ -192,18 +229,3 @@ void ResourceManager::Init(char* resourcePath)
 //	}
 //
 //	fclose(pfile);
-}
-
-void ResourceManager::Clear()
-{
-	ClearMap<Model>(m_mapModels);
-	ClearMap<Texture>(m_map2DTextures);
-	ClearMap<CubeTexture>(m_mapCubeTextures);
-	ClearMap<Shaders>(m_mapShaders);
-}
-
-void ResourceManager::InsertModel(Model* model)
-{
-	m_mapModels->insert(std::pair<int, Model*>(m_iNumModel, model));
-	m_iNumModel++;
-}

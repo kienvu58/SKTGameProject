@@ -1,14 +1,18 @@
 #pragma once
-#include "Texture.h"
+#include "SpriteSheet.h"
 
 class Frame
 {
 public:
-	Frame();
+	Frame(int id, int spriteSheetId, int index, int duration);
 	~Frame();
+	int GetSpriteSheetId() const;
+	int GetIndex() const;
+	int GetDuration() const;
 private:
-	Texture* m_pSpriteSheet;
-	int m_iIndex;
 	int m_iDuration;
+	int m_Index;
+	int m_Id;
+	int m_SpriteSheetId;
 };
 

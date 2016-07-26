@@ -51,8 +51,10 @@ public:
   //call this to render the FSM
   void Render() const
   {
-	  if (m_pGlobalState) m_pGlobalState->Render(m_pOwner);
-	  if (m_pCurrentState) m_pCurrentState->Render(m_pOwner);
+	  if (m_pGlobalState) 
+		  m_pGlobalState->Render(m_pOwner);
+	  if (m_pCurrentState) 
+		  m_pCurrentState->Render(m_pOwner);
   }
 
  

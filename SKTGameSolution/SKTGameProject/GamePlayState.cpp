@@ -1,6 +1,9 @@
 #include "GamePlayState.h"
-#include "../GraphicsEngine/Vertex.h"
+#include "../GraphicsEngine/ResourceManager.h"
+#include "../GraphicsEngine/AnimationManager.h"
+#include "../GraphicsEngine/FrameManager.h"
 
+static Sprite spriteGoku;
 
 GamePlayState::GamePlayState()
 {
@@ -8,36 +11,11 @@ GamePlayState::GamePlayState()
 
 void GamePlayState::Enter(Game* game)
 {
-	Vertex verticesData[4];
-	int spriteW, spriteH, spriteX, spriteY, textureW, textureH;
-	spriteX = 0;
-	spriteY = 0;
-	spriteW = 128;
-	spriteH = 128;
-	textureW = 1024;
-	textureH = 1024;
-	verticesData[0].pos = Vector3(-(float)spriteW / 2, -(float)spriteH / 2, 0.0f);
-	verticesData[1].pos = Vector3((float)spriteW / 2, -(float)spriteH / 2, 0.0f);
-	verticesData[2].pos = Vector3(-(float)spriteW / 2, (float)spriteH / 2, 0.0f);
-	verticesData[3].pos = Vector3((float)spriteW / 2, (float)spriteH / 2, 0.0f);
-
-	verticesData[0].uv = Vector2((float)spriteX / textureW, (float)(textureH - spriteY - spriteH) / textureH);
-	verticesData[1].uv = Vector2((float)(spriteX + spriteW) / textureW, (float)(textureH - spriteY - spriteH) / textureH);
-	verticesData[2].uv = Vector2((float)spriteX / textureW, (float)(textureH - spriteY) / textureH);
-	verticesData[3].uv = Vector2((float)(spriteX + spriteW) / textureW, (float)(textureH - spriteY) / textureH);
-	static Model modelGoku;
-	modelGoku.LoadModel(verticesData, 4);
-	static Texture spriteSheet;
-	spriteSheet.LoadTGAFile("../Resources/Textures/SpriteSheetSSGoku.tga");
-	static Shaders shaders;
-	shaders.Init("../Resources/Shaders/SpriteVS.vs", "../Resources/Shaders/SpriteFS.fs");
-	static Sprite spriteGoku;
-	spriteGoku.SetModel(&modelGoku);
-	spriteGoku.SetTexture(&spriteSheet);
-	spriteGoku.SetShaders(&shaders);
-	
-	m_Goku.m_pSprite = &spriteGoku;
-
+	ResourceMgr->Init("../Resources/Data/RM.json");
+	FrameMgr->Init("../Resources/Data/FM.json");
+	AnimationMgr->Init("../Resources/Data/AM.json");
+	m_Goku.InitSprite(1, 1, 1);
+	m_Goku.InitAnimations(1, 2, 3);
 }
 
 void GamePlayState::Execute(Game* game)
@@ -51,8 +29,7 @@ void GamePlayState::Exit(Game* game)
 
 void GamePlayState::Render(Game* game)
 {
-	if (m_Goku.m_pSprite)
-		m_Goku.m_pSprite->Render();
+	m_Goku.Render();
 }
 
 GamePlayState* GamePlayState::GetInstance()

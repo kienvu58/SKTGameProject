@@ -5,6 +5,10 @@ Texture::Texture(): m_ID(0), m_TextureID(0)
 {
 }
 
+Texture::Texture(int ID): m_ID(ID), m_TextureID(0)
+{
+}
+
 Texture::~Texture()
 {
 }
@@ -24,7 +28,7 @@ void Texture::LoadTGAFile(const char* filePath)
 	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, internalFormat, GL_UNSIGNED_BYTE, imageData);
 	SetTextureParameter();
 	glBindTexture(GL_TEXTURE_2D, 0);
-	delete[] imageData;
+	if (imageData) delete[] imageData;
 }
 
 void Texture::SetTextureParameter()

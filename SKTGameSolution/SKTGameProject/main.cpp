@@ -9,10 +9,14 @@
 #include "Game.h"
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
+#include "../GraphicsEngine/FrameManager.h"
+#include "../GraphicsEngine/AnimationManager.h"
 
 int Init(ESContext* esContext)
 {
-//	ResourceMgr->Init("../Resources/Data/RM.txt");
+	ResourceMgr->Init("../Resources/Data/RM.json");
+	FrameMgr->Init("../Resources/Data/FM.json");
+	AnimationMgr->Init("../Resources/Data/AM.json");
 //	SceneMgr->Init("../Resources/Data/SM.txt");
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -71,7 +75,7 @@ void CleanUp()
 {
 	InputMgr->DestroyInstance();
 //	SceneMgr->DestroyInstance();
-//	ResourceMgr->DestroyInstance();
+	ResourceMgr->DestroyInstance();
 }
 
 int main(int argc, char* argv[])

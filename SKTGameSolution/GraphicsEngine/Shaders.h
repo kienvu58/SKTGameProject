@@ -16,9 +16,9 @@ public:
 	GLuint locationUniformTex;
 	GLuint locationUniformMVP;
 	GLuint locationUniformTime;
+	GLuint locationUniformDelta;
 
 	std::vector<ShaderState> states;
-	
 	int Init(char * fileVertexShader, char * fileFragmentShader);
 	void EnableStates();
 	void DisableStates();
