@@ -12,7 +12,7 @@ public:
 	void Init(const char *path);
 	~AnimationManager();
 private:
-	std::map<int, Animation*> m_mapAnimations;
+	std::map<int, Animation*> m_mapAnimations; 
 	static AnimationManager *s_Instance;
 	AnimationManager();
 };

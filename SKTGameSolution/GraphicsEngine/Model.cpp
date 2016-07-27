@@ -136,18 +136,18 @@ void Model::LoadModel(Vertex* vertices, int nVertices)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Model::Init(int spriteX, int spriteY, int spriteW, int spriteH, int textureW, int textureH)
+void Model::Init(int modelW, int modelH, int spriteW, int spriteH, int textureW, int textureH)
 {
 	Vertex verticesData[4];
-	verticesData[0].pos = Vector3(-(float)spriteW / 2, -(float)spriteH / 2, 0.0f);
-	verticesData[1].pos = Vector3((float)spriteW / 2, -(float)spriteH / 2, 0.0f);
-	verticesData[2].pos = Vector3(-(float)spriteW / 2, (float)spriteH / 2, 0.0f);
-	verticesData[3].pos = Vector3((float)spriteW / 2, (float)spriteH / 2, 0.0f);
+	verticesData[0].pos = Vector3(-(float)modelW / 2, -(float)modelH / 2, 0.0f);
+	verticesData[1].pos = Vector3((float)modelW / 2, -(float)modelH / 2, 0.0f);
+	verticesData[2].pos = Vector3(-(float)modelW / 2, (float)modelH / 2, 0.0f);
+	verticesData[3].pos = Vector3((float)modelW / 2, (float)modelH / 2, 0.0f);
 
-	verticesData[0].uv = Vector2((float)spriteX / textureW, (float)(textureH - spriteY - spriteH) / textureH);
-	verticesData[1].uv = Vector2((float)(spriteX + spriteW) / textureW, (float)(textureH - spriteY - spriteH) / textureH);
-	verticesData[2].uv = Vector2((float)spriteX / textureW, (float)(textureH - spriteY) / textureH);
-	verticesData[3].uv = Vector2((float)(spriteX + spriteW) / textureW, (float)(textureH - spriteY) / textureH);
+	verticesData[0].uv = Vector2(0, (float)(textureH - spriteH) / textureH);
+	verticesData[1].uv = Vector2((float)(spriteW) / textureW, (float)(textureH - spriteH) / textureH);
+	verticesData[2].uv = Vector2(0, (float)(textureH) / textureH);
+	verticesData[3].uv = Vector2((float)(spriteW) / textureW, (float)(textureH) / textureH);
 	LoadModel(verticesData, 4);
 }
 

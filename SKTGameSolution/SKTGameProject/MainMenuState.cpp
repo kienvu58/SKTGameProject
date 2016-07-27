@@ -27,6 +27,11 @@ void MainMenuState::Render(Game* game)
 {
 }
 
+void MainMenuState::Init(const char* filePath)
+{
+	
+}
+
 MainMenuState* MainMenuState::GetInstance()
 {
 	static MainMenuState instance;

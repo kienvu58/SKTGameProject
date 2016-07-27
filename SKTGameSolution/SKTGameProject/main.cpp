@@ -18,6 +18,7 @@ int Init(ESContext* esContext)
 	FrameMgr->Init("../Resources/Data/FM.json");
 	AnimationMgr->Init("../Resources/Data/AM.json");
 //	SceneMgr->Init("../Resources/Data/SM.txt");
+	Game::GetInstance()->Init();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	return 0;
@@ -73,9 +74,12 @@ void MouseDown(ESContext* esContext, float x, float y)
 
 void CleanUp()
 {
-	InputMgr->DestroyInstance();
+	InputManager::DestroyInstance();
 //	SceneMgr->DestroyInstance();
-	ResourceMgr->DestroyInstance();
+	ResourceManager::DestroyInstance();
+	AnimationManager::DestroyInstance();
+	FrameManager::DestroyInstance();
+	Game::DestroyInstance();
 }
 
 int main(int argc, char* argv[])

@@ -1,7 +1,7 @@
 #pragma once
 
 #define RADIAN_PER_DEGREE (3.1415926535897932384626433832795f / 180.0f);
-
+#define PIXEL_PER_METER 70;
 
 #include "esUtil.h"
 
@@ -174,7 +174,17 @@ public:
 };
 
 
-inline float Radians(float degree)
+inline float Radians(float degrees)
 {
-	return degree * RADIAN_PER_DEGREE;
+	return degrees * RADIAN_PER_DEGREE;
+}
+
+inline float PixelsFromMeters(float meters)
+{
+	return meters * PIXEL_PER_METER;
+}
+
+inline float MetersFromPixels(float pixels)
+{
+	return pixels / PIXEL_PER_METER;
 }

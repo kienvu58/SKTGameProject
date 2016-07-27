@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GamePlayState.h"
 
+Game* Game::s_Instance = nullptr;
 
 Game::Game(): m_pStateMachine(new StateMachine<Game>(this)) 
 {
@@ -12,6 +13,10 @@ Game::Game(): m_pStateMachine(new StateMachine<Game>(this))
 Game::~Game()
 {
 	delete m_pStateMachine;
+}
+
+void Game::Init()
+{
 }
 
 void Game::Update()
@@ -26,6 +31,18 @@ void Game::Render()
 
 Game* Game::GetInstance()
 {
-	static Game instance;
-	return &instance;
+	if (!s_Instance)
+	{
+		s_Instance = new Game();
+	}
+	return s_Instance;
+}
+
+void Game::DestroyInstance()
+{
+	if (s_Instance)
+	{
+		delete s_Instance;
+		s_Instance = nullptr;
+	}
 }

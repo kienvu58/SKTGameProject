@@ -10,7 +10,7 @@ public:
 	Model(int ID);
 	~Model();
 	void LoadModel(Vertex* vertices, int nVertices);
-	void Init(int spriteX, int spriteY, int spriteW, int spriteH, int textureW, int textureH);
+	void Init(int modelW, int modelH, int spriteW, int spriteH, int textureW, int textureH);
 	GLuint GetVboID() const;
 	GLuint GetIboID() const;
 private:

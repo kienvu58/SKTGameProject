@@ -3,9 +3,10 @@
 #include "../GraphicsEngine/ResourceManager.h"
 #include "../GraphicsEngine/AnimationManager.h"
 #include "../GraphicsEngine/InputManager.h"
+#include "GamePlayState.h"
 
 
-EntityPlayer::EntityPlayer(): currentFrame(0), delay(0), m_pStateMachine(new StateMachine<EntityPlayer>(this)) 
+EntityPlayer::EntityPlayer(): m_pStateMachine(new StateMachine<EntityPlayer>(this)) 
 {
 	m_pStateMachine->SetCurrentState(PlayerStandingState::GetInstance());
 }
@@ -28,38 +29,9 @@ void EntityPlayer::Update()
 	auto keyW = InputMgr->IsPressed(KEY_W);
 	auto keyS = InputMgr->IsPressed(KEY_S);
 
-
-
 	m_pStateMachine->Update();
 }
 
-void EntityPlayer::InitSprite(int modelId, int spriteSheetId, int shadersId)
-{
-	m_Sprite.SetModel(ResourceMgr->GetModelById(modelId));
-	m_Sprite.SetTexture(ResourceMgr->GetSpriteSheetById(spriteSheetId));
-	m_Sprite.SetShaders(ResourceMgr->GetShadersById(shadersId));
-}
-
-void EntityPlayer::InitAnimations(std::map<std::string, Animation*> mapAnimations)
-{
-	m_mapAnimations = mapAnimations;
-}
-
-void EntityPlayer::SetFrameToSprite(Frame* frame)
-{
-	m_Sprite.SetTexture(ResourceMgr->GetSpriteSheetById(frame->GetSpriteSheetId()));
-	m_Sprite.SetIndex(frame->GetIndex());
-}
-
-Animation* EntityPlayer::GetAnimationByName(std::string name)
-{
-	auto it = m_mapAnimations.find(name);
-	if (it == m_mapAnimations.end())
-	{
-		return nullptr;
-	}
-	return it->second;
-}
 
 StateMachine<EntityPlayer>* EntityPlayer::GetFSM() const
 {

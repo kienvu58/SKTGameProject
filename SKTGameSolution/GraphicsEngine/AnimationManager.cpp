@@ -9,7 +9,7 @@ AnimationManager* AnimationManager::s_Instance = nullptr;
 
 AnimationManager::AnimationManager()
 {
-};
+}
 
 AnimationManager::~AnimationManager()
 {

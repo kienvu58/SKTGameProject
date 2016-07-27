@@ -39,6 +39,9 @@
     <ClCompile Include="PlayerStandingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EntityLiving.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Resources\Data\RM.txt">
@@ -68,6 +71,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerStandingState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityLiving.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

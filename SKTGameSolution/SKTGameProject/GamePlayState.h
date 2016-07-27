@@ -11,10 +11,12 @@ public:
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
+	void Init(const char* filePath);
 
 	static GamePlayState* GetInstance();
 private:
 	~GamePlayState();
 	EntityPlayer m_Goku;
+//	EntityPlayer m_Background;
 };
 

@@ -62,17 +62,17 @@ void ResourceManager::Init(const char* resourcePath)
 	// init models
 	for (auto it : data["models"])
 	{
-		int id, spriteX, spriteY, spriteW, spriteH, textureW, textureH;
+		int id, modelW, modelH, spriteW, spriteH, textureW, textureH;
 		id = it["id"].get<int>();
-		spriteX = it["spriteX"].get<int>();
-		spriteY = it["spriteY"].get<int>();
+		modelW = it["modelW"].get<int>();
+		modelH = it["modelH"].get<int>();
 		spriteW = it["spriteW"].get<int>();
 		spriteH = it["spriteH"].get<int>();
 		textureW = it["textureW"].get<int>();
 		textureH = it["textureH"].get<int>();
 
 		Model* model = new Model(id);
-		model->Init(spriteX, spriteY, spriteW, spriteH, textureW, textureH);
+		model->Init(modelW, modelH, spriteW, spriteH, textureW, textureH);
 		m_mapModels.insert(std::pair<int, Model*>(id, model));
 	}
 

@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityLiving.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityLiving.h" />
     <ClInclude Include="EntityPlayer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GamePlayState.h" />

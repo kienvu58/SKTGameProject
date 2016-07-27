@@ -3,10 +3,19 @@
 		[
 			{ 
 				"id": 1, 
-				"spriteX": 0,
-				"spriteY": 0,
+				"modelW": 128,
+				"modelH": 128,
 				"spriteW": 128,
 				"spriteH": 128,
+				"textureW": 1024,
+				"textureH": 1024
+			},
+			{
+				"id": 2,
+				"modelW": 1000,
+				"modelH": 600,
+				"spriteW": 1024,
+				"spriteH": 1024,
 				"textureW": 1024,
 				"textureH": 1024
 			}
@@ -18,6 +27,12 @@
 				"path": "../Resources/Textures/SpriteSheetSSGoku.tga",
 				"nRows": 8,
 				"nColumns": 8
+			},
+			{
+				"id": 2,
+				"path": "../Resources/Textures/SuperPower.tga",
+				"nRows": 2,
+				"nColumns": 2
 			}
 		],
 	"shaders":

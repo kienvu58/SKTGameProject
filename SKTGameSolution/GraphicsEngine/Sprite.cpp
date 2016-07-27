@@ -59,8 +59,6 @@ void Sprite::Render()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-
-
 void Sprite::SetPosition(Vector2 position)
 {
 	Matrix model, projection;

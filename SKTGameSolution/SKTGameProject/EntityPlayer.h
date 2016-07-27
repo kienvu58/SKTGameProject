@@ -1,13 +1,9 @@
 #pragma once
 #include <Common/FSM/StateMachine.h>
-#include "Entity.h"
-#include "../GraphicsEngine/Sprite.h"
-#include "../GraphicsEngine/Animation.h"
-#include <Box2D/Dynamics/b2Body.h>
-#include <map>
+#include "EntityLiving.h"
 
-class EntityPlayer :
-	public Entity
+class EntityPlayer : 
+	public EntityLiving
 {
 public:
 	EntityPlayer();
@@ -16,16 +12,9 @@ public:
 	void Render() override;
 	void Update() override;
 
-	void InitSprite(int modelId, int spriteSheetId, int shadersId);
-	void InitAnimations(std::map<std::string, Animation*> mapAnimations);
-	void SetFrameToSprite(Frame* frame);
-	Animation* GetAnimationByName(std::string name);
+	//Get FSM
 	StateMachine<EntityPlayer>* GetFSM() const;
-
-	int currentFrame;
-	int delay;
 private:
+	//State info
 	StateMachine<EntityPlayer>* m_pStateMachine;
-	Sprite m_Sprite;
-	std::map<std::string, Animation*> m_mapAnimations;
 };

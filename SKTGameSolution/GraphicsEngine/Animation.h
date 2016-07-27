@@ -5,7 +5,7 @@
 class Animation
 {
 public:
-	Animation(int id);
+	explicit Animation(int id);
 	~Animation();
 
 	void Init(std::vector<int> frameIds);
