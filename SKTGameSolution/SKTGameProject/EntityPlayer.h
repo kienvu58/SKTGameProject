@@ -3,8 +3,8 @@
 #include "Entity.h"
 #include "../GraphicsEngine/Sprite.h"
 #include "../GraphicsEngine/Animation.h"
-
-#define ANIMATION_TIME 1.0f
+#include <Box2D/Dynamics/b2Body.h>
+#include <map>
 
 class EntityPlayer :
 	public Entity
@@ -17,14 +17,15 @@ public:
 	void Update() override;
 
 	void InitSprite(int modelId, int spriteSheetId, int shadersId);
-	static void InitAnimations(int animationStandingId, int animationMovingForwardId, int animationMovingBackwardId);
+	void InitAnimations(std::map<std::string, Animation*> mapAnimations);
 	void SetFrameToSprite(Frame* frame);
+	Animation* GetAnimationByName(std::string name);
 	StateMachine<EntityPlayer>* GetFSM() const;
 
-	static Animation* s_AnimationStanding;
-	static Animation* s_AnimationMovingForward;
-	static Animation* s_AnimationMovingBackward;
+	int currentFrame;
+	int delay;
 private:
 	StateMachine<EntityPlayer>* m_pStateMachine;
 	Sprite m_Sprite;
+	std::map<std::string, Animation*> m_mapAnimations;
 };

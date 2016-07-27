@@ -3,7 +3,7 @@
 #include "FrameManager.h"
 
 
-Animation::Animation(int id): m_iDelay(0), m_iCurrentFrame(0), m_iTotalFrames(0), m_Id(id) {
+Animation::Animation(int id): m_iTotalFrames(0), m_Id(id) {
 }
 
 
@@ -20,19 +20,18 @@ void Animation::Init(std::vector<int> frameIds)
 	}
 }
 
-void Animation::Reset()
+Frame* Animation::GetNextFrame(int& currentFrame, int& delay)
 {
-	m_iCurrentFrame = 0;
-	m_iDelay = 0;
-}
-
-Frame* Animation::GetNextFrame()
-{
-	m_iDelay++;
-	if (m_iDelay > m_Frames.at(m_iCurrentFrame)->GetDuration())
+	if (currentFrame > m_iTotalFrames)
 	{
-		m_iCurrentFrame++;
-		m_iCurrentFrame %= m_iTotalFrames;
+		return nullptr;
 	}
-	return m_Frames.at(m_iCurrentFrame);
+
+	delay++;
+	if (delay > m_Frames.at(currentFrame)->GetDuration())
+	{
+		currentFrame++;
+		currentFrame %= m_iTotalFrames;
+	}
+	return m_Frames.at(currentFrame);
 }

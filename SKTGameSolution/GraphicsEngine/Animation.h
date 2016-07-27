@@ -9,12 +9,9 @@ public:
 	~Animation();
 
 	void Init(std::vector<int> frameIds);
-	void Reset();
-	Frame* GetNextFrame();
+	Frame* GetNextFrame(int& currentFrame, int& delay);
 private:
 	std::vector<Frame*> m_Frames;
-	int m_iDelay;
-	int m_iCurrentFrame;
 	int m_iTotalFrames;
 	int m_Id;
 };

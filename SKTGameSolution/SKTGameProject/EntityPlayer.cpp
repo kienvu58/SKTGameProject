@@ -2,13 +2,10 @@
 #include "PlayerStandingState.h"
 #include "../GraphicsEngine/ResourceManager.h"
 #include "../GraphicsEngine/AnimationManager.h"
+#include "../GraphicsEngine/InputManager.h"
 
 
-Animation* EntityPlayer::s_AnimationStanding = nullptr;
-Animation* EntityPlayer::s_AnimationMovingForward = nullptr;
-Animation* EntityPlayer::s_AnimationMovingBackward = nullptr;
-
-EntityPlayer::EntityPlayer(): m_pStateMachine(new StateMachine<EntityPlayer>(this)) 
+EntityPlayer::EntityPlayer(): currentFrame(0), delay(0), m_pStateMachine(new StateMachine<EntityPlayer>(this)) 
 {
 	m_pStateMachine->SetCurrentState(PlayerStandingState::GetInstance());
 }
@@ -26,6 +23,13 @@ void EntityPlayer::Render()
 
 void EntityPlayer::Update()
 {
+	auto keyA = InputMgr->IsPressed(KEY_A);
+	auto keyD = InputMgr->IsPressed(KEY_D);
+	auto keyW = InputMgr->IsPressed(KEY_W);
+	auto keyS = InputMgr->IsPressed(KEY_S);
+
+
+
 	m_pStateMachine->Update();
 }
 
@@ -36,18 +40,25 @@ void EntityPlayer::InitSprite(int modelId, int spriteSheetId, int shadersId)
 	m_Sprite.SetShaders(ResourceMgr->GetShadersById(shadersId));
 }
 
-
-void EntityPlayer::InitAnimations(int animationStandingId, int animationMovingForwardId, int animationMovingBackwardId)
+void EntityPlayer::InitAnimations(std::map<std::string, Animation*> mapAnimations)
 {
-	s_AnimationStanding = AnimationMgr->GetAnimationById(animationStandingId);
-	s_AnimationMovingForward = AnimationMgr->GetAnimationById(animationMovingForwardId);
-	s_AnimationMovingBackward = AnimationMgr->GetAnimationById(animationMovingBackwardId);
+	m_mapAnimations = mapAnimations;
 }
 
 void EntityPlayer::SetFrameToSprite(Frame* frame)
 {
 	m_Sprite.SetTexture(ResourceMgr->GetSpriteSheetById(frame->GetSpriteSheetId()));
 	m_Sprite.SetIndex(frame->GetIndex());
+}
+
+Animation* EntityPlayer::GetAnimationByName(std::string name)
+{
+	auto it = m_mapAnimations.find(name);
+	if (it == m_mapAnimations.end())
+	{
+		return nullptr;
+	}
+	return it->second;
 }
 
 StateMachine<EntityPlayer>* EntityPlayer::GetFSM() const

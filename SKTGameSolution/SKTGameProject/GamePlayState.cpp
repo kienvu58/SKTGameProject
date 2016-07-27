@@ -15,7 +15,6 @@ void GamePlayState::Enter(Game* game)
 	FrameMgr->Init("../Resources/Data/FM.json");
 	AnimationMgr->Init("../Resources/Data/AM.json");
 	m_Goku.InitSprite(1, 1, 1);
-	m_Goku.InitAnimations(1, 2, 3);
 }
 
 void GamePlayState::Execute(Game* game)
