@@ -17,6 +17,7 @@ void MainMenuState::Enter(Game* game)
 
 void MainMenuState::Execute(Game* game)
 {
+
 }
 
 void MainMenuState::Exit(Game* game)

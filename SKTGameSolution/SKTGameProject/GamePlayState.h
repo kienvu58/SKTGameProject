@@ -1,6 +1,7 @@
 #pragma once
 #include <Common/FSM/State.h>
 #include "EntityPlayer.h"
+#include "EntityMinion.h"
 
 class GamePlayState : public State<class Game>
 {
@@ -20,5 +21,8 @@ private:
 	EntityPlayer *m_Goku;
 	EntityPlayer *m_Background;
 	EntityPlayer *m_pButton;
+
+	EntityPlayer *m_pPlayer;
+	EntityMinion *m_pTestMinion;
 };
 

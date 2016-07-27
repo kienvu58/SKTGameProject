@@ -33,7 +33,7 @@
 		[
 			{
 				"id": 1,
-				"path": "../Resources/Textures/SpriteSheetSSGoku.tga",
+				"path": "../Resources/Textures/SpriteEntityLiving.tga",
 				"nRows": 8,
 				"nColumns": 8
 			},

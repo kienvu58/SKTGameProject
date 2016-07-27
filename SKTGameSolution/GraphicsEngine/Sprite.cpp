@@ -12,7 +12,6 @@ Sprite::Sprite(): m_Index(0) {
 	                         static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40); 
 }
 
-
 Sprite::~Sprite()
 {
 }

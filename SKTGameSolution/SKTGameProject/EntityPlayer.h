@@ -15,6 +15,10 @@ public:
 	//Get FSM
 	StateMachine<EntityPlayer>* GetFSM() const;
 private:
+	//player attributes
+	float m_fMaxKi;
+	float m_fCurrentKi;
+
 	//State info
 	StateMachine<EntityPlayer>* m_pStateMachine;
 };

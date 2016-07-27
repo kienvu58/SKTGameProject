@@ -13,6 +13,7 @@
 #include "../GraphicsEngine/AnimationManager.h"
 #include "GamePlayState.h"
 #include "../GraphicsEngine/TextManager.h"
+#include "PhysicsManager.h"
 
 int Init(ESContext* esContext)
 {
@@ -20,6 +21,7 @@ int Init(ESContext* esContext)
 	ResourceMgr->Init("../Resources/Data/RM.json");
 	FrameMgr->Init("../Resources/Data/FM.json");
 	AnimationMgr->Init("../Resources/Data/AM.json");
+	PhysicsMgr->Init();
 //	SceneMgr->Init("../Resources/Data/SM.txt");
 	Game::GetInstance()->Init();
 	glEnable(GL_BLEND);
@@ -40,6 +42,8 @@ void Update(ESContext* esContext, float deltaTime)
 {
 	if (deltaTime)
 	{
+		// update physic deltatime
+
 //		SceneMgr->Update(deltaTime);
 		Game::GetInstance()->Update();
 	}
@@ -77,13 +81,13 @@ void MouseDown(ESContext* esContext, float x, float y)
 
 void CleanUp()
 {
-	TextMgr->DestroyInstance();
+	TextManager::DestroyInstance();
 	InputManager::DestroyInstance();
-//	SceneMgr->DestroyInstance();
 	ResourceManager::DestroyInstance();
 	AnimationManager::DestroyInstance();
 	FrameManager::DestroyInstance();
 	Game::DestroyInstance();
+	PhysicsManager::DestroyInstance();
 }
 
 int main(int argc, char* argv[])

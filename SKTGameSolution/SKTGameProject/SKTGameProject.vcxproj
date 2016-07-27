@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EntityMinion.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityLiving.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
@@ -122,6 +123,8 @@
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="MinionOwnedStates.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerMovingState.cpp" />
     <ClCompile Include="PlayerStandingState.cpp" />
   </ItemGroup>
@@ -138,12 +141,15 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EntityMinion.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityLiving.h" />
     <ClInclude Include="EntityPlayer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="MinionOwnedStates.h" />
+    <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerMovingState.h" />
     <ClInclude Include="PlayerStandingState.h" />
   </ItemGroup>

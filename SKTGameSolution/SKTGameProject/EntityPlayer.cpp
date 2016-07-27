@@ -24,6 +24,8 @@ void EntityPlayer::Render()
 
 void EntityPlayer::Update()
 {
+	EntityLiving::Update();
+
 	auto keyA = InputMgr->IsPressed(KEY_A);
 	auto keyD = InputMgr->IsPressed(KEY_D);
 	auto keyW = InputMgr->IsPressed(KEY_W);

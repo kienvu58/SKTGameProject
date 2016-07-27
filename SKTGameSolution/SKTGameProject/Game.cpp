@@ -7,9 +7,8 @@ Game* Game::s_Instance = nullptr;
 Game::Game(): m_pStateMachine(new StateMachine<Game>(this)) 
 {
 	m_pStateMachine->SetCurrentState(GamePlayState::GetInstance());
-	m_pStateMachine->ChangeState(GamePlayState::GetInstance());
+//	m_pStateMachine->ChangeState(GamePlayState::GetInstance());
 }
-
 
 Game::~Game()
 {
