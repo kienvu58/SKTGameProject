@@ -14,9 +14,11 @@ public:
 	void Init(const char* filePath);
 
 	static GamePlayState* GetInstance();
+	void Clear();
 private:
 	~GamePlayState();
-	EntityPlayer m_Goku;
-//	EntityPlayer m_Background;
+	EntityPlayer *m_Goku;
+	EntityPlayer *m_Background;
+	EntityPlayer *m_pButton;
 };
 

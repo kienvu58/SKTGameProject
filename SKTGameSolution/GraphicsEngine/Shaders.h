@@ -1,7 +1,6 @@
 #pragma once
 #include "../Utilities/utilities.h"
 #include <vector>
-#include <GLES2/gl2.h>
 
 enum class ShaderState {CULLING, DEPTH_TEST, ALPHA};
 
@@ -17,8 +16,14 @@ public:
 	GLuint locationUniformMVP;
 	GLuint locationUniformTime;
 	GLuint locationUniformDelta;
+	GLuint locationUniformTexIndexAnimation;
+
+	GLuint locationUniformTexture;
+	GLuint locationAttributePosition;
+	GLuint locationUniformColor;
 
 	std::vector<ShaderState> states;
+	
 	int Init(char * fileVertexShader, char * fileFragmentShader);
 	void EnableStates();
 	void DisableStates();

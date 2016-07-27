@@ -18,6 +18,15 @@
 				"spriteH": 1024,
 				"textureW": 1024,
 				"textureH": 1024
+			},
+			{ 
+				"id": 3, 
+				"modelW": 100,
+				"modelH": 30,
+				"spriteW": 128,
+				"spriteH": 128,
+				"textureW": 512,
+				"textureH": 256
 			}
 		],
 	"spriteSheets":
@@ -33,6 +42,12 @@
 				"path": "../Resources/Textures/SuperPower.tga",
 				"nRows": 2,
 				"nColumns": 2
+			},
+			{
+				"id": 3,
+				"path": "../Resources/Textures/button.tga",
+				"nRows": 2,
+				"nColumns": 4
 			}
 		],
 	"shaders":

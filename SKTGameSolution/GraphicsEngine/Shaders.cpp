@@ -1,6 +1,4 @@
 #include "Shaders.h"
-#include <GLES2/gl2.h>
-
 
 int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 {
@@ -25,7 +23,11 @@ int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 	locationUniformTex = glGetUniformLocation(program, "u_texture");
 	locationUniformTime = glGetUniformLocation(program, "u_time");
 	locationUniformDelta = glGetUniformLocation(program, "u_delta");
-
+	locationUniformTexIndexAnimation = glGetUniformLocation(program, "u_texIndex");
+	
+	locationUniformTexture = glGetUniformLocation(program, "u_s_texture");
+	locationAttributePosition = glGetAttribLocation(program, "a_position");
+	locationUniformColor = glGetUniformLocation(program, "u_color");
 	return 0;
 }
 

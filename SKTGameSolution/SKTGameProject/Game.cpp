@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "GamePlayState.h"
+#include "MainMenuState.h"
 
 Game* Game::s_Instance = nullptr;
 
@@ -17,6 +18,8 @@ Game::~Game()
 
 void Game::Init()
 {
+	MainMenuState::GetInstance()->Init("");
+	GamePlayState::GetInstance()->Init("");
 }
 
 void Game::Update()
@@ -42,6 +45,7 @@ void Game::DestroyInstance()
 {
 	if (s_Instance)
 	{
+		GamePlayState::GetInstance()->Clear();
 		delete s_Instance;
 		s_Instance = nullptr;
 	}

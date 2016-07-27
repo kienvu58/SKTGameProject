@@ -11,9 +11,12 @@
 #include <EGL/egl.h>
 #include "../GraphicsEngine/FrameManager.h"
 #include "../GraphicsEngine/AnimationManager.h"
+#include "GamePlayState.h"
+#include "../GraphicsEngine/TextManager.h"
 
 int Init(ESContext* esContext)
 {
+	TextMgr->Init("../Resources/Fonts/arial.ttf");
 	ResourceMgr->Init("../Resources/Data/RM.json");
 	FrameMgr->Init("../Resources/Data/FM.json");
 	AnimationMgr->Init("../Resources/Data/AM.json");
@@ -74,6 +77,7 @@ void MouseDown(ESContext* esContext, float x, float y)
 
 void CleanUp()
 {
+	TextMgr->DestroyInstance();
 	InputManager::DestroyInstance();
 //	SceneMgr->DestroyInstance();
 	ResourceManager::DestroyInstance();
