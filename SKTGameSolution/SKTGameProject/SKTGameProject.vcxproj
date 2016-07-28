@@ -128,6 +128,7 @@
     <ClCompile Include="MinionOwnedStates.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerOwnedStates.cpp" />
+    <ClCompile Include="SteeringBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicsEngine\GraphicsEngine.vcxproj">
@@ -154,6 +155,7 @@
     <ClInclude Include="MinionOwnedStates.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerOwnedStates.h" />
+    <ClInclude Include="SteeringBehavior.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json" />

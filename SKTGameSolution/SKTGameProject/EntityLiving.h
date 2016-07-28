@@ -28,7 +28,9 @@ public:
 
 	//Physics functions
 	void InitBody(b2BodyDef &bodyDef, b2FixtureDef &fixtureDef);
+	void InitBody(b2BodyDef &bodyDef, b2FixtureDef &fixtureDef, b2Vec2 &velocity);
 	b2Body* GetBody() const;
+	float GetMaxSpeed() const;
 
 	//Material
 	void Reset();

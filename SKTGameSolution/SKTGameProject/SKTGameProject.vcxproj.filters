@@ -40,6 +40,7 @@
     <ClCompile Include="PlayerOwnedStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SteeringBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -78,6 +79,7 @@
     <ClInclude Include="PlayerOwnedStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SteeringBehavior.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json">

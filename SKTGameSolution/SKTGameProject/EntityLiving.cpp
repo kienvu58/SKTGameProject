@@ -14,7 +14,7 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(0),
                               m_fCurrentDelay(0),
                               m_iFrameCount(0),
                               m_pBody(nullptr),
-                              m_fMaxSpeed(0),
+                              m_fMaxSpeed(4),
                               m_fMovementSpeed(3)
 {
 }
@@ -100,9 +100,21 @@ void EntityLiving::InitBody(b2BodyDef& bodyDef, b2FixtureDef& fixtureDef)
 	m_pBody->CreateFixture(&fixtureDef);
 }
 
+void EntityLiving::InitBody(b2BodyDef& bodyDef, b2FixtureDef& fixtureDef, b2Vec2& velocity)
+{
+	m_pBody = PhysicsMgr->GetWorld()->CreateBody(&bodyDef);
+	m_pBody->CreateFixture(&fixtureDef);
+	m_pBody->SetLinearVelocity(velocity);
+}
+
 b2Body* EntityLiving::GetBody() const
 {
 	return m_pBody;
+}
+
+float EntityLiving::GetMaxSpeed() const
+{
+	return m_fMaxSpeed;
 }
 
 void EntityLiving::Reset()

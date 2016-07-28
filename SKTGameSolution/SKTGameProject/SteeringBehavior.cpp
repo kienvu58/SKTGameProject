@@ -22,14 +22,18 @@ b2Vec2 SteeringBehavior::Seek(b2Vec2 TargetPos)
 
 b2Vec2 SteeringBehavior::Wander()
 {
-	srand(time(0));
+	srand(time(nullptr) * 1000);
 	if (m_pOwner->GetBody()->GetLinearVelocity().Length() > 0)
 	{
-		m_vWanderTarget += b2Vec2(
-			m_fWanderJitter * (rand() - rand()) / RAND_MAX,
-			m_fWanderJitter * (rand() - rand()) / RAND_MAX
-		);
+		int r1 = rand();
+		int r2 = rand();
+		int r3 = rand();
+		int r4 = rand();
 
+		m_vWanderTarget += b2Vec2(
+			m_fWanderJitter * (r1 - r2) * 1.f / RAND_MAX,
+			m_fWanderJitter * (r3 - r4) * 1.f / RAND_MAX
+		);
 
 		m_vWanderTarget.Normalize();
 		m_vWanderTarget *= m_fWanderRadius;

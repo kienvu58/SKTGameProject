@@ -25,6 +25,10 @@ int TextManager::Init(char * fileName)
 		printf("Could not open font arial.ttf\n");
 		return 1;
 	}
+
+	glGenTextures(1, &tex);
+	glGenBuffers(1, &vbo);
+
 	m_glyphSlot = m_face->glyph;
 	//creation of shaders and program 
 	return shaders->Init("../Resources/Shaders/TextVS.vs", "../Resources/Shaders/TextFS.fs");
@@ -41,7 +45,7 @@ void TextManager::RenderString(const char * text, Vector4 color, float size, flo
 
 	//init. use single texture object render all the glyphs
 	glActiveTexture(GL_TEXTURE0);
-	glGenTextures(1, &tex);
+	
 	glBindTexture(GL_TEXTURE_2D, tex);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -52,7 +56,7 @@ void TextManager::RenderString(const char * text, Vector4 color, float size, flo
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	//set up a vertex buffer object
-	glGenBuffers(1, &vbo);
+	
 	glEnableVertexAttribArray(shaders->locationAttributePosition);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(shaders->locationAttributePosition, 4, GL_FLOAT, GL_FALSE, 0, 0);
