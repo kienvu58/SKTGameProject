@@ -15,6 +15,8 @@
 #include "../GraphicsEngine/TextManager.h"
 #include "PhysicsManager.h"
 
+float Globals::deltaTime = 0;
+
 int Init(ESContext* esContext)
 {
 	TextMgr->Init("../Resources/Fonts/arial.ttf");
@@ -42,7 +44,7 @@ void Update(ESContext* esContext, float deltaTime)
 {
 	if (deltaTime)
 	{
-		// update physic deltatime
+		Globals::deltaTime = deltaTime;
 
 //		SceneMgr->Update(deltaTime);
 		Game::GetInstance()->Update();

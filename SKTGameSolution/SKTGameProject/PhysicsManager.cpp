@@ -75,5 +75,5 @@ b2World* PhysicsManager::GetWorld() const
 
 void PhysicsManager::Update() const
 {
-	m_World->Step(1.0f / 60, 20, 30);
+	m_World->Step(Globals::deltaTime, 20, 30);
 }

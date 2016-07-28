@@ -57,7 +57,18 @@ void GamePlayState::Init(const char* filePath)
 {
 	m_Goku = new EntityPlayer();
 	m_Goku->InitSprite(1, 1, 1);
-	m_Goku->SetSpriteData(38, Vector2());
+	m_Goku->SetSpriteData(7, Vector2());
+	std::vector<Animation*> gokuAnimations;
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(1));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(2));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(3));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(4));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(5));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(6));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(7));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(8));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(9));
+	m_Goku->SetAnimations(gokuAnimations);
 
 	//read file here, then create bodies and fixtures for enities.
 	b2BodyDef bodyDef;
@@ -70,8 +81,8 @@ void GamePlayState::Init(const char* filePath)
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;
 	fixture.restitution = 1.0f;
-
 	m_Goku->InitBody(bodyDef, fixture);
+
 
 	/*m_pTestMinion = new EntityMinion();
 	m_pTestMinion->InitSprite(1, 1, 1);

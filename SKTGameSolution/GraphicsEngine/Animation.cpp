@@ -20,15 +20,14 @@ void Animation::Init(std::vector<int> frameIds)
 	}
 }
 
-Frame* Animation::GetNextFrame(int& currentFrame, int& delay)
+Frame* Animation::GetNextFrame(int currentFrame, float delay)
 {
 	if (currentFrame > m_iTotalFrames)
 	{
 		return nullptr;
 	}
 
-	delay++;
-	if (delay > m_Frames.at(currentFrame)->GetDuration())
+	if (int(++delay) > m_Frames.at(currentFrame)->GetDuration())
 	{
 		currentFrame++;
 		currentFrame %= m_iTotalFrames;

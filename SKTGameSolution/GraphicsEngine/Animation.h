@@ -9,7 +9,7 @@ public:
 	~Animation();
 
 	void Init(std::vector<int> frameIds);
-	Frame* GetNextFrame(int& currentFrame, int& delay);
+	Frame* GetNextFrame(int currentFrame, float delay);
 private:
 	std::vector<Frame*> m_Frames;
 	int m_iTotalFrames;

@@ -1,5 +1,4 @@
 #pragma once
-#include <map>
 #include "../GraphicsEngine/Animation.h"
 #include "../GraphicsEngine/Sprite.h"
 #include "Entity.h"
@@ -18,18 +17,21 @@ public:
 	void InitSprite(int modelId, int spriteSheetId, int shadersId);
 
 	//Animation functions
-	void InitAnimations(std::map<std::string, Animation*> mapAnimations);
+	void SetAnimations(std::vector<Animation*> animations);
 	void SetFrameToSprite(Frame* frame);
-	Animation* GetAnimationByName(std::string name);
+	Animation* GetAnimation(int index);
+	void ResetFramesInfo();
+	void SetCurrentFrame(int currentFrame);
+	float GetCurrentDelay() const;
+	int GetCurrentFrame() const;
+	void UpdateAnimationDelay();
 
 	// must remove this method
 	void SetSpriteData(int index, Vector2 position);
 
-	int currentFrame;
-	int delay;
-
 	//Physics functions
 	void InitBody(b2BodyDef &bodyDef, b2FixtureDef &fixtureDef);
+	b2Body* GetBody() const;
 
 	//Material
 	void Reset();
@@ -43,7 +45,10 @@ protected:
 	Sprite m_Sprite;
 
 	//Animation info
-	std::map<std::string, Animation*> m_mapAnimations;
+	std::vector<Animation*> m_vecAnimations;
+	int m_iCurrentFrame;
+	int m_iLastFrame;
+	float m_fCurrentDelay;
 
 	//Physic info
 	b2Body *m_pBody;

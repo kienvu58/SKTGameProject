@@ -2,7 +2,20 @@
 #include <Common/FSM/StateMachine.h>
 #include "EntityLiving.h"
 
-class EntityPlayer : 
+enum AnimationName
+{
+	STANDING,
+	MOVING_FORWARD,
+	MOVING_BACKWARD,
+	TAKING_DAMAGED,
+	FALLING,
+	DEAD,
+	FIRING,
+	FIRING_SPECIAL,
+	FIRING_ULTIMATE
+};
+
+class EntityPlayer :
 	public EntityLiving
 {
 public:

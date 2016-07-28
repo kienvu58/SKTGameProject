@@ -125,8 +125,7 @@
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MinionOwnedStates.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="PlayerMovingState.cpp" />
-    <ClCompile Include="PlayerStandingState.cpp" />
+    <ClCompile Include="PlayerOwnedStates.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicsEngine\GraphicsEngine.vcxproj">
@@ -151,6 +150,7 @@
     <ClInclude Include="MinionOwnedStates.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerMovingState.h" />
+    <ClInclude Include="PlayerOwnedStates.h" />
     <ClInclude Include="PlayerStandingState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
