@@ -7,7 +7,7 @@ class PlayerStandingState :
 {
 public:
 	PlayerStandingState();
-
+	~PlayerStandingState();
 	void Enter(EntityPlayer* entity) override;
 	void Execute(EntityPlayer* entity) override;
 	void Exit(EntityPlayer* entity) override;
@@ -15,6 +15,6 @@ public:
 
 	static PlayerStandingState* GetInstance();
 private:
-	~PlayerStandingState();
+
 };
 

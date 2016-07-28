@@ -1,51 +1,42 @@
 {
 	"models": 
 		[
-			{ 
-				"id": 1, 
-				"modelW": 128,
-				"modelH": 128,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 1024,
-				"textureH": 1024
-			},
 			{
-				"id": 2,
-				"modelW": 1000,
+				"id": 1,
+				"modelW": 800,
 				"modelH": 600,
 				"spriteW": 1024,
 				"spriteH": 1024,
 				"textureW": 1024,
 				"textureH": 1024
 			},
-			{ 
-				"id": 3, 
-				"modelW": 100,
-				"modelH": 30,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 512,
-				"textureH": 256
+			{
+				"id": 2,
+				"modelW": 800,
+				"modelH": 600,
+				"spriteW": 1024,
+				"spriteH": 1024,
+				"textureW": 1024,
+				"textureH": 1024
 			}
 		],
 	"spriteSheets":
 		[
 			{
 				"id": 1,
-				"path": "../Resources/Textures/SpriteSheetSSGoku.tga",
-				"nRows": 8,
-				"nColumns": 8
+				"path": "../Resources/Textures/GameWelcomeState.tga",
+				"nRows": 2,
+				"nColumns": 2
 			},
 			{
 				"id": 2,
-				"path": "../Resources/Textures/SuperPower.tga",
+				"path": "../Resources/Textures/GameMenuState.tga",
 				"nRows": 2,
 				"nColumns": 2
 			},
 			{
 				"id": 3,
-				"path": "../Resources/Textures/button.tga",
+				"path": "../Resources/Textures/GameButton.tga",
 				"nRows": 2,
 				"nColumns": 4
 			}

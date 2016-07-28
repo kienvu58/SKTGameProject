@@ -1,12 +1,13 @@
 #pragma once
 #include <Common/FSM/State.h>
 #include "EntityPlayer.h"
+#include "Game.h"
 
-class GamePlayState : public State<class Game>
+class GamePlayState : public State<Game>
 {
 public:
 	GamePlayState();
-
+	~GamePlayState();
 	void Enter(Game* game) override;
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
@@ -16,9 +17,6 @@ public:
 	static GamePlayState* GetInstance();
 	void Clear();
 private:
-	~GamePlayState();
-	EntityPlayer *m_Goku;
-	EntityPlayer *m_Background;
-	EntityPlayer *m_pButton;
+
 };
 

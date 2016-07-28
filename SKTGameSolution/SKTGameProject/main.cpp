@@ -79,7 +79,7 @@ void CleanUp()
 {
 	TextMgr->DestroyInstance();
 	InputManager::DestroyInstance();
-//	SceneMgr->DestroyInstance();
+	//SceneMgr->DestroyInstance();
 	ResourceManager::DestroyInstance();
 	AnimationManager::DestroyInstance();
 	FrameManager::DestroyInstance();

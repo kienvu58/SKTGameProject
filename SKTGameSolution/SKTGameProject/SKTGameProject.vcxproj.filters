@@ -42,6 +42,12 @@
     <ClCompile Include="EntityLiving.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameWelcomeState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityStatic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Resources\Data\RM.txt">
@@ -76,5 +82,28 @@
     <ClInclude Include="EntityLiving.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameWelcomeState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityStatic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Data\AM.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\FM.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\GamePlayState.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\MainMenuState.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\RM.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
