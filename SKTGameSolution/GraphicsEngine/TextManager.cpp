@@ -109,14 +109,8 @@ void TextManager::RenderString(const char * text, Vector4 color, float size, flo
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void TextManager::DestroyShaders()
-{
-	delete shaders;
-}
-
 void TextManager::DestroyInstance()
 {
-	DestroyShaders();
 	if (s_Instance)
 	{
 		delete s_Instance;
@@ -126,4 +120,5 @@ void TextManager::DestroyInstance()
 
 TextManager::~TextManager()
 {
+	delete shaders;
 }

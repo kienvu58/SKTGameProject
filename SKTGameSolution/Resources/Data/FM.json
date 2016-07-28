@@ -28,6 +28,7 @@
 			{"id": 25, "spriteSheetID": 1, "index": 35, "duration": 1},
 			{"id": 26, "spriteSheetID": 1, "index": 36, "duration": 1},
 			{"id": 27, "spriteSheetID": 1, "index": 37, "duration": 1},
-			{"id": 28, "spriteSheetID": 3, "index": 0, "duration": 1}
+			{"id": 28, "spriteSheetID": 1, "index": 38, "duration": 1},
+			{"id": 29, "spriteSheetID": 1, "index": 39, "duration": 1}
 		]
 }

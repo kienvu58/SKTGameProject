@@ -21,8 +21,7 @@ public:
 	TextManager();
 	int Init(char *fileName);
 	void RenderString(const char *text, Vector4 color, float size, float x, float y, float scaleX, float scaleY);
-	void DestroyInstance();
-	void DestroyShaders();
+	static void DestroyInstance();
 	~TextManager();
 };
 

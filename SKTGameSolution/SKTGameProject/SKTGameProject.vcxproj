@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EntityMinion.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityLiving.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
@@ -124,8 +125,9 @@
     <ClCompile Include="GameWelcomeState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
-    <ClCompile Include="PlayerMovingState.cpp" />
-    <ClCompile Include="PlayerStandingState.cpp" />
+    <ClCompile Include="MinionOwnedStates.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="PlayerOwnedStates.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicsEngine\GraphicsEngine.vcxproj">
@@ -140,6 +142,7 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EntityMinion.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityLiving.h" />
     <ClInclude Include="EntityPlayer.h" />
@@ -148,8 +151,9 @@
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameWelcomeState.h" />
     <ClInclude Include="MainMenuState.h" />
-    <ClInclude Include="PlayerMovingState.h" />
-    <ClInclude Include="PlayerStandingState.h" />
+    <ClInclude Include="MinionOwnedStates.h" />
+    <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="PlayerOwnedStates.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json" />

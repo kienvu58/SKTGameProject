@@ -17,8 +17,6 @@ void MainMenuState::Enter(Game* game)
 
 void MainMenuState::Execute(Game* game)
 {
-	m_Background->Update();
-	//m_Button_PlayGame->Update();
 }
 
 void MainMenuState::Exit(Game* game)
@@ -43,8 +41,7 @@ void MainMenuState::Init(const char* filePath)
 	m_Background->InitSprite(2, 2, 1);
 	//m_Button_PlayGame = new EntityPlayer();
 	//m_Button_PlayGame->InitSprite(3, 3, 1);
-	m_Button_PlayGame->InitSprite(28, 3, 1);
-	m_Button_PlayGame->
+//	m_Button_PlayGame->InitSprite(1, 3, 1);
 
 }
 

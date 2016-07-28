@@ -24,9 +24,9 @@
 		[
 			{
 				"id": 1,
-				"path": "../Resources/Textures/GameWelcomeState.tga",
-				"nRows": 2,
-				"nColumns": 2
+				"path": "../Resources/Textures/SpriteEntityLiving.tga",
+				"nRows": 8,
+				"nColumns": 8
 			},
 			{
 				"id": 2,

@@ -10,8 +10,8 @@ Game::Game(): m_pStateMachine(new StateMachine<Game>(this))
 {
 	m_pStateMachine->SetCurrentState(GameWelcomeState::GetInstance());
 	//m_pStateMachine->ChangeState(GameWelcomeState::GetInstance());
+//	m_pStateMachine->SetCurrentState(GamePlayState::GetInstance());
 }
-
 
 Game::~Game()
 {

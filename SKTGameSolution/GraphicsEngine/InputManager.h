@@ -4,6 +4,9 @@
 #define KEY_D (1 << 1)
 #define KEY_W (1 << 2)
 #define KEY_S (1 << 3)
+#define KEY_J (1 << 4)
+#define KEY_K (1 << 5)
+#define KEY_L (1 << 6)
 #include "../Utilities/Math.h"
 
 class InputManager

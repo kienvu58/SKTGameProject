@@ -12,10 +12,16 @@ Sprite::Sprite(): m_Index(0) {
 	                         static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40); 
 }
 
-
 Sprite::~Sprite()
 {
 }
+
+void Sprite::SetFrame(Frame* frame)
+{
+	m_pTexture = ResourceMgr->GetSpriteSheetById(frame->GetSpriteSheetId());
+	m_Index = frame->GetIndex();
+}
+
 
 void Sprite::Render()
 {

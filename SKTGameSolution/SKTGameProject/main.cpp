@@ -13,6 +13,9 @@
 #include "../GraphicsEngine/AnimationManager.h"
 #include "GamePlayState.h"
 #include "../GraphicsEngine/TextManager.h"
+#include "PhysicsManager.h"
+
+float Globals::deltaTime = 0;
 
 int Init(ESContext* esContext)
 {
@@ -20,7 +23,8 @@ int Init(ESContext* esContext)
 	ResourceMgr->Init("../Resources/Data/RM.json");
 	FrameMgr->Init("../Resources/Data/FM.json");
 	AnimationMgr->Init("../Resources/Data/AM.json");
-//	SceneMgr->Init("../Resources/Data/SM.txt");
+	PhysicsMgr->Init();
+	//	SceneMgr->Init("../Resources/Data/SM.txt");
 	Game::GetInstance()->Init();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -31,7 +35,7 @@ void Draw(ESContext* esContext)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-//	SceneMgr->Draw();
+	//	SceneMgr->Draw();
 	Game::GetInstance()->Render();
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
@@ -40,7 +44,9 @@ void Update(ESContext* esContext, float deltaTime)
 {
 	if (deltaTime)
 	{
-//		SceneMgr->Update(deltaTime);
+		Globals::deltaTime = deltaTime;
+
+		//		SceneMgr->Update(deltaTime);
 		Game::GetInstance()->Update();
 	}
 }
@@ -61,6 +67,15 @@ void Key(ESContext* esContext, unsigned char key, bool isPressed)
 	case 'D':
 		InputMgr->SetKeyEvent(KEY_D, isPressed);
 		break;
+	case 'J':
+		InputMgr->SetKeyEvent(KEY_J, isPressed);
+		break;
+	case 'K':
+		InputMgr->SetKeyEvent(KEY_K, isPressed);
+		break;
+	case 'L':
+		InputMgr->SetKeyEvent(KEY_L, isPressed);
+		break;
 	}
 }
 
@@ -77,13 +92,13 @@ void MouseDown(ESContext* esContext, float x, float y)
 
 void CleanUp()
 {
-	TextMgr->DestroyInstance();
+	TextManager::DestroyInstance();
 	InputManager::DestroyInstance();
-	//SceneMgr->DestroyInstance();
 	ResourceManager::DestroyInstance();
 	AnimationManager::DestroyInstance();
 	FrameManager::DestroyInstance();
 	Game::DestroyInstance();
+	PhysicsManager::DestroyInstance();
 }
 
 int main(int argc, char* argv[])
