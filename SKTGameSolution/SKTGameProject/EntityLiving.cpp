@@ -9,9 +9,10 @@
 
 EntityLiving::EntityLiving(): m_fCurrentHealth(0),
                               m_fMaxHealth(0),
-                              m_iCurrentFrame(0),
-                              m_iLastFrame(0),
+                              m_iCurrentFrameIndex(0),
+                              m_iLastFrameIndex(0),
                               m_fCurrentDelay(0),
+                              m_iFrameCount(0),
                               m_pBody(nullptr),
                               m_fMaxSpeed(0),
                               m_fMovementSpeed(3)
@@ -45,12 +46,6 @@ void EntityLiving::SetAnimations(std::vector<Animation*> animations)
 }
 
 
-void EntityLiving::SetFrameToSprite(Frame* frame)
-{
-	m_Sprite.SetTexture(ResourceMgr->GetSpriteSheetById(frame->GetSpriteSheetId()));
-	m_Sprite.SetIndex(frame->GetIndex());
-}
-
 Animation* EntityLiving::GetAnimation(int index)
 {
 	if (index >= m_vecAnimations.size())
@@ -61,36 +56,37 @@ Animation* EntityLiving::GetAnimation(int index)
 	return m_vecAnimations.at(index);
 }
 
-void EntityLiving::ResetFramesInfo()
+void EntityLiving::UpdateAnimationToSprite(Animation* animation)
 {
-	m_iCurrentFrame = 0;
-	m_iLastFrame = 0;
-	m_fCurrentDelay = 0.0f;
-}
-
-void EntityLiving::SetCurrentFrame(int currentFrame)
-{
-	m_iLastFrame = m_iCurrentFrame;
-	m_iCurrentFrame = currentFrame;
-}
-
-float EntityLiving::GetCurrentDelay() const
-{
-	return m_fCurrentDelay;
-}
-
-int EntityLiving::GetCurrentFrame() const
-{
-	return m_iCurrentFrame;
-}
-
-void EntityLiving::UpdateAnimationDelay()
-{
-	if (m_iCurrentFrame == m_iLastFrame)
-	{
+	if (m_iCurrentFrameIndex == m_iLastFrameIndex)
+	{	// in duration of current frame, increase delay
 		m_fCurrentDelay += Globals::animationTime * Globals::deltaTime;
 	}
+	else
+	{	// into new frame
+		m_iFrameCount++;
+		m_fCurrentDelay = 0;
+	}
+	Frame* frame = animation->GetFrameByIndex(m_iCurrentFrameIndex);
+	m_Sprite.SetFrame(frame);
+
+	m_iLastFrameIndex = m_iCurrentFrameIndex;
+	m_iCurrentFrameIndex = animation->GetNextFrameIndex(m_iCurrentFrameIndex, m_fCurrentDelay);
 }
+
+int EntityLiving::GetFrameCount() const
+{
+	return m_iFrameCount;
+}
+
+void EntityLiving::ResetCurrentAnimationInfo()
+{
+	m_iCurrentFrameIndex = 0;
+	m_iLastFrameIndex = 0;
+	m_fCurrentDelay = 0.0f;
+	m_iFrameCount = 0;
+}
+
 
 void EntityLiving::SetSpriteData(int index, Vector2 position)
 {

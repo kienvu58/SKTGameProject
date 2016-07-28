@@ -36,4 +36,19 @@ private:
 };
 
 
+class PlayerFiringState :
+	public State<EntityPlayer>
+{
+public:
+	~PlayerFiringState();
+
+	void Enter(EntityPlayer* entity) override;
+	void Execute(EntityPlayer* entity) override;
+	void Exit(EntityPlayer* entity) override;
+	void Render(EntityPlayer* entity) override;
+
+	static PlayerFiringState* GetInstance();
+private:
+	PlayerFiringState();
+};
 

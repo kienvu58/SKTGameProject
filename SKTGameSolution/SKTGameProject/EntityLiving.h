@@ -18,13 +18,10 @@ public:
 
 	//Animation functions
 	void SetAnimations(std::vector<Animation*> animations);
-	void SetFrameToSprite(Frame* frame);
 	Animation* GetAnimation(int index);
-	void ResetFramesInfo();
-	void SetCurrentFrame(int currentFrame);
-	float GetCurrentDelay() const;
-	int GetCurrentFrame() const;
-	void UpdateAnimationDelay();
+	void UpdateAnimationToSprite(Animation* animation);
+	int GetFrameCount() const;
+	void ResetCurrentAnimationInfo();
 
 	// must remove this method
 	void SetSpriteData(int index, Vector2 position);
@@ -46,9 +43,10 @@ protected:
 
 	//Animation info
 	std::vector<Animation*> m_vecAnimations;
-	int m_iCurrentFrame;
-	int m_iLastFrame;
+	int m_iCurrentFrameIndex;
+	int m_iLastFrameIndex;
 	float m_fCurrentDelay;
+	int m_iFrameCount;
 
 	//Physic info
 	b2Body *m_pBody;

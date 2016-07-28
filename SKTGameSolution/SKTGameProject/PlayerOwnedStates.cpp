@@ -1,4 +1,5 @@
 #include "PlayerOwnedStates.h"
+#include "../GraphicsEngine/InputManager.h"
 
 /**
 *	PlayerStandingState
@@ -20,14 +21,18 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 	{
 		entity->GetFSM()->ChangeState(PlayerMovingState::GetInstance());
 	}
+	if (InputMgr->IsPressed(KEY_J))
+	{
+		entity->GetFSM()->ChangeState(PlayerFiringState::GetInstance());
+	}
 
-	Frame* frame = entity->GetAnimation(STANDING)
-	                     ->GetNextFrame(entity->GetCurrentFrame(), entity->GetCurrentDelay());
-	entity->SetFrameToSprite(frame);
+
+	entity->UpdateAnimationToSprite(entity->GetAnimation(STANDING));
 }
 
 void PlayerStandingState::Exit(EntityPlayer* entity)
 {
+	entity->ResetCurrentAnimationInfo();
 }
 
 void PlayerStandingState::Render(EntityPlayer* entity)
@@ -64,35 +69,34 @@ void PlayerMovingState::Enter(EntityPlayer* entity)
 void PlayerMovingState::Execute(EntityPlayer* entity)
 {
 	b2Vec2 velocity = entity->GetBody()->GetLinearVelocity();
-	if (velocity.Length() == 0)
+	if (velocity.Length() == 0 || InputMgr->IsPressed(KEY_J))
 	{
 		entity->GetFSM()->ChangeState(PlayerStandingState::GetInstance());
 	}
 
+
 	if (velocity.x > 0)
 	{
-		Frame* frame = entity->GetAnimation(MOVING_FORWARD)
-		                     ->GetNextFrame(entity->GetCurrentFrame(), entity->GetCurrentDelay());
-		entity->SetFrameToSprite(frame);
+		// MOVING FORWARD
+		entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_FORWARD));
 	}
 	if (velocity.x < 0)
 	{
-		Frame* frame = entity->GetAnimation(MOVING_BACKWARD)
-		                     ->GetNextFrame(entity->GetCurrentFrame(), entity->GetCurrentDelay());
-		entity->SetFrameToSprite(frame);
+		// MOVING BACKWARD	
+		entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_BACKWARD));
 	}
 	if (velocity.x == 0)
 	{
 		if (velocity.y > 0)
 		{
-			Frame* frame = entity->GetAnimation(MOVING_FORWARD)
-				->GetNextFrame(entity->GetCurrentFrame(), entity->GetCurrentDelay());
-			entity->SetFrameToSprite(frame);
-		}if (velocity.y < 0)
+			// MOVING FORWARD
+			entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_FORWARD));
+		}
+
+		if (velocity.y < 0)
 		{
-			Frame* frame = entity->GetAnimation(MOVING_BACKWARD)
-				->GetNextFrame(entity->GetCurrentFrame(), entity->GetCurrentDelay());
-			entity->SetFrameToSprite(frame);
+			// MOVING BACKWARD
+			entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_BACKWARD));
 		}
 	}
 }
@@ -100,6 +104,7 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 
 void PlayerMovingState::Exit(EntityPlayer* entity)
 {
+	entity->ResetCurrentAnimationInfo();
 }
 
 void PlayerMovingState::Render(EntityPlayer* entity)
@@ -110,4 +115,48 @@ PlayerMovingState* PlayerMovingState::GetInstance()
 {
 	static PlayerMovingState instance;
 	return &instance;
+}
+
+
+/**
+*	PlayerFiringState
+*/
+
+
+PlayerFiringState::~PlayerFiringState()
+{
+}
+
+void PlayerFiringState::Enter(EntityPlayer* entity)
+{
+}
+
+void PlayerFiringState::Execute(EntityPlayer* entity)
+{
+	Animation* firingAnimation = entity->GetAnimation(FIRING);
+	if (!InputMgr->IsPressed(KEY_J) && firingAnimation->GetTotalFrames() <= entity->GetFrameCount())
+	{
+		entity->GetFSM()->ChangeState(PlayerStandingState::GetInstance());
+	}
+
+	entity->UpdateAnimationToSprite(firingAnimation);
+}
+
+void PlayerFiringState::Exit(EntityPlayer* entity)
+{
+	entity->ResetCurrentAnimationInfo();
+}
+
+void PlayerFiringState::Render(EntityPlayer* entity)
+{
+}
+
+PlayerFiringState* PlayerFiringState::GetInstance()
+{
+	static PlayerFiringState instance;
+	return &instance;
+}
+
+PlayerFiringState::PlayerFiringState()
+{
 }

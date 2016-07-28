@@ -24,7 +24,7 @@ int Init(ESContext* esContext)
 	FrameMgr->Init("../Resources/Data/FM.json");
 	AnimationMgr->Init("../Resources/Data/AM.json");
 	PhysicsMgr->Init();
-//	SceneMgr->Init("../Resources/Data/SM.txt");
+	//	SceneMgr->Init("../Resources/Data/SM.txt");
 	Game::GetInstance()->Init();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -35,7 +35,7 @@ void Draw(ESContext* esContext)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-//	SceneMgr->Draw();
+	//	SceneMgr->Draw();
 	Game::GetInstance()->Render();
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
@@ -46,7 +46,7 @@ void Update(ESContext* esContext, float deltaTime)
 	{
 		Globals::deltaTime = deltaTime;
 
-//		SceneMgr->Update(deltaTime);
+		//		SceneMgr->Update(deltaTime);
 		Game::GetInstance()->Update();
 	}
 }
@@ -66,6 +66,15 @@ void Key(ESContext* esContext, unsigned char key, bool isPressed)
 		break;
 	case 'D':
 		InputMgr->SetKeyEvent(KEY_D, isPressed);
+		break;
+	case 'J':
+		InputMgr->SetKeyEvent(KEY_J, isPressed);
+		break;
+	case 'K':
+		InputMgr->SetKeyEvent(KEY_K, isPressed);
+		break;
+	case 'L':
+		InputMgr->SetKeyEvent(KEY_L, isPressed);
 		break;
 	}
 }

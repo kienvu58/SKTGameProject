@@ -16,6 +16,13 @@ Sprite::~Sprite()
 {
 }
 
+void Sprite::SetFrame(Frame* frame)
+{
+	m_pTexture = ResourceMgr->GetSpriteSheetById(frame->GetSpriteSheetId());
+	m_Index = frame->GetIndex();
+}
+
+
 void Sprite::Render()
 {
 	glUseProgram(m_pShaders->program);
