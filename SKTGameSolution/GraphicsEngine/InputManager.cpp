@@ -1,6 +1,5 @@
 #include "InputManager.h"
 
-InputManager* InputManager::s_Instance = nullptr;
 
 InputManager::InputManager(): m_iKeyPressed(0)
 {
@@ -9,24 +8,6 @@ InputManager::InputManager(): m_iKeyPressed(0)
 
 InputManager::~InputManager()
 {
-}
-
-InputManager* InputManager::GetInstance()
-{
-	if (s_Instance == nullptr)
-	{
-		s_Instance = new InputManager();
-	}
-	return s_Instance;
-}
-
-void InputManager::DestroyInstance()
-{
-	if (s_Instance != nullptr)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
 }
 
 void InputManager::SetKeyEvent(int key, bool isPressed)

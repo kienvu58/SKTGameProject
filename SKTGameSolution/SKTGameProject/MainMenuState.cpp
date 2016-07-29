@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "GameOptionState.h"
 #include "GamePlayState.h"
+#include "SingletonClasses.h"
 
 MainMenuState::MainMenuState()
 {
@@ -11,6 +12,10 @@ MainMenuState::MainMenuState()
 
 MainMenuState::~MainMenuState()
 {
+	delete m_Background;
+	delete m_Button_PlayGame;
+	delete m_Button_Option;
+	delete m_Button_Exit;
 }
 
 void MainMenuState::Enter(Game* game)
@@ -27,18 +32,18 @@ void MainMenuState::Execute(Game* game)
 		&& InputMgr->GetLastMousePosition().y >= 150.0f && InputMgr->GetLastMousePosition().y <= 250.0f)
 	{
 		printf("GamePlay\n");
-		game->GetFSM()->ChangeState(GamePlayState::GetInstance());
+		game->GetFSM()->ChangeState(GS_GamePlay::GetInstance());
 	}
 	if (InputMgr->GetLastMousePosition().x >= 200.0f && InputMgr->GetLastMousePosition().x <= 400.0f
 		&& InputMgr->GetLastMousePosition().y >= 300.0f && InputMgr->GetLastMousePosition().y <= 400.0f)
 	{
 		printf("GameOption\n");
-		game->GetFSM()->ChangeState(GameOptionState::GetInstance());
+		game->GetFSM()->ChangeState(GS_Option::GetInstance());
 	}
 	if (InputMgr->GetLastMousePosition().x >= 200.0f && InputMgr->GetLastMousePosition().x <= 400.0f
 		&& InputMgr->GetLastMousePosition().y >= 450.0f && InputMgr->GetLastMousePosition().y <= 550.0f)
 	{
-		HWND hWnd = FindWindow(NULL, "SKT Game");
+		HWND hWnd = FindWindow(nullptr, "SKT Game");
 		DestroyWindow(hWnd);
 	}
 }
@@ -53,12 +58,6 @@ void MainMenuState::Render(Game* game)
 	m_Button_PlayGame->Render();
 	m_Button_Option->Render();
 	m_Button_Exit->Render();
-}
-
-MainMenuState* MainMenuState::GetInstance()
-{
-	static MainMenuState instance;
-	return &instance;
 }
 
 void MainMenuState::Init(const char* filePath)
@@ -77,12 +76,4 @@ void MainMenuState::Init(const char* filePath)
 	m_Button_Exit = new EntityStatic();
 	m_Button_Exit->InitSprite(3, 34, 1);
 	m_Button_Exit->InitPosition(300, 500);
-}
-
-void MainMenuState::Clear()
-{
-	delete m_Background;
-	delete m_Button_PlayGame;
-	delete m_Button_Option;
-	delete m_Button_Exit;
 }

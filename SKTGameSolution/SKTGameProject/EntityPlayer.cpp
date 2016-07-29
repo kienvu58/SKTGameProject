@@ -1,14 +1,12 @@
 #include "EntityPlayer.h"
-#include "../GraphicsEngine/ResourceManager.h"
-#include "../GraphicsEngine/AnimationManager.h"
-#include "../GraphicsEngine/InputManager.h"
 #include "GamePlayState.h"
-#include "PlayerOwnedStates.h"
+#include "SingletonClasses.h"
 
 
 EntityPlayer::EntityPlayer(): m_fMaxKi(0), m_fCurrentKi(0), m_pStateMachine(new StateMachine<EntityPlayer>(this))
 {
-	m_pStateMachine->SetCurrentState(PlayerStandingState::GetInstance());
+	m_pStateMachine->SetGlobalState(PS_Global::GetInstance());
+	m_pStateMachine->SetCurrentState(PS_Standing::GetInstance());
 }
 
 
@@ -25,21 +23,25 @@ void EntityPlayer::Render()
 void EntityPlayer::Update()
 {
 	EntityLiving::Update();
-
-	bool keyA = InputMgr->IsPressed(KEY_A);
-	bool keyD = InputMgr->IsPressed(KEY_D);
-	bool keyW = InputMgr->IsPressed(KEY_W);
-	bool keyS = InputMgr->IsPressed(KEY_S);
-
-	b2Vec2 direction(keyD - keyA, keyW - keyS);
-	m_pBody->SetLinearVelocity(m_fMovementSpeed * direction);
-
-
 	m_pStateMachine->Update();
 }
 
+EntityType EntityPlayer::GetType()
+{
+	return ENTITY_PLAYER;
+}
+
+bool EntityPlayer::HandleMessage(const Telegram& telegram)
+{
+	return false;
+}
 
 StateMachine<EntityPlayer>* EntityPlayer::GetFSM() const
 {
 	return m_pStateMachine;
+}
+
+EntityLiving* EntityPlayer::Clone()
+{
+	return nullptr;
 }

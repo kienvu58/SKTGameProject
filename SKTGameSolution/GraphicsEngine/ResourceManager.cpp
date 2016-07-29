@@ -7,8 +7,6 @@
 
 #define MAX_CHAR_LENGTH 100
 
-ResourceManager* ResourceManager::s_Instance = nullptr;
-
 ResourceManager::ResourceManager()
 {
 };
@@ -18,24 +16,6 @@ ResourceManager::~ResourceManager()
 	ClearMap<Shaders>(m_mapShaders);
 	ClearMap<Model>(m_mapModels);
 	ClearMap<SpriteSheet>(m_mapSpiteSheets);
-}
-
-ResourceManager* ResourceManager::GetInstance()
-{
-	if (s_Instance == nullptr)
-	{
-		s_Instance = new ResourceManager();
-	}
-	return s_Instance;
-}
-
-void ResourceManager::DestroyInstance()
-{
-	if (s_Instance)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
 }
 
 Model* ResourceManager::GetModelById(int id) const

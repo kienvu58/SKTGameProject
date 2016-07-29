@@ -1,6 +1,5 @@
 #include "EntityStatic.h"
-#include "../GraphicsEngine/ResourceManager.h"
-#include "../GraphicsEngine/FrameManager.h"
+#include "SingletonClasses.h"
 #include "../GraphicsEngine/Globals.h"
 
 
@@ -15,6 +14,21 @@ void EntityStatic::Render()
 
 void EntityStatic::Update()
 {
+}
+
+bool EntityStatic::HandleMessage(const Telegram& telegram)
+{
+	return false;
+}
+
+EntityType EntityStatic::GetType()
+{
+	return ENTITY_STATIC;
+}
+
+Entity* EntityStatic::Clone()
+{
+	return nullptr;
 }
 
 void EntityStatic::InitSprite(int modelId, int frameId, int shaderId)

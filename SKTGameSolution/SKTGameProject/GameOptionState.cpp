@@ -1,6 +1,6 @@
 #include "GameOptionState.h"
 #include "GameWelcomeState.h"
-#include "MainMenuState.h"
+#include "SingletonClasses.h"
 
 
 GameOptionState::GameOptionState()
@@ -18,7 +18,7 @@ void GameOptionState::Execute(Game* game)
 	if (InputMgr->GetLastMousePosition().x >= 430.0f && InputMgr->GetLastMousePosition().x <= 500.0f
 		&& InputMgr->GetLastMousePosition().y >= 290.0f && InputMgr->GetLastMousePosition().y <= 340.0f)
 	{
-		game->GetFSM()->ChangeState(MainMenuState ::GetInstance());
+		game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
 	}
 }
 
@@ -31,17 +31,6 @@ void GameOptionState::Render(Game* game)
 	m_Background->Render();
 }
 
-GameOptionState* GameOptionState::GetInstance()
-{
-	static GameOptionState instance;
-	return &instance;
-}
-
-void GameOptionState::Clear()
-{
-	delete m_Background;
-}
-
 void GameOptionState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
@@ -50,4 +39,5 @@ void GameOptionState::Init(const char* filePath)
 
 GameOptionState::~GameOptionState()
 {
+	delete m_Background;
 }

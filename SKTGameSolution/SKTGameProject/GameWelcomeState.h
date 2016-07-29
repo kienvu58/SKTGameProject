@@ -15,9 +15,6 @@ public:
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
 	void Init(const char* filePath);
-
-	static GameWelcomeState* GetInstance();
-	void Clear();
 private:
 	EntityStatic *m_Background;
 };

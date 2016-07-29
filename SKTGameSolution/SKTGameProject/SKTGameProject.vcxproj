@@ -115,20 +115,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="CrudeTimer.cpp" />
     <ClCompile Include="EntityMinion.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityLiving.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
     <ClCompile Include="EntityStatic.cpp" />
+    <ClCompile Include="FactoryEntity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOptionState.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameWelcomeState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="MinionOwnedStates.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerOwnedStates.cpp" />
+    <ClCompile Include="SteeringBehavior.cpp" />
+    <ClCompile Include="Telegram.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicsEngine\GraphicsEngine.vcxproj">
@@ -143,19 +149,29 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ContactListener.h" />
+    <ClInclude Include="CrudeTimer.h" />
     <ClInclude Include="EntityMinion.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityLiving.h" />
     <ClInclude Include="EntityPlayer.h" />
     <ClInclude Include="EntityStatic.h" />
+    <ClInclude Include="EntityTypes.h" />
+    <ClInclude Include="FactoryEntity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOptionState.h" />
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameWelcomeState.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="MessageDispatcher.h" />
+    <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="MinionOwnedStates.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerOwnedStates.h" />
+    <ClInclude Include="Pool.h" />
+    <ClInclude Include="SingletonClasses.h" />
+    <ClInclude Include="SteeringBehavior.h" />
+    <ClInclude Include="Telegram.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json" />

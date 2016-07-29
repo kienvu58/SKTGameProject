@@ -1,5 +1,45 @@
 #include "PlayerOwnedStates.h"
 #include "../GraphicsEngine/InputManager.h"
+#include "SingletonClasses.h"
+
+
+/**
+*	PlayerGlobalState
+*/
+
+
+PlayerGlobalState::~PlayerGlobalState()
+{
+}
+
+void PlayerGlobalState::Enter(EntityPlayer* entity)
+{
+}
+
+void PlayerGlobalState::Execute(EntityPlayer* entity)
+{
+	bool keyA = InputMgr->IsPressed(KEY_A);
+	bool keyD = InputMgr->IsPressed(KEY_D);
+	bool keyW = InputMgr->IsPressed(KEY_W);
+	bool keyS = InputMgr->IsPressed(KEY_S);
+
+	b2Vec2 direction(keyD - keyA, keyW - keyS);
+	entity->GetBody()->SetLinearVelocity(entity->GetMovementSpeed() * direction);
+
+}
+
+void PlayerGlobalState::Exit(EntityPlayer* entity)
+{
+}
+
+void PlayerGlobalState::Render(EntityPlayer* entity)
+{
+}
+
+PlayerGlobalState::PlayerGlobalState()
+{
+}
+
 
 /**
 *	PlayerStandingState
@@ -19,11 +59,13 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 	b2Vec2 velocity = entity->GetBody()->GetLinearVelocity();
 	if (velocity.Length() > 0)
 	{
-		entity->GetFSM()->ChangeState(PlayerMovingState::GetInstance());
+		// change to PlayerMovingState
+		entity->GetFSM()->ChangeState(PS_Moving::GetInstance());
 	}
 	if (InputMgr->IsPressed(KEY_J))
 	{
-		entity->GetFSM()->ChangeState(PlayerFiringState::GetInstance());
+		// change to PlayerFiringState
+		entity->GetFSM()->ChangeState(PS_Firing::GetInstance());
 	}
 
 
@@ -37,12 +79,6 @@ void PlayerStandingState::Exit(EntityPlayer* entity)
 
 void PlayerStandingState::Render(EntityPlayer* entity)
 {
-}
-
-PlayerStandingState* PlayerStandingState::GetInstance()
-{
-	static PlayerStandingState instance;
-	return &instance;
 }
 
 PlayerStandingState::PlayerStandingState()
@@ -71,7 +107,8 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 	b2Vec2 velocity = entity->GetBody()->GetLinearVelocity();
 	if (velocity.Length() == 0 || InputMgr->IsPressed(KEY_J))
 	{
-		entity->GetFSM()->ChangeState(PlayerStandingState::GetInstance());
+		// change to PlayerStandingState
+		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
 
 
@@ -111,12 +148,6 @@ void PlayerMovingState::Render(EntityPlayer* entity)
 {
 }
 
-PlayerMovingState* PlayerMovingState::GetInstance()
-{
-	static PlayerMovingState instance;
-	return &instance;
-}
-
 
 /**
 *	PlayerFiringState
@@ -133,10 +164,11 @@ void PlayerFiringState::Enter(EntityPlayer* entity)
 
 void PlayerFiringState::Execute(EntityPlayer* entity)
 {
-	Animation* firingAnimation = entity->GetAnimation(FIRING);
+	Animation* firingAnimation = entity->GetAnimation(FIRING_SPECIAL);
 	if (!InputMgr->IsPressed(KEY_J) && firingAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{
-		entity->GetFSM()->ChangeState(PlayerStandingState::GetInstance());
+		// change to PlayerStandingState
+		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
 
 	entity->UpdateAnimationToSprite(firingAnimation);
@@ -149,12 +181,6 @@ void PlayerFiringState::Exit(EntityPlayer* entity)
 
 void PlayerFiringState::Render(EntityPlayer* entity)
 {
-}
-
-PlayerFiringState* PlayerFiringState::GetInstance()
-{
-	static PlayerFiringState instance;
-	return &instance;
 }
 
 PlayerFiringState::PlayerFiringState()

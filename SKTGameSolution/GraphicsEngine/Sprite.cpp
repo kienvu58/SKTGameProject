@@ -5,11 +5,12 @@
 #include "Globals.h"
 #include "SpriteSheet.h"
 #include "Frame.h"
-#include "ResourceManager.h"
+#include "../SKTGameProject/SingletonClasses.h"
 
-Sprite::Sprite(): m_Index(0) {
+Sprite::Sprite(): m_Index(0)
+{
 	m_matMVP.SetOrthographic(-static_cast<float>(Globals::screenWidth) / 2, static_cast<float>(Globals::screenWidth / 2),
-	                         static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40); 
+	                         static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40);
 }
 
 Sprite::~Sprite()
@@ -70,7 +71,7 @@ void Sprite::SetPosition(Vector2 position)
 	Matrix model, projection;
 	model.SetTranslation(position.x, position.y, 0);
 	projection.SetOrthographic(-static_cast<float>(Globals::screenWidth) / 2, static_cast<float>(Globals::screenWidth / 2),
-		static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40);
+	                           static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40);
 	m_matMVP = model * projection;
 }
 
@@ -79,22 +80,3 @@ void Sprite::SetIndex(int index)
 	m_Index = index;
 }
 
-
-//void Sprite::InitSprite(float spriteX, float spriteY, float spriteW, float spriteH, float textureW, float textureH, Vector2 origin)
-//{
-//	Vertex* verticesData = new Vertex[4];
-//	verticesData[0].pos = Vector3(-(float)spriteW / 2, -(float)spriteH / 2, 0.0f);
-//	verticesData[1].pos = Vector3((float)spriteW / 2, -(float)spriteH / 2, 0.0f);
-//	verticesData[2].pos = Vector3(-(float)spriteW / 2, (float)spriteH / 2, 0.0f);
-//	verticesData[3].pos = Vector3((float)spriteW / 2, (float)spriteH / 2, 0.0f);
-//	
-//	verticesData[0].uv = Vector2((float)spriteX / textureW, (float)(textureH - spriteY - spriteH) / textureH);
-//	verticesData[1].uv = Vector2((float)(spriteX + spriteW) / textureW, (float)(textureH - spriteY - spriteH) / textureH);
-//	verticesData[2].uv = Vector2((float)spriteX / textureW, (float)(textureH - spriteY) / textureH);
-//	verticesData[3].uv = Vector2((float)(spriteX + spriteW) / textureW, (float)(textureH - spriteY) / textureH);
-//
-//	m_pModel = new Model();
-//	m_pModel->Init(verticesData, 4);
-//
-//	ResourceMgr->InsertModel(m_pModel);
-//}

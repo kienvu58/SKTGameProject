@@ -24,9 +24,14 @@ public:
 
 	void Render() override;
 	void Update() override;
+	EntityType GetType() override;
+	bool HandleMessage(const Telegram& telegram) override;
 
 	//Get FSM
 	StateMachine<EntityPlayer>* GetFSM() const;
+
+	//clone
+	EntityLiving* Clone() override;
 private:
 	//player attributes
 	float m_fMaxKi;

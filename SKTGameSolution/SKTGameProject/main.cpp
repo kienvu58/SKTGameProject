@@ -1,33 +1,41 @@
-#include "../Utilities/utilities.h"
-#include <Box2D/Box2d.h>
-#include <iostream>
 #include <conio.h>
-#include "../GraphicsEngine/Globals.h"
-#include "../GraphicsEngine/ResourceManager.h"
-#include "../GraphicsEngine/SceneManager.h"
-#include "../GraphicsEngine/InputManager.h"
-#include "Game.h"
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
-#include "../GraphicsEngine/FrameManager.h"
-#include "../GraphicsEngine/AnimationManager.h"
-#include "GamePlayState.h"
-#include "../GraphicsEngine/TextManager.h"
-#include "PhysicsManager.h"
+#include "Game.h"
+#include "../Utilities/utilities.h"
+#include "../GraphicsEngine/Globals.h"
+#include "SingletonClasses.h"
 
 float Globals::deltaTime = 0;
 
 int Init(ESContext* esContext)
 {
+	// Create instance for each manager class
+	InputManagerSingleton::CreateInstance();
+	TextManagerSingleton::CreateInstance();
+	AnimationManagerSingleton::CreateInstance();
+	FrameManagerSingleton::CreateInstance();
+	ResourceManagerSingleton::CreateInstance();
+	PhysicsManagerSingleton::CreateInstance();
+
+	// Initialize data for each manager
 	TextMgr->Init("../Resources/Fonts/arial.ttf");
 	ResourceMgr->Init("../Resources/Data/RM.json");
 	FrameMgr->Init("../Resources/Data/FM.json");
 	AnimationMgr->Init("../Resources/Data/AM.json");
 	PhysicsMgr->Init();
-	//SceneMgr->Init("../Resources/Data/SM.txt");
-	Game::GetInstance()->Init();
+
+	// Init game
+	Singleton<Game>::CreateInstance();
+
+	Singleton<Game>::GetInstance()->CreateStateInstances();
+	Singleton<Game>::GetInstance()->GetFSM()->SetCurrentState(GS_Welcome::GetInstance());
+	Singleton<Game>::GetInstance()->Init();
+
+	// Set OpenGl blending option
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	return 0;
 }
 
@@ -35,8 +43,7 @@ void Draw(ESContext* esContext)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-	//	SceneMgr->Draw();
-	Game::GetInstance()->Render();
+	Singleton<Game>::GetInstance()->Render();
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 
@@ -45,9 +52,7 @@ void Update(ESContext* esContext, float deltaTime)
 	if (deltaTime)
 	{
 		Globals::deltaTime = deltaTime;
-
-		//		SceneMgr->Update(deltaTime);
-		Game::GetInstance()->Update();
+		Singleton<Game>::GetInstance()->Update();
 	}
 }
 
@@ -92,13 +97,15 @@ void MouseDown(ESContext* esContext, float x, float y)
 
 void CleanUp()
 {
-	TextManager::DestroyInstance();
-	InputManager::DestroyInstance();
-	ResourceManager::DestroyInstance();
-	AnimationManager::DestroyInstance();
-	FrameManager::DestroyInstance();
-	Game::DestroyInstance();
-	PhysicsManager::DestroyInstance();
+	TextManagerSingleton::DestroyInstance();
+	InputManagerSingleton::DestroyInstance();
+	ResourceManagerSingleton::DestroyInstance();
+	AnimationManagerSingleton::DestroyInstance();
+	FrameManagerSingleton::DestroyInstance();
+	PhysicsManagerSingleton::DestroyInstance();
+
+	Singleton<Game>::GetInstance()->DestroyStateInstances();
+	Singleton<Game>::DestroyInstance();
 }
 
 int main(int argc, char* argv[])

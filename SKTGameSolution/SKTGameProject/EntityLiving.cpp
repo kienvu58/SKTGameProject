@@ -1,20 +1,19 @@
 #include "EntityLiving.h"
-#include "../GraphicsEngine/ResourceManager.h"
 #include "PhysicsManager.h"
 #include <Box2D/Dynamics/b2Fixture.h>
 #include <ostream>
-#include <iostream>
 #include "../GraphicsEngine/Globals.h"
+#include "SingletonClasses.h"
 
 
-EntityLiving::EntityLiving(): m_fCurrentHealth(0),
-                              m_fMaxHealth(0),
+EntityLiving::EntityLiving(): m_fCurrentHealth(50),
+                              m_fMaxHealth(50),
                               m_iCurrentFrameIndex(0),
                               m_iLastFrameIndex(0),
                               m_fCurrentDelay(0),
                               m_iFrameCount(0),
                               m_pBody(nullptr),
-                              m_fMaxSpeed(0),
+                              m_fMaxSpeed(4),
                               m_fMovementSpeed(3)
 {
 }
@@ -33,11 +32,26 @@ void EntityLiving::Update()
 	m_Sprite.SetPosition(position);
 }
 
+EntityType EntityLiving::GetType()
+{
+	return ENTITY_LIVING;
+}
+
+bool EntityLiving::HandleMessage(const Telegram& telegram)
+{
+	return false;
+}
+
 void EntityLiving::InitSprite(int modelId, int spriteSheetId, int shadersId)
 {
 	m_Sprite.SetModel(ResourceMgr->GetModelById(modelId));
 	m_Sprite.SetTexture(ResourceMgr->GetSpriteSheetById(spriteSheetId));
 	m_Sprite.SetShaders(ResourceMgr->GetShadersById(shadersId));
+}
+
+void EntityLiving::SetSprite(Sprite sprite)
+{
+	this->m_Sprite = sprite;
 }
 
 void EntityLiving::SetAnimations(std::vector<Animation*> animations)
@@ -94,15 +108,33 @@ void EntityLiving::SetSpriteData(int index, Vector2 position)
 	m_Sprite.SetPosition(position);
 }
 
-void EntityLiving::InitBody(b2BodyDef& bodyDef, b2FixtureDef& fixtureDef)
+
+void EntityLiving::InitBody(b2BodyDef& bodyDef, b2FixtureDef& fixtureDef, b2Vec2& velocity)
 {
 	m_pBody = PhysicsMgr->GetWorld()->CreateBody(&bodyDef);
 	m_pBody->CreateFixture(&fixtureDef);
+	m_pBody->SetLinearVelocity(velocity);
+	m_pBody->SetUserData(this);
 }
 
 b2Body* EntityLiving::GetBody() const
 {
 	return m_pBody;
+}
+
+float EntityLiving::GetMaxSpeed() const
+{
+	return m_fMaxSpeed;
+}
+
+void EntityLiving::SetBody(b2Body* body)
+{
+
+}
+
+float EntityLiving::GetMovementSpeed() const
+{
+	return m_fMovementSpeed;
 }
 
 void EntityLiving::Reset()

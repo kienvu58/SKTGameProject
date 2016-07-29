@@ -5,8 +5,6 @@
 #include <Box2D/Collision/Shapes/b2EdgeShape.h>
 #include <Box2D/Dynamics/b2Body.h>
 
-PhysicsManager* PhysicsManager::s_Instance = nullptr;
-
 PhysicsManager::PhysicsManager()
 {
 }
@@ -14,24 +12,7 @@ PhysicsManager::PhysicsManager()
 PhysicsManager::~PhysicsManager()
 {
 	delete m_World;
-}
-
-PhysicsManager* PhysicsManager::GetInstance()
-{
-	if (!s_Instance)
-	{
-		s_Instance = new PhysicsManager();
-	}
-	return s_Instance;
-}
-
-void PhysicsManager::DestroyInstance()
-{
-	if (s_Instance)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
+	delete m_pContactListener;
 }
 
 void PhysicsManager::Init()
@@ -66,6 +47,10 @@ void PhysicsManager::Init()
 	shape.Set(b2Vec2(MetersFromPixels(-Globals::screenWidth) / 2, MetersFromPixels(Globals::screenHeight) / 2),
 		b2Vec2(MetersFromPixels(Globals::screenWidth) / 2, MetersFromPixels(Globals::screenHeight) / 2));
 	plainBody->CreateFixture(&shape, 1.0f);
+
+	//Init listener
+	m_pContactListener = new ContactListener();
+	m_World->SetContactListener(m_pContactListener);
 }
 
 b2World* PhysicsManager::GetWorld() const

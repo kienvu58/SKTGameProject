@@ -1,6 +1,5 @@
 #include "GameWelcomeState.h"
-#include "MainMenuState.h"
-
+#include "SingletonClasses.h"
 
 GameWelcomeState::GameWelcomeState()
 {
@@ -8,35 +7,22 @@ GameWelcomeState::GameWelcomeState()
 
 void GameWelcomeState::Enter(Game* game)
 {
-
 }
 
 void GameWelcomeState::Execute(Game* game)
 {
 	m_Background->Update();
 	Sleep(1000);
-	game->GetFSM()->ChangeState(MainMenuState::GetInstance());
+	game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
 }
 
 void GameWelcomeState::Exit(Game* game)
 {
-
 }
 
 void GameWelcomeState::Render(Game* game)
 {
 	m_Background->Render();
-}
-
-GameWelcomeState* GameWelcomeState::GetInstance()
-{
-	static GameWelcomeState instance;
-	return &instance;
-}
-
-void GameWelcomeState::Clear()
-{
-	delete m_Background;
 }
 
 void GameWelcomeState::Init(const char* filePath)
@@ -47,4 +33,5 @@ void GameWelcomeState::Init(const char* filePath)
 
 GameWelcomeState::~GameWelcomeState()
 {
+	delete m_Background;
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include "SpriteSheet.h"
 
 class Frame
 {

@@ -7,11 +7,17 @@ class EntityStatic :
 {
 public:
 	EntityStatic();
+	~EntityStatic();
+
 	void Render() override;
 	void Update() override;
+	bool HandleMessage(const Telegram& telegram) override;
+	EntityType GetType() override;
+	Entity* Clone();
+
 	void InitSprite(int modelId, int frameId, int shaderId);
 	void InitPosition(int x, int y);
-	~EntityStatic();
+
 
 private:
 	Sprite m_Sprite;
