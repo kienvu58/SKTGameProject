@@ -14,6 +14,7 @@ PhysicsManager::PhysicsManager()
 PhysicsManager::~PhysicsManager()
 {
 	delete m_World;
+	delete m_pContactListener;
 }
 
 PhysicsManager* PhysicsManager::GetInstance()
@@ -66,6 +67,10 @@ void PhysicsManager::Init()
 	shape.Set(b2Vec2(MetersFromPixels(-Globals::screenWidth) / 2, MetersFromPixels(Globals::screenHeight) / 2),
 		b2Vec2(MetersFromPixels(Globals::screenWidth) / 2, MetersFromPixels(Globals::screenHeight) / 2));
 	plainBody->CreateFixture(&shape, 1.0f);
+
+	//Init listener
+	m_pContactListener = new ContactListener();
+	m_World->SetContactListener(m_pContactListener);
 }
 
 b2World* PhysicsManager::GetWorld() const

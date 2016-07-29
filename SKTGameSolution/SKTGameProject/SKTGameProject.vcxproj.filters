@@ -41,6 +41,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SteeringBehavior.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -80,6 +81,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SteeringBehavior.h" />
+    <ClInclude Include="ContactListener.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json">

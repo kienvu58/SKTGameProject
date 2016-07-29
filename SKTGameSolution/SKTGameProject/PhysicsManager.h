@@ -1,5 +1,6 @@
 #pragma once
 #include <Box2D/Dynamics/b2World.h>
+#include "ContactListener.h"
 
 class PhysicsManager
 {
@@ -14,7 +15,7 @@ private:
 	PhysicsManager();
 	static PhysicsManager* s_Instance;
 	b2World* m_World;
-	float m_fDeltaTime;
+	ContactListener* m_pContactListener;
 };
 
 #define PhysicsMgr PhysicsManager::GetInstance()

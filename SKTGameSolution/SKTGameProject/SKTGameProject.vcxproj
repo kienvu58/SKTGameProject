@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="EntityMinion.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityLiving.cpp" />
@@ -143,6 +144,7 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ContactListener.h" />
     <ClInclude Include="EntityMinion.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityLiving.h" />
