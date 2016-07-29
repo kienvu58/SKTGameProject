@@ -9,7 +9,7 @@ public:
 	SteeringBehavior(EntityMinion* entity) :
 		m_pOwner(entity),
 		m_iFlags(0),
-		m_fWanderJitter(5),
+		m_fWanderJitter(50),
 		m_fWanderRadius(10),
 		m_fWanderDistance(3)
 	{};

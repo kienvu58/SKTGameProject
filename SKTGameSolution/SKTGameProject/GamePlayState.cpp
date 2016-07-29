@@ -4,6 +4,7 @@
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
 #include "SingletonClasses.h"
+#include <ctime>
 
 GamePlayState::GamePlayState()
 {
@@ -15,6 +16,7 @@ void GamePlayState::Enter(Game* game)
 
 void GamePlayState::Execute(Game* game)
 {
+	srand(time(nullptr));
 	PhysicsMgr->Update();
 	m_Goku->Update();
 	m_pTestMinion->Update();

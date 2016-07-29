@@ -22,7 +22,6 @@ b2Vec2 SteeringBehavior::Seek(b2Vec2 TargetPos)
 
 b2Vec2 SteeringBehavior::Wander()
 {
-	srand(time(nullptr) * 1000);
 	if (m_pOwner->GetBody()->GetLinearVelocity().Length() > 0)
 	{
 		int r1 = rand();

@@ -29,7 +29,7 @@ int Init(ESContext* esContext)
 	Singleton<Game>::CreateInstance();
 
 	Singleton<Game>::GetInstance()->CreateStateInstances();
-	Singleton<Game>::GetInstance()->GetFSM()->SetCurrentState(GS_Welcome::GetInstance());
+	Singleton<Game>::GetInstance()->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
 	Singleton<Game>::GetInstance()->Init();
 
 	// Set OpenGl blending option
