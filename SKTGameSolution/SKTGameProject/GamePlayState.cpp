@@ -21,7 +21,7 @@ void GamePlayState::Execute(Game* game)
 	PhysicsMgr->Update();
 	m_Goku->Update();
 	m_pTestMinion->Update();
-
+	m_pCloneMinion->Update();
 	//update
 	for (int i = 0; i<m_vCurrentEntities.size(); i++)
 	{
@@ -40,7 +40,7 @@ void GamePlayState::Render(Game* game)
 	//m_pTestMinion->Render();
 
 	//generate minions by the number of minions in the screen.
-	int currentNumMinions = 10;
+	int currentNumMinions = 0;
 	if (m_vCurrentEntities.size() < currentNumMinions)
 	{
 		for (int i=0; i<currentNumMinions - m_vCurrentEntities.size();i++)
@@ -58,6 +58,8 @@ void GamePlayState::Render(Game* game)
 		it->Render();
 	}
 
+	m_pTestMinion->Render();
+	m_pCloneMinion->Render();
 }
 
 GamePlayState* GamePlayState::GetInstance()
@@ -70,6 +72,7 @@ void GamePlayState::Clear()
 {
 	delete m_Goku;
 	delete m_pTestMinion;
+	delete m_pCloneMinion;
 	delete m_pMinionPool;
 }
 
@@ -109,10 +112,12 @@ void GamePlayState::Init(const char* filePath)
 	m_pTestMinion->SetSpriteData(38, Vector2(10, 0));
 	m_pTestMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 
+	m_pCloneMinion = m_pTestMinion->Clone();
+
 	//Init for pools
 	m_pMinionPool = new Pool<EntityMinion>();
 
-	int nMaxMinions = 10;
+	int nMaxMinions = 0;
 	for (int i=0; i<nMaxMinions; i++)
 	{
 		EntityMinion* minion = new EntityMinion();

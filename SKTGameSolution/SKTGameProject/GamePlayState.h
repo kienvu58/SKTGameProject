@@ -21,6 +21,7 @@ private:
 	GamePlayState();
 	EntityPlayer* m_Goku;
 	EntityMinion* m_pTestMinion;
+	Entity* m_pCloneMinion;
 
 	//pools
 	Pool<EntityMinion>* m_pMinionPool;

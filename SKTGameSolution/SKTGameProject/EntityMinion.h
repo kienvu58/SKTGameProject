@@ -22,9 +22,13 @@ public:
 
 	float GetMaxForce();
 
+	//clone
+	Entity* Clone() override;
 private:
 	//State info
 	StateMachine<EntityMinion>* m_pStateMachine;
+
+	//behavior
 	SteeringBehavior* m_pSteeringBehavior;
 
 	//physics functions

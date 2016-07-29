@@ -46,3 +46,8 @@ StateMachine<EntityPlayer>* EntityPlayer::GetFSM() const
 {
 	return m_pStateMachine;
 }
+
+EntityLiving* EntityPlayer::Clone()
+{
+	return nullptr;
+}

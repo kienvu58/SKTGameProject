@@ -12,5 +12,7 @@ public:
 	virtual bool HandleMessage(const Telegram& telegram) = 0;
 
 	virtual EntityType GetType();
+
+	virtual Entity* Clone() = 0;
 };
 

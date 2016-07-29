@@ -7,8 +7,8 @@
 #include "../GraphicsEngine/Globals.h"
 
 
-EntityLiving::EntityLiving(): m_fCurrentHealth(0),
-                              m_fMaxHealth(0),
+EntityLiving::EntityLiving(): m_fCurrentHealth(50),
+                              m_fMaxHealth(50),
                               m_iCurrentFrameIndex(0),
                               m_iLastFrameIndex(0),
                               m_fCurrentDelay(0),
@@ -48,6 +48,11 @@ void EntityLiving::InitSprite(int modelId, int spriteSheetId, int shadersId)
 	m_Sprite.SetModel(ResourceMgr->GetModelById(modelId));
 	m_Sprite.SetTexture(ResourceMgr->GetSpriteSheetById(spriteSheetId));
 	m_Sprite.SetShaders(ResourceMgr->GetShadersById(shadersId));
+}
+
+void EntityLiving::SetSprite(Sprite sprite)
+{
+	this->m_Sprite = sprite;
 }
 
 void EntityLiving::SetAnimations(std::vector<Animation*> animations)
@@ -121,6 +126,11 @@ b2Body* EntityLiving::GetBody() const
 float EntityLiving::GetMaxSpeed() const
 {
 	return m_fMaxSpeed;
+}
+
+void EntityLiving::SetBody(b2Body* body)
+{
+
 }
 
 float EntityLiving::GetMovementSpeed() const

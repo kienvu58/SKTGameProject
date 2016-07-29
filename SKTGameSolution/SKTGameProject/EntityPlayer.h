@@ -29,6 +29,9 @@ public:
 
 	//Get FSM
 	StateMachine<EntityPlayer>* GetFSM() const;
+
+	//clone
+	EntityLiving* Clone() override;
 private:
 	//player attributes
 	float m_fMaxKi;
