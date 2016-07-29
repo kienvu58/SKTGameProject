@@ -71,12 +71,6 @@ void MessageDispatcher::DispatchDelayedMessages()
 }
 
 
-MessageDispatcher* MessageDispatcher::GetInstance()
-{
-	static MessageDispatcher instance;
-	return &instance;
-}
-
 MessageDispatcher::~MessageDispatcher()
 {
 }

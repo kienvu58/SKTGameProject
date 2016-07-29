@@ -1,5 +1,5 @@
 #include "EntityStatic.h"
-#include "../GraphicsEngine/ResourceManager.h"
+#include "SingletonClasses.h"
 
 
 EntityStatic::EntityStatic()

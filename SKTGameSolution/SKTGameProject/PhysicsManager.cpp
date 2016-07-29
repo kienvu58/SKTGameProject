@@ -5,8 +5,6 @@
 #include <Box2D/Collision/Shapes/b2EdgeShape.h>
 #include <Box2D/Dynamics/b2Body.h>
 
-PhysicsManager* PhysicsManager::s_Instance = nullptr;
-
 PhysicsManager::PhysicsManager()
 {
 }
@@ -15,24 +13,6 @@ PhysicsManager::~PhysicsManager()
 {
 	delete m_World;
 	delete m_pContactListener;
-}
-
-PhysicsManager* PhysicsManager::GetInstance()
-{
-	if (!s_Instance)
-	{
-		s_Instance = new PhysicsManager();
-	}
-	return s_Instance;
-}
-
-void PhysicsManager::DestroyInstance()
-{
-	if (s_Instance)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
 }
 
 void PhysicsManager::Init()

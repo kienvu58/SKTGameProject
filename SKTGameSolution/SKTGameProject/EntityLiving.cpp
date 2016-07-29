@@ -1,10 +1,9 @@
 #include "EntityLiving.h"
-#include "../GraphicsEngine/ResourceManager.h"
 #include "PhysicsManager.h"
 #include <Box2D/Dynamics/b2Fixture.h>
 #include <ostream>
-#include <iostream>
 #include "../GraphicsEngine/Globals.h"
+#include "SingletonClasses.h"
 
 
 EntityLiving::EntityLiving(): m_fCurrentHealth(50),

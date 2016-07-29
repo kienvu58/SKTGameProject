@@ -7,6 +7,8 @@
 class MessageDispatcher
 {
 public:
+	MessageDispatcher();
+	~MessageDispatcher();
 
 	//send a message to another agent. Receiving agent is referenced by ID.
 	void DispatchMessage(float delay,
@@ -19,8 +21,6 @@ public:
 	//the main game loop.
 	void DispatchDelayedMessages();
 
-	static MessageDispatcher* GetInstance();
-	~MessageDispatcher();
 private:
 	//a std::set is used as the container for the delayed messages
 	//because of the benefit of automatic sorting and avoidance
@@ -30,11 +30,6 @@ private:
 	//this method is utilized by DispatchMessage or DispatchDelayedMessages.
 	//This method calls the message handling member function of the receiving
 	//entity, pReceiver, with the newly created telegram
-	void Discharge(Entity* pReceiver, const Telegram& telegram);
-
-	MessageDispatcher();
-	MessageDispatcher(const MessageDispatcher&);
-	MessageDispatcher& operator=(const MessageDispatcher&);
+	static void Discharge(Entity* pReceiver, const Telegram& telegram);
 };
 
-#define Dispatch MessageDispatcher::GetInstance()

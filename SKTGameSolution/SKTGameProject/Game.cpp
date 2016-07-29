@@ -3,29 +3,50 @@
 #include "MainMenuState.h"
 #include "GameWelcomeState.h"
 #include <Windows.h>
+#include "SingletonClasses.h"
 
-Game* Game::s_Instance = nullptr;
-
-Game::Game(): m_pStateMachine(new StateMachine<Game>(this)) 
+Game::Game(): m_pStateMachine(new StateMachine<Game>(this))
 {
-//	m_pStateMachine->SetCurrentState(GameWelcomeState::GetInstance());
-	//m_pStateMachine->ChangeState(GameWelcomeState::GetInstance());
-	m_pStateMachine->SetCurrentState(GamePlayState::GetInstance());
 }
 
 Game::~Game()
 {
 	delete m_pStateMachine;
-	GameWelcomeState::GetInstance()->Clear();
-	MainMenuState::GetInstance()->Clear();
-	GamePlayState::GetInstance()->Clear();
 }
 
 void Game::Init()
 {
-	GameWelcomeState::GetInstance()->Init("");
-	MainMenuState::GetInstance()->Init("");
-	GamePlayState::GetInstance()->Init("");
+	GS_Welcome::GetInstance()->Init("");
+	GS_MainMenu::GetInstance()->Init("");
+	GS_GamePlay::GetInstance()->Init("");
+}
+
+void Game::CreateStateInstances()
+{
+	GS_Welcome::CreateInstance();
+	GS_MainMenu::CreateInstance();
+	GS_GamePlay::CreateInstance();
+
+	PS_Global::CreateInstance();
+	PS_Firing::CreateInstance();
+	PS_Moving::CreateInstance();
+	PS_Standing::CreateInstance();
+
+	MS_Wandering::CreateInstance();
+}
+
+void Game::DestroyStateInstances()
+{
+	GS_Welcome::DestroyInstance();
+	GS_MainMenu::DestroyInstance();
+	GS_GamePlay::DestroyInstance();
+
+	PS_Global::DestroyInstance();
+	PS_Firing::DestroyInstance();
+	PS_Moving::DestroyInstance();
+	PS_Standing::DestroyInstance();
+
+	MS_Wandering::DestroyInstance();
 }
 
 void Game::Update()
@@ -36,24 +57,6 @@ void Game::Update()
 void Game::Render()
 {
 	m_pStateMachine->Render();
-}
-
-Game* Game::GetInstance()
-{
-	if (!s_Instance)
-	{
-		s_Instance = new Game();
-	}
-	return s_Instance;
-}
-
-void Game::DestroyInstance()
-{
-	if (s_Instance)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
 }
 
 StateMachine<Game>* Game::GetFSM() const
