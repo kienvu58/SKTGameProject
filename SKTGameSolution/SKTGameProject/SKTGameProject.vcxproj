@@ -157,6 +157,7 @@
     <ClInclude Include="MinionOwnedStates.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerOwnedStates.h" />
+    <ClInclude Include="Pool.h" />
     <ClInclude Include="SteeringBehavior.h" />
   </ItemGroup>
   <ItemGroup>

@@ -82,6 +82,7 @@
     </ClInclude>
     <ClInclude Include="SteeringBehavior.h" />
     <ClInclude Include="ContactListener.h" />
+    <ClInclude Include="Pool.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json">
