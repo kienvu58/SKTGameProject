@@ -33,6 +33,16 @@ void EntityLiving::Update()
 	m_Sprite.SetPosition(position);
 }
 
+EntityType EntityLiving::GetType()
+{
+	return ENTITY_LIVING;
+}
+
+bool EntityLiving::HandleMessage(const Telegram& telegram)
+{
+	return false;
+}
+
 void EntityLiving::InitSprite(int modelId, int spriteSheetId, int shadersId)
 {
 	m_Sprite.SetModel(ResourceMgr->GetModelById(modelId));
@@ -94,17 +104,13 @@ void EntityLiving::SetSpriteData(int index, Vector2 position)
 	m_Sprite.SetPosition(position);
 }
 
-void EntityLiving::InitBody(b2BodyDef& bodyDef, b2FixtureDef& fixtureDef)
-{
-	m_pBody = PhysicsMgr->GetWorld()->CreateBody(&bodyDef);
-	m_pBody->CreateFixture(&fixtureDef);
-}
 
 void EntityLiving::InitBody(b2BodyDef& bodyDef, b2FixtureDef& fixtureDef, b2Vec2& velocity)
 {
 	m_pBody = PhysicsMgr->GetWorld()->CreateBody(&bodyDef);
 	m_pBody->CreateFixture(&fixtureDef);
 	m_pBody->SetLinearVelocity(velocity);
+	m_pBody->SetUserData(this);
 }
 
 b2Body* EntityLiving::GetBody() const
@@ -115,6 +121,11 @@ b2Body* EntityLiving::GetBody() const
 float EntityLiving::GetMaxSpeed() const
 {
 	return m_fMaxSpeed;
+}
+
+float EntityLiving::GetMovementSpeed() const
+{
+	return m_fMovementSpeed;
 }
 
 void EntityLiving::Reset()

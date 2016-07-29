@@ -1,6 +1,51 @@
 #include "PlayerOwnedStates.h"
 #include "../GraphicsEngine/InputManager.h"
 
+
+/**
+*	PlayerGlobalState
+*/
+
+
+PlayerGlobalState::~PlayerGlobalState()
+{
+}
+
+void PlayerGlobalState::Enter(EntityPlayer* entity)
+{
+}
+
+void PlayerGlobalState::Execute(EntityPlayer* entity)
+{
+	bool keyA = InputMgr->IsPressed(KEY_A);
+	bool keyD = InputMgr->IsPressed(KEY_D);
+	bool keyW = InputMgr->IsPressed(KEY_W);
+	bool keyS = InputMgr->IsPressed(KEY_S);
+
+	b2Vec2 direction(keyD - keyA, keyW - keyS);
+	entity->GetBody()->SetLinearVelocity(entity->GetMovementSpeed() * direction);
+
+}
+
+void PlayerGlobalState::Exit(EntityPlayer* entity)
+{
+}
+
+void PlayerGlobalState::Render(EntityPlayer* entity)
+{
+}
+
+PlayerGlobalState* PlayerGlobalState::GetInstance()
+{
+	static PlayerGlobalState instance;
+	return &instance;
+}
+
+PlayerGlobalState::PlayerGlobalState()
+{
+}
+
+
 /**
 *	PlayerStandingState
 */
@@ -133,7 +178,7 @@ void PlayerFiringState::Enter(EntityPlayer* entity)
 
 void PlayerFiringState::Execute(EntityPlayer* entity)
 {
-	Animation* firingAnimation = entity->GetAnimation(FIRING);
+	Animation* firingAnimation = entity->GetAnimation(FIRING_SPECIAL);
 	if (!InputMgr->IsPressed(KEY_J) && firingAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{
 		entity->GetFSM()->ChangeState(PlayerStandingState::GetInstance());

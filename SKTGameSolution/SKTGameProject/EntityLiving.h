@@ -12,6 +12,8 @@ public:
 
 	void Render() override = 0;
 	void Update() override;
+	EntityType GetType() override;
+	bool HandleMessage(const Telegram& telegram) override;
 
 	//Init graphic info
 	void InitSprite(int modelId, int spriteSheetId, int shadersId);
@@ -27,10 +29,11 @@ public:
 	void SetSpriteData(int index, Vector2 position);
 
 	//Physics functions
-	void InitBody(b2BodyDef &bodyDef, b2FixtureDef &fixtureDef);
-	void InitBody(b2BodyDef &bodyDef, b2FixtureDef &fixtureDef, b2Vec2 &velocity);
+	void InitBody(b2BodyDef &bodyDef, b2FixtureDef &fixtureDef, b2Vec2 &velocity = b2Vec2());
 	b2Body* GetBody() const;
 	float GetMaxSpeed() const;
+
+	float GetMovementSpeed() const;
 
 	//Material
 	void Reset();

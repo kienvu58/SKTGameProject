@@ -1,0 +1,10 @@
+#pragma once
+
+enum EntityType
+{
+	ENTITY,
+	ENTITY_LIVING,
+	ENTITY_PLAYER,
+	ENTITY_MINION,
+	ENTITY_STATIC
+};

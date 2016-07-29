@@ -2,6 +2,23 @@
 #include <Common/FSM/State.h>
 #include "EntityPlayer.h"
 
+class PlayerGlobalState :
+	public State<EntityPlayer>
+{
+public:
+	~PlayerGlobalState();
+
+	void Enter(EntityPlayer* entity) override;
+	void Execute(EntityPlayer* entity) override;
+	void Exit(EntityPlayer* entity) override;
+	void Render(EntityPlayer* entity) override;
+
+	static PlayerGlobalState* GetInstance();
+private:
+	PlayerGlobalState();
+};
+
+
 class PlayerMovingState :
 	public State<EntityPlayer>
 {
