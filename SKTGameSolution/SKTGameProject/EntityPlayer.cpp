@@ -8,6 +8,7 @@
 
 EntityPlayer::EntityPlayer(): m_fMaxKi(0), m_fCurrentKi(0), m_pStateMachine(new StateMachine<EntityPlayer>(this))
 {
+	m_pStateMachine->SetGlobalState(PlayerGlobalState::GetInstance());
 	m_pStateMachine->SetCurrentState(PlayerStandingState::GetInstance());
 }
 
@@ -26,18 +27,20 @@ void EntityPlayer::Update()
 {
 	EntityLiving::Update();
 
-	bool keyA = InputMgr->IsPressed(KEY_A);
-	bool keyD = InputMgr->IsPressed(KEY_D);
-	bool keyW = InputMgr->IsPressed(KEY_W);
-	bool keyS = InputMgr->IsPressed(KEY_S);
-
-	b2Vec2 direction(keyD - keyA, keyW - keyS);
-	m_pBody->SetLinearVelocity(m_fMovementSpeed * direction);
-
+	
 
 	m_pStateMachine->Update();
 }
 
+EntityType EntityPlayer::GetType()
+{
+	return ENTITY_PLAYER;
+}
+
+bool EntityPlayer::HandleMessage(const Telegram& telegram)
+{
+	return false;
+}
 
 StateMachine<EntityPlayer>* EntityPlayer::GetFSM() const
 {

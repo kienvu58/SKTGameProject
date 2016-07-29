@@ -11,6 +11,8 @@ public:
 
 	void Render() override;
 	void Update() override;
+	EntityType GetType() override;
+	bool HandleMessage(const Telegram& telegram) override;
 
 	//Get FSM
 	StateMachine<EntityMinion>* GetFSM() const;

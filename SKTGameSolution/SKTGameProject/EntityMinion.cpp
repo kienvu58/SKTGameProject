@@ -21,6 +21,16 @@ void EntityMinion::Update()
 	m_pBody->SetLinearVelocity(currentVelocity);
 }
 
+EntityType EntityMinion::GetType()
+{
+	return ENTITY_MINION;
+}
+
+bool EntityMinion::HandleMessage(const Telegram& telegram)
+{
+	return false;
+}
+
 StateMachine<EntityMinion>* EntityMinion::GetFSM() const
 {
 	return m_pStateMachine;
