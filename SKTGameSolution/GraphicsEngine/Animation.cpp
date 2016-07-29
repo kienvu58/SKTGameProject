@@ -1,6 +1,5 @@
 #include "Animation.h"
-#include <iostream>
-#include "FrameManager.h"
+#include "../SKTGameProject/SingletonClasses.h"
 
 
 Animation::Animation(int id): m_iTotalFrames(0), m_Id(id) {

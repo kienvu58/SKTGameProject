@@ -18,12 +18,6 @@ void WanderingState::Render(EntityMinion* minion)
 	
 }
 
-WanderingState* WanderingState::GetInstance()
-{
-	static WanderingState instance;
-	return &instance;
-}
-
 WanderingState::WanderingState()
 {
 }

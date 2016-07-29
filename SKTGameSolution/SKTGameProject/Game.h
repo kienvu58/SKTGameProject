@@ -4,17 +4,17 @@
 class Game
 {
 public:
+	Game();
 	~Game();
 
 	void Init();
+	void CreateStateInstances();
+	void DestroyStateInstances();
 	void Update();
 	void Render();
-	static Game* GetInstance();
-	static void DestroyInstance();
+
 	StateMachine<Game>* GetFSM() const;
 private:
-	Game();
 	StateMachine<Game>* m_pStateMachine;
-	static Game* s_Instance;
 };
 

@@ -165,6 +165,7 @@
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerOwnedStates.h" />
     <ClInclude Include="Pool.h" />
+    <ClInclude Include="SingletonClasses.h" />
     <ClInclude Include="SteeringBehavior.h" />
     <ClInclude Include="Telegram.h" />
   </ItemGroup>

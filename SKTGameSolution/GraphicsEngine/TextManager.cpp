@@ -1,18 +1,6 @@
 #include "TextManager.h"
+#include "Globals.h"
 
-TextManager::TextManager()
-{
-}
-
-TextManager* TextManager::s_Instance = nullptr;
-TextManager* TextManager::GetInstance()
-{
-	if (!s_Instance)
-	{
-		s_Instance = new TextManager();
-	}
-	return s_Instance;
-}
 
 int TextManager::Init(char * fileName)
 {
@@ -113,13 +101,9 @@ void TextManager::RenderString(const char * text, Vector4 color, float size, flo
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void TextManager::DestroyInstance()
+
+TextManager::TextManager()
 {
-	if (s_Instance)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
 }
 
 TextManager::~TextManager()

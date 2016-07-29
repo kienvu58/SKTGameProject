@@ -1,11 +1,9 @@
 #include "GamePlayState.h"
-#include "../GraphicsEngine/ResourceManager.h"
 #include "../GraphicsEngine/AnimationManager.h"
-#include "../GraphicsEngine/FrameManager.h"
 #include "../GraphicsEngine/TextManager.h"
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
-#include "PhysicsManager.h"
+#include "SingletonClasses.h"
 
 GamePlayState::GamePlayState()
 {
@@ -13,7 +11,6 @@ GamePlayState::GamePlayState()
 
 void GamePlayState::Enter(Game* game)
 {
-
 }
 
 void GamePlayState::Execute(Game* game)
@@ -23,7 +20,7 @@ void GamePlayState::Execute(Game* game)
 	m_pTestMinion->Update();
 
 	//update
-	for (int i = 0; i<m_vCurrentEntities.size(); i++)
+	for (int i = 0; i < m_vCurrentEntities.size(); i++)
 	{
 		m_vCurrentEntities[i]->Update();
 	}
@@ -43,9 +40,9 @@ void GamePlayState::Render(Game* game)
 	int currentNumMinions = 10;
 	if (m_vCurrentEntities.size() < currentNumMinions)
 	{
-		for (int i=0; i<currentNumMinions - m_vCurrentEntities.size();i++)
+		for (int i = 0; i < currentNumMinions - m_vCurrentEntities.size(); i++)
 		{
-			EntityMinion *entity;
+			EntityMinion* entity;
 			entity = m_pMinionPool->GetEntity();
 			if (entity)
 				m_vCurrentEntities.push_back(entity);
@@ -57,21 +54,8 @@ void GamePlayState::Render(Game* game)
 	{
 		it->Render();
 	}
-
 }
 
-GamePlayState* GamePlayState::GetInstance()
-{
-	static GamePlayState instance;
-	return &instance;
-}
-
-void GamePlayState::Clear()
-{
-	delete m_Goku;
-	delete m_pTestMinion;
-	delete m_pMinionPool;
-}
 
 void GamePlayState::Init(const char* filePath)
 {
@@ -113,7 +97,7 @@ void GamePlayState::Init(const char* filePath)
 	m_pMinionPool = new Pool<EntityMinion>();
 
 	int nMaxMinions = 10;
-	for (int i=0; i<nMaxMinions; i++)
+	for (int i = 0; i < nMaxMinions; i++)
 	{
 		EntityMinion* minion = new EntityMinion();
 		bodyDef.position = b2Vec2(rand() % 6, 0);
@@ -126,5 +110,7 @@ void GamePlayState::Init(const char* filePath)
 
 GamePlayState::~GamePlayState()
 {
-	
+	delete m_Goku;
+	delete m_pTestMinion;
+	delete m_pMinionPool;
 }

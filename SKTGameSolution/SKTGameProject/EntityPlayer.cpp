@@ -1,15 +1,12 @@
 #include "EntityPlayer.h"
-#include "../GraphicsEngine/ResourceManager.h"
-#include "../GraphicsEngine/AnimationManager.h"
-#include "../GraphicsEngine/InputManager.h"
 #include "GamePlayState.h"
-#include "PlayerOwnedStates.h"
+#include "SingletonClasses.h"
 
 
 EntityPlayer::EntityPlayer(): m_fMaxKi(0), m_fCurrentKi(0), m_pStateMachine(new StateMachine<EntityPlayer>(this))
 {
-	m_pStateMachine->SetGlobalState(PlayerGlobalState::GetInstance());
-	m_pStateMachine->SetCurrentState(PlayerStandingState::GetInstance());
+	m_pStateMachine->SetGlobalState(PS_Global::GetInstance());
+	m_pStateMachine->SetCurrentState(PS_Standing::GetInstance());
 }
 
 
@@ -26,9 +23,6 @@ void EntityPlayer::Render()
 void EntityPlayer::Update()
 {
 	EntityLiving::Update();
-
-	
-
 	m_pStateMachine->Update();
 }
 

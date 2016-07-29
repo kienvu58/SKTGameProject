@@ -5,6 +5,7 @@
 class WanderingState : public State<EntityMinion>
 {
 public:
+	WanderingState();
 	~WanderingState();
 
 	void Enter(EntityMinion* minion) override;
@@ -12,7 +13,4 @@ public:
 	void Exit(EntityMinion* minion) override;
 	void Render(EntityMinion* minion) override;
 
-	static WanderingState* GetInstance();
-private:
-	WanderingState();
 };

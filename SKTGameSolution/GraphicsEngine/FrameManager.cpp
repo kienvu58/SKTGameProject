@@ -5,8 +5,6 @@
 #include "HelperFunctions.h"
 
 
-FrameManager* FrameManager::s_Instance = nullptr;
-
 FrameManager::FrameManager()
 {
 };
@@ -14,24 +12,6 @@ FrameManager::FrameManager()
 FrameManager::~FrameManager()
 {
 	ClearMap<Frame>(m_mapFrames);
-}
-
-FrameManager* FrameManager::GetInstance()
-{
-	if (s_Instance == nullptr)
-	{
-		s_Instance = new FrameManager();
-	}
-	return s_Instance;
-}
-
-void FrameManager::DestroyInstance()
-{
-	if (s_Instance)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
 }
 
 void FrameManager::Init(const char* path)
