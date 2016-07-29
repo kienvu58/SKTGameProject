@@ -16,8 +16,8 @@ public:
 	static void DestroyInstance();
 	void SetKeyEvent(int key, bool isPressed);
 	bool IsPressed(int key) const;
-	void SetLastMousePosition(int x, int y);
-	void SetCurrentMousePosition(int x, int y);
+	void SetLastMousePosition(float x, float y);
+	void SetCurrentMousePosition(float x, float y);
 	Vector2 GetLastMousePosition();
 	Vector2 GetCurrentMousePosition();
 	~InputManager();

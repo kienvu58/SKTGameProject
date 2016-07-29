@@ -24,7 +24,7 @@ int Init(ESContext* esContext)
 	FrameMgr->Init("../Resources/Data/FM.json");
 	AnimationMgr->Init("../Resources/Data/AM.json");
 	PhysicsMgr->Init();
-	//	SceneMgr->Init("../Resources/Data/SM.txt");
+	//SceneMgr->Init("../Resources/Data/SM.txt");
 	Game::GetInstance()->Init();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

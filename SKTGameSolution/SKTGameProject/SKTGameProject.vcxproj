@@ -121,6 +121,7 @@
     <ClCompile Include="EntityPlayer.cpp" />
     <ClCompile Include="EntityStatic.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOptionState.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameWelcomeState.cpp" />
     <ClCompile Include="main.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="EntityPlayer.h" />
     <ClInclude Include="EntityStatic.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOptionState.h" />
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameWelcomeState.h" />
     <ClInclude Include="MainMenuState.h" />

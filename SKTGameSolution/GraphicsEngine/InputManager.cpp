@@ -1,12 +1,6 @@
 #include "InputManager.h"
-#include "Globals.h"
 
 InputManager* InputManager::s_Instance = nullptr;
-
-Vector2 InputManager::GetCurrentMousePosition()
-{
-	return m_v2CurrentMousePos;
-}
 
 InputManager::InputManager(): m_iKeyPressed(0)
 {
@@ -52,12 +46,12 @@ bool InputManager::IsPressed(int key) const
 	return m_iKeyPressed & key;
 }
 
-void InputManager::SetLastMousePosition(int x, int y)
+void InputManager::SetLastMousePosition(float x, float y)
 {
 	m_v2LastMousePos = Vector2(x, y);
 }
 
-void InputManager::SetCurrentMousePosition(int x, int y)
+void InputManager::SetCurrentMousePosition(float x, float y)
 {
 	m_v2CurrentMousePos = Vector2(x, y);
 }
@@ -65,4 +59,9 @@ void InputManager::SetCurrentMousePosition(int x, int y)
 Vector2 InputManager::GetLastMousePosition()
 {
 	return m_v2LastMousePos;
+}
+
+Vector2 InputManager::GetCurrentMousePosition()
+{
+	return m_v2CurrentMousePos;
 }

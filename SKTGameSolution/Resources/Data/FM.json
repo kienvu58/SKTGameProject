@@ -29,6 +29,12 @@
 			{"id": 26, "spriteSheetID": 1, "index": 36, "duration": 1},
 			{"id": 27, "spriteSheetID": 1, "index": 37, "duration": 1},
 			{"id": 28, "spriteSheetID": 1, "index": 38, "duration": 1},
-			{"id": 29, "spriteSheetID": 1, "index": 39, "duration": 1}
+			{"id": 29, "spriteSheetID": 1, "index": 39, "duration": 1},
+			{"id": 30, "spriteSheetID": 2, "index": 0, "duration": 1},
+			{"id": 31, "spriteSheetID": 3, "index": 0, "duration": 1},
+			{"id": 32, "spriteSheetID": 4, "index": 0, "duration": 1},
+			{"id": 33, "spriteSheetID": 4, "index": 1, "duration": 1},
+			{"id": 34, "spriteSheetID": 4, "index": 2, "duration": 1},
+			{"id": 35, "spriteSheetID": 5, "index": 0, "duration": 1}
 		]
 }

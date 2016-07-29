@@ -3,8 +3,8 @@
 		[
 			{
 				"id": 1,
-				"modelW": 800,
-				"modelH": 600,
+				"modelW": 1120,
+				"modelH": 630,
 				"spriteW": 1024,
 				"spriteH": 1024,
 				"textureW": 1024,
@@ -12,12 +12,21 @@
 			},
 			{
 				"id": 2,
-				"modelW": 800,
-				"modelH": 600,
+				"modelW": 1120,
+				"modelH": 630,
 				"spriteW": 1024,
 				"spriteH": 1024,
 				"textureW": 1024,
 				"textureH": 1024
+			},
+			{
+				"id": 3,
+				"modelW": 200,
+				"modelH": 100,
+				"spriteW": 128,
+				"spriteH": 128,
+				"textureW": 512,
+				"textureH": 256
 			}
 		],
 	"spriteSheets":
@@ -30,15 +39,27 @@
 			},
 			{
 				"id": 2,
-				"path": "../Resources/Textures/GameMenuState.tga",
-				"nRows": 2,
-				"nColumns": 2
+				"path": "../Resources/Textures/GameWelcomeState.tga",
+				"nRows": 1,
+				"nColumns": 1
 			},
 			{
 				"id": 3,
+				"path": "../Resources/Textures/GameMenuState.tga",
+				"nRows": 1,
+				"nColumns": 1
+			},
+			{
+				"id": 4,
 				"path": "../Resources/Textures/GameButton.tga",
 				"nRows": 2,
 				"nColumns": 4
+			},
+			{
+				"id": 5,
+				"path": "../Resources/Textures/GameOptionState.tga",
+				"nRows": 1,
+				"nColumns": 1
 			}
 		],
 	"shaders":

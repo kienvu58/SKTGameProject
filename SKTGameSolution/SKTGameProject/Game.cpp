@@ -3,14 +3,13 @@
 #include "MainMenuState.h"
 #include "GameWelcomeState.h"
 #include <Windows.h>
+#include "GameOptionState.h"
 
 Game* Game::s_Instance = nullptr;
 
 Game::Game(): m_pStateMachine(new StateMachine<Game>(this)) 
 {
 	m_pStateMachine->SetCurrentState(GameWelcomeState::GetInstance());
-	//m_pStateMachine->ChangeState(GameWelcomeState::GetInstance());
-//	m_pStateMachine->SetCurrentState(GamePlayState::GetInstance());
 }
 
 Game::~Game()
@@ -23,6 +22,7 @@ void Game::Init()
 	GameWelcomeState::GetInstance()->Init("");
 	MainMenuState::GetInstance()->Init("");
 	GamePlayState::GetInstance()->Init("");
+	GameOptionState::GetInstance()->Init("");
 }
 
 void Game::Update()
@@ -51,6 +51,7 @@ void Game::DestroyInstance()
 		GameWelcomeState::GetInstance()->Clear();
 		MainMenuState::GetInstance()->Clear();
 		GamePlayState::GetInstance()->Clear();
+		GameOptionState::GetInstance()->Clear();
 		delete s_Instance;
 		s_Instance = nullptr;
 	}

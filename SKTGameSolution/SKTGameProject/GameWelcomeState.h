@@ -1,11 +1,7 @@
 #pragma once
 #include <Common/FSM/State.h>
-#include "EntityPlayer.h"
-#include "GamePlayState.h"
-#include "../GraphicsEngine/ResourceManager.h"
-#include <Windows.h>
-#include "MainMenuState.h"
 #include "Game.h"
+#include "EntityStatic.h"
 
 
 class GameWelcomeState : public State<Game>
@@ -23,7 +19,6 @@ public:
 	static GameWelcomeState* GetInstance();
 	void Clear();
 private:
-	
-	EntityPlayer *m_Background;
+	EntityStatic *m_Background;
 };
 
