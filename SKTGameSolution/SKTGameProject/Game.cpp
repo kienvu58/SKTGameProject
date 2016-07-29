@@ -16,6 +16,9 @@ Game::Game(): m_pStateMachine(new StateMachine<Game>(this))
 Game::~Game()
 {
 	delete m_pStateMachine;
+	GameWelcomeState::GetInstance()->Clear();
+	MainMenuState::GetInstance()->Clear();
+	GamePlayState::GetInstance()->Clear();
 }
 
 void Game::Init()
@@ -48,9 +51,6 @@ void Game::DestroyInstance()
 {
 	if (s_Instance)
 	{
-		GameWelcomeState::GetInstance()->Clear();
-		MainMenuState::GetInstance()->Clear();
-		GamePlayState::GetInstance()->Clear();
 		delete s_Instance;
 		s_Instance = nullptr;
 	}

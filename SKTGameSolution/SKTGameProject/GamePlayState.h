@@ -20,8 +20,6 @@ public:
 private:
 	GamePlayState();
 	EntityPlayer* m_Goku;
-	EntityPlayer* m_Background;
-	EntityPlayer* m_pButton;
 	EntityMinion* m_pTestMinion;
 
 	//pools
