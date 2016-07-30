@@ -66,10 +66,18 @@ void Sprite::Render()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Sprite::SetPosition(Vector2 position)
+void Sprite::SetRenderInfo(Vector2 position, bool isReversed)
 {
-	Matrix model, projection;
-	model.SetTranslation(position.x, position.y, 0);
+	Matrix model, projection, translation, rotation;
+	translation.SetTranslation(position.x, position.y, 0);
+
+	rotation.SetIdentity();
+	if (isReversed)
+	{
+		rotation.SetRotationY(Radians(180));
+	}
+
+	model = rotation * translation;
 	projection.SetOrthographic(-static_cast<float>(Globals::screenWidth) / 2, static_cast<float>(Globals::screenWidth / 2),
 	                           static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40);
 	m_matMVP = model * projection;
@@ -79,4 +87,3 @@ void Sprite::SetIndex(int index)
 {
 	m_Index = index;
 }
-

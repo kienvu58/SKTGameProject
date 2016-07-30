@@ -62,6 +62,7 @@ Entity* EntityMinion::Clone()
 	//graphic
 	cloneMinion->SetSprite(this->m_Sprite);
 	cloneMinion->SetAnimations(this->m_vecAnimations);
+	cloneMinion->ReverseSprite(this->m_bIsReversed);
 
 	//physics
 	b2BodyDef bodyDef;

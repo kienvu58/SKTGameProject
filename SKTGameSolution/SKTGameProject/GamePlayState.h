@@ -5,7 +5,7 @@
 #include "EntityMinion.h"
 #include "Pool.h"
 
-class GamePlayState : public State<Game>
+class GamePlayState : public State<Game>, public Entity
 {
 public:
 	GamePlayState();
@@ -15,6 +15,12 @@ public:
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
 	void Init(const char* filePath);
+
+	void Update() override;
+	void Render() override;
+	Entity* Clone() override;
+	EntityType GetType() override;
+	bool HandleMessage(const Telegram& telegram) override;
 
 private:
 	EntityPlayer* m_Goku;

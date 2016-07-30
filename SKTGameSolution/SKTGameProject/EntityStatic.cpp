@@ -42,7 +42,7 @@ void EntityStatic::InitPosition(int x, int y)
 {
 	x = x - Globals::screenWidth / 2;
 	y = -y + Globals::screenHeight / 2;
-	m_Sprite.SetPosition(Vector2(x, y));
+	m_Sprite.SetRenderInfo(Vector2(x, y));
 }
 
 EntityStatic::~EntityStatic()

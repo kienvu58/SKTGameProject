@@ -11,11 +11,6 @@ CrudeTimer::~CrudeTimer()
 {
 }
 
-CrudeTimer* CrudeTimer::GetInstance()
-{
-	static CrudeTimer instance;
-	return &instance;
-}
 
 float CrudeTimer::GetCurrentTime()
 {

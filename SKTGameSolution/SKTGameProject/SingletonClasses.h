@@ -12,6 +12,14 @@
 #include "GameWelcomeState.h"
 #include "MainMenuState.h"
 #include "GameOptionState.h"
+#include "CrudeTimer.h"
+#include "MessageDispatcher.h"
+
+// Clock
+typedef Singleton<CrudeTimer> CrudeTimerSingleton;
+
+// Message Dispatcher
+typedef Singleton<MessageDispatcher> MessageDispatcherSingleton;
 
 // Managers
 typedef Singleton<InputManager> InputManagerSingleton;
@@ -25,6 +33,8 @@ typedef Singleton<PhysicsManager> PhysicsManagerSingleton;
 typedef Singleton<PlayerStandingState> PS_Standing;
 typedef Singleton<PlayerMovingState> PS_Moving;
 typedef Singleton<PlayerFiringState> PS_Firing;
+typedef Singleton<PlayerFiringSpecialState> PS_FiringSpecial;
+typedef Singleton<PlayerFiringUltimateState> PS_FiringUltimate;
 typedef Singleton<PlayerGlobalState> PS_Global;
 
 // Minion States
@@ -42,3 +52,5 @@ typedef Singleton<GameOptionState> GS_Option;
 #define ResourceMgr ResourceManagerSingleton::GetInstance()
 #define TextMgr TextManagerSingleton::GetInstance()
 #define PhysicsMgr PhysicsManagerSingleton::GetInstance()
+#define Clock CrudeTimerSingleton::GetInstance()
+#define Dispatcher MessageDispatcherSingleton::GetInstance()

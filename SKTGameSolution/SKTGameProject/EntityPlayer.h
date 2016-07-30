@@ -32,6 +32,7 @@ public:
 
 	//clone
 	EntityLiving* Clone() override;
+
 private:
 	//player attributes
 	float m_fMaxKi;

@@ -61,6 +61,9 @@
     <ClCompile Include="Telegram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContactListener.h">
@@ -132,12 +135,11 @@
     <ClInclude Include="Telegram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Data\AM.json" />
-    <None Include="..\Resources\Data\RM.json">
-      <Filter>Header Files</Filter>
-    </None>
     <None Include="..\Resources\Data\MainMenuState.json">
       <Filter>Resource Files</Filter>
     </None>
@@ -145,6 +147,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\Resources\Data\FM.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\AM.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\RM.json">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

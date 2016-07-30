@@ -1,16 +1,16 @@
 {
 	"animations":
 		[
-			{"id": 1, "name": "goku_standing", "frameIDs": [1]},
-			{"id": 2, "name": "goku_movingForward", "frameIDs": [2]},
-			{"id": 3, "name": "goku_movingBackward", "frameIDs": [3]},
-			{"id": 4, "name": "goku_takingDamaged", "frameIDs": [4]},
-			{"id": 5, "name": "goku_falling", "frameIDs": [5]},
-			{"id": 6, "name": "goku_dead", "frameIDs": [6]},
-			{"id": 7, "name": "goku_firing", "frameIDs": [7, 8, 9]},
-			{"id": 8, "name": "goku_firingSpecial", "frameIDs": [10, 11, 12, 13]},
-			{"id": 9, "name": "goku_firingUltimate", "frameIDs": [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]},
-			{"id": 10, "name": "celljr_flying", "frameIDs": [28]},
-			{"id": 11, "name": "celljr_punching", "frameIDs": [29]}
+			{"id": 1, "note": "goku_standing", "frameIDs": [1]},
+			{"id": 2, "note": "goku_movingForward", "frameIDs": [2]},
+			{"id": 3, "note": "goku_movingBackward", "frameIDs": [3]},
+			{"id": 4, "note": "goku_takingDamaged", "frameIDs": [4]},
+			{"id": 5, "note": "goku_falling", "frameIDs": [5]},
+			{"id": 6, "note": "goku_dead", "frameIDs": [6]},
+			{"id": 7, "note": "goku_firing", "frameIDs": [7, 8, 9]},
+			{"id": 8, "note": "goku_firingSpecial", "frameIDs": [10, 11, 12, 13]},
+			{"id": 9, "note": "goku_firingUltimate", "frameIDs": [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]},
+			{"id": 10, "note": "celljr_flying", "frameIDs": [28]},
+			{"id": 11, "note": "celljr_punching", "frameIDs": [29]}
 		]
 }

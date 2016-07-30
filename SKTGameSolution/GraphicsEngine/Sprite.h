@@ -9,7 +9,7 @@ public:
 	Sprite();
 	~Sprite();
 	void Render() override;
-	void SetPosition(Vector2 position);
+	void SetRenderInfo(Vector2 position, bool isReversed = false);
 	void SetIndex(int index);
 	void SetFrame(Frame* frame);
 private:

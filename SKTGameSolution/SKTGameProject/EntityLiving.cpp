@@ -1,6 +1,7 @@
 #include "EntityLiving.h"
 #include "PhysicsManager.h"
 #include <Box2D/Dynamics/b2Fixture.h>
+#include <Box2D/Dynamics/b2World.h>
 #include <ostream>
 #include "../GraphicsEngine/Globals.h"
 #include "SingletonClasses.h"
@@ -8,6 +9,7 @@
 
 EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_fMaxHealth(50),
+                              m_bIsReversed(false),
                               m_iCurrentFrameIndex(0),
                               m_iLastFrameIndex(0),
                               m_fCurrentDelay(0),
@@ -29,7 +31,7 @@ void EntityLiving::Update()
 	position.x = PixelsFromMeters(m_pBody->GetPosition().x);
 	position.y = PixelsFromMeters(m_pBody->GetPosition().y);
 
-	m_Sprite.SetPosition(position);
+	m_Sprite.SetRenderInfo(position, m_bIsReversed);
 }
 
 EntityType EntityLiving::GetType()
@@ -54,6 +56,11 @@ void EntityLiving::SetSprite(Sprite sprite)
 	this->m_Sprite = sprite;
 }
 
+void EntityLiving::ReverseSprite(bool isReversed)
+{
+	m_bIsReversed = isReversed;
+}
+
 void EntityLiving::SetAnimations(std::vector<Animation*> animations)
 {
 	m_vecAnimations = animations;
@@ -73,11 +80,11 @@ Animation* EntityLiving::GetAnimation(int index)
 void EntityLiving::UpdateAnimationToSprite(Animation* animation)
 {
 	if (m_iCurrentFrameIndex == m_iLastFrameIndex)
-	{	// in duration of current frame, increase delay
+	{ // in duration of current frame, increase delay
 		m_fCurrentDelay += Globals::animationTime * Globals::deltaTime;
 	}
 	else
-	{	// into new frame
+	{ // into new frame
 		m_iFrameCount++;
 		m_fCurrentDelay = 0;
 	}
@@ -105,11 +112,11 @@ void EntityLiving::ResetCurrentAnimationInfo()
 void EntityLiving::SetSpriteData(int index, Vector2 position)
 {
 	m_Sprite.SetIndex(index);
-	m_Sprite.SetPosition(position);
+	m_Sprite.SetRenderInfo(position);
 }
 
 
-void EntityLiving::InitBody(b2BodyDef& bodyDef, b2FixtureDef& fixtureDef, b2Vec2& velocity)
+void EntityLiving::InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef, b2Vec2 velocity)
 {
 	m_pBody = PhysicsMgr->GetWorld()->CreateBody(&bodyDef);
 	m_pBody->CreateFixture(&fixtureDef);
@@ -129,7 +136,6 @@ float EntityLiving::GetMaxSpeed() const
 
 void EntityLiving::SetBody(b2Body* body)
 {
-
 }
 
 float EntityLiving::GetMovementSpeed() const

@@ -60,3 +60,33 @@ public:
 
 };
 
+
+class PlayerFiringSpecialState :
+	public State<EntityPlayer>
+{
+public:
+	PlayerFiringSpecialState();
+	~PlayerFiringSpecialState();
+
+	void Enter(EntityPlayer* entity) override;
+	void Execute(EntityPlayer* entity) override;
+	void Exit(EntityPlayer* entity) override;
+	void Render(EntityPlayer* entity) override;
+
+};
+
+
+class PlayerFiringUltimateState :
+	public State<EntityPlayer>
+{
+public:
+	PlayerFiringUltimateState();
+	~PlayerFiringUltimateState();
+
+	void Enter(EntityPlayer* entity) override;
+	void Execute(EntityPlayer* entity) override;
+	void Exit(EntityPlayer* entity) override;
+	void Render(EntityPlayer* entity) override;
+
+};
+

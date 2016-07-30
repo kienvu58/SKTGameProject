@@ -1,5 +1,6 @@
 #include "MessageDispatcher.h"
 #include <iostream>
+#include "SingletonClasses.h"
 
 
 MessageDispatcher::MessageDispatcher()

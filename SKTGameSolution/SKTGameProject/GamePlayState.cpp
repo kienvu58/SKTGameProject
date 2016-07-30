@@ -95,6 +95,7 @@ void GamePlayState::Init(const char* filePath)
 	m_pTestMinion = new EntityMinion();
 	m_pTestMinion->InitSprite(1, 1, 1);
 	m_pTestMinion->SetSpriteData(38, Vector2(10, 0));
+	m_pTestMinion->ReverseSprite(true);
 	m_pTestMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 
 	m_pCloneMinion = m_pTestMinion->Clone();
@@ -112,6 +113,29 @@ void GamePlayState::Init(const char* filePath)
 		minion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 		m_pMinionPool->Add(minion);
 	}
+}
+
+void GamePlayState::Update()
+{
+}
+
+void GamePlayState::Render()
+{
+}
+
+Entity* GamePlayState::Clone()
+{
+	return nullptr;
+}
+
+EntityType GamePlayState::GetType()
+{
+	return GOD;
+}
+
+bool GamePlayState::HandleMessage(const Telegram& telegram)
+{
+	return false;
 }
 
 GamePlayState::~GamePlayState()

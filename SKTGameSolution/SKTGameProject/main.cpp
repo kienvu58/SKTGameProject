@@ -10,6 +10,9 @@ float Globals::deltaTime = 0;
 
 int Init(ESContext* esContext)
 {
+	// Start the clock
+	CrudeTimerSingleton::CreateInstance();
+
 	// Create instance for each manager class
 	InputManagerSingleton::CreateInstance();
 	TextManagerSingleton::CreateInstance();
@@ -17,6 +20,8 @@ int Init(ESContext* esContext)
 	FrameManagerSingleton::CreateInstance();
 	ResourceManagerSingleton::CreateInstance();
 	PhysicsManagerSingleton::CreateInstance();
+
+	MessageDispatcherSingleton::CreateInstance();
 
 	// Initialize data for each manager
 	TextMgr->Init("../Resources/Fonts/arial.ttf");
@@ -97,6 +102,10 @@ void MouseDown(ESContext* esContext, float x, float y)
 
 void CleanUp()
 {
+	CrudeTimerSingleton::DestroyInstance();
+
+	MessageDispatcherSingleton::DestroyInstance();
+
 	TextManagerSingleton::DestroyInstance();
 	InputManagerSingleton::DestroyInstance();
 	ResourceManagerSingleton::DestroyInstance();

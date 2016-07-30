@@ -3,6 +3,7 @@
 		[
 			{
 				"id": 1,
+        "note":  "EntityLivingSprite",
 				"modelW": 128,
 				"modelH": 128,
 				"spriteW": 128,
@@ -12,6 +13,7 @@
 			},
 			{
 				"id": 2,
+        "note": "Background",
 				"modelW": 1120,
 				"modelH": 630,
 				"spriteW": 1024,
@@ -20,7 +22,8 @@
 				"textureH": 1024
 			},
 			{
-				"id": 3,
+        "id": 3,
+        "note":  "Button",
 				"modelW": 200,
 				"modelH": 100,
 				"spriteW": 128,
@@ -55,12 +58,18 @@
 				"nRows": 2,
 				"nColumns": 4
 			},
-			{
-				"id": 5,
-				"path": "../Resources/Textures/GameOptionState.tga",
-				"nRows": 1,
-				"nColumns": 1
-			}
+      {
+        "id": 5,
+        "path": "../Resources/Textures/GameOptionState.tga",
+        "nRows": 1,
+        "nColumns": 1
+      },
+      {
+        "id": 6,
+        "path": "../Resources/Textures/Bullets.tga",
+        "nRows": 1,
+        "nColumns":  2
+      }
 		],
 	"shaders":
 		[

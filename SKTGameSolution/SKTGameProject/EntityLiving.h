@@ -18,6 +18,7 @@ public:
 	//Init graphic info
 	void InitSprite(int modelId, int spriteSheetId, int shadersId);
 	void SetSprite(Sprite sprite);
+	void ReverseSprite(bool isReversed);
 
 	//Animation functions
 	void SetAnimations(std::vector<Animation*> animations);
@@ -30,7 +31,7 @@ public:
 	void SetSpriteData(int index, Vector2 position);
 
 	//Physics functions
-	void InitBody(b2BodyDef &bodyDef, b2FixtureDef &fixtureDef, b2Vec2 &velocity = b2Vec2());
+	void InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef, b2Vec2 velocity = b2Vec2_zero);
 	b2Body* GetBody() const;
 	float GetMaxSpeed() const;
 	void SetBody(b2Body* body);
@@ -41,7 +42,7 @@ public:
 	void Reset();
 
 	//clone
-	virtual Entity* Clone() override = 0;
+	Entity* Clone() override = 0;
 
 protected:
 	//Owned Attribute
@@ -50,6 +51,7 @@ protected:
 
 	//Graphic info
 	Sprite m_Sprite;
+	bool m_bIsReversed;
 
 	//Animation info
 	std::vector<Animation*> m_vecAnimations;
