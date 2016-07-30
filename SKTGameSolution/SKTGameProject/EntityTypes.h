@@ -8,5 +8,5 @@ enum EntityType
 	ENTITY_MINION,
 	ENTITY_STATIC,
 	GOD,
-	BULLET
+	KI_BLAST
 };

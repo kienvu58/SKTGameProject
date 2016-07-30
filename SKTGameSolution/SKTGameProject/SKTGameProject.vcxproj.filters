@@ -61,7 +61,7 @@
     <ClCompile Include="Telegram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
+    <ClCompile Include="KiBlast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,7 +135,7 @@
     <ClInclude Include="Telegram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
+    <ClInclude Include="KiBlast.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -115,7 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="KiBlast.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="CrudeTimer.cpp" />
     <ClCompile Include="EntityMinion.cpp" />
@@ -150,7 +150,7 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="KiBlast.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="CrudeTimer.h" />
     <ClInclude Include="EntityMinion.h" />
