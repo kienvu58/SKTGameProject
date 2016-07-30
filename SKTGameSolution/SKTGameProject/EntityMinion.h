@@ -24,7 +24,7 @@ public:
 
 	//clone
 	Entity* Clone() override;
-private:
+protected:
 	//State info
 	StateMachine<EntityMinion>* m_pStateMachine;
 

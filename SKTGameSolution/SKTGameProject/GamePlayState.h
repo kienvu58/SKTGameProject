@@ -4,6 +4,8 @@
 #include "Game.h"
 #include "EntityMinion.h"
 #include "Pool.h"
+#include "EntityCellJunior.h"
+#include "FactoryEntity.h"
 
 class GamePlayState : public State<Game>, public Entity
 {
@@ -24,8 +26,11 @@ public:
 
 private:
 	EntityPlayer* m_Goku;
-	EntityMinion* m_pTestMinion;
+	EntityCellJunior* m_pTestMinion;
 	Entity* m_pCloneMinion;
+
+	//factory stores prototypes
+	FactoryEntity* m_PFactory;
 
 	//pools
 	Pool<EntityMinion>* m_pMinionPool;

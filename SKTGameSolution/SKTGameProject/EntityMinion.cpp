@@ -16,7 +16,7 @@ void EntityMinion::Update()
 	b2Vec2 force = m_pSteeringBehavior->Calculate();
 	b2Vec2 currentVelocity = m_pBody->GetLinearVelocity();
 
-	force *= 0.2;
+	//force *= 0.2;
 	currentVelocity += force;
 	TruncateVelocity(currentVelocity);
 
@@ -42,7 +42,6 @@ EntityMinion::EntityMinion():m_fMaxForce(4)
 {
 	m_pStateMachine = new StateMachine<EntityMinion>(this);
 	m_pSteeringBehavior = new SteeringBehavior(this);
-	m_pSteeringBehavior->WanderOn();
 }
 
 EntityMinion::~EntityMinion()
@@ -58,26 +57,7 @@ float EntityMinion::GetMaxForce()
 
 Entity* EntityMinion::Clone()
 {
-	EntityMinion* cloneMinion = new EntityMinion();
-	//graphic
-	cloneMinion->SetSprite(this->m_Sprite);
-	cloneMinion->SetAnimations(this->m_vecAnimations);
-	cloneMinion->ReverseSprite(this->m_bIsReversed);
-
-	//physics
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = b2Vec2(5, 0);
-
-	b2PolygonShape boxShape;
-	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
-
-	b2FixtureDef fixture;
-	fixture.shape = &boxShape;
-	fixture.restitution = 1.0f;
-	cloneMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
-
-	return cloneMinion;
+	return nullptr;
 }
 
 void EntityMinion::TruncateVelocity(b2Vec2& currentVelocity)
