@@ -20,7 +20,7 @@ void GamePlayState::Execute(Game* game)
 	PhysicsMgr->Update();
 	m_Goku->Update();
 	m_pTestMinion->Update();
-	m_pCloneMinion->Update();
+	//m_pCloneMinion->Update();
 	//update
 	for (int i = 0; i < m_vCurrentEntities.size(); i++)
 	{
@@ -58,7 +58,7 @@ void GamePlayState::Render(Game* game)
 	}
 
 	m_pTestMinion->Render();
-	m_pCloneMinion->Render();
+//	m_pCloneMinion->Render();
 }
 
 void GamePlayState::Init(const char* filePath)
@@ -79,6 +79,8 @@ void GamePlayState::Init(const char* filePath)
 	for (int i=0; i<nMaxMinions; i++)
 	{
 		EntityMinion* minion = dynamic_cast<EntityCellJunior*>(m_PFactory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());
+		minion->GetBody()->SetTransform(b2Vec2(rand()%10, (rand()-rand())%6), 0);
+//		minion->GetBody()->SetTransform(b2Vec2(0, 0), 0);
 		m_pMinionPool->Add(minion);
 	}
 }

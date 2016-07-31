@@ -6,6 +6,7 @@
 EntityCellJunior::EntityCellJunior()
 {
 	m_pSteeringBehavior->WanderOn();
+//	m_pSteeringBehavior->SeekOn();
 }
 
 
@@ -24,7 +25,7 @@ Entity* EntityCellJunior::Clone()
 	//physics
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = b2Vec2(5, 0);
+	bodyDef.position = b2Vec2(0, 0);
 
 	b2PolygonShape boxShape;
 	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
@@ -32,6 +33,7 @@ Entity* EntityCellJunior::Clone()
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;
 	fixture.restitution = 1.0f;
+	fixture.filter.groupIndex = -1;
 	cloneMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 
 	return cloneMinion;

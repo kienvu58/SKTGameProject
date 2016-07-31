@@ -73,11 +73,12 @@ b2Vec2 SteeringBehavior::Wander()
 		magicMatrix.m[3][3] = 1;
 
 		Vector4 targetInWorld;
-		targetInWorld = magicMatrix * Vector4(target.x, target.y, 0, 1);
+		targetInWorld = Vector4(target.x, target.y, 0, 1)*magicMatrix;
 
-		return b2Vec2(targetInWorld.x, targetInWorld.y)
-			- m_pOwner->GetBody()->GetPosition();
-
+		b2Vec2 currentPosition = m_pOwner->GetBody()->GetPosition();
+		b2Vec2 force = b2Vec2(targetInWorld.x, targetInWorld.y)
+			- currentPosition;
+		return force;
 	}
 	return b2Vec2();
 }

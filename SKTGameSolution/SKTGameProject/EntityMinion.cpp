@@ -1,6 +1,8 @@
 #include "EntityMinion.h"
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
+#include "../GraphicsEngine/Globals.h"
+#include <iostream>
 
 
 void EntityMinion::Render()
@@ -16,7 +18,7 @@ void EntityMinion::Update()
 	b2Vec2 force = m_pSteeringBehavior->Calculate();
 	b2Vec2 currentVelocity = m_pBody->GetLinearVelocity();
 
-	//force *= 0.2;
+	//force *= 5;
 	currentVelocity += force;
 	TruncateVelocity(currentVelocity);
 
@@ -38,7 +40,7 @@ StateMachine<EntityMinion>* EntityMinion::GetFSM() const
 	return m_pStateMachine;
 }
 
-EntityMinion::EntityMinion():m_fMaxForce(4)
+EntityMinion::EntityMinion():m_fMaxForce(2)
 {
 	m_pStateMachine = new StateMachine<EntityMinion>(this);
 	m_pSteeringBehavior = new SteeringBehavior(this);

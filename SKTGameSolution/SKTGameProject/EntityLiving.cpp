@@ -15,7 +15,7 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_fCurrentDelay(0),
                               m_iFrameCount(0),
                               m_pBody(nullptr),
-                              m_fMaxSpeed(4),
+                              m_fMaxSpeed(2),
                               m_fMovementSpeed(3)
 {
 }

@@ -4,6 +4,7 @@
 #include "../Utilities/Math.h"
 #include <Box2D/Collision/Shapes/b2EdgeShape.h>
 #include <Box2D/Dynamics/b2Body.h>
+#include <Box2D/Dynamics/b2Fixture.h>
 
 PhysicsManager::PhysicsManager()
 {
@@ -27,26 +28,29 @@ void PhysicsManager::Init()
 	b2Body *plainBody = m_World->CreateBody(&plainDef);
 
 	b2EdgeShape shape;
+	b2FixtureDef fixture;
 
+	fixture.shape = &shape;
+	fixture.filter.groupIndex = -1;
 	// Floor
 	shape.Set(b2Vec2(MetersFromPixels(-Globals::screenWidth) / 2, MetersFromPixels(-Globals::screenHeight) / 2),
 		b2Vec2(MetersFromPixels(Globals::screenWidth) / 2, MetersFromPixels(-Globals::screenHeight) / 2));
-	plainBody->CreateFixture(&shape, 1.0f);
+	plainBody->CreateFixture(&fixture);
 
 	// Left wall
 	shape.Set(b2Vec2(MetersFromPixels(-Globals::screenWidth) / 2, MetersFromPixels(Globals::screenHeight) / 2),
 		b2Vec2(MetersFromPixels(-Globals::screenWidth) / 2, MetersFromPixels(-Globals::screenHeight) / 2));
-	plainBody->CreateFixture(&shape, 1.0f);
+	plainBody->CreateFixture(&fixture);
 
 	// Right wall
 	shape.Set(b2Vec2(MetersFromPixels(Globals::screenWidth) / 2, MetersFromPixels(Globals::screenHeight) / 2),
 		b2Vec2(MetersFromPixels(Globals::screenWidth) / 2, MetersFromPixels(-Globals::screenHeight) / 2));
-	plainBody->CreateFixture(&shape, 1.0f);
+	plainBody->CreateFixture(&fixture);
 
 	// Roof
 	shape.Set(b2Vec2(MetersFromPixels(-Globals::screenWidth) / 2, MetersFromPixels(Globals::screenHeight) / 2),
 		b2Vec2(MetersFromPixels(Globals::screenWidth) / 2, MetersFromPixels(Globals::screenHeight) / 2));
-	plainBody->CreateFixture(&shape, 1.0f);
+	plainBody->CreateFixture(&fixture);
 
 	//Init listener
 	m_pContactListener = new ContactListener();

@@ -25,7 +25,7 @@ void FactoryEntity::Init(char* filePath)
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = b2Vec2(0, 5);
+	bodyDef.position = b2Vec2(0, 0);
 
 	b2PolygonShape boxShape;
 	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
@@ -33,7 +33,8 @@ void FactoryEntity::Init(char* filePath)
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;
 	fixture.restitution = 0.0f;
-	
+	fixture.filter.groupIndex = -1;
+
 	//CellJunior prototype
 	EntityCellJunior* cellJuniorPrototype = new EntityCellJunior();
 	cellJuniorPrototype->InitSprite(1, 1, 1);
