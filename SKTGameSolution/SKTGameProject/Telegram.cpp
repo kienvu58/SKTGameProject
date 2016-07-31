@@ -8,7 +8,7 @@ Telegram::Telegram(): pSender(nullptr), pReceiver(nullptr), Message(-1), Dispatc
 {
 }
 
-Telegram::Telegram(float time, Entity* sender, Entity* receiver, int message, void* info)
+Telegram::Telegram(float time, Entity* sender, Entity* receiver, MessageType message, void* info)
 	: pSender(sender),
 	  pReceiver(receiver),
 	  Message(message),

@@ -182,6 +182,15 @@ void PlayerFiringState::Enter(EntityPlayer* entity)
 void PlayerFiringState::Execute(EntityPlayer* entity)
 {
 	Animation* firingAnimation = entity->GetAnimation(FIRING);
+
+	if (entity->IsFrameChanged())
+	{
+		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0.1);
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GS_GamePlay::GetInstance(),
+		                             MSG_SPAWN_KI_BLAST, &kiBlastPosition);
+	}
+
+
 	if (!InputMgr->IsPressed(KEY_J) && firingAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{
 		// change to PlayerStandingState

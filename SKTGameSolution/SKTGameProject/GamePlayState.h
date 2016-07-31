@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "EntityMinion.h"
 #include "Pool.h"
+#include "KiBlast.h"
 #include "EntityCellJunior.h"
 #include "FactoryEntity.h"
 
@@ -18,6 +19,7 @@ public:
 	void Render(Game* game) override;
 	void Init(const char* filePath);
 
+	// it's kinda weird, a State as a child of Entity, follow methods are useless
 	void Update() override;
 	void Render() override;
 	Entity* Clone() override;
@@ -37,4 +39,5 @@ private:
 
 	//current entity on the screen
 	std::vector<EntityMinion*> m_vCurrentEntities;
+	std::vector<KiBlast*> m_vCurrentKiBlasts;
 };

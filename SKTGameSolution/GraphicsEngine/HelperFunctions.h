@@ -23,7 +23,7 @@ void ClearMap(std::map<int, T*>& m)
 }
 
 template <class T1, class T2>
-inline void ClearMap(std::map<T1, T2*>& m)
+void ClearMap(std::map<T1, T2*>& m)
 {
 	for (auto it : m)
 	{

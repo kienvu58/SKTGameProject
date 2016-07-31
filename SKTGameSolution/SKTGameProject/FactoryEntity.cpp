@@ -37,8 +37,7 @@ void FactoryEntity::Init(char* filePath)
 
 	//CellJunior prototype
 	EntityCellJunior* cellJuniorPrototype = new EntityCellJunior();
-	cellJuniorPrototype->InitSprite(1, 1, 1);
-	cellJuniorPrototype->SetSpriteData(38, Vector2(10, 0));
+	cellJuniorPrototype->InitSprite(1, 28, 1);
 	cellJuniorPrototype->ReverseSprite(true);
 	cellJuniorPrototype->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_CELLJUNIOR, cellJuniorPrototype));

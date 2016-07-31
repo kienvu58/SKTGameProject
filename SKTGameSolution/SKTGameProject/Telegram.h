@@ -1,11 +1,12 @@
 #pragma once
 #include "Entity.h"
+#include "MessageTypes.h"
 
 class Telegram
 {
 public:
 	Telegram();
-	Telegram(float time, Entity* sender, Entity* receiver, int message, void* info = nullptr);
+	Telegram(float time, Entity* sender, Entity* receiver, MessageType message, void* info = nullptr);
 	~Telegram();
 
 	// the pointer point to entity that send this telegram
@@ -34,4 +35,12 @@ public:
 	friend bool operator < (const Telegram& t1, const Telegram& t2);
 
 };
+
+//handy helper function for dereferencing the ExtraInfo field of the Telegram 
+//to the required type.
+template <class T>
+T DereferenceToType(void* p)
+{
+	return *static_cast<T*>(p);
+}
 

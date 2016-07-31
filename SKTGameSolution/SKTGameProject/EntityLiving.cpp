@@ -27,11 +27,7 @@ EntityLiving::~EntityLiving()
 
 void EntityLiving::Update()
 {
-	Vector2 position;
-	position.x = PixelsFromMeters(m_pBody->GetPosition().x);
-	position.y = PixelsFromMeters(m_pBody->GetPosition().y);
-
-	m_Sprite.SetRenderInfo(position, m_bIsReversed);
+	m_Sprite.SetRenderInfo(GraphicsFromPhysics(m_pBody->GetPosition()), m_bIsReversed);
 }
 
 EntityType EntityLiving::GetType()
@@ -39,16 +35,11 @@ EntityType EntityLiving::GetType()
 	return ENTITY_LIVING;
 }
 
-bool EntityLiving::HandleMessage(const Telegram& telegram)
-{
-	return false;
-}
-
-void EntityLiving::InitSprite(int modelId, int spriteSheetId, int shadersId)
+void EntityLiving::InitSprite(int modelId, int frameId, int shaderId)
 {
 	m_Sprite.SetModel(ResourceMgr->GetModelById(modelId));
-	m_Sprite.SetTexture(ResourceMgr->GetSpriteSheetById(spriteSheetId));
-	m_Sprite.SetShaders(ResourceMgr->GetShadersById(shadersId));
+	m_Sprite.SetFrame(FrameMgr->GetFrameById(frameId));
+	m_Sprite.SetShaders(ResourceMgr->GetShadersById(shaderId));
 }
 
 void EntityLiving::SetSprite(Sprite sprite)
@@ -108,13 +99,10 @@ void EntityLiving::ResetCurrentAnimationInfo()
 	m_iFrameCount = 0;
 }
 
-
-void EntityLiving::SetSpriteData(int index, Vector2 position)
+bool EntityLiving::IsFrameChanged() const
 {
-	m_Sprite.SetIndex(index);
-	m_Sprite.SetRenderInfo(position);
+	return !(m_iCurrentFrameIndex == m_iLastFrameIndex);
 }
-
 
 void EntityLiving::InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef, b2Vec2 velocity)
 {

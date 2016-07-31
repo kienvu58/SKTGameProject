@@ -16,7 +16,7 @@ void MessageDispatcher::Discharge(Entity* pReceiver, const Telegram& telegram)
 	}
 }
 
-void MessageDispatcher::DispatchMessage(float delay, Entity* pSender, Entity* pReceiver, int msg, void* extraInfo)
+void MessageDispatcher::DispatchMessage(float delay, Entity* pSender, Entity* pReceiver, MessageType msg, void* extraInfo)
 {
 	//make sure the receiver is valid
 	if (pReceiver == nullptr)

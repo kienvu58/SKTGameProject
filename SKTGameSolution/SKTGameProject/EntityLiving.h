@@ -13,10 +13,10 @@ public:
 	void Render() override = 0;
 	void Update() override;
 	EntityType GetType() override;
-	bool HandleMessage(const Telegram& telegram) override;
+	bool HandleMessage(const Telegram& telegram) override = 0;
 
 	//Init graphic info
-	void InitSprite(int modelId, int spriteSheetId, int shadersId);
+	void InitSprite(int modelId, int frameId, int shaderId);
 	void SetSprite(Sprite sprite);
 	void ReverseSprite(bool isReversed);
 
@@ -26,9 +26,7 @@ public:
 	void UpdateAnimationToSprite(Animation* animation);
 	int GetFrameCount() const;
 	void ResetCurrentAnimationInfo();
-
-	// must remove this method
-	void SetSpriteData(int index, Vector2 position);
+	bool IsFrameChanged() const;
 
 	//Physics functions
 	void InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef, b2Vec2 velocity = b2Vec2_zero);
