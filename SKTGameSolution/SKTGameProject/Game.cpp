@@ -38,6 +38,7 @@ void Game::CreateStateInstances()
 	PS_FiringUltimate::CreateInstance();
 
 	MS_Wandering::CreateInstance();
+	MS_Global::CreateInstance();
 }
 
 void Game::DestroyStateInstances()
@@ -55,6 +56,7 @@ void Game::DestroyStateInstances()
 	PS_FiringUltimate::DestroyInstance();
 
 	MS_Wandering::DestroyInstance();
+	MS_Global::DestroyInstance();
 }
 
 void Game::Update()

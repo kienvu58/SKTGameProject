@@ -19,7 +19,7 @@ void GamePlayState::Execute(Game* game)
 	srand(time(nullptr));
 	PhysicsMgr->Update();
 	m_Goku->Update();
-	m_pTestMinion->Update();
+//	m_pTestMinion->Update();
 	//m_pCloneMinion->Update();
 	//update
 	for (int i = 0; i < m_vCurrentEntities.size(); i++)
@@ -51,7 +51,12 @@ void GamePlayState::Render(Game* game)
 			EntityMinion* entity;
 			entity = m_pMinionPool->GetEntity();
 			if (entity)
+			{
+				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
+				entity->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));
 				m_vCurrentEntities.push_back(entity);
+			}
+				
 		}
 	}
 
@@ -66,7 +71,7 @@ void GamePlayState::Render(Game* game)
 		it->Render();
 	}
 
-	m_pTestMinion->Render();
+//	m_pTestMinion->Render();
 //	m_pCloneMinion->Render();
 }
 
@@ -78,8 +83,8 @@ void GamePlayState::Init(const char* filePath)
 
 	m_Goku = dynamic_cast<EntityPlayer*>(m_PFactory->GetPrototype(ENTITY_PLAYER));
 
-	m_pTestMinion = dynamic_cast<EntityCellJunior*>(m_PFactory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());
-	m_pCloneMinion = m_pTestMinion->Clone();
+//	m_pTestMinion = dynamic_cast<EntityCellJunior*>(m_PFactory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());
+//	m_pCloneMinion = m_pTestMinion->Clone();
 
 	//Init for pools
 	m_pMinionPool = new Pool<EntityMinion>();
@@ -137,14 +142,27 @@ bool GamePlayState::HandleMessage(const Telegram& telegram)
 		m_vCurrentKiBlasts.push_back(kiBlast);
 		return true;
 	}
+	if(telegram.Message == MSG_MINION_OUT_OF_WALL)
+	{
+		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
+		auto it = std::find(m_vCurrentEntities.begin(), m_vCurrentEntities.end(), theMinion);
+		if (it != m_vCurrentEntities.end())
+		{
+			std::swap(*it, m_vCurrentEntities.back());
+			m_vCurrentEntities.pop_back();
+		}
+		m_pMinionPool->ReleaseEntity(theMinion);
+		
+		return true;
+	}
 	return false;
 }
 
 GamePlayState::~GamePlayState()
 {
 	delete m_PFactory;
-	delete m_pTestMinion;
-	delete m_pCloneMinion;
+//	delete m_pTestMinion;
+//	delete m_pCloneMinion;
 	delete m_pMinionPool;
 
 	for (auto it : m_vCurrentKiBlasts)

@@ -11,7 +11,7 @@ public:
 
 	void Add(entity_type* entity);
 	entity_type* GetEntity();
-	void Releaseentity(entity_type* entity);
+	void ReleaseEntity(entity_type* entity);
 	void CleanUp(entity_type* entity);
 private:
 	std::vector<entity_type*> m_vAvailable;
@@ -73,19 +73,17 @@ entity_type* Pool<entity_type>::GetEntity()
 }
 
 template <class entity_type>
-void Pool<entity_type>::Releaseentity(entity_type* entity)
+void Pool<entity_type>::ReleaseEntity(entity_type* entity)
 {
 	CleanUp(entity);
 
 	m_vAvailable.push_back(entity);
-	if (m_vInUse.size() > 0)
+
+	auto it = std::find(m_vInUse.begin(), m_vInUse.end(), entity);
+	if (it != m_vInUse.end())
 	{
-		auto it = std::find(m_vInUse.begin(), m_vInUse.end(), entity);
-		if (it != m_vInUse.end())
-		{
-			std::swap(*it, m_vInUse.back());
-			m_vInUse.pop_back();
-		}
+		std::swap(*it, m_vInUse.back());
+		m_vInUse.pop_back();
 	}
 }
 

@@ -14,3 +14,16 @@ public:
 	void Render(EntityMinion* minion) override;
 
 };
+
+class MinionGlobalState : public State<EntityMinion>
+{
+public:
+	MinionGlobalState();
+	~MinionGlobalState();
+
+	void Enter(EntityMinion* minion) override;
+	void Execute(EntityMinion* minion) override;
+	void Exit(EntityMinion* minion) override;
+	void Render(EntityMinion* minion) override;
+
+};

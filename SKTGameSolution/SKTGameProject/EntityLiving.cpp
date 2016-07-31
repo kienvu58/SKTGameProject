@@ -15,7 +15,7 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_fCurrentDelay(0),
                               m_iFrameCount(0),
                               m_pBody(nullptr),
-                              m_fMaxSpeed(2),
+                              m_fMaxSpeed(3),
                               m_fMovementSpeed(3)
 {
 }
@@ -133,4 +133,21 @@ float EntityLiving::GetMovementSpeed() const
 
 void EntityLiving::Reset()
 {
+}
+
+bool EntityLiving::IsOutOfWall()
+{
+	float tmp = 2;
+	float wallHalfWidth = MetersFromPixels(Globals::screenWidth)/2;
+	float wallHalfHeight = MetersFromPixels(Globals::screenHeight)/2;
+	float boundryX = wallHalfWidth + tmp;
+	float boundryY = wallHalfHeight + tmp;
+
+	b2Vec2 position = m_pBody->GetPosition();
+
+	if (-boundryX < position.x && position.x < boundryX
+		&& -boundryY < position.y && position.y < boundryY)
+		return false;
+
+	return true;
 }

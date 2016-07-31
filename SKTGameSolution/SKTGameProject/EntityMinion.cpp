@@ -3,6 +3,7 @@
 #include <Box2D/Dynamics/b2Fixture.h>
 #include "../GraphicsEngine/Globals.h"
 #include <iostream>
+#include "SingletonClasses.h"
 
 
 void EntityMinion::Render()

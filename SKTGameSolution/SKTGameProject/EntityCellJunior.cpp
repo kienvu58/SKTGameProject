@@ -1,10 +1,13 @@
 #include "EntityCellJunior.h"
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
+#include "SingletonClasses.h"
 
 
 EntityCellJunior::EntityCellJunior()
 {
+	m_pStateMachine->SetCurrentState(MS_Wandering::GetInstance());
+	m_pStateMachine->SetGlobalState(MS_Global::GetInstance());
 	m_pSteeringBehavior->WanderOn();
 //	m_pSteeringBehavior->SeekOn();
 }

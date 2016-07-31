@@ -38,6 +38,7 @@ public:
 
 	//Material
 	void Reset();
+	bool IsOutOfWall();
 
 	//clone
 	Entity* Clone() override = 0;

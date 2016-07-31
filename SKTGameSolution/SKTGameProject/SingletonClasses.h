@@ -39,6 +39,7 @@ typedef Singleton<PlayerGlobalState> PS_Global;
 
 // Minion States
 typedef Singleton<WanderingState> MS_Wandering;
+typedef Singleton<MinionGlobalState> MS_Global;
 
 // Game States
 typedef Singleton<GamePlayState> GS_GamePlay;

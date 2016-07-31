@@ -43,6 +43,7 @@ void FactoryEntity::Init(char* filePath)
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_CELLJUNIOR, cellJuniorPrototype));
 
 	//Goku (Player) prototype
+	fixture.filter.groupIndex = 1;
 	EntityPlayer* gokuPrototype = new EntityPlayer();
 	gokuPrototype->InitSprite(1, 1, 1);
 	std::vector<Animation*> gokuAnimations;
