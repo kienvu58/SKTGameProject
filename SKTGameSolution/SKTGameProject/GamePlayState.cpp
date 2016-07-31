@@ -26,6 +26,10 @@ void GamePlayState::Execute(Game* game)
 	{
 		m_vCurrentEntities[i]->Update();
 	}
+	for (auto it : m_vCurrentKiBlasts)
+	{
+		it->Update();
+	}
 }
 
 void GamePlayState::Exit(Game* game)
@@ -53,6 +57,11 @@ void GamePlayState::Render(Game* game)
 
 	//render
 	for (auto it : m_vCurrentEntities)
+	{
+		it->Render();
+	}
+
+	for (auto it : m_vCurrentKiBlasts)
 	{
 		it->Render();
 	}
@@ -93,8 +102,7 @@ void GamePlayState::Init(const char* filePath)
 	bodyDef.position = b2Vec2(5, 0);
 
 	m_pTestMinion = new EntityMinion();
-	m_pTestMinion->InitSprite(1, 1, 1);
-	m_pTestMinion->SetSpriteData(38, Vector2(10, 0));
+	m_pTestMinion->InitSprite(1, 28, 1);
 	m_pTestMinion->ReverseSprite(true);
 	m_pTestMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 
@@ -104,12 +112,11 @@ void GamePlayState::Init(const char* filePath)
 	m_pMinionPool = new Pool<EntityMinion>();
 
 	int nMaxMinions = 0;
-	for (int i=0; i<nMaxMinions; i++)
+	for (int i = 0; i < nMaxMinions; i++)
 	{
 		EntityMinion* minion = new EntityMinion();
 		bodyDef.position = b2Vec2(rand() % 6, 0);
-		minion->InitSprite(1, 1, 1);
-		minion->SetSpriteData(38, Vector2(10, 0));
+		minion->InitSprite(1, 28, 1);
 		minion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 		m_pMinionPool->Add(minion);
 	}
@@ -135,6 +142,29 @@ EntityType GamePlayState::GetType()
 
 bool GamePlayState::HandleMessage(const Telegram& telegram)
 {
+	if (telegram.Message == MSG_SPAWN_KI_BLAST)
+	{
+		auto kiBlastPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
+		std::cout << "Spawn ki blast at " << kiBlastPosition.x << " " << kiBlastPosition.y << std::endl;
+		KiBlast* kiBlast = new KiBlast();
+
+		b2BodyDef bodyDef;
+		bodyDef.type = b2_dynamicBody;
+
+		b2PolygonShape boxShape;
+		boxShape.SetAsBox(MetersFromPixels(24), MetersFromPixels(12));
+
+		b2FixtureDef fixtureDef;
+		fixtureDef.shape = &boxShape;
+		fixtureDef.restitution = 1.0f;
+		fixtureDef.isSensor = true;
+
+		kiBlast->InitBody(bodyDef, fixtureDef);
+		kiBlast->InitSprite(4, 36, 1);
+		kiBlast->Fire(kiBlastPosition, 1);
+		m_vCurrentKiBlasts.push_back(kiBlast);
+		return true;
+	}
 	return false;
 }
 
@@ -144,4 +174,9 @@ GamePlayState::~GamePlayState()
 	delete m_pTestMinion;
 	delete m_pCloneMinion;
 	delete m_pMinionPool;
+
+	for (auto it : m_vCurrentKiBlasts)
+	{
+		delete it;
+	}
 }

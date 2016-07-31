@@ -3,6 +3,8 @@
 #include <set>
 #include "CrudeTimer.h"
 
+const float SEND_MSG_IMMEDIATELY = 0.0f;
+const auto NO_ADDITIONAL_INFO = nullptr;
 
 class MessageDispatcher
 {
@@ -14,7 +16,7 @@ public:
 	void DispatchMessage(float delay,
 	                     Entity* pSender,
 	                     Entity* pReceiver,
-	                     int msg,
+	                     MessageType msg,
 	                     void* extraInfo);
 
 	//send out any delayed messages. This method is called each time through   

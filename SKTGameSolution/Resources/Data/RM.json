@@ -21,16 +21,26 @@
 				"textureW": 1024,
 				"textureH": 1024
 			},
-			{
+      {
         "id": 3,
-        "note":  "Button",
-				"modelW": 200,
-				"modelH": 100,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 512,
-				"textureH": 256
-			}
+        "note": "Button",
+        "modelW": 200,
+        "modelH": 100,
+        "spriteW": 128,
+        "spriteH": 128,
+        "textureW": 512,
+        "textureH": 256
+      },
+      {
+        "id": 4,
+        "note": "KiBlast",
+        "modelW": 64,
+        "modelH": 64,
+        "spriteW": 64,
+        "spriteH": 64,
+        "textureW": 128,
+        "textureH": 64
+      }
 		],
 	"spriteSheets":
 		[

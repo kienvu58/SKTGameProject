@@ -17,20 +17,16 @@ public:
 	EntityType GetType() override;
 	bool HandleMessage(const Telegram& telegram) override;
 
+	void InitSprite(int modelId, int frameId, int shaderId);
 	void InitBody(const b2BodyDef &bodyDef, const b2FixtureDef &fixtureDef);
-	void Create(float startTime, b2Vec2 direction);
+	void Fire(b2Vec2 position, int direction);
 
 private:
 	b2Body* m_pBody;
-
-	// KiBlast has to be charged, before it can be fired
-	float m_fStartTime;
-	float m_fChargeTime;
 	float m_fSpeed;
-
-	Frame* m_frameCharging;
-	Frame* m_frameFlying;
-
 	Sprite m_Sprite;
+	
+	// direction of ki blast, 1: left to right, -1: right to left
+	int m_iDirection;
 };
 

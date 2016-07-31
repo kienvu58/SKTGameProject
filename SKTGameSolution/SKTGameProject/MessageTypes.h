@@ -4,6 +4,7 @@
 
 enum MessageType
 {
+	MSG_SPAWN_KI_BLAST
 };
 
 inline std::string MessageToString(int message)

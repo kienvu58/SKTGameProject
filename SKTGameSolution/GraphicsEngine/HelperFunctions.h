@@ -21,3 +21,5 @@ void ClearMap(std::map<int, T*>& m)
 	 }
 	 m.clear();
 }
+
+

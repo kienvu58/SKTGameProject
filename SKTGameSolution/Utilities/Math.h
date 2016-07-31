@@ -4,6 +4,7 @@
 #define PIXEL_PER_METER 70;
 
 #include "esUtil.h"
+#include <Box2D/Common/b2Math.h>
 
 //Vector2
 
@@ -187,4 +188,12 @@ inline float PixelsFromMeters(float meters)
 inline float MetersFromPixels(float pixels)
 {
 	return pixels / PIXEL_PER_METER;
+}
+
+inline Vector2 GraphicsFromPhysics(b2Vec2 physicsPosition)
+{
+	Vector2 graphicsPosition;
+	graphicsPosition.x = PixelsFromMeters(physicsPosition.x);
+	graphicsPosition.y = PixelsFromMeters(physicsPosition.y);
+	return graphicsPosition;
 }
