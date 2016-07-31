@@ -43,7 +43,7 @@ void GamePlayState::Render(Game* game)
 	//m_pTestMinion->Render();
 
 	//generate minions by the number of minions in the screen.
-	int currentNumMinions = 0;
+	int currentNumMinions = 10;
 	if (m_vCurrentEntities.size() < currentNumMinions)
 	{
 		for (int i = 0; i < currentNumMinions - m_vCurrentEntities.size(); i++)
@@ -72,52 +72,22 @@ void GamePlayState::Render(Game* game)
 
 void GamePlayState::Init(const char* filePath)
 {
-	m_Goku = new EntityPlayer();
-	m_Goku->InitSprite(1, 1, 1);
-	std::vector<Animation*> gokuAnimations;
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(1));
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(2));
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(3));
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(4));
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(5));
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(6));
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(7));
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(8));
-	gokuAnimations.push_back(AnimationMgr->GetAnimationById(9));
-	m_Goku->SetAnimations(gokuAnimations);
-
 	//read file here, then create bodies and fixtures for enities.
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = b2Vec2(1, 2);
+	m_PFactory = new FactoryEntity();
+	m_PFactory->Init("file path");
 
-	b2PolygonShape boxShape;
-	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
+	m_Goku = dynamic_cast<EntityPlayer*>(m_PFactory->GetPrototype(ENTITY_PLAYER));
 
-	b2FixtureDef fixture;
-	fixture.shape = &boxShape;
-	fixture.restitution = 1.0f;
-	m_Goku->InitBody(bodyDef, fixture);
-
-	bodyDef.position = b2Vec2(5, 0);
-
-	m_pTestMinion = new EntityMinion();
-	m_pTestMinion->InitSprite(1, 28, 1);
-	m_pTestMinion->ReverseSprite(true);
-	m_pTestMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
-
+	m_pTestMinion = dynamic_cast<EntityCellJunior*>(m_PFactory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());
 	m_pCloneMinion = m_pTestMinion->Clone();
 
 	//Init for pools
 	m_pMinionPool = new Pool<EntityMinion>();
 
-	int nMaxMinions = 0;
-	for (int i = 0; i < nMaxMinions; i++)
+	int nMaxMinions = 10;
+	for (int i=0; i<nMaxMinions; i++)
 	{
-		EntityMinion* minion = new EntityMinion();
-		bodyDef.position = b2Vec2(rand() % 6, 0);
-		minion->InitSprite(1, 28, 1);
-		minion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
+		EntityMinion* minion = dynamic_cast<EntityCellJunior*>(m_PFactory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());
 		m_pMinionPool->Add(minion);
 	}
 }
@@ -170,7 +140,7 @@ bool GamePlayState::HandleMessage(const Telegram& telegram)
 
 GamePlayState::~GamePlayState()
 {
-	delete m_Goku;
+	delete m_PFactory;
 	delete m_pTestMinion;
 	delete m_pCloneMinion;
 	delete m_pMinionPool;

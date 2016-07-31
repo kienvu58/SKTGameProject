@@ -2,12 +2,6 @@
 #include "Entity.h"
 #include <map>
 
-enum class prototype_type
-{
-	player,
-	minion
-};
-
 class FactoryEntity
 {
 public:
@@ -15,7 +9,8 @@ public:
 	~FactoryEntity();
 
 	void Init(char* filePath);
+	Entity* GetPrototype(EntityType type);
 private:
-	std::map<int, Entity*>* m_pPrototypes;
+	std::map<EntityType, Entity*>* m_pPrototypes;
 };
 

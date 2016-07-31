@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EntityCellJunior.cpp" />
     <ClCompile Include="KiBlast.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="CrudeTimer.cpp" />
@@ -150,6 +151,7 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EntityCellJunior.h" />
     <ClInclude Include="KiBlast.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="CrudeTimer.h" />

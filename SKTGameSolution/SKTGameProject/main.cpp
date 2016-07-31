@@ -5,6 +5,7 @@
 #include "../Utilities/utilities.h"
 #include "../GraphicsEngine/Globals.h"
 #include "SingletonClasses.h"
+#include "FactoryEntity.h"
 
 float Globals::deltaTime = 0;
 
