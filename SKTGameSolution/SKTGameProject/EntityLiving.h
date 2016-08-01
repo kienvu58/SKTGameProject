@@ -4,6 +4,9 @@
 #include "Entity.h"
 #include <Box2D/Dynamics/b2Body.h>
 
+const float MAX_OVERHEAT = 100.0f;
+const float MIN_OVERHEAT = 0.0f;
+
 class EntityLiving : public Entity
 {
 public:
@@ -35,6 +38,10 @@ public:
 	void SetBody(b2Body* body);
 
 	float GetMovementSpeed() const;
+	void IncreaseOverheat(float amount);
+	float GetCurrentOverheat() const;
+	void DecreaseOverheatPerSecond(float amount);
+	bool IsOverheated() const;
 
 	//Material
 	void Reset();
@@ -47,6 +54,8 @@ protected:
 	//Owned Attribute
 	float m_fCurrentHealth;
 	float m_fMaxHealth;
+	float m_fCurrentOverHeat;
+	bool m_bIsOverheated;
 
 	//Graphic info
 	Sprite m_Sprite;

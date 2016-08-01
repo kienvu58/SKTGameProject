@@ -19,7 +19,6 @@ void EntityMinion::Update()
 	b2Vec2 force = m_pSteeringBehavior->Calculate();
 	b2Vec2 currentVelocity = m_pBody->GetLinearVelocity();
 
-	//force *= 5;
 	currentVelocity += force;
 	TruncateVelocity(currentVelocity);
 

@@ -14,10 +14,9 @@ b2Vec2 SteeringBehavior::Calculate()
 b2Vec2 SteeringBehavior::Seek(b2Vec2 TargetPos)
 {
 	b2Vec2 position = m_pOwner->GetBody()->GetPosition();
-	b2Vec2 DesiredVector = TargetPos - position;
-	DesiredVector.Normalize();
-	DesiredVector *= 5;
-	return DesiredVector - m_pOwner->GetBody()->GetLinearVelocity();
+	b2Vec2 currentVelocity = m_pOwner->GetBody()->GetLinearVelocity();
+	b2Vec2 desiredVector = TargetPos - position;
+	return desiredVector;
 }
 
 b2Vec2 SteeringBehavior::Wander()
@@ -76,9 +75,13 @@ b2Vec2 SteeringBehavior::Wander()
 		targetInWorld = Vector4(target.x, target.y, 0, 1)*magicMatrix;
 
 		b2Vec2 currentPosition = m_pOwner->GetBody()->GetPosition();
+		b2Vec2 currentVelocity = m_pOwner->GetBody()->GetLinearVelocity();
+		
 		b2Vec2 force = b2Vec2(targetInWorld.x, targetInWorld.y)
 			- currentPosition;
-		return force;
+		b2Vec2 desiredVector = currentVelocity + force;
+
+		return desiredVector;
 	}
 	return b2Vec2();
 }
@@ -101,7 +104,16 @@ b2Vec2 SteeringBehavior::CalculatePrioritized()
 
 bool SteeringBehavior::AccumulateForce(b2Vec2& runningTotalForce, b2Vec2 forceToAdd)
 {
-	//calculate how much steering force the entity has used so far
+	runningTotalForce += forceToAdd;
+	b2Vec2 currentVelocity = m_pOwner->GetBody()->GetLinearVelocity();
+	if (runningTotalForce.Length() != 0)
+	{
+		runningTotalForce.Normalize();
+		runningTotalForce *= currentVelocity.Length();
+		runningTotalForce -= currentVelocity;
+	}
+	return true;
+	/*//calculate how much steering force the entity has used so far
 	float magnitudeSoFar = runningTotalForce.Length();
 
 	//calculate how much steering force remains to be used by this entity
@@ -120,6 +132,5 @@ bool SteeringBehavior::AccumulateForce(b2Vec2& runningTotalForce, b2Vec2 forceTo
 		add.Normalize();
 		add *= magnitudeRemaining;
 		runningTotalForce += add;
-	}
-	return true;
+	}*/
 }

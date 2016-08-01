@@ -53,7 +53,7 @@ void GamePlayState::Render(Game* game)
 			if (entity)
 			{
 				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
-				entity->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));
+				entity->GetBody()->SetLinearVelocity(b2Vec2(-4, 0));
 				m_vCurrentEntities.push_back(entity);
 			}
 				
@@ -114,7 +114,7 @@ Entity* GamePlayState::Clone()
 
 EntityType GamePlayState::GetType()
 {
-	return GOD;
+	return GAME_PLAY_STATE;
 }
 
 bool GamePlayState::HandleMessage(const Telegram& telegram)

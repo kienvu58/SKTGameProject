@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CellJuniorOwnedStates.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
     <ClCompile Include="KiBlast.cpp" />
     <ClCompile Include="ContactListener.cpp" />
@@ -151,6 +152,7 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CellJuniorOwnedStates.h" />
     <ClInclude Include="EntityCellJunior.h" />
     <ClInclude Include="KiBlast.h" />
     <ClInclude Include="ContactListener.h" />
@@ -183,6 +185,7 @@
     <None Include="..\Resources\Data\GamePlayState.json" />
     <None Include="..\Resources\Data\MainMenuState.json" />
     <None Include="..\Resources\Data\RM.json" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

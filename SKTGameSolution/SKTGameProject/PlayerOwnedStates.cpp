@@ -26,6 +26,11 @@ void PlayerGlobalState::Execute(EntityPlayer* entity)
 	b2Vec2 direction(keyD - keyA, keyW - keyS);
 
 	entity->GetBody()->SetLinearVelocity(entity->GetMovementSpeed() * direction);
+
+	if (entity->GetFSM()->CurrentState() != PS_Firing::GetInstance())
+	{
+		entity->DecreaseOverheatPerSecond(50);
+	}
 }
 
 void PlayerGlobalState::Exit(EntityPlayer* entity)
@@ -62,7 +67,7 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 		// change to PlayerMovingState
 		entity->GetFSM()->ChangeState(PS_Moving::GetInstance());
 	}
-	if (InputMgr->IsPressed(KEY_J))
+	if (InputMgr->IsPressed(KEY_J) && !entity->IsOverheated())
 	{
 		// change to PlayerFiringState
 		entity->GetFSM()->ChangeState(PS_Firing::GetInstance());
@@ -120,7 +125,7 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 	auto keyJ = InputMgr->IsPressed(KEY_J);
 	auto keyK = InputMgr->IsPressed(KEY_K);
 	auto keyL = InputMgr->IsPressed(KEY_L);
-	if (velocity.Length() == 0 || keyJ || keyK || keyL)
+	if (velocity.Length() == 0 || keyJ && !entity->IsOverheated() || keyK || keyL)
 	{
 		// change to PlayerStandingState
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
@@ -188,10 +193,12 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0.1);
 		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GS_GamePlay::GetInstance(),
 		                             MSG_SPAWN_KI_BLAST, &kiBlastPosition);
+		entity->IncreaseOverheat(10);
 	}
 
 
-	if (!InputMgr->IsPressed(KEY_J) && firingAnimation->GetTotalFrames() <= entity->GetFrameCount())
+	if (entity->IsOverheated() ||
+		!InputMgr->IsPressed(KEY_J) && firingAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{
 		// change to PlayerStandingState
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());

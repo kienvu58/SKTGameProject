@@ -31,7 +31,10 @@ void PhysicsManager::Init()
 	b2FixtureDef fixture;
 
 	fixture.shape = &shape;
-	fixture.filter.groupIndex = -1;
+//	fixture.filter.groupIndex = -1;
+	fixture.filter.categoryBits = CATEGORY_WALL;
+	fixture.filter.maskBits = CATEGORY_PLAYER;
+
 	// Floor
 	shape.Set(b2Vec2(MetersFromPixels(-Globals::screenWidth) / 2, MetersFromPixels(-Globals::screenHeight) / 2),
 		b2Vec2(MetersFromPixels(Globals::screenWidth) / 2, MetersFromPixels(-Globals::screenHeight) / 2));

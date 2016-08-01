@@ -9,13 +9,15 @@
 
 EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_fMaxHealth(50),
+                              m_fCurrentOverHeat(0),
+                              m_bIsOverheated(false),
                               m_bIsReversed(false),
                               m_iCurrentFrameIndex(0),
                               m_iLastFrameIndex(0),
                               m_fCurrentDelay(0),
                               m_iFrameCount(0),
                               m_pBody(nullptr),
-                              m_fMaxSpeed(3),
+                              m_fMaxSpeed(10),
                               m_fMovementSpeed(3)
 {
 }
@@ -131,6 +133,36 @@ float EntityLiving::GetMovementSpeed() const
 	return m_fMovementSpeed;
 }
 
+void EntityLiving::IncreaseOverheat(float amount)
+{
+	m_fCurrentOverHeat += amount;
+	if (m_fCurrentOverHeat >= MAX_OVERHEAT)
+	{
+		m_fCurrentOverHeat = MAX_OVERHEAT;
+		m_bIsOverheated = true;
+	}
+}
+
+float EntityLiving::GetCurrentOverheat() const
+{
+	return m_fCurrentOverHeat;
+}
+
+void EntityLiving::DecreaseOverheatPerSecond(float amount)
+{
+	m_fCurrentOverHeat -= amount * Globals::deltaTime;
+	if (m_fCurrentOverHeat <= MIN_OVERHEAT)
+	{
+		m_fCurrentOverHeat = MIN_OVERHEAT;
+		m_bIsOverheated = false;
+	}
+}
+
+bool EntityLiving::IsOverheated() const
+{
+	return m_bIsOverheated;
+}
+
 void EntityLiving::Reset()
 {
 }
@@ -138,8 +170,8 @@ void EntityLiving::Reset()
 bool EntityLiving::IsOutOfWall()
 {
 	float tmp = 2;
-	float wallHalfWidth = MetersFromPixels(Globals::screenWidth)/2;
-	float wallHalfHeight = MetersFromPixels(Globals::screenHeight)/2;
+	float wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
+	float wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
 	float boundryX = wallHalfWidth + tmp;
 	float boundryY = wallHalfHeight + tmp;
 

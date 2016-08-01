@@ -32,8 +32,11 @@ void FactoryEntity::Init(char* filePath)
 
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;
-	fixture.restitution = 0.0f;
-	fixture.filter.groupIndex = -1;
+	fixture.restitution = 0.5f;
+	fixture.density = 10;
+//	fixture.filter.groupIndex = -1;
+	fixture.filter.categoryBits = CATEGORY_MINION;
+	fixture.filter.maskBits = CATEGORY_PLAYER;
 
 	//CellJunior prototype
 	EntityCellJunior* cellJuniorPrototype = new EntityCellJunior();
@@ -43,7 +46,9 @@ void FactoryEntity::Init(char* filePath)
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_CELLJUNIOR, cellJuniorPrototype));
 
 	//Goku (Player) prototype
-	fixture.filter.groupIndex = 1;
+//	fixture.filter.groupIndex = 1;
+	fixture.filter.categoryBits = CATEGORY_PLAYER;
+	fixture.filter.maskBits = CATEGORY_WALL | CATEGORY_MINION;
 	EntityPlayer* gokuPrototype = new EntityPlayer();
 	gokuPrototype->InitSprite(1, 1, 1);
 	std::vector<Animation*> gokuAnimations;

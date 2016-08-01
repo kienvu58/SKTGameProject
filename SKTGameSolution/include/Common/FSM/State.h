@@ -1,6 +1,8 @@
 #ifndef STATE_H
 #define STATE_H
 
+class Telegram;
+
 template <class entity_type>
 class State
 {
@@ -17,6 +19,10 @@ public:
 	virtual void Exit(entity_type*)=0;
 
 	virtual void Render(entity_type*) = 0;
+
+	//this executes if the agent receives a message from the
+	//message dispatcher
+//	virtual bool OnMessage(entity_type*, const Telegram&) = 0;
 };
 
 #endif
