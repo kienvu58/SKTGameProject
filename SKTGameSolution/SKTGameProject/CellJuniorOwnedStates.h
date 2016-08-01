@@ -13,4 +13,5 @@ public:
 	void Exit(EntityCellJunior* celljunior) override;
 	void Render(EntityCellJunior* celljunior) override;
 
+	bool OnMessage(EntityCellJunior*, const Telegram&) override;
 };

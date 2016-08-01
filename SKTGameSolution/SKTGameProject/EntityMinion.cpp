@@ -32,7 +32,7 @@ EntityType EntityMinion::GetType()
 
 bool EntityMinion::HandleMessage(const Telegram& telegram)
 {
-	return false;
+	return m_pStateMachine->HandleMessage(telegram);
 }
 
 StateMachine<EntityMinion>* EntityMinion::GetFSM() const

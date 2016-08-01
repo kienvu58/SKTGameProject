@@ -22,7 +22,7 @@ public:
 
 	//this executes if the agent receives a message from the
 	//message dispatcher
-//	virtual bool OnMessage(entity_type*, const Telegram&) = 0;
+	virtual bool OnMessage(entity_type*, const Telegram&) = 0;
 };
 
 #endif

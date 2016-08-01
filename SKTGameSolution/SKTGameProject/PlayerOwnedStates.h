@@ -13,6 +13,8 @@ public:
 	void Execute(EntityPlayer* entity) override;
 	void Exit(EntityPlayer* entity) override;
 	void Render(EntityPlayer* entity) override;
+
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
 };
 
 
@@ -28,6 +30,8 @@ public:
 	void Exit(EntityPlayer* entity) override;
 	void Render(EntityPlayer* entity) override;
 
+
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
 };
 
 
@@ -43,6 +47,7 @@ public:
 	void Exit(EntityPlayer* entity) override;
 	void Render(EntityPlayer* entity) override;
 
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
 };
 
 
@@ -58,6 +63,7 @@ public:
 	void Exit(EntityPlayer* entity) override;
 	void Render(EntityPlayer* entity) override;
 
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
 };
 
 
@@ -73,6 +79,7 @@ public:
 	void Exit(EntityPlayer* entity) override;
 	void Render(EntityPlayer* entity) override;
 
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
 };
 
 
@@ -88,5 +95,6 @@ public:
 	void Exit(EntityPlayer* entity) override;
 	void Render(EntityPlayer* entity) override;
 
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
 };
 

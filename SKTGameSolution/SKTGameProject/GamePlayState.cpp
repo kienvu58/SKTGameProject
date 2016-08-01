@@ -99,25 +99,7 @@ void GamePlayState::Init(const char* filePath)
 	}
 }
 
-void GamePlayState::Update()
-{
-}
-
-void GamePlayState::Render()
-{
-}
-
-Entity* GamePlayState::Clone()
-{
-	return nullptr;
-}
-
-EntityType GamePlayState::GetType()
-{
-	return GAME_PLAY_STATE;
-}
-
-bool GamePlayState::HandleMessage(const Telegram& telegram)
+bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 {
 	if (telegram.Message == MSG_SPAWN_KI_BLAST)
 	{

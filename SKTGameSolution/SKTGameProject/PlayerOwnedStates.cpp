@@ -41,6 +41,11 @@ void PlayerGlobalState::Render(EntityPlayer* entity)
 {
 }
 
+bool PlayerGlobalState::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
+}
+
 PlayerGlobalState::PlayerGlobalState()
 {
 }
@@ -96,6 +101,10 @@ void PlayerStandingState::Render(EntityPlayer* entity)
 {
 }
 
+bool PlayerStandingState::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
+}
 
 PlayerStandingState::PlayerStandingState()
 {
@@ -167,6 +176,10 @@ void PlayerMovingState::Render(EntityPlayer* entity)
 {
 }
 
+bool PlayerMovingState::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
+}
 
 /**
 *	PlayerFiringState
@@ -191,7 +204,7 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 	if (entity->IsFrameChanged())
 	{
 		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0.1);
-		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GS_GamePlay::GetInstance(),
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, Singleton<Game>::GetInstance(),
 		                             MSG_SPAWN_KI_BLAST, &kiBlastPosition);
 		entity->IncreaseOverheat(10);
 	}
@@ -214,6 +227,11 @@ void PlayerFiringState::Exit(EntityPlayer* entity)
 
 void PlayerFiringState::Render(EntityPlayer* entity)
 {
+}
+
+bool PlayerFiringState::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
 }
 
 /**
@@ -252,6 +270,11 @@ void PlayerFiringSpecialState::Exit(EntityPlayer* entity)
 
 void PlayerFiringSpecialState::Render(EntityPlayer* entity)
 {
+}
+
+bool PlayerFiringSpecialState::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
 }
 
 PlayerFiringSpecialState::PlayerFiringSpecialState()
@@ -295,6 +318,11 @@ void PlayerFiringUltimateState::Exit(EntityPlayer* entity)
 
 void PlayerFiringUltimateState::Render(EntityPlayer* entity)
 {
+}
+
+bool PlayerFiringUltimateState::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
 }
 
 PlayerFiringUltimateState::PlayerFiringUltimateState()

@@ -1,7 +1,8 @@
 #pragma once
 #include <Common/FSM/StateMachine.h>
+#include "Entity.h"
 
-class Game
+class Game : public Entity
 {
 public:
 	Game();
@@ -10,8 +11,12 @@ public:
 	void Init();
 	void CreateStateInstances();
 	void DestroyStateInstances();
-	void Update();
-	void Render();
+	void Update() override;
+	void Render() override;
+
+	bool HandleMessage(const Telegram& telegram) override;
+	EntityType GetType() override;
+	Entity* Clone() override;
 
 	StateMachine<Game>* GetFSM() const;
 private:

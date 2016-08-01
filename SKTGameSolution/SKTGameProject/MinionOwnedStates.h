@@ -13,6 +13,7 @@ public:
 	void Exit(EntityMinion* minion) override;
 	void Render(EntityMinion* minion) override;
 
+	bool OnMessage(EntityMinion*, const Telegram&) override;
 };
 
 class MinionGlobalState : public State<EntityMinion>
@@ -26,4 +27,5 @@ public:
 	void Exit(EntityMinion* minion) override;
 	void Render(EntityMinion* minion) override;
 
+	bool OnMessage(EntityMinion*, const Telegram&) override;
 };

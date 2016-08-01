@@ -37,6 +37,11 @@ void GameOptionState::Init(const char* filePath)
 	m_Background->InitSprite(2, 35, 1);
 }
 
+bool GameOptionState::OnMessage(Game*, const Telegram&)
+{
+	return false;
+}
+
 GameOptionState::~GameOptionState()
 {
 	delete m_Background;

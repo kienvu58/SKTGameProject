@@ -77,3 +77,8 @@ void MainMenuState::Init(const char* filePath)
 	m_Button_Exit->InitSprite(3, 34, 1);
 	m_Button_Exit->InitPosition(300, 500);
 }
+
+bool MainMenuState::OnMessage(Game*, const Telegram&)
+{
+	return false;
+}

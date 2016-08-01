@@ -3,6 +3,7 @@
 enum EntityType
 {
 	ENTITY,
+	GAME,
 	ENTITY_LIVING,
 	ENTITY_PLAYER,
 	ENTITY_MINION,

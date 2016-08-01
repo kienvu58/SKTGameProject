@@ -73,3 +73,18 @@ StateMachine<Game>* Game::GetFSM() const
 {
 	return m_pStateMachine;
 }
+
+bool Game::HandleMessage(const Telegram& telegram)
+{
+	return m_pStateMachine->HandleMessage(telegram);
+}
+
+EntityType Game::GetType()
+{
+	return GAME;
+}
+
+Entity* Game::Clone()
+{
+	return nullptr;
+}

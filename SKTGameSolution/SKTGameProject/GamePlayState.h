@@ -8,7 +8,7 @@
 #include "EntityCellJunior.h"
 #include "FactoryEntity.h"
 
-class GamePlayState : public State<Game>, public Entity
+class GamePlayState : public State<Game>
 {
 public:
 	GamePlayState();
@@ -19,13 +19,7 @@ public:
 	void Render(Game* game) override;
 	void Init(const char* filePath);
 
-	// it's kinda weird, a State as a child of Entity, follow methods are useless
-	void Update() override;
-	void Render() override;
-	Entity* Clone() override;
-	EntityType GetType() override;
-	bool HandleMessage(const Telegram& telegram) override;
-
+	bool OnMessage(Game*, const Telegram&) override;
 private:
 	EntityPlayer* m_Goku;
 	EntityCellJunior* m_pTestMinion;

@@ -15,6 +15,9 @@ public:
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
 	void Init(const char* filePath);
+
+
+	bool OnMessage(Game*, const Telegram&) override;
 private:
 	EntityStatic *m_Background;
 };

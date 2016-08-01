@@ -23,3 +23,8 @@ void CellJuniorAttackingState::Exit(EntityCellJunior* celljunior)
 void CellJuniorAttackingState::Render(EntityCellJunior* celljunior)
 {
 }
+
+bool CellJuniorAttackingState::OnMessage(EntityCellJunior*, const Telegram&)
+{
+	return false;
+}

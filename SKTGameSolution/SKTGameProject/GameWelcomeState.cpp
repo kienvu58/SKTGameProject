@@ -31,6 +31,11 @@ void GameWelcomeState::Init(const char* filePath)
 	m_Background->InitSprite(2, 30, 1); 
 }
 
+bool GameWelcomeState::OnMessage(Game*, const Telegram&)
+{
+	return false;
+}
+
 GameWelcomeState::~GameWelcomeState()
 {
 	delete m_Background;
