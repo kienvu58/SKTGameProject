@@ -5,6 +5,7 @@
 enum MessageType
 {
 	MSG_SPAWN_KI_BLAST,
+	MSG_SPAWN_KAMEHAMEHA,
 	MSG_MINION_OUT_OF_WALL
 };
 

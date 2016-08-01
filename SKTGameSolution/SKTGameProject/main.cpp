@@ -32,11 +32,11 @@ int Init(ESContext* esContext)
 	PhysicsMgr->Init();
 
 	// Init game
-	Singleton<Game>::CreateInstance();
+	GameSingleton::CreateInstance();
 
-	Singleton<Game>::GetInstance()->CreateStateInstances();
-	Singleton<Game>::GetInstance()->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
-	Singleton<Game>::GetInstance()->Init();
+	GameInstance->CreateStateInstances();
+	GameInstance->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
+	GameInstance->Init();
 
 	// Set OpenGl blending option
 	glEnable(GL_BLEND);
@@ -58,7 +58,7 @@ void Update(ESContext* esContext, float deltaTime)
 	if (deltaTime)
 	{
 		Globals::deltaTime = deltaTime;
-		Singleton<Game>::GetInstance()->Update();
+		GameInstance->Update();
 	}
 }
 
@@ -114,8 +114,8 @@ void CleanUp()
 	FrameManagerSingleton::DestroyInstance();
 	PhysicsManagerSingleton::DestroyInstance();
 
-	Singleton<Game>::GetInstance()->DestroyStateInstances();
-	Singleton<Game>::DestroyInstance();
+	GameInstance->DestroyStateInstances();
+	GameSingleton::DestroyInstance();
 }
 
 int main(int argc, char* argv[])

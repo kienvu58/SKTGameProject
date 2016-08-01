@@ -19,7 +19,7 @@ public:
 
 	void InitSprite(int modelId, int frameId, int shaderId);
 	void InitBody(const b2BodyDef &bodyDef, const b2FixtureDef &fixtureDef);
-	void Fire(b2Vec2 position, int direction);
+	void Fire(b2Vec2 position, int direction = 1);
 
 private:
 	b2Body* m_pBody;

@@ -70,6 +70,9 @@
     <ClCompile Include="CellJuniorOwnedStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BeamWave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContactListener.h">
@@ -148,6 +151,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CellJuniorOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BeamWave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,6 +15,10 @@
 #include "CrudeTimer.h"
 #include "MessageDispatcher.h"
 
+
+// Game
+typedef Singleton<Game> GameSingleton;
+
 // Clock
 typedef Singleton<CrudeTimer> CrudeTimerSingleton;
 
@@ -55,3 +59,4 @@ typedef Singleton<GameOptionState> GS_Option;
 #define PhysicsMgr PhysicsManagerSingleton::GetInstance()
 #define Clock CrudeTimerSingleton::GetInstance()
 #define Dispatcher MessageDispatcherSingleton::GetInstance()
+#define GameInstance GameSingleton::GetInstance()

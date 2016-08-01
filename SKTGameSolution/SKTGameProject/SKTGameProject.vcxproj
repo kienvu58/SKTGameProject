@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
     <ClCompile Include="KiBlast.cpp" />
@@ -152,6 +153,7 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
     <ClInclude Include="EntityCellJunior.h" />
     <ClInclude Include="KiBlast.h" />

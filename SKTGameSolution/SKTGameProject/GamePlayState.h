@@ -7,6 +7,7 @@
 #include "KiBlast.h"
 #include "EntityCellJunior.h"
 #include "FactoryEntity.h"
+#include "BeamWave.h"
 
 class GamePlayState : public State<Game>
 {
@@ -34,4 +35,5 @@ private:
 	//current entity on the screen
 	std::vector<EntityMinion*> m_vCurrentEntities;
 	std::vector<KiBlast*> m_vCurrentKiBlasts;
+	std::vector<BeamWave*> m_vCurrentBeamWaves;
 };
