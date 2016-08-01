@@ -36,7 +36,7 @@
 			{"id": 33, "spriteSheetID": 4, "index": 1, "duration": 1, "note": ""},
 			{"id": 34, "spriteSheetID": 4, "index": 2, "duration": 1, "note": ""},
 			{"id": 35, "spriteSheetID": 5, "index": 0, "duration": 1, "note": ""},
-			{"id": 36, "spriteSheetID": 6, "index": 0, "duration": 1, "note": "BulletFlying"},
-			{"id": 37, "spriteSheetID": 6, "index": 1, "duration": 1, "note": "BulletCharging"}
+			{"id": 36, "spriteSheetID": 6, "index": 1, "duration": 1, "note": "BulletFlying"},
+			{"id": 37, "spriteSheetID": 6, "index": 0, "duration": 1, "note": "BulletCharging"}
 		]
 }
