@@ -1,6 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{a6f5024c-0420-4669-817d-b23db4b9cc0d}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;json</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{f2dddeec-b09d-468a-8965-125445668d7d}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{8e29af73-93c8-44f9-8a16-f056904b9917}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BeamWave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CellJuniorOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ContactListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -8,6 +28,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityCellJunior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EntityLiving.cpp">
@@ -37,6 +63,9 @@
     <ClCompile Include="GameWelcomeState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KiBlast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,30 +84,23 @@
     <ClCompile Include="PlayerOwnedStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="SteeringBehavior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Telegram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KiBlast.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityCellJunior.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CellJuniorOwnedStates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BeamWave.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Spawner.cpp">
-    <ClCompile Include="EntityEffect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BeamWave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CellJuniorOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ContactListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -86,6 +108,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityCellJunior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EntityLiving.h">
@@ -118,6 +146,9 @@
     <ClInclude Include="GameWelcomeState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="KiBlast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="MainMenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -142,67 +173,31 @@
     <ClInclude Include="SingletonClasses.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="SteeringBehavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Telegram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KiBlast.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityCellJunior.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CellJuniorOwnedStates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BeamWave.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Spawner.h">
-    <ClInclude Include="EntityEffect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Data\MainMenuState.json">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Resources\Data\GamePlayState.json">
+    <None Include="..\Resources\Data\AM.json">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\Resources\Data\FM.json">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\Resources\Data\AM.json">
+    <None Include="..\Resources\Data\GamePlayState.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\MainMenuState.json">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\Resources\Data\RM.json">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\Resources\Data\SM.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="..\Resources\Data\RM.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{b6be9001-bfd7-46cb-9e5a-36a73b701565}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{791801fd-e4fb-441e-ba92-b061336c6a6b}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{1250abe2-78a4-428b-af06-7b28f52dc35c}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
   </ItemGroup>
 </Project>

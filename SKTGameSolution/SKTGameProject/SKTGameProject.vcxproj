@@ -115,16 +115,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GraphicsEngine\GraphicsEngine.vcxproj">
+      <Project>{0d356957-7957-4924-8bfb-e1e1da360601}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.vcxproj">
+      <Project>{0d44529e-f7dd-4454-8ead-9afd857f53b4}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="BeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
-    <ClCompile Include="EntityCellJunior.cpp" />
-    <ClCompile Include="EntityEffect.cpp" />
-    <ClCompile Include="KiBlast.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="CrudeTimer.cpp" />
-    <ClCompile Include="EntityMinion.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityCellJunior.cpp" />
+    <ClCompile Include="EntityEffect.cpp" />
     <ClCompile Include="EntityLiving.cpp" />
+    <ClCompile Include="EntityMinion.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
     <ClCompile Include="EntityStatic.cpp" />
     <ClCompile Include="FactoryEntity.cpp" />
@@ -132,6 +139,7 @@
     <ClCompile Include="GameOptionState.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameWelcomeState.cpp" />
+    <ClCompile Include="KiBlast.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
@@ -143,28 +151,15 @@
     <ClCompile Include="Telegram.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GraphicsEngine\GraphicsEngine.vcxproj">
-      <Project>{0d356957-7957-4924-8bfb-e1e1da360601}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.vcxproj">
-      <Project>{0d44529e-f7dd-4454-8ead-9afd857f53b4}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\Resources\Data\RM.txt" />
-    <Text Include="..\Resources\Data\SM.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="BeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
-    <ClInclude Include="EntityCellJunior.h" />
-    <ClInclude Include="EntityEffect.h" />
-    <ClInclude Include="KiBlast.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="CrudeTimer.h" />
-    <ClInclude Include="EntityMinion.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityCellJunior.h" />
+    <ClInclude Include="EntityEffect.h" />
     <ClInclude Include="EntityLiving.h" />
+    <ClInclude Include="EntityMinion.h" />
     <ClInclude Include="EntityPlayer.h" />
     <ClInclude Include="EntityStatic.h" />
     <ClInclude Include="EntityTypes.h" />
@@ -173,6 +168,7 @@
     <ClInclude Include="GameOptionState.h" />
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameWelcomeState.h" />
+    <ClInclude Include="KiBlast.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />
@@ -191,7 +187,6 @@
     <None Include="..\Resources\Data\GamePlayState.json" />
     <None Include="..\Resources\Data\MainMenuState.json" />
     <None Include="..\Resources\Data\RM.json" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
