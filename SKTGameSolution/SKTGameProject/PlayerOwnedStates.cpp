@@ -203,8 +203,9 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 
 	if (entity->IsFrameChanged())
 	{
-		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0.1);
-		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, Singleton<Game>::GetInstance(),
+		entity->IncreseScore(rand() % 5);
+		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.2, 0.1);
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
 		                             MSG_SPAWN_KI_BLAST, &kiBlastPosition);
 		entity->IncreaseOverheat(10);
 	}
@@ -253,6 +254,15 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 	entity->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 
 	Animation* firingSpecialAnimation = entity->GetAnimation(FIRING_SPECIAL);
+	int currentFrame = entity->GetFrameCount() % firingSpecialAnimation->GetTotalFrames();
+
+	if (currentFrame == 2 && entity->IsFrameChanged())
+	{
+		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.7, 0.15);
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
+		                             MSG_SPAWN_KAMEHAMEHA, &kamehamehaPosition);
+	}
+
 	if (!InputMgr->IsPressed(KEY_K) && firingSpecialAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{
 		// change to PlayerStandingState

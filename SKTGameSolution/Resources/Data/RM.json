@@ -38,8 +38,8 @@
         "modelH": 64,
         "spriteW": 64,
         "spriteH": 64,
-        "textureW": 128,
-        "textureH": 64
+        "textureW": 256,
+        "textureH": 128
       }
 		],
 	"spriteSheets":
@@ -77,8 +77,8 @@
       {
         "id": 6,
         "path": "../Resources/Textures/Bullets.tga",
-        "nRows": 1,
-        "nColumns":  2
+        "nRows": 2,
+        "nColumns":  4
       }
 		],
 	"shaders":

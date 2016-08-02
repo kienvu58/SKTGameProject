@@ -22,7 +22,6 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(50),
 {
 }
 
-
 EntityLiving::~EntityLiving()
 {
 }

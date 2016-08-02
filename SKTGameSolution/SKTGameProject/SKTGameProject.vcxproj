@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
     <ClCompile Include="KiBlast.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="MinionOwnedStates.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerOwnedStates.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="SteeringBehavior.cpp" />
     <ClCompile Include="Telegram.cpp" />
   </ItemGroup>
@@ -152,6 +154,7 @@
     <Text Include="..\Resources\Data\SM.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
     <ClInclude Include="EntityCellJunior.h" />
     <ClInclude Include="KiBlast.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="PlayerOwnedStates.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="SingletonClasses.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="SteeringBehavior.h" />
     <ClInclude Include="Telegram.h" />
   </ItemGroup>

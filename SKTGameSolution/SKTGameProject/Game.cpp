@@ -2,11 +2,11 @@
 #include "GamePlayState.h"
 #include "MainMenuState.h"
 #include "GameWelcomeState.h"
-#include <Windows.h>
 #include "GameOptionState.h"
 #include "SingletonClasses.h"
 
-Game::Game(): m_pStateMachine(new StateMachine<Game>(this))
+Game::Game(): m_pStateMachine(new StateMachine<Game>(this)),
+              m_fPlayingTime(0)
 {
 }
 
@@ -95,4 +95,27 @@ EntityType Game::GetType()
 Entity* Game::Clone()
 {
 	return nullptr;
+}
+
+void Game::IncreasePlayingTime(float amount)
+{
+	m_fPlayingTime += amount;
+}
+
+float Game::GetPlayingTime() const
+{
+	return m_fPlayingTime;
+}
+
+void Game::UpdateDifficulty(int currentScore)
+{
+	float playingTimeWeight = 1;
+	float currentScoreWeight = 0.05;
+
+	m_fDifficulty = playingTimeWeight * MinutesFromSeconds(m_fPlayingTime) + currentScoreWeight * currentScore;
+}
+
+float Game::GetDifficulty() const
+{
+	return m_fDifficulty;
 }

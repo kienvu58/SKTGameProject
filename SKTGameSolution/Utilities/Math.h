@@ -1,7 +1,8 @@
 #pragma once
 
 #define RADIAN_PER_DEGREE (3.1415926535897932384626433832795f / 180.0f);
-#define PIXEL_PER_METER 70;
+#define PIXEL_PER_METER 70.0f;
+#define SECOND_PER_MINUTE 60;
 
 #include "esUtil.h"
 #include <Box2D/Common/b2Math.h>
@@ -196,4 +197,9 @@ inline Vector2 GraphicsFromPhysics(b2Vec2 physicsPosition)
 	graphicsPosition.x = PixelsFromMeters(physicsPosition.x);
 	graphicsPosition.y = PixelsFromMeters(physicsPosition.y);
 	return graphicsPosition;
+}
+
+inline float MinutesFromSeconds(float seconds)
+{
+	return seconds / SECOND_PER_MINUTE;
 }

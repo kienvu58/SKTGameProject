@@ -13,7 +13,9 @@ public:
 	void Init(int modelW, int modelH, int spriteW, int spriteH, int textureW, int textureH);
 	GLuint GetVboID() const;
 	GLuint GetIboID() const;
+	int GetModelWidth() const;
 private:
+	int m_iModelWidth;
 	GLuint m_ID;
 	GLuint m_VboID;
 	GLuint m_IboID;

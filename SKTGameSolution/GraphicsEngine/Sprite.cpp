@@ -23,7 +23,6 @@ void Sprite::SetFrame(Frame* frame)
 	m_Index = frame->GetIndex();
 }
 
-
 void Sprite::Render()
 {
 	glUseProgram(m_pShaders->program);
@@ -66,21 +65,21 @@ void Sprite::Render()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Sprite::SetRenderInfo(Vector2 position, bool isReversed)
+void Sprite::SetRenderInfo(Vector2 position, bool isReversed, Vector2 vec2Scale)
 {
-	Matrix model, projection, translation, rotation;
-	translation.SetTranslation(position.x, position.y, 0);
-
-	rotation.SetIdentity();
+	Matrix matModel, matProjection, matScale, matTranslation, matRotation;
+	matTranslation.SetTranslation(position.x, position.y, 0);
+	matScale.SetScale(vec2Scale.x, vec2Scale.y, 1);
+	matRotation.SetIdentity();
 	if (isReversed)
 	{
-		rotation.SetRotationY(Radians(180));
+		matRotation.SetRotationY(Radians(180));
 	}
 
-	model = rotation * translation;
-	projection.SetOrthographic(-static_cast<float>(Globals::screenWidth) / 2, static_cast<float>(Globals::screenWidth / 2),
+	matModel = matScale * matRotation * matTranslation;
+	matProjection.SetOrthographic(-static_cast<float>(Globals::screenWidth) / 2, static_cast<float>(Globals::screenWidth / 2),
 	                           static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40);
-	m_matMVP = model * projection;
+	m_matMVP = matModel * matProjection;
 }
 
 void Sprite::SetIndex(int index)

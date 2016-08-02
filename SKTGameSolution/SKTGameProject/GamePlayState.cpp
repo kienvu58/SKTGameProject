@@ -5,6 +5,8 @@
 #include <Box2D/Dynamics/b2Fixture.h>
 #include "SingletonClasses.h"
 #include <ctime>
+#include "BeamWave.h"
+#include "../GraphicsEngine/Globals.h"
 
 GamePlayState::GamePlayState()
 {
@@ -42,6 +44,12 @@ void GamePlayState::Execute(Game* game)
 	{
 		it->Update();
 	}
+	for (auto it : m_vCurrentBeamWaves)
+	{
+		it->Update();
+	}
+	game->IncreasePlayingTime(Globals::deltaTime);
+	game->UpdateDifficulty(m_Goku->GetCurrentScore());
 }
 
 void GamePlayState::Exit(Game* game)
@@ -51,7 +59,16 @@ void GamePlayState::Exit(Game* game)
 void GamePlayState::Render(Game* game)
 {
 	m_Goku->Render();
-	TextMgr->RenderString("Test Game", Vector4(1, 0, 0, 1), 60.0f, 0, 0, 1, 1);
+	std::string currentScore = std::to_string(m_Goku->GetCurrentScore());
+	std::string scoreText = "Score: ";
+	scoreText.append(currentScore);
+	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0, 0, 1, 1);
+	std::string playingTimeText = std::to_string(game->GetPlayingTime());
+	playingTimeText.append(" s");
+	TextMgr->RenderString(playingTimeText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 200.0f, 0, 1, 1);
+	std::string difficultyText = "Difficulty: ";
+	difficultyText.append(std::to_string(game->GetDifficulty()));
+	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
 	//m_pTestMinion->Render();
 
 	//generate minions by the number of minions in the screen.
@@ -79,6 +96,11 @@ void GamePlayState::Render(Game* game)
 	}
 
 	for (auto it : m_vCurrentKiBlasts)
+	{
+		it->Render();
+	}
+
+	for (auto it : m_vCurrentBeamWaves)
 	{
 		it->Render();
 	}
@@ -136,12 +158,31 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 		m_vCurrentKiBlasts.push_back(kiBlast);
 		return true;
 	}
+
 	if(telegram.Message == MSG_MINION_OUT_OF_WALL)
 	{
 		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
-		theMinion->GetBody()->SetActive(false);
+		auto it = std::find(m_vCurrentEntities.begin(), m_vCurrentEntities.end(), theMinion);
+		if (it != m_vCurrentEntities.end())
+		{
+			std::swap(*it, m_vCurrentEntities.back());
+			m_vCurrentEntities.pop_back();
+		}
 		m_pMinionPool->ReleaseEntity(theMinion);
-		
+
+		return true;
+	}
+
+	if (telegram.Message == MSG_SPAWN_KAMEHAMEHA)
+	{
+		auto kamehamehaPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
+		std::cout << "Spawn Kamehameha at " << kamehamehaPosition.x << " " << kamehamehaPosition.y << std::endl;
+		BeamWave* kamehameha = new BeamWave();
+		kamehameha->InitSpriteHead(4, 40, 1);
+		kamehameha->InitSpriteBody(4, 39, 1);
+		kamehameha->InitSpriteTail(4, 38, 1);
+		kamehameha->Fire(kamehamehaPosition);
+		m_vCurrentBeamWaves.push_back(kamehameha);
 		return true;
 	}
 	return false;
@@ -155,6 +196,11 @@ GamePlayState::~GamePlayState()
 	delete m_pMinionPool;
 
 	for (auto it : m_vCurrentKiBlasts)
+	{
+		delete it;
+	}
+
+	for (auto it : m_vCurrentBeamWaves)
 	{
 		delete it;
 	}

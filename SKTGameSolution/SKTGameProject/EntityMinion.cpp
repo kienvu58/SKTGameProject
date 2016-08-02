@@ -1,7 +1,5 @@
 #include "EntityMinion.h"
-#include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
-#include "../GraphicsEngine/Globals.h"
 #include <iostream>
 #include "SingletonClasses.h"
 

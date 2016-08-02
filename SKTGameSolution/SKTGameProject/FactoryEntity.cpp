@@ -62,7 +62,7 @@ void FactoryEntity::Init(char* filePath)
 	gokuAnimations.push_back(AnimationMgr->GetAnimationById(8));
 	gokuAnimations.push_back(AnimationMgr->GetAnimationById(9));
 	gokuPrototype->SetAnimations(gokuAnimations);
-	bodyDef.position = b2Vec2(-5,0);
+	bodyDef.position = b2Vec2(0, 0);
 	gokuPrototype->InitBody(bodyDef, fixture);
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_PLAYER, gokuPrototype));
 }
