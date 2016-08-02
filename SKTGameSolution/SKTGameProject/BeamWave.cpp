@@ -33,7 +33,13 @@ void BeamWave::Update()
 			m_bIsActive = false;
 			count = 0.0f;
 		}
+
+
 		m_fLength += m_fSpeed * Globals::deltaTime;
+
+//		auto randScale = 1.0f + 0.1f * (- 1 + 2 * float(rand()) / RAND_MAX);
+		auto randScale = 0.95f + Globals::deltaTime * 10;
+
 		auto scaleBodyX = PixelsFromMeters(m_fLength) / m_iInitializedWidth;
 		auto scaleHeadX = 1.0f;
 		if (scaleBodyX < 1.0f)
@@ -44,16 +50,16 @@ void BeamWave::Update()
 		auto bodyPhysicsPosition = m_vec2StartPosition + m_iDirection * m_fLength / 2 * b2Vec2(1, 0);
 		auto isReversed = m_iDirection == -1;
 
-		auto bodyGraphicsPosition = 
+		auto bodyGraphicsPosition =
 			GraphicsFromPhysics(bodyPhysicsPosition) - Vector2(1, 0) * m_iDirection * m_iInitializedWidth / 4;
-		m_SpriteBody.SetRenderInfo(bodyGraphicsPosition, isReversed, Vector2(scaleBodyX, scaleHeadX));
+		m_SpriteBody.SetRenderInfo(bodyGraphicsPosition, isReversed, Vector2(scaleBodyX, randScale));
 
-		
-		auto headGraphicsPosition = 
+
+		auto headGraphicsPosition =
 			GraphicsFromPhysics(headPhysicsPosition) - Vector2(1, 0) * m_iDirection * m_iInitializedWidth / 2;
-		m_SpriteHead.SetRenderInfo(headGraphicsPosition, isReversed, Vector2(scaleHeadX, scaleHeadX));
+		m_SpriteHead.SetRenderInfo(headGraphicsPosition, isReversed, Vector2(scaleHeadX, 1) * randScale);
 
-		m_SpriteTail.SetRenderInfo(GraphicsFromPhysics(m_vec2StartPosition), isReversed, Vector2(scaleHeadX, scaleHeadX));
+		m_SpriteTail.SetRenderInfo(GraphicsFromPhysics(m_vec2StartPosition), isReversed, Vector2(scaleHeadX, 1) * randScale);
 	}
 }
 
