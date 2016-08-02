@@ -39,6 +39,10 @@ void Game::CreateStateInstances()
 
 	MS_Wandering::CreateInstance();
 	MS_Global::CreateInstance();
+
+	CJS_Global::CreateInstance();
+	CJS_Wandering::CreateInstance();
+	CJS_Attacking::CreateInstance();
 }
 
 void Game::DestroyStateInstances()
@@ -57,6 +61,10 @@ void Game::DestroyStateInstances()
 
 	MS_Wandering::DestroyInstance();
 	MS_Global::DestroyInstance();
+
+	CJS_Global::DestroyInstance();
+	CJS_Wandering::DestroyInstance();
+	CJS_Attacking::DestroyInstance();
 }
 
 void Game::Update()

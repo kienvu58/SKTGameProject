@@ -6,14 +6,21 @@
 
 EntityCellJunior::EntityCellJunior()
 {
-	m_pStateMachine->SetCurrentState(MS_Wandering::GetInstance());
-	m_pStateMachine->SetGlobalState(MS_Global::GetInstance());
 	m_pSteeringBehavior->WanderOn();
 //	m_pSteeringBehavior->SeekOn();
+	m_pStateMachine = new StateMachine<EntityCellJunior>(this);
+	m_pStateMachine->SetCurrentState(CJS_Wandering::GetInstance());
+	m_pStateMachine->SetGlobalState(CJS_Global::GetInstance());
 }
 
 EntityCellJunior::~EntityCellJunior()
 {
+	delete m_pStateMachine;
+}
+
+StateMachine<EntityCellJunior>* EntityCellJunior::GetFSM() const
+{
+	return m_pStateMachine;
 }
 
 Entity* EntityCellJunior::Clone()
@@ -39,4 +46,15 @@ Entity* EntityCellJunior::Clone()
 	cloneMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 
 	return cloneMinion;
+}
+
+void EntityCellJunior::Update()
+{
+	EntityMinion::Update();
+	m_pStateMachine->Update();
+}
+
+bool EntityCellJunior::HandleMessage(const Telegram& telegram)
+{
+	return m_pStateMachine->HandleMessage(telegram);
 }

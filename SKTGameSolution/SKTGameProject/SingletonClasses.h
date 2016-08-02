@@ -14,6 +14,7 @@
 #include "GameOptionState.h"
 #include "CrudeTimer.h"
 #include "MessageDispatcher.h"
+#include "CellJuniorOwnedStates.h"
 
 // Clock
 typedef Singleton<CrudeTimer> CrudeTimerSingleton;
@@ -40,6 +41,11 @@ typedef Singleton<PlayerGlobalState> PS_Global;
 // Minion States
 typedef Singleton<WanderingState> MS_Wandering;
 typedef Singleton<MinionGlobalState> MS_Global;
+
+// CellJunior States
+typedef Singleton<CellJuniorGlobalState> CJS_Global;
+typedef Singleton<CellJuniorWanderingState> CJS_Wandering;
+typedef Singleton<CellJuniorAttackingState> CJS_Attacking;
 
 // Game States
 typedef Singleton<GamePlayState> GS_GamePlay;

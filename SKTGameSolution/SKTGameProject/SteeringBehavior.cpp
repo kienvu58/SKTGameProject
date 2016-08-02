@@ -14,7 +14,6 @@ b2Vec2 SteeringBehavior::Calculate()
 b2Vec2 SteeringBehavior::Seek(b2Vec2 TargetPos)
 {
 	b2Vec2 position = m_pOwner->GetBody()->GetPosition();
-	b2Vec2 currentVelocity = m_pOwner->GetBody()->GetLinearVelocity();
 	b2Vec2 desiredVector = TargetPos - position;
 	return desiredVector;
 }

@@ -12,10 +12,7 @@ public:
 	void Render() override;
 	void Update() override;
 	EntityType GetType() override;
-	bool HandleMessage(const Telegram& telegram) override;
-
-	//Get FSM
-	StateMachine<EntityMinion>* GetFSM() const;
+	bool HandleMessage(const Telegram& telegram) override = 0;
 
 	EntityMinion();
 	~EntityMinion();
@@ -25,9 +22,6 @@ public:
 	//clone
 	Entity* Clone() override;
 protected:
-	//State info
-	StateMachine<EntityMinion>* m_pStateMachine;
-
 	//behavior
 	SteeringBehavior* m_pSteeringBehavior;
 

@@ -22,10 +22,22 @@ void GamePlayState::Execute(Game* game)
 //	m_pTestMinion->Update();
 	//m_pCloneMinion->Update();
 	//update
-	for (int i = 0; i < m_vCurrentEntities.size(); i++)
+	float attackingRadius = 2.0f;
+	b2Vec2 distance;
+	b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
+	int i;
+	for (i = 0; i < m_vCurrentEntities.size(); i++)
 	{
 		m_vCurrentEntities[i]->Update();
+//		distance = goKuPosition - m_vCurrentEntities[i]->GetBody()->GetPosition();
+//		if (distance.Length() <= attackingRadius)
+//		{
+//			b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
+//			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, Singleton<Game>::GetInstance(), m_vCurrentEntities[i],
+//				MSG_CELLJR_INSIDE_ATTACK_RANGE, &goKuPosition);
+//		}
 	}
+
 	for (auto it : m_vCurrentKiBlasts)
 	{
 		it->Update();
@@ -127,12 +139,7 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	if(telegram.Message == MSG_MINION_OUT_OF_WALL)
 	{
 		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
-		auto it = std::find(m_vCurrentEntities.begin(), m_vCurrentEntities.end(), theMinion);
-		if (it != m_vCurrentEntities.end())
-		{
-			std::swap(*it, m_vCurrentEntities.back());
-			m_vCurrentEntities.pop_back();
-		}
+		theMinion->GetBody()->SetActive(false);
 		m_pMinionPool->ReleaseEntity(theMinion);
 		
 		return true;
