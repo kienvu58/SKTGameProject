@@ -6,7 +6,8 @@ enum MessageType
 {
 	MSG_SPAWN_KI_BLAST,
 	MSG_SPAWN_KAMEHAMEHA,
-	MSG_MINION_OUT_OF_WALL
+	MSG_MINION_OUT_OF_WALL,
+	MSG_SPAWN_TRUE_KAMEHAMEHA
 };
 
 inline std::string MessageToString(int message)
