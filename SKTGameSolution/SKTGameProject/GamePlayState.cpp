@@ -56,7 +56,6 @@ void GamePlayState::Exit(Game* game)
 
 void GamePlayState::Render(Game* game)
 {
-	m_Goku->Render();
 	std::string currentScore = std::to_string(m_Goku->GetCurrentScore());
 	std::string scoreText = "Score: ";
 	scoreText.append(currentScore);
@@ -100,6 +99,8 @@ void GamePlayState::Render(Game* game)
 	{
 		it->Render();
 	}
+
+	m_Goku->Render();
 }
 
 void GamePlayState::Init(const char* filePath)
@@ -169,6 +170,19 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 		kamehameha->InitSpriteHead(4, 40, 1);
 		kamehameha->InitSpriteBody(4, 39, 1);
 		kamehameha->InitSpriteTail(4, 38, 1);
+		kamehameha->Fire(kamehamehaPosition);
+		m_vCurrentBeamWaves.push_back(kamehameha);
+		return true;
+	}
+	
+	if (telegram.Message == MSG_SPAWN_TRUE_KAMEHAMEHA)
+	{
+		auto kamehamehaPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
+		std::cout << "Spawn True Kamehameha at " << kamehamehaPosition.x << " " << kamehamehaPosition.y << std::endl;
+		BeamWave* kamehameha = new BeamWave();
+		kamehameha->InitSpriteHead(5, 43, 1);
+		kamehameha->InitSpriteBody(5, 42, 1);
+		kamehameha->InitSpriteTail(5, 41, 1);
 		kamehameha->Fire(kamehamehaPosition);
 		m_vCurrentBeamWaves.push_back(kamehameha);
 		return true;

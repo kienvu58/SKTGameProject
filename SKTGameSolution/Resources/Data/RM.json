@@ -21,26 +21,36 @@
 				"textureW": 1024,
 				"textureH": 1024
 			},
-      {
-        "id": 3,
-        "note": "Button",
-        "modelW": 200,
-        "modelH": 100,
-        "spriteW": 128,
-        "spriteH": 128,
-        "textureW": 512,
-        "textureH": 256
-      },
-      {
-        "id": 4,
-        "note": "KiBlast",
-        "modelW": 64,
-        "modelH": 64,
-        "spriteW": 64,
-        "spriteH": 64,
-        "textureW": 256,
-        "textureH": 128
-      }
+			{
+				"id": 3,
+				"note": "Button",
+				"modelW": 200,
+				"modelH": 100,
+				"spriteW": 128,
+				"spriteH": 128,
+				"textureW": 512,
+				"textureH": 256
+			},
+			{
+				"id": 4,
+				"note": "KiBlast",
+				"modelW": 64,
+				"modelH": 64,
+				"spriteW": 64,
+				"spriteH": 64,
+				"textureW": 256,
+				"textureH": 256
+			},
+			{
+				"id": 5,
+				"note": "TrueKamehameha",
+				"modelW": 110,
+				"modelH": 110,
+				"spriteW": 64,
+				"spriteH": 64,
+				"textureW": 256,
+				"textureH": 256
+			}
 		],
 	"spriteSheets":
 		[
@@ -68,18 +78,18 @@
 				"nRows": 2,
 				"nColumns": 4
 			},
-      {
-        "id": 5,
-        "path": "../Resources/Textures/GameOptionState.tga",
-        "nRows": 1,
-        "nColumns": 1
-      },
-      {
-        "id": 6,
-        "path": "../Resources/Textures/Bullets.tga",
-        "nRows": 2,
-        "nColumns":  4
-      }
+			{
+				"id": 5,
+				"path": "../Resources/Textures/GameOptionState.tga",
+				"nRows": 1,
+				"nColumns": 1
+			},
+			{
+				"id": 6,
+				"path": "../Resources/Textures/Bullets.tga",
+				"nRows": 4,
+				"nColumns":  4
+			}
 		],
 	"shaders":
 		[

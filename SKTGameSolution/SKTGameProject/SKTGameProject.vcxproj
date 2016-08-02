@@ -118,6 +118,7 @@
     <ClCompile Include="BeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
+    <ClCompile Include="EntityEffect.cpp" />
     <ClCompile Include="KiBlast.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="CrudeTimer.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="BeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
     <ClInclude Include="EntityCellJunior.h" />
+    <ClInclude Include="EntityEffect.h" />
     <ClInclude Include="KiBlast.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="CrudeTimer.h" />

@@ -40,6 +40,9 @@
 			{"id": 37, "spriteSheetID": 6, "index": 0, "duration": 1, "note": "BulletCharging"},
 			{"id": 38, "spriteSheetID": 6, "index": 3, "duration": 1, "note": "TailKamehameha"},
 			{"id": 39, "spriteSheetID": 6, "index": 4, "duration": 1, "note": "BodyKamehameha"},
-			{"id": 40, "spriteSheetID": 6, "index": 5, "duration": 1, "note": "HeadKamehameha"}
+			{"id": 40, "spriteSheetID": 6, "index": 5, "duration": 1, "note": "HeadKamehameha"},
+			{"id": 41, "spriteSheetID": 6, "index": 6, "duration": 1, "note": "TailTrueKamehameha"},
+			{"id": 42, "spriteSheetID": 6, "index": 7, "duration": 1, "note": "BodyTrueKamehameha"},
+			{"id": 43, "spriteSheetID": 6, "index": 8, "duration": 1, "note": "HeadTrueKamehameha"}
 		]
 }
