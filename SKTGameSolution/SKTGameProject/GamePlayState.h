@@ -8,6 +8,7 @@
 #include "EntityCellJunior.h"
 #include "FactoryEntity.h"
 #include "BeamWave.h"
+#include "Spawner.h"
 
 class GamePlayState : public State<Game>
 {
@@ -23,8 +24,6 @@ public:
 	bool OnMessage(Game*, const Telegram&) override;
 private:
 	EntityPlayer* m_Goku;
-	EntityCellJunior* m_pTestMinion;
-	Entity* m_pCloneMinion;
 
 	//factory stores prototypes
 	FactoryEntity* m_PFactory;
@@ -36,4 +35,7 @@ private:
 	std::vector<EntityMinion*> m_vCurrentEntities;
 	std::vector<KiBlast*> m_vCurrentKiBlasts;
 	std::vector<BeamWave*> m_vCurrentBeamWaves;
+
+	//spawner
+	Spawner m_spawner;
 };

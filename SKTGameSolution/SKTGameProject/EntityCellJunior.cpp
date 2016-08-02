@@ -58,3 +58,8 @@ bool EntityCellJunior::HandleMessage(const Telegram& telegram)
 {
 	return m_pStateMachine->HandleMessage(telegram);
 }
+
+EntityType EntityCellJunior::GetType()
+{
+	return ENTITY_CELLJUNIOR;
+}

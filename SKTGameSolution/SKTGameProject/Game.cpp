@@ -43,6 +43,8 @@ void Game::CreateStateInstances()
 	CJS_Global::CreateInstance();
 	CJS_Wandering::CreateInstance();
 	CJS_Attacking::CreateInstance();
+	
+	FactorySingleton::CreateInstance();
 }
 
 void Game::DestroyStateInstances()
@@ -65,6 +67,8 @@ void Game::DestroyStateInstances()
 	CJS_Global::DestroyInstance();
 	CJS_Wandering::DestroyInstance();
 	CJS_Attacking::DestroyInstance();
+
+	FactorySingleton::DestroyInstance();
 }
 
 void Game::Update()
@@ -110,9 +114,9 @@ float Game::GetPlayingTime() const
 void Game::UpdateDifficulty(int currentScore)
 {
 	float playingTimeWeight = 1;
-	float currentScoreWeight = 0.05;
+	float currentScoreWeight = 1.0f/50;
 
-	m_fDifficulty = playingTimeWeight * MinutesFromSeconds(m_fPlayingTime) + currentScoreWeight * currentScore;
+	m_fDifficulty = playingTimeWeight * MinutesFromSeconds(m_fPlayingTime) + currentScoreWeight * currentScore + 1; 
 }
 
 float Game::GetDifficulty() const

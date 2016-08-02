@@ -14,6 +14,8 @@ public:
 
 	void Update() override;
 	bool HandleMessage(const Telegram& telegram) override;
+
+	EntityType GetType() override;
 private:
 	//State info
 	StateMachine<EntityCellJunior>* m_pStateMachine;

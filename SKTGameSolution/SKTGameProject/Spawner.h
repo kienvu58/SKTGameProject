@@ -1,6 +1,9 @@
 #pragma once
 #include "Entity.h"
 #include <map>
+#include "EntityMinion.h"
+#include "EntityCellJunior.h"
+#include "Pool.h"
 
 class Spawner : public Entity
 {
@@ -21,5 +24,11 @@ public:
 private:
 	std::map<EntityType, float> m_mapChanceWeights;
 	std::map<EntityType, float> m_mapNumSpawnWeights;
+	std::map<EntityType, int> m_mapInitNum;
+
+	std::map<EntityType, std::vector<EntityMinion*>> m_mapCurrentMinions;
+
+	//pools
+	Pool<EntityCellJunior> m_cellJnPool;
 };
 

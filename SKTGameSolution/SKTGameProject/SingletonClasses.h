@@ -57,6 +57,9 @@ typedef Singleton<GameWelcomeState> GS_Welcome;
 typedef Singleton<MainMenuState> GS_MainMenu;
 typedef Singleton<GameOptionState> GS_Option;
 
+// Factory Prototype
+typedef  Singleton<FactoryEntity> FactorySingleton;
+
 #define InputMgr InputManagerSingleton::GetInstance()
 #define FrameMgr FrameManagerSingleton::GetInstance()
 #define AnimationMgr AnimationManagerSingleton::GetInstance()
@@ -66,3 +69,4 @@ typedef Singleton<GameOptionState> GS_Option;
 #define Clock CrudeTimerSingleton::GetInstance()
 #define Dispatcher MessageDispatcherSingleton::GetInstance()
 #define GameInstance GameSingleton::GetInstance()
+#define Factory FactorySingleton::GetInstance()

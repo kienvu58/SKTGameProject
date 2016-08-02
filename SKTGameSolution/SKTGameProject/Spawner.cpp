@@ -13,7 +13,7 @@ void Spawner::Render()
 }
 
 void Spawner::Update()
-{
+{ 
 }
 
 bool Spawner::HandleMessage(const Telegram& telegram)
@@ -38,6 +38,7 @@ void Spawner::Init(const char* filePath)
 	//tmp hard code.
 	m_mapChanceWeights.insert(std::pair<EntityType, float>(ENTITY_CELLJUNIOR, 0.9));
 	m_mapNumSpawnWeights.insert(std::pair<EntityType, float>(ENTITY_CELLJUNIOR, 10));
+	m_mapInitNum.insert(std::pair<EntityType, int>(ENTITY_CELLJUNIOR, 10));
 }
 
 float Spawner::GetChanceToSpawnMinion(float difficulty, EntityType minionType) const
@@ -55,9 +56,10 @@ int Spawner::GetNumSpawnMinion(float difficulty, int numOnTheScreen, EntityType 
 {
 	int numSpawn = 0;
 	auto it = m_mapNumSpawnWeights.find(minionType);
-	if (it != m_mapNumSpawnWeights.end())
+	auto it2 = m_mapInitNum.find(minionType);
+	if (it != m_mapNumSpawnWeights.end() && it2 != m_mapInitNum.end())
 	{
-		numSpawn = it->second * difficulty - numOnTheScreen;
+		numSpawn = it->second * difficulty - numOnTheScreen + it2->second;
 	}
 	return numSpawn;
 }
