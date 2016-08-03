@@ -31,12 +31,6 @@ public:
 private:
 	EntityPlayer* m_Goku;
 
-	//factory stores prototypes
-	FactoryEntity* m_PFactory;
-
-	//pools
-	Pool<EntityMinion>* m_pMinionPool;
-
 	//current entity on the screen
 	std::vector<KiBlast*> m_vCurrentKiBlasts;
 	std::vector<BeamWave*> m_vCurrentBeamWaves;

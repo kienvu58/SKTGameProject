@@ -20,12 +20,10 @@ public:
 	float GetChanceToSpawnMinion(float difficulty, EntityType minionType) const;
 	int GetNumSpawnMinion(float difficulty, int numOnTheScreen, EntityType minionType);
 	void SpawnMinions();
-	void ReaseMinions(EntityMinion* minion);
+	void RealeaseMinions(EntityMinion* minion);
 private:
 	std::map<EntityType, float> m_mapChanceWeights;
 	std::map<EntityType, float> m_mapNumSpawnWeights;
 	std::map<EntityType, int> m_mapInitNum;
-
-	Pool<EntityMinion>* m_pMinionPool;
 };
 

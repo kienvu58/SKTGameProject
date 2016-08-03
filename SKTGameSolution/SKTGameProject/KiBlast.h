@@ -21,6 +21,8 @@ public:
 	void InitBody(const b2BodyDef &bodyDef, const b2FixtureDef &fixtureDef);
 	void Fire(b2Vec2 position, int direction = 1);
 
+	void SetSprite(Sprite sprite);
+	void SetSpeed(float speed);
 private:
 	b2Body* m_pBody;
 	float m_fSpeed;

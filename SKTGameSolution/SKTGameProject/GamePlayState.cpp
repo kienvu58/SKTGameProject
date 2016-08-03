@@ -83,26 +83,6 @@ void GamePlayState::Render(Game* game)
 	difficultyText.append(std::to_string(game->GetDifficulty()));
 	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
 
-//	//generate minions by the number of minions in the screen.
-//	int currentNumMinions = 100;
-//	if (GetNumEntitiesByType(ENTITY_CELLJUNIOR) < currentNumMinions)
-//	{
-//		for (int i = 0; i < currentNumMinions - GetNumEntitiesByType(ENTITY_CELLJUNIOR); i++)
-//		{
-//			EntityMinion* entity;
-//			entity = m_pMinionPool->GetEntity();
-//			if (entity)
-//			{
-//				entity->GetBody()->SetActive(true);
-//				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
-//				entity->GetBody()->SetLinearVelocity(b2Vec2(-4, 0));
-//				AddEntitesToTheScreen(ENTITY_CELLJUNIOR, entity);
-//			}
-//		}
-//	}
-
-	//m_spawner.SpawnMinions(this);
-
 	for(auto it : m_mapCurrentEntities)
 	{
 		for (int i=0; i<it.second->size();i++)
@@ -130,16 +110,6 @@ void GamePlayState::Init(const char* filePath)
 	Factory->Init("File path");
 	m_spawner.Init("File path");
 	m_Goku = dynamic_cast<EntityPlayer*>(Factory->GetPrototype(ENTITY_PLAYER));
-	//Init for pools
-	m_pMinionPool = new Pool<EntityMinion>();
-	
-	int nMaxMinions = 100;
-	for (int i=0; i<nMaxMinions; i++)
-	{
-		EntityMinion* minion = dynamic_cast<EntityCellJunior*>(Factory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());
-		minion->GetBody()->SetTransform(b2Vec2(rand()%10, (rand()-rand())%6), 0);
-		m_pMinionPool->Add(minion);
-	}
 }
 
 bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
@@ -148,21 +118,7 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	{
 		auto kiBlastPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 		std::cout << "Spawn ki blast at " << kiBlastPosition.x << " " << kiBlastPosition.y << std::endl;
-		KiBlast* kiBlast = new KiBlast();
-
-		b2BodyDef bodyDef;
-		bodyDef.type = b2_dynamicBody;
-
-		b2PolygonShape boxShape;
-		boxShape.SetAsBox(MetersFromPixels(24), MetersFromPixels(12));
-
-		b2FixtureDef fixtureDef;
-		fixtureDef.shape = &boxShape;
-		fixtureDef.restitution = 1.0f;
-		fixtureDef.isSensor = true;
-
-		kiBlast->InitBody(bodyDef, fixtureDef);
-		kiBlast->InitSprite(4, 36, 1);
+		KiBlast* kiBlast = dynamic_cast<KiBlast*>(Factory->GetPrototype(KI_BLAST)->Clone());;
 		kiBlast->Fire(kiBlastPosition, 1);
 		m_vCurrentKiBlasts.push_back(kiBlast);
 		return true;
@@ -173,7 +129,8 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
 		theMinion->GetBody()->SetActive(false);
 		RemoveEntitiesOnTheScreen(theMinion->GetType(), theMinion);
-		m_spawner.ReaseMinions(theMinion);
+		m_spawner.RealeaseMinions(theMinion);
+		std::cout << "out of wall .\n";
 		return true;
 	}
 
@@ -207,8 +164,6 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 
 GamePlayState::~GamePlayState()
 {
-	delete m_pMinionPool;
-
 	for (auto it : m_vCurrentKiBlasts)
 	{
 		delete it;

@@ -1,6 +1,8 @@
 #include "KiBlast.h"
 #include "SingletonClasses.h"
 #include <Box2D/Dynamics/b2World.h>
+#include <Box2D/Collision/Shapes/b2PolygonShape.h>
+#include <Box2D/Dynamics/b2Fixture.h>
 
 
 KiBlast::KiBlast(): m_fSpeed(6) {
@@ -30,7 +32,29 @@ void KiBlast::Render()
 
 Entity* KiBlast::Clone()
 {
-	return nullptr;
+	KiBlast* newKiBlast = new KiBlast();
+
+	//physics
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position = b2Vec2(0, 0);
+
+	b2PolygonShape boxShape;
+	boxShape.SetAsBox(MetersFromPixels(24), MetersFromPixels(12));
+
+	b2FixtureDef fixture;
+	fixture.shape = &boxShape;
+	fixture.restitution = 1.0f;
+	fixture.isSensor = true;
+	fixture.filter.categoryBits = CATEGORY_KI_BLAST;
+	fixture.filter.maskBits = CATEGORY_MINION;
+	newKiBlast->InitBody(bodyDef, fixture);
+
+	//attributes
+	newKiBlast->SetSpeed(m_fSpeed);
+	newKiBlast->SetSprite(m_Sprite);
+
+	return newKiBlast;
 }
 
 EntityType KiBlast::GetType()
@@ -65,4 +89,14 @@ void KiBlast::Fire(b2Vec2 position, int direction)
 	m_pBody->SetTransform(position, m_pBody->GetAngle());
 	m_pBody->SetLinearVelocity(m_fSpeed * b2Vec2(direction, 0));
 	m_iDirection = direction;
+}
+
+void KiBlast::SetSprite(Sprite sprite)
+{
+	m_Sprite = sprite;
+}
+
+void KiBlast::SetSpeed(float speed)
+{
+	m_fSpeed = speed;
 }

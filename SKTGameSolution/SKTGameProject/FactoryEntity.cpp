@@ -36,7 +36,7 @@ void FactoryEntity::Init(char* filePath)
 	fixture.density = 10;
 //	fixture.filter.groupIndex = -1;
 	fixture.filter.categoryBits = CATEGORY_MINION;
-	fixture.filter.maskBits = CATEGORY_PLAYER;
+	fixture.filter.maskBits = CATEGORY_PLAYER | CATEGORY_KI_BLAST;
 
 	//CellJunior prototype
 	EntityCellJunior* cellJuniorPrototype = new EntityCellJunior();
@@ -66,6 +66,16 @@ void FactoryEntity::Init(char* filePath)
 	bodyDef.position = b2Vec2(0, 0);
 	gokuPrototype->InitBody(bodyDef, fixture);
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_PLAYER, gokuPrototype));
+
+	//Kiblast prototype
+	KiBlast* kiBlastPrototype = new KiBlast();
+	boxShape.SetAsBox(MetersFromPixels(24), MetersFromPixels(12));
+	fixture.isSensor = true;
+	fixture.filter.categoryBits = CATEGORY_KI_BLAST;
+	fixture.filter.maskBits = CATEGORY_MINION;
+	kiBlastPrototype->InitBody(bodyDef, fixture);
+	kiBlastPrototype->InitSprite(4, 36, 1);
+	m_pPrototypes->insert(std::pair<EntityType, Entity*>(KI_BLAST, kiBlastPrototype));
 }
 
 Entity* FactoryEntity::GetPrototype(EntityType type)

@@ -45,6 +45,7 @@ void Game::CreateStateInstances()
 	CJS_Attacking::CreateInstance();
 	
 	FactorySingleton::CreateInstance();
+	PoolManagerSingleton::CreateInstance();
 }
 
 void Game::DestroyStateInstances()
@@ -69,6 +70,7 @@ void Game::DestroyStateInstances()
 	CJS_Attacking::DestroyInstance();
 
 	FactorySingleton::DestroyInstance();
+	PoolManagerSingleton::DestroyInstance();
 }
 
 void Game::Update()

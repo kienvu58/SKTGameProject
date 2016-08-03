@@ -42,7 +42,8 @@ Entity* EntityCellJunior::Clone()
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;
 	fixture.restitution = 1.0f;
-	fixture.filter.groupIndex = -1;
+	fixture.filter.categoryBits = CATEGORY_MINION;
+	fixture.filter.maskBits = CATEGORY_PLAYER | CATEGORY_KI_BLAST;
 	cloneMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
 
 	return cloneMinion;

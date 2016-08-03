@@ -16,6 +16,7 @@
 #include "MessageDispatcher.h"
 #include "CellJuniorOwnedStates.h"
 #include "FactoryEntity.h"
+#include "PoolManager.h"
 
 class GamePlayState;
 // Game
@@ -61,6 +62,9 @@ typedef Singleton<GamePlayState> GS_GamePlay;
 // Factory Prototype
 typedef  Singleton<FactoryEntity> FactorySingleton;
 
+// Pool Manager
+typedef Singleton<PoolManager> PoolManagerSingleton;
+
 #define InputMgr InputManagerSingleton::GetInstance()
 #define FrameMgr FrameManagerSingleton::GetInstance()
 #define AnimationMgr AnimationManagerSingleton::GetInstance()
@@ -71,3 +75,4 @@ typedef  Singleton<FactoryEntity> FactorySingleton;
 #define Dispatcher MessageDispatcherSingleton::GetInstance()
 #define GameInstance GameSingleton::GetInstance()
 #define Factory FactorySingleton::GetInstance()
+#define PoolMgr PoolManagerSingleton::GetInstance()

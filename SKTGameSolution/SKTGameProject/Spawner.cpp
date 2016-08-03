@@ -8,7 +8,7 @@ Spawner::Spawner()
 
 Spawner::~Spawner()
 {
-	delete m_pMinionPool;
+
 }
 
 void Spawner::Render()
@@ -42,16 +42,6 @@ void Spawner::Init(const char* filePath)
 	m_mapChanceWeights.insert(std::pair<EntityType, float>(ENTITY_CELLJUNIOR, 1));
 	m_mapNumSpawnWeights.insert(std::pair<EntityType, float>(ENTITY_CELLJUNIOR, 2.0f / 5));
 	m_mapInitNum.insert(std::pair<EntityType, int>(ENTITY_CELLJUNIOR, 10));
-
-	m_pMinionPool = new Pool<EntityMinion>();
-
-	int nMaxMinions = 50;
-	for (int i = 0; i<nMaxMinions; i++)
-	{
-		EntityMinion* minion = dynamic_cast<EntityCellJunior*>(Factory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());
-		minion->GetBody()->SetTransform(b2Vec2(rand() % 10, (rand() - rand()) % 6), 0);
-		m_pMinionPool->Add(minion);
-	}
 }
 
 float Spawner::GetChanceToSpawnMinion(float difficulty, EntityType minionType) const
@@ -90,21 +80,20 @@ void Spawner::SpawnMinions()
 		{
 			if (rand() * 1.0f / RAND_MAX <= GetChanceToSpawnMinion(difficulty, type))
 			{
-				EntityMinion* entity;
-				entity = m_pMinionPool->GetEntity();
+				EntityMinion* entity = dynamic_cast<EntityMinion*>(PoolMgr->GetEntityByType(type));
 				entity->GetBody()->SetActive(true);
 				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
-				entity->GetBody()->SetLinearVelocity(b2Vec2(-4, 0));
+				entity->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));
 				GS_GamePlay::GetInstance()->AddEntitesToTheScreen(type, entity);
 			}	
 		}
 	}
 }
 
-void Spawner::ReaseMinions(EntityMinion* minion)
+void Spawner::RealeaseMinions(EntityMinion* minion)
 {
-	if (m_pMinionPool)
+	if(minion)
 	{
-		m_pMinionPool->ReleaseEntity(minion);
+		PoolMgr->ReleaseEntity(minion);
 	}
 }
