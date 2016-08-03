@@ -42,6 +42,11 @@ float EntityMinion::GetMaxForce()
 	return m_fMaxForce;
 }
 
+SteeringBehavior* EntityMinion::GetSteering() const
+{
+	return m_pSteeringBehavior;
+}
+
 Entity* EntityMinion::Clone()
 {
 	return nullptr;

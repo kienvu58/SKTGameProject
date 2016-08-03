@@ -45,7 +45,7 @@ void Spawner::Init(const char* filePath)
 
 	m_pMinionPool = new Pool<EntityMinion>();
 
-	int nMaxMinions = 100;
+	int nMaxMinions = 50;
 	for (int i = 0; i<nMaxMinions; i++)
 	{
 		EntityMinion* minion = dynamic_cast<EntityCellJunior*>(Factory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());

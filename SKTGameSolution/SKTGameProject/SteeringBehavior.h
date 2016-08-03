@@ -24,6 +24,8 @@ public:
 	void SeekOff() { if (On(seek)) m_iFlags = m_iFlags &~seek; }
 	void WanderOn() { m_iFlags |= wander; }
 	void WanderOff() { if (On(wander)) m_iFlags = m_iFlags &~wander; }
+
+	void SetSeekTarget(b2Vec2 target);
 private:
 	enum behavior_type
 	{
@@ -34,6 +36,8 @@ private:
 	b2Vec2 m_vSteeringForce;
 	EntityMinion* m_pOwner;
 	int m_iFlags;
+
+	b2Vec2 m_vSeekTarget;
 
 	b2Vec2 m_vWanderTarget;
 	float m_fWanderJitter;

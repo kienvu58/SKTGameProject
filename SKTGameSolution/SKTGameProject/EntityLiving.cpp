@@ -127,6 +127,13 @@ void EntityLiving::SetBody(b2Body* body)
 {
 }
 
+void EntityLiving::ScaleVelocity(int scale) const
+{
+	b2Vec2 currentVelocity = m_pBody->GetLinearVelocity();
+	currentVelocity *= scale;
+	m_pBody->SetLinearVelocity(currentVelocity);
+}
+
 float EntityLiving::GetMovementSpeed() const
 {
 	return m_fMovementSpeed;

@@ -17,10 +17,20 @@ CellJuniorAttackingState::~CellJuniorAttackingState()
 
 void CellJuniorAttackingState::Enter(EntityCellJunior* celljunior)
 {
+	celljunior->ScaleVelocity(1.0);
+	celljunior->GetSteering()->WanderOff();
+	celljunior->GetSteering()->SeekOn();
 }
 
 void CellJuniorAttackingState::Execute(EntityCellJunior* celljunior)
 {
+	b2Vec2 playerPositon = GS_GamePlay::GetInstance()->GetPlayer()->GetBody()->GetPosition();
+	celljunior->GetSteering()->SetSeekTarget(playerPositon);
+	celljunior->IncreaseOverheat(2);
+	if (celljunior->IsOverheated())
+	{
+		celljunior->GetFSM()->ChangeState(CJS_Wandering::GetInstance());
+	}
 }
 
 void CellJuniorAttackingState::Exit(EntityCellJunior* celljunior)
@@ -45,19 +55,23 @@ CellJuniorWanderingState::~CellJuniorWanderingState()
 {
 }
 
-void CellJuniorWanderingState::Enter(EntityCellJunior* minion)
+void CellJuniorWanderingState::Enter(EntityCellJunior* cellJunior)
+{
+	cellJunior->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));
+	cellJunior->GetSteering()->WanderOn();
+	cellJunior->GetSteering()->SeekOff();
+}
+
+void CellJuniorWanderingState::Execute(EntityCellJunior* cellJunior)
+{
+	cellJunior->DecreaseOverheatPerSecond(15);
+}
+
+void CellJuniorWanderingState::Exit(EntityCellJunior* cellJunior)
 {
 }
 
-void CellJuniorWanderingState::Execute(EntityCellJunior* minion)
-{
-}
-
-void CellJuniorWanderingState::Exit(EntityCellJunior* minion)
-{
-}
-
-void CellJuniorWanderingState::Render(EntityCellJunior* minion)
+void CellJuniorWanderingState::Render(EntityCellJunior* cellJunior)
 {
 }
 
@@ -65,9 +79,13 @@ bool CellJuniorWanderingState::OnMessage(EntityCellJunior* cellJunior, const Tel
 {
 	if (telegram.Message == MSG_CELLJR_INSIDE_ATTACK_RANGE)
 	{
-		auto goKuPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		//minion->GetFSM()->ChangeState(CJS_Attacking::GetInstance());
-		std::cout << goKuPosition.x << " " << goKuPosition.y << std::endl;
+		if (!cellJunior->IsOverheated())
+		{
+			auto goKuPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
+			cellJunior->GetFSM()->ChangeState(CJS_Attacking::GetInstance());
+			cellJunior->GetSteering()->SetSeekTarget(goKuPosition);
+			std::cout << goKuPosition.x << " " << goKuPosition.y << std::endl;
+		}	
 		return true;
 	}
 	return false;

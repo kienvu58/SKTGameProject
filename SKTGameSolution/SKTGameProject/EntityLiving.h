@@ -36,6 +36,7 @@ public:
 	b2Body* GetBody() const;
 	float GetMaxSpeed() const;
 	void SetBody(b2Body* body);
+	void ScaleVelocity(int scale) const;
 
 	float GetMovementSpeed() const;
 	void IncreaseOverheat(float amount);

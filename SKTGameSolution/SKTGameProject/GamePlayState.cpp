@@ -21,23 +21,31 @@ void GamePlayState::Execute(Game* game)
 {
 	srand(time(nullptr));
 	PhysicsMgr->Update();
-	m_Goku->Update();
+	
 	//update
-	float attackingRadius = 2.0f;
+	float attackingRadius = 4.0f;
 	b2Vec2 distance;
 	b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
 	int i;
-//	for (i = 0; i < m_vCurrentEntities.size(); i++)
-//	{
-//		m_vCurrentEntities[i]->Update();
-////		distance = goKuPosition - m_vCurrentEntities[i]->GetBody()->GetPosition();
-////		if (distance.Length() <= attackingRadius)
-////		{
-////			b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
-////			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, Singleton<Game>::GetInstance(), m_vCurrentEntities[i],
-////				MSG_CELLJR_INSIDE_ATTACK_RANGE, &goKuPosition);
-////		}
-//	}
+	std::vector<Entity*>* cellJuniors = GetEntitiesByType(ENTITY_CELLJUNIOR);
+
+	if (cellJuniors) {
+		for (i = 0; i < cellJuniors->size(); i++)
+		{
+			EntityCellJunior* cellJunior = dynamic_cast<EntityCellJunior*>(cellJuniors->at(i));
+			distance = goKuPosition - cellJunior->GetBody()->GetPosition();
+			if (distance.Length() <= attackingRadius
+				&& cellJunior->GetFSM()->CurrentState() != CJS_Attacking::GetInstance())
+			{
+				b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
+				Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, Singleton<Game>::GetInstance(), cellJunior,
+					MSG_CELLJR_INSIDE_ATTACK_RANGE, &goKuPosition);
+			}
+		}
+	}
+
+	m_Goku->Update();
+
 	game->IncreasePlayingTime(Globals::deltaTime);
 	game->UpdateDifficulty(m_Goku->GetCurrentScore());
 
@@ -164,7 +172,7 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	{
 		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
 		theMinion->GetBody()->SetActive(false);
-		RemoveEntitiesOnTheScreen(ENTITY_CELLJUNIOR, theMinion);
+		RemoveEntitiesOnTheScreen(theMinion->GetType(), theMinion);
 		m_spawner.ReaseMinions(theMinion);
 		return true;
 	}
@@ -247,14 +255,6 @@ void GamePlayState::RemoveEntitiesOnTheScreen(EntityType type, Entity* entity)
 	}
 }
 
-void GamePlayState::AddEntitesToTheScreen(EntityType type, std::vector<Entity*> entities)
-{
-}
-
-void GamePlayState::RemoveEntitiesOnTheScreen(EntityType type, std::vector<Entity*> entities)
-{
-}
-
 int GamePlayState::GetNumEntitiesByType(EntityType type)
 {
 	auto it = m_mapCurrentEntities.find(type);
@@ -271,4 +271,19 @@ int GamePlayState::GetNumAllEntities()
 		size += it.second->size();
 	}
 	return size;
+}
+
+std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)
+{
+	auto it = m_mapCurrentEntities.find(type);
+	if (it != m_mapCurrentEntities.end())
+	{
+		return it->second;
+	}
+	return nullptr;
+}
+
+EntityPlayer* GamePlayState::GetPlayer() const
+{
+	return m_Goku;
 }

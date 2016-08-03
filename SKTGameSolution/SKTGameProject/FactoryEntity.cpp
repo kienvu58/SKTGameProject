@@ -28,7 +28,7 @@ void FactoryEntity::Init(char* filePath)
 	bodyDef.position = b2Vec2(0, 0);
 
 	b2PolygonShape boxShape;
-	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
+	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 4, MetersFromPixels(128) / 2 / 4);
 
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;
@@ -47,6 +47,7 @@ void FactoryEntity::Init(char* filePath)
 
 	//Goku (Player) prototype
 //	fixture.filter.groupIndex = 1;
+	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
 	fixture.filter.categoryBits = CATEGORY_PLAYER;
 	fixture.filter.maskBits = CATEGORY_WALL | CATEGORY_MINION;
 	EntityPlayer* gokuPrototype = new EntityPlayer();

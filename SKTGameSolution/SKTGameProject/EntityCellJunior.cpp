@@ -37,7 +37,7 @@ Entity* EntityCellJunior::Clone()
 	bodyDef.position = b2Vec2(0, 0);
 
 	b2PolygonShape boxShape;
-	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
+	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 4, MetersFromPixels(128) / 2 / 4);
 
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;

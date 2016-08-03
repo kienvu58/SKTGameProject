@@ -18,6 +18,7 @@ public:
 	virtual ~EntityMinion();
 
 	float GetMaxForce();
+	SteeringBehavior* GetSteering() const;
 
 	//clone
 	Entity* Clone() override;

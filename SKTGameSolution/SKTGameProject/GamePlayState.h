@@ -24,10 +24,10 @@ public:
 
 	void AddEntitesToTheScreen(EntityType type, Entity* entity);
 	void RemoveEntitiesOnTheScreen(EntityType type, Entity* entity);
-	void AddEntitesToTheScreen(EntityType type, std::vector<Entity*> entities);
-	void RemoveEntitiesOnTheScreen(EntityType type, std::vector<Entity*> entities);
 	int GetNumEntitiesByType(EntityType type);
 	int GetNumAllEntities();
+	std::vector<Entity*>* GetEntitiesByType(EntityType type);
+	EntityPlayer* GetPlayer() const;
 private:
 	EntityPlayer* m_Goku;
 
