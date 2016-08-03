@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <vector>
 
 template <class T>
 T* GetResourceById(int id, const std::map<int, T*>& m)
@@ -42,3 +43,14 @@ T2* GetResourceById(T id, const std::map<T, T2*>& m)
 	}
 	return it->second;
 };
+
+template<class T>
+void RemoveFromVector(std::vector<T> &vecTor, T entity)
+{
+	auto it = std::find(vecTor.begin(), vecTor.end(), entity);
+	if(it != vecTor.end())
+	{
+		std::swap(*it, vecTor.back());
+		vecTor.pop_back();
+	}
+}

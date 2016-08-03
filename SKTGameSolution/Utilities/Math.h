@@ -203,3 +203,9 @@ inline float MinutesFromSeconds(float seconds)
 {
 	return seconds / SECOND_PER_MINUTE;
 }
+
+inline float Sigmoid(float x, float scale)
+{
+	float result = 1.0f / (1 - exp(-scale*x));
+	return result;
+}

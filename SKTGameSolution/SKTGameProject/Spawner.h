@@ -2,7 +2,6 @@
 #include "Entity.h"
 #include <map>
 #include "EntityMinion.h"
-#include "EntityCellJunior.h"
 #include "Pool.h"
 
 class Spawner : public Entity
@@ -20,15 +19,13 @@ public:
 	void Init(const char* filePath);
 	float GetChanceToSpawnMinion(float difficulty, EntityType minionType) const;
 	int GetNumSpawnMinion(float difficulty, int numOnTheScreen, EntityType minionType);
-
+	void SpawnMinions();
+	void ReaseMinions(EntityMinion* minion);
 private:
 	std::map<EntityType, float> m_mapChanceWeights;
 	std::map<EntityType, float> m_mapNumSpawnWeights;
 	std::map<EntityType, int> m_mapInitNum;
 
-	std::map<EntityType, std::vector<EntityMinion*>> m_mapCurrentMinions;
-
-	//pools
-	Pool<EntityCellJunior> m_cellJnPool;
+	Pool<EntityMinion>* m_pMinionPool;
 };
 

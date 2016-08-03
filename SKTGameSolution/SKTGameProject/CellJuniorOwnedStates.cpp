@@ -4,6 +4,7 @@
 #include <Singleton.hpp>
 #include "MessageDispatcher.h"
 #include "SingletonClasses.h"
+#include <iostream>
 
 /*Attacking State*/
 CellJuniorAttackingState::CellJuniorAttackingState()

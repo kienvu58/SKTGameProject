@@ -8,15 +8,16 @@
 #include "PhysicsManager.h"
 #include "PlayerOwnedStates.h"
 #include "MinionOwnedStates.h"
-#include "GamePlayState.h"
 #include "GameWelcomeState.h"
+#include "GamePlayState.h"
 #include "MainMenuState.h"
 #include "GameOptionState.h"
 #include "CrudeTimer.h"
 #include "MessageDispatcher.h"
 #include "CellJuniorOwnedStates.h"
+#include "FactoryEntity.h"
 
-
+class GamePlayState;
 // Game
 typedef Singleton<Game> GameSingleton;
 
@@ -52,10 +53,10 @@ typedef Singleton<CellJuniorWanderingState> CJS_Wandering;
 typedef Singleton<CellJuniorAttackingState> CJS_Attacking;
 
 // Game States
-typedef Singleton<GamePlayState> GS_GamePlay;
 typedef Singleton<GameWelcomeState> GS_Welcome;
 typedef Singleton<MainMenuState> GS_MainMenu;
 typedef Singleton<GameOptionState> GS_Option;
+typedef Singleton<GamePlayState> GS_GamePlay;
 
 // Factory Prototype
 typedef  Singleton<FactoryEntity> FactorySingleton;

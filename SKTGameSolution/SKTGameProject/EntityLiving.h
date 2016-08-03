@@ -11,7 +11,7 @@ class EntityLiving : public Entity
 {
 public:
 	EntityLiving();
-	~EntityLiving();
+	virtual ~EntityLiving();
 
 	void Render() override = 0;
 	void Update() override;

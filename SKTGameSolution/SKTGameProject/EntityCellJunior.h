@@ -5,7 +5,7 @@ class EntityCellJunior : public EntityMinion
 {
 public:
 	EntityCellJunior();
-	~EntityCellJunior();
+	virtual ~EntityCellJunior();
 	//Get FSM
 	StateMachine<EntityCellJunior>* GetFSM() const;
 

@@ -15,7 +15,7 @@ public:
 	bool HandleMessage(const Telegram& telegram) override = 0;
 
 	EntityMinion();
-	~EntityMinion();
+	virtual ~EntityMinion();
 
 	float GetMaxForce();
 

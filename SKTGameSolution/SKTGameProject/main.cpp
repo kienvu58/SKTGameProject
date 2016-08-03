@@ -6,6 +6,7 @@
 #include "../GraphicsEngine/Globals.h"
 #include "SingletonClasses.h"
 #include "FactoryEntity.h"
+#include "../GraphicsEngine/HelperFunctions.h"
 
 float Globals::deltaTime = 0;
 
@@ -119,7 +120,7 @@ void CleanUp()
 }
 
 int main(int argc, char* argv[])
-{
+{	
 	ESContext esContext;
 
 	esInitContext(&esContext);

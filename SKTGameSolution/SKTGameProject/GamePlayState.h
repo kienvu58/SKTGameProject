@@ -5,7 +5,6 @@
 #include "EntityMinion.h"
 #include "Pool.h"
 #include "KiBlast.h"
-#include "EntityCellJunior.h"
 #include "FactoryEntity.h"
 #include "BeamWave.h"
 #include "Spawner.h"
@@ -22,6 +21,13 @@ public:
 	void Init(const char* filePath);
 
 	bool OnMessage(Game*, const Telegram&) override;
+
+	void AddEntitesToTheScreen(EntityType type, Entity* entity);
+	void RemoveEntitiesOnTheScreen(EntityType type, Entity* entity);
+	void AddEntitesToTheScreen(EntityType type, std::vector<Entity*> entities);
+	void RemoveEntitiesOnTheScreen(EntityType type, std::vector<Entity*> entities);
+	int GetNumEntitiesByType(EntityType type);
+	int GetNumAllEntities();
 private:
 	EntityPlayer* m_Goku;
 
@@ -32,9 +38,10 @@ private:
 	Pool<EntityMinion>* m_pMinionPool;
 
 	//current entity on the screen
-	std::vector<EntityMinion*> m_vCurrentEntities;
 	std::vector<KiBlast*> m_vCurrentKiBlasts;
 	std::vector<BeamWave*> m_vCurrentBeamWaves;
+
+	std::map<EntityType, std::vector<Entity*>*> m_mapCurrentEntities;
 
 	//spawner
 	Spawner m_spawner;

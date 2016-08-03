@@ -7,6 +7,7 @@
 #include <ctime>
 #include "BeamWave.h"
 #include "../GraphicsEngine/Globals.h"
+#include "../GraphicsEngine/HelperFunctions.h"
 
 GamePlayState::GamePlayState()
 {
@@ -26,16 +27,25 @@ void GamePlayState::Execute(Game* game)
 	b2Vec2 distance;
 	b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
 	int i;
-	for (i = 0; i < m_vCurrentEntities.size(); i++)
+//	for (i = 0; i < m_vCurrentEntities.size(); i++)
+//	{
+//		m_vCurrentEntities[i]->Update();
+////		distance = goKuPosition - m_vCurrentEntities[i]->GetBody()->GetPosition();
+////		if (distance.Length() <= attackingRadius)
+////		{
+////			b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
+////			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, Singleton<Game>::GetInstance(), m_vCurrentEntities[i],
+////				MSG_CELLJR_INSIDE_ATTACK_RANGE, &goKuPosition);
+////		}
+//	}
+	game->IncreasePlayingTime(Globals::deltaTime);
+	game->UpdateDifficulty(m_Goku->GetCurrentScore());
+
+	m_spawner.SpawnMinions();
+	for (auto it : m_mapCurrentEntities)
 	{
-		m_vCurrentEntities[i]->Update();
-//		distance = goKuPosition - m_vCurrentEntities[i]->GetBody()->GetPosition();
-//		if (distance.Length() <= attackingRadius)
-//		{
-//			b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
-//			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, Singleton<Game>::GetInstance(), m_vCurrentEntities[i],
-//				MSG_CELLJR_INSIDE_ATTACK_RANGE, &goKuPosition);
-//		}
+		for (int i=0; i<it.second->size(); i++)
+			it.second->at(i)->Update();
 	}
 
 	for (auto it : m_vCurrentKiBlasts)
@@ -46,8 +56,6 @@ void GamePlayState::Execute(Game* game)
 	{
 		it->Update();
 	}
-	game->IncreasePlayingTime(Globals::deltaTime);
-	game->UpdateDifficulty(m_Goku->GetCurrentScore());
 }
 
 void GamePlayState::Exit(Game* game)
@@ -67,27 +75,32 @@ void GamePlayState::Render(Game* game)
 	difficultyText.append(std::to_string(game->GetDifficulty()));
 	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
 
-	//generate minions by the number of minions in the screen.
-	int currentNumMinions = 100;
-	if (m_vCurrentEntities.size() < currentNumMinions)
-	{
-		for (int i = 0; i < currentNumMinions - m_vCurrentEntities.size(); i++)
-		{
-			EntityMinion* entity;
-			entity = m_pMinionPool->GetEntity();
-			if (entity)
-			{
-				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
-				entity->GetBody()->SetLinearVelocity(b2Vec2(-4, 0));
-				m_vCurrentEntities.push_back(entity);
-			}
-		}
-	}
+//	//generate minions by the number of minions in the screen.
+//	int currentNumMinions = 100;
+//	if (GetNumEntitiesByType(ENTITY_CELLJUNIOR) < currentNumMinions)
+//	{
+//		for (int i = 0; i < currentNumMinions - GetNumEntitiesByType(ENTITY_CELLJUNIOR); i++)
+//		{
+//			EntityMinion* entity;
+//			entity = m_pMinionPool->GetEntity();
+//			if (entity)
+//			{
+//				entity->GetBody()->SetActive(true);
+//				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
+//				entity->GetBody()->SetLinearVelocity(b2Vec2(-4, 0));
+//				AddEntitesToTheScreen(ENTITY_CELLJUNIOR, entity);
+//			}
+//		}
+//	}
 
-	//render
-	for (auto it : m_vCurrentEntities)
+	//m_spawner.SpawnMinions(this);
+
+	for(auto it : m_mapCurrentEntities)
 	{
-		it->Render();
+		for (int i=0; i<it.second->size();i++)
+		{
+			it.second->at(i)->Render();
+		}
 	}
 
 	for (auto it : m_vCurrentKiBlasts)
@@ -107,7 +120,7 @@ void GamePlayState::Init(const char* filePath)
 {
 	//read file here, then create bodies and fixtures for enities.
 	Factory->Init("File path");
-
+	m_spawner.Init("File path");
 	m_Goku = dynamic_cast<EntityPlayer*>(Factory->GetPrototype(ENTITY_PLAYER));
 	//Init for pools
 	m_pMinionPool = new Pool<EntityMinion>();
@@ -117,7 +130,6 @@ void GamePlayState::Init(const char* filePath)
 	{
 		EntityMinion* minion = dynamic_cast<EntityCellJunior*>(Factory->GetPrototype(ENTITY_CELLJUNIOR)->Clone());
 		minion->GetBody()->SetTransform(b2Vec2(rand()%10, (rand()-rand())%6), 0);
-//		minion->GetBody()->SetTransform(b2Vec2(0, 0), 0);
 		m_pMinionPool->Add(minion);
 	}
 }
@@ -151,14 +163,9 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	if(telegram.Message == MSG_MINION_OUT_OF_WALL)
 	{
 		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
-		auto it = std::find(m_vCurrentEntities.begin(), m_vCurrentEntities.end(), theMinion);
-		if (it != m_vCurrentEntities.end())
-		{
-			std::swap(*it, m_vCurrentEntities.back());
-			m_vCurrentEntities.pop_back();
-		}
-		m_pMinionPool->ReleaseEntity(theMinion);
-
+		theMinion->GetBody()->SetActive(false);
+		RemoveEntitiesOnTheScreen(ENTITY_CELLJUNIOR, theMinion);
+		m_spawner.ReaseMinions(theMinion);
 		return true;
 	}
 
@@ -203,4 +210,65 @@ GamePlayState::~GamePlayState()
 	{
 		delete it;
 	}
+
+	for (auto it: m_mapCurrentEntities)
+	{
+		delete it.second;
+	}
+}
+
+void GamePlayState::AddEntitesToTheScreen(EntityType type, Entity* entity)
+{
+	auto it = m_mapCurrentEntities.find(type);
+	if (it != m_mapCurrentEntities.end())
+	{
+		if (entity != nullptr)
+		{
+			auto it2 = std::find(it->second->begin(), it->second->end(), entity);
+			if (it2 == it->second->end())
+			{
+				it->second->push_back(entity);
+			}
+		}
+	}else
+	{
+		std::vector<Entity*>* vecEntity = new std::vector<Entity*>();
+		vecEntity->push_back(entity);
+		m_mapCurrentEntities.insert(std::pair<EntityType, std::vector<Entity*>*>(type, vecEntity));
+	}
+}
+
+void GamePlayState::RemoveEntitiesOnTheScreen(EntityType type, Entity* entity)
+{
+	auto it = m_mapCurrentEntities.find(type);
+	if (it != m_mapCurrentEntities.end())
+	{
+		RemoveFromVector<Entity*>(*(it->second), entity);
+	}
+}
+
+void GamePlayState::AddEntitesToTheScreen(EntityType type, std::vector<Entity*> entities)
+{
+}
+
+void GamePlayState::RemoveEntitiesOnTheScreen(EntityType type, std::vector<Entity*> entities)
+{
+}
+
+int GamePlayState::GetNumEntitiesByType(EntityType type)
+{
+	auto it = m_mapCurrentEntities.find(type);
+	if (it != m_mapCurrentEntities.end())
+		return it->second->size();
+	return 0;
+}
+
+int GamePlayState::GetNumAllEntities()
+{
+	int size = 0;
+	for(auto it : m_mapCurrentEntities)
+	{
+		size += it.second->size();
+	}
+	return size;
 }
