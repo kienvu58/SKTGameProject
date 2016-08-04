@@ -6,9 +6,9 @@
 #include "../GraphicsEngine/Globals.h"
 #include "SingletonClasses.h"
 #include "FactoryEntity.h"
-
+#include "SoundManager.h"
 float Globals::deltaTime = 0;
-
+//sf::SoundBuffer buffer;
 int Init(ESContext* esContext)
 {
 	// Start the clock
@@ -21,6 +21,7 @@ int Init(ESContext* esContext)
 	FrameManagerSingleton::CreateInstance();
 	ResourceManagerSingleton::CreateInstance();
 	PhysicsManagerSingleton::CreateInstance();
+	MusicManagerSingleton::CreateInstance();
 
 	MessageDispatcherSingleton::CreateInstance();
 
@@ -31,16 +32,21 @@ int Init(ESContext* esContext)
 	AnimationMgr->Init("../Resources/Data/AM.json");
 	PhysicsMgr->Init();
 
+	//Init music and sound 
+//	MusicMainMenu->InitMusic("../Resources/Sound/canary.wav");
+
 	// Init game
 	GameSingleton::CreateInstance();
 
 	GameInstance->CreateStateInstances();
-	GameInstance->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
+	GameInstance->GetFSM()->SetCurrentState(GS_Welcome::GetInstance());
 	GameInstance->Init();
 
 	// Set OpenGl blending option
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	
 
 	return 0;
 }
@@ -113,9 +119,11 @@ void CleanUp()
 	AnimationManagerSingleton::DestroyInstance();
 	FrameManagerSingleton::DestroyInstance();
 	PhysicsManagerSingleton::DestroyInstance();
-
+	MusicManagerSingleton::DestroyInstance();
+	
 	GameInstance->DestroyStateInstances();
 	GameSingleton::DestroyInstance();
+
 }
 
 int main(int argc, char* argv[])
@@ -128,6 +136,10 @@ int main(int argc, char* argv[])
 
 	if (Init(&esContext) != 0)
 		return 0;
+
+//	MusicMainMenu->MusicPlay();
+
+
 	esRegisterDrawFunc(&esContext, Draw);
 	esRegisterUpdateFunc(&esContext, Update);
 	esRegisterKeyFunc(&esContext, Key);

@@ -21,6 +21,7 @@ void Game::Init()
 	GS_MainMenu::GetInstance()->Init("");
 	GS_GamePlay::GetInstance()->Init("");
 	GS_Option::GetInstance()->Init("");
+	GS_Pause::GetInstance()->Init("");
 }
 
 void Game::CreateStateInstances()
@@ -29,6 +30,7 @@ void Game::CreateStateInstances()
 	GS_MainMenu::CreateInstance();
 	GS_GamePlay::CreateInstance();
 	GS_Option::CreateInstance();
+	GS_Pause::CreateInstance();
 
 	PS_Global::CreateInstance();
 	PS_Firing::CreateInstance();
@@ -47,6 +49,7 @@ void Game::DestroyStateInstances()
 	GS_MainMenu::DestroyInstance();
 	GS_GamePlay::DestroyInstance();
 	GS_Option::DestroyInstance();
+	GS_Pause::DestroyInstance();
 
 	PS_Global::DestroyInstance();
 	PS_Firing::DestroyInstance();

@@ -40,6 +40,36 @@
         "spriteH": 64,
         "textureW": 256,
         "textureH": 128
+      },
+	   {
+        "id": 5,
+        "note": "ButtonMini",
+        "modelW": 42,
+        "modelH": 42,
+        "spriteW": 128,
+        "spriteH": 128,
+        "textureW": 512,
+        "textureH": 256
+      },
+	   {
+        "id": 6,
+        "note": "TextResume",
+        "modelW": 130,
+        "modelH": 30,
+        "spriteW": 128,
+        "spriteH": 128,
+        "textureW": 512,
+        "textureH": 256
+      },
+	  {
+        "id": 7,
+        "note": "TextQuit",
+        "modelW": 90,
+        "modelH": 30,
+        "spriteW": 128,
+        "spriteH": 128,
+        "textureW": 512,
+        "textureH": 256
       }
 		],
 	"spriteSheets":
@@ -64,7 +94,7 @@
 			},
 			{
 				"id": 4,
-				"path": "../Resources/Textures/GameButton.tga",
+				"path": "../Resources/Textures/GameButtons.tga",
 				"nRows": 2,
 				"nColumns": 4
 			},
@@ -79,6 +109,18 @@
         "path": "../Resources/Textures/Bullets.tga",
         "nRows": 2,
         "nColumns":  4
+      },
+	   {
+        "id": 7,
+        "path": "../Resources/Textures/GamePauseState.tga",
+        "nRows": 1,
+        "nColumns":  1
+      },
+	   {
+        "id": 8,
+        "path": "../Resources/Textures/GamePlayBackground.tga",
+        "nRows": 1,
+        "nColumns":  1
       }
 		],
 	"shaders":
@@ -88,5 +130,11 @@
 				"vsPath": "../Resources/Shaders/SpriteVS.vs",
 				"fsPath": "../Resources/Shaders/SpriteFS.fs"
 			}
-		]
+		],
+	"sound":
+	[
+		{
+		
+		}
+	]
 }

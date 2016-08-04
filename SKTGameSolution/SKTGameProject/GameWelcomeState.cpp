@@ -14,6 +14,8 @@ void GameWelcomeState::Execute(Game* game)
 	m_Background->Update();
 	Sleep(1000);
 	game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
+	MusicMgr->MusicPlay("MainMenu");
+	MusicMgr->MusicLoop("MainMenu");
 }
 
 void GameWelcomeState::Exit(Game* game)
@@ -29,6 +31,9 @@ void GameWelcomeState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
 	m_Background->InitSprite(2, 30, 1); 
+	MusicMgr->InitMusic("MainMenu", "../Resources/Sound/musicMainMenu.wav");
+	MusicMgr->InitMusic("GamePlay", "../Resources/Sound/musicGamePlay.wav");
+	MusicMgr->InitMusic("Skill", "../Resources/Sound/hamehameha.wav");
 }
 
 bool GameWelcomeState::OnMessage(Game*, const Telegram&)

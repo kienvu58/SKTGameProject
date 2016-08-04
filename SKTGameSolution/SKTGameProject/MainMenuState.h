@@ -23,4 +23,6 @@ private:
 	EntityStatic *m_Button_PlayGame;
 	EntityStatic *m_Button_Option;
 	EntityStatic *m_Button_Exit;
+//	EntityStatic *m_Hp_Bar_Outline;
+//	EntityStatic *m_Hp_Bar_Fill;
 };

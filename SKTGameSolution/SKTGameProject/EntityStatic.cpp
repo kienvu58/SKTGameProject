@@ -45,6 +45,11 @@ void EntityStatic::InitPosition(int x, int y)
 	m_Sprite.SetRenderInfo(Vector2(x, y));
 }
 
+Sprite& EntityStatic::GetSprite()
+{
+	return m_Sprite;
+}
+
 EntityStatic::~EntityStatic()
 {
 }

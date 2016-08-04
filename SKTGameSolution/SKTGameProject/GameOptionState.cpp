@@ -1,7 +1,7 @@
 #include "GameOptionState.h"
 #include "GameWelcomeState.h"
 #include "SingletonClasses.h"
-
+#include "SoundManager.h"
 
 GameOptionState::GameOptionState()
 {
@@ -9,7 +9,6 @@ GameOptionState::GameOptionState()
 
 void GameOptionState::Enter(Game* game)
 {
-
 }
 
 void GameOptionState::Execute(Game* game)
@@ -19,7 +18,9 @@ void GameOptionState::Execute(Game* game)
 		&& InputMgr->GetLastMousePosition().y >= 290.0f && InputMgr->GetLastMousePosition().y <= 340.0f)
 	{
 		game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
+		MusicMgr->MusicPlay("MainMenu");
 	}
+	//	printf("%f | %f \n", InputMgr->GetLastMousePosition().x, InputMgr->GetLastMousePosition().y);
 }
 
 void GameOptionState::Exit(Game* game)

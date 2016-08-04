@@ -8,6 +8,7 @@
 #include "EntityCellJunior.h"
 #include "FactoryEntity.h"
 #include "BeamWave.h"
+#include "EntityStatic.h"
 
 class GamePlayState : public State<Game>
 {
@@ -22,9 +23,11 @@ public:
 
 	bool OnMessage(Game*, const Telegram&) override;
 private:
+	EntityStatic *m_Background;
 	EntityPlayer* m_Goku;
 	EntityCellJunior* m_pTestMinion;
 	Entity* m_pCloneMinion;
+	EntityStatic *m_Button_Pause;
 
 	//factory stores prototypes
 	FactoryEntity* m_PFactory;

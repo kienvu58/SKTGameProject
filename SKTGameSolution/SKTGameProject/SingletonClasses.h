@@ -14,6 +14,8 @@
 #include "GameOptionState.h"
 #include "CrudeTimer.h"
 #include "MessageDispatcher.h"
+#include "SoundManager.h"
+#include "GamePauseState.h"
 
 
 // Game
@@ -32,6 +34,7 @@ typedef Singleton<AnimationManager> AnimationManagerSingleton;
 typedef Singleton<ResourceManager> ResourceManagerSingleton;
 typedef Singleton<TextManager> TextManagerSingleton;
 typedef Singleton<PhysicsManager> PhysicsManagerSingleton;
+typedef Singleton<SoundManager> MusicManagerSingleton;
 
 // Player States
 typedef Singleton<PlayerStandingState> PS_Standing;
@@ -50,6 +53,7 @@ typedef Singleton<GamePlayState> GS_GamePlay;
 typedef Singleton<GameWelcomeState> GS_Welcome;
 typedef Singleton<MainMenuState> GS_MainMenu;
 typedef Singleton<GameOptionState> GS_Option;
+typedef Singleton<GamePauseState> GS_Pause;
 
 #define InputMgr InputManagerSingleton::GetInstance()
 #define FrameMgr FrameManagerSingleton::GetInstance()
@@ -60,3 +64,5 @@ typedef Singleton<GameOptionState> GS_Option;
 #define Clock CrudeTimerSingleton::GetInstance()
 #define Dispatcher MessageDispatcherSingleton::GetInstance()
 #define GameInstance GameSingleton::GetInstance()
+//Music
+#define MusicMgr MusicManagerSingleton::GetInstance()

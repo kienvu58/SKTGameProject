@@ -74,11 +74,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EGL.lib;GLESv2.lib;Box2D.lib;freetype265d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D.lib;EGL.lib;freetype265d.lib;GLESv2.lib;libEGL.lib;libGLESv2.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,6 +118,7 @@
     <ClCompile Include="BeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
+    <ClCompile Include="GamePauseState.cpp" />
     <ClCompile Include="KiBlast.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="CrudeTimer.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="MinionOwnedStates.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerOwnedStates.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SteeringBehavior.cpp" />
     <ClCompile Include="Telegram.cpp" />
   </ItemGroup>
@@ -156,6 +158,7 @@
     <ClInclude Include="BeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
     <ClInclude Include="EntityCellJunior.h" />
+    <ClInclude Include="GamePauseState.h" />
     <ClInclude Include="KiBlast.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="CrudeTimer.h" />
@@ -178,6 +181,7 @@
     <ClInclude Include="PlayerOwnedStates.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="SingletonClasses.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SteeringBehavior.h" />
     <ClInclude Include="Telegram.h" />
   </ItemGroup>

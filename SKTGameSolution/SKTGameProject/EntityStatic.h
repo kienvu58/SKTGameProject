@@ -17,7 +17,7 @@ public:
 
 	void InitSprite(int modelId, int frameId, int shaderId);
 	void InitPosition(int x, int y);
-
+	Sprite& GetSprite();
 
 private:
 	Sprite m_Sprite;

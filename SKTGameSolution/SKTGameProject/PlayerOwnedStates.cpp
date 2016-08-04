@@ -81,6 +81,8 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 	{
 		// change to PlayerFiringSpecialState
 		entity->GetFSM()->ChangeState(PS_FiringSpecial::GetInstance());
+		MusicMgr->MusicPlay("Skill");
+		MusicMgr->MusicVolume("Skill", 100);
 	}
 	if (InputMgr->IsPressed(KEY_L))
 	{
