@@ -80,7 +80,7 @@ void Spawner::SpawnMinions()
 		{
 			if (rand() * 1.0f / RAND_MAX <= GetChanceToSpawnMinion(difficulty, type))
 			{
-				EntityMinion* entity = dynamic_cast<EntityMinion*>(PoolMgr->GetEntityByType(type));
+				EntityMinion* entity = static_cast<EntityMinion*>(PoolMgr->GetEntityByType(type));
 				entity->GetBody()->SetActive(true);
 				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
 				entity->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));

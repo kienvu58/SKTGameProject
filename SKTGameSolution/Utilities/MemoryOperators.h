@@ -11,12 +11,14 @@ void * operator new[](size_t noBytes, char * fileName, unsigned long line);
 void operator delete (void * p, char * fileName, unsigned long line);
 void operator delete[] (void * p, char * fileName, unsigned long line);
 
-#ifdef _DEBUG
+#ifdef _DEBUG 
 #define DEBUG_NEW new(__FILE__, __LINE__)
 #else
 #define DEBUG_NEW new
 #endif
+#ifdef WIN32
 #define new DEBUG_NEW
+#endif
 
 //malloc section
 void * CustomAlloc(size_t noBytes);

@@ -56,37 +56,37 @@
 		[
 			{
 				"id": 1,
-				"path": "../Resources/Textures/SpriteEntityLiving.tga",
+				"path": "Textures/SpriteEntityLiving.tga",
 				"nRows": 8,
 				"nColumns": 8
 			},
 			{
 				"id": 2,
-				"path": "../Resources/Textures/GameWelcomeState.tga",
+				"path": "Textures/GameWelcomeState.tga",
 				"nRows": 1,
 				"nColumns": 1
 			},
 			{
 				"id": 3,
-				"path": "../Resources/Textures/GameMenuState.tga",
+				"path": "Textures/GameMenuState.tga",
 				"nRows": 1,
 				"nColumns": 1
 			},
 			{
 				"id": 4,
-				"path": "../Resources/Textures/GameButton.tga",
+				"path": "Textures/GameButton.tga",
 				"nRows": 2,
 				"nColumns": 4
 			},
 			{
 				"id": 5,
-				"path": "../Resources/Textures/GameOptionState.tga",
+				"path": "Textures/GameOptionState.tga",
 				"nRows": 1,
 				"nColumns": 1
 			},
 			{
 				"id": 6,
-				"path": "../Resources/Textures/Bullets.tga",
+				"path": "Textures/Bullets.tga",
 				"nRows": 4,
 				"nColumns":  4
 			}
@@ -95,8 +95,8 @@
 		[
 			{
 				"id": 1,
-				"vsPath": "../Resources/Shaders/SpriteVS.vs",
-				"fsPath": "../Resources/Shaders/SpriteFS.fs"
+				"vsPath": "Shaders/SpriteVS.vs",
+				"fsPath": "Shaders/SpriteFS.fs"
 			}
 		]
 }

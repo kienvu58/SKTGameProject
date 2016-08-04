@@ -2,7 +2,6 @@
 #include <Common/FSM/State.h>
 #include "Game.h"
 #include "EntityStatic.h"
-#include "../GraphicsEngine/InputManager.h"
 
 
 class MainMenuState : public State<Game>

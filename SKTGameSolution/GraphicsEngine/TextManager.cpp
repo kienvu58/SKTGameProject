@@ -2,7 +2,7 @@
 #include "Globals.h"
 
 
-int TextManager::Init(char * fileName)
+int TextManager::Init(const char * fileName)
 {
 	if (FT_Init_FreeType(&m_ft))
 	{

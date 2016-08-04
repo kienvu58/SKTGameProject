@@ -1,5 +1,6 @@
 #include "SteeringBehavior.h"
 #include <ctime>
+#include <cstdlib>
 
 SteeringBehavior::~SteeringBehavior()
 {

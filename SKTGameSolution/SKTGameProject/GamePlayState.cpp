@@ -1,7 +1,6 @@
 #include "GamePlayState.h"
 #include "../GraphicsEngine/AnimationManager.h"
 #include "../GraphicsEngine/TextManager.h"
-#include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
 #include "SingletonClasses.h"
 #include <ctime>
@@ -32,7 +31,7 @@ void GamePlayState::Execute(Game* game)
 	if (cellJuniors) {
 		for (i = 0; i < cellJuniors->size(); i++)
 		{
-			EntityCellJunior* cellJunior = dynamic_cast<EntityCellJunior*>(cellJuniors->at(i));
+			EntityCellJunior* cellJunior = static_cast<EntityCellJunior*>(cellJuniors->at(i));
 			distance = goKuPosition - cellJunior->GetBody()->GetPosition();
 			if (distance.Length() <= attackingRadius
 				&& cellJunior->GetFSM()->CurrentState() != CJS_Attacking::GetInstance())
@@ -109,7 +108,7 @@ void GamePlayState::Init(const char* filePath)
 	//read file here, then create bodies and fixtures for enities.
 	Factory->Init("File path");
 	m_spawner.Init("File path");
-	m_Goku = dynamic_cast<EntityPlayer*>(Factory->GetPrototype(ENTITY_PLAYER));
+	m_Goku = static_cast<EntityPlayer*>(Factory->GetPrototype(ENTITY_PLAYER));
 }
 
 bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
@@ -118,7 +117,7 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	{
 		auto kiBlastPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 		std::cout << "Spawn ki blast at " << kiBlastPosition.x << " " << kiBlastPosition.y << std::endl;
-		KiBlast* kiBlast = dynamic_cast<KiBlast*>(Factory->GetPrototype(KI_BLAST)->Clone());;
+		KiBlast* kiBlast = static_cast<KiBlast*>(Factory->GetPrototype(KI_BLAST)->Clone());;
 		kiBlast->Fire(kiBlastPosition, 1);
 		m_vCurrentKiBlasts.push_back(kiBlast);
 		return true;

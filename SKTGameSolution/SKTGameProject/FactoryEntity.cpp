@@ -19,7 +19,7 @@ FactoryEntity::~FactoryEntity()
 	m_pPrototypes = nullptr;
 }
 
-void FactoryEntity::Init(char* filePath)
+void FactoryEntity::Init(const char* filePath)
 {
 	m_pPrototypes = new std::map<EntityType, Entity*>();
 

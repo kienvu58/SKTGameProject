@@ -1,7 +1,6 @@
 #include "MemoryManager.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <windows.h>
 #include "utilities.h"
 
 const unsigned long CHECK_CODE = 0X12345678;

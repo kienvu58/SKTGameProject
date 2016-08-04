@@ -134,7 +134,7 @@ void ESUTIL_API esLogMessage ( const char *formatStr, ... );
 //
 #endif //WIN32
 
-GLuint ESUTIL_API esLoadShader ( GLenum type, char * filename);
+GLuint ESUTIL_API esLoadShader ( GLenum type, const char * filename);
 
 //
 ///

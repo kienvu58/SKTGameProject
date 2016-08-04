@@ -3,7 +3,7 @@
 
 CrudeTimer::CrudeTimer()
 {
-	m_fStartTime = timeGetTime() * 0.001;
+	m_fStartTime = timeGetTime() * 0.001f;
 }
 
 

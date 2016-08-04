@@ -1,7 +1,5 @@
 #include "MainMenuState.h"
 #include "GameWelcomeState.h"
-#include <Windows.h>
-#include "GameOptionState.h"
 #include "GamePlayState.h"
 #include "SingletonClasses.h"
 
@@ -43,8 +41,10 @@ void MainMenuState::Execute(Game* game)
 	if (InputMgr->GetLastMousePosition().x >= 200.0f && InputMgr->GetLastMousePosition().x <= 400.0f
 		&& InputMgr->GetLastMousePosition().y >= 450.0f && InputMgr->GetLastMousePosition().y <= 550.0f)
 	{
+#ifdef WIN32
 		HWND hWnd = FindWindow(nullptr, "SKT Game");
 		DestroyWindow(hWnd);
+#endif
 	}
 }
 

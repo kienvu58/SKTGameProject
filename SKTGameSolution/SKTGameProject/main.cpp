@@ -1,94 +1,37 @@
 #include <conio.h>
-#include <GLES2/gl2.h>
-#include <EGL/egl.h>
-#include "Game.h"
 #include "../Utilities/utilities.h"
 #include "../GraphicsEngine/Globals.h"
-#include "SingletonClasses.h"
-#include "FactoryEntity.h"
-#include "../GraphicsEngine/HelperFunctions.h"
+#include "../Utilities/MemoryOperators.h"
+#include <cstdio>
 
-float Globals::deltaTime = 0;
+extern int GameInit();
+extern void GameDraw();
+extern void GameUpdate(float);
+extern void OnKeyEvent(unsigned char, bool);
+extern void GameCleanUp();
+
 
 int Init(ESContext* esContext)
 {
-	// Start the clock
-	CrudeTimerSingleton::CreateInstance();
-
-	// Create instance for each manager class
-	InputManagerSingleton::CreateInstance();
-	TextManagerSingleton::CreateInstance();
-	AnimationManagerSingleton::CreateInstance();
-	FrameManagerSingleton::CreateInstance();
-	ResourceManagerSingleton::CreateInstance();
-	PhysicsManagerSingleton::CreateInstance();
-
-	MessageDispatcherSingleton::CreateInstance();
-
-	// Initialize data for each manager
-	TextMgr->Init("../Resources/Fonts/arial.ttf");
-	ResourceMgr->Init("../Resources/Data/RM.json");
-	FrameMgr->Init("../Resources/Data/FM.json");
-	AnimationMgr->Init("../Resources/Data/AM.json");
-	PhysicsMgr->Init();
-
-	// Init game
-	GameSingleton::CreateInstance();
-
-	GameInstance->CreateStateInstances();
-	GameInstance->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
-	GameInstance->Init();
-
-	// Set OpenGl blending option
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	return 0;
+	return GameInit();
 }
 
 void Draw(ESContext* esContext)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	Singleton<Game>::GetInstance()->Render();
+	GameDraw();
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 
 void Update(ESContext* esContext, float deltaTime)
 {
-	if (deltaTime)
-	{
-		Globals::deltaTime = deltaTime;
-		GameInstance->Update();
-	}
+	GameUpdate(deltaTime);
 }
 
 void Key(ESContext* esContext, unsigned char key, bool isPressed)
 {
-	switch (key)
-	{
-	case 'A':
-		InputMgr->SetKeyEvent(KEY_A, isPressed);
-		break;
-	case 'W':
-		InputMgr->SetKeyEvent(KEY_W, isPressed);
-		break;
-	case 'S':
-		InputMgr->SetKeyEvent(KEY_S, isPressed);
-		break;
-	case 'D':
-		InputMgr->SetKeyEvent(KEY_D, isPressed);
-		break;
-	case 'J':
-		InputMgr->SetKeyEvent(KEY_J, isPressed);
-		break;
-	case 'K':
-		InputMgr->SetKeyEvent(KEY_K, isPressed);
-		break;
-	case 'L':
-		InputMgr->SetKeyEvent(KEY_L, isPressed);
-		break;
-	}
+	OnKeyEvent(key, isPressed);
 }
 
 //void MouseMove(ESContext* ESContext, float x, float y)
@@ -104,29 +47,17 @@ void Key(ESContext* esContext, unsigned char key, bool isPressed)
 
 void Mouse(ESContext* esContext, bool isClicked, float x, float y)
 {
-	if (isClicked)
-	{
-		InputMgr->SetCurrentMousePosition(x, y);
-	}
-	std::cout << isClicked << std::endl;
-	std::cout << x << " " << y << std::endl;
+	//	if (isClicked)
+	//	{
+	//		InputMgr->SetCurrentMousePosition(x, y);
+	//	}
+	//	std::cout << isClicked << std::endl;
+	//	std::cout << x << " " << y << std::endl;
 }
 
 void CleanUp()
 {
-	CrudeTimerSingleton::DestroyInstance();
-
-	MessageDispatcherSingleton::DestroyInstance();
-
-	TextManagerSingleton::DestroyInstance();
-	InputManagerSingleton::DestroyInstance();
-	ResourceManagerSingleton::DestroyInstance();
-	AnimationManagerSingleton::DestroyInstance();
-	FrameManagerSingleton::DestroyInstance();
-	PhysicsManagerSingleton::DestroyInstance();
-
-	GameInstance->DestroyStateInstances();
-	GameSingleton::DestroyInstance();
+	GameCleanUp();
 }
 
 int main(int argc, char* argv[])
@@ -148,8 +79,10 @@ int main(int argc, char* argv[])
 	//releasing OpenGL resources
 	CleanUp();
 
+	//#ifdef WIN32
 	//identifying memory leaks
 	MemoryDump();
+	//#endif
 
 	printf("Press any key...\n");
 	_getch();

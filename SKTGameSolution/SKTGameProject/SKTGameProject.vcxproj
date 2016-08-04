@@ -123,6 +123,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application_android.cpp" />
     <ClCompile Include="BeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
     <ClCompile Include="ContactListener.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="GameOptionState.h" />
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameWelcomeState.h" />
+    <ClInclude Include="Definations.h" />
     <ClInclude Include="KiBlast.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MessageDispatcher.h" />

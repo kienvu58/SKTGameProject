@@ -1,5 +1,8 @@
 #pragma once
 #include <Singleton.hpp>
+
+//#include "CrudeTimer.h"
+
 #include "../GraphicsEngine/InputManager.h"
 #include "../GraphicsEngine/FrameManager.h"
 #include "../GraphicsEngine/AnimationManager.h"
@@ -12,7 +15,6 @@
 #include "GamePlayState.h"
 #include "MainMenuState.h"
 #include "GameOptionState.h"
-#include "CrudeTimer.h"
 #include "MessageDispatcher.h"
 #include "CellJuniorOwnedStates.h"
 #include "FactoryEntity.h"
@@ -22,8 +24,8 @@ class GamePlayState;
 // Game
 typedef Singleton<Game> GameSingleton;
 
-// Clock
-typedef Singleton<CrudeTimer> CrudeTimerSingleton;
+//// Clock
+//typedef Singleton<CrudeTimer> CrudeTimerSingleton;
 
 // Message Dispatcher
 typedef Singleton<MessageDispatcher> MessageDispatcherSingleton;
@@ -71,8 +73,9 @@ typedef Singleton<PoolManager> PoolManagerSingleton;
 #define ResourceMgr ResourceManagerSingleton::GetInstance()
 #define TextMgr TextManagerSingleton::GetInstance()
 #define PhysicsMgr PhysicsManagerSingleton::GetInstance()
-#define Clock CrudeTimerSingleton::GetInstance()
 #define Dispatcher MessageDispatcherSingleton::GetInstance()
 #define GameInstance GameSingleton::GetInstance()
 #define Factory FactorySingleton::GetInstance()
 #define PoolMgr PoolManagerSingleton::GetInstance()
+
+//#define Clock CrudeTimerSingleton::GetInstance()
