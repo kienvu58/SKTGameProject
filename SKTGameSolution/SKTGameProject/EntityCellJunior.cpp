@@ -6,14 +6,25 @@
 
 EntityCellJunior::EntityCellJunior()
 {
-	m_pStateMachine->SetCurrentState(MS_Wandering::GetInstance());
-	m_pStateMachine->SetGlobalState(MS_Global::GetInstance());
+	m_fAttackDamage = 10;
+	m_fCurrentHealth = 30;
+	m_fMaxHealth = 30;
+	
 	m_pSteeringBehavior->WanderOn();
 //	m_pSteeringBehavior->SeekOn();
+	m_pStateMachine = new StateMachine<EntityCellJunior>(this);
+	m_pStateMachine->SetCurrentState(CJS_Wandering::GetInstance());
+	m_pStateMachine->SetGlobalState(CJS_Global::GetInstance());
 }
 
 EntityCellJunior::~EntityCellJunior()
 {
+	delete m_pStateMachine;
+}
+
+StateMachine<EntityCellJunior>* EntityCellJunior::GetFSM() const
+{
+	return m_pStateMachine;
 }
 
 Entity* EntityCellJunior::Clone()
@@ -30,13 +41,31 @@ Entity* EntityCellJunior::Clone()
 	bodyDef.position = b2Vec2(0, 0);
 
 	b2PolygonShape boxShape;
-	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
+	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 4, MetersFromPixels(128) / 2 / 4);
 
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;
 	fixture.restitution = 1.0f;
-	fixture.filter.groupIndex = -1;
+	fixture.filter.categoryBits = CATEGORY_MINION;
+	fixture.filter.maskBits = CATEGORY_PLAYER | CATEGORY_KI_BLAST;
 	cloneMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
+	cloneMinion->GetBody()->SetActive(false);
 
 	return cloneMinion;
+}
+
+void EntityCellJunior::Update()
+{
+	EntityMinion::Update();
+	m_pStateMachine->Update();
+}
+
+bool EntityCellJunior::HandleMessage(const Telegram& telegram)
+{
+	return m_pStateMachine->HandleMessage(telegram);
+}
+
+EntityType EntityCellJunior::GetType()
+{
+	return ENTITY_CELLJUNIOR;
 }

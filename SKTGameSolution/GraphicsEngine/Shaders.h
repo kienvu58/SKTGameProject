@@ -24,7 +24,7 @@ public:
 
 	std::vector<ShaderState> states;
 	
-	int Init(char * fileVertexShader, char * fileFragmentShader);
+	int Init(const char * fileVertexShader, const char * fileFragmentShader);
 	void EnableStates();
 	void DisableStates();
 	~Shaders();

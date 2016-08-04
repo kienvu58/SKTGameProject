@@ -41,8 +41,14 @@ void PlayerGlobalState::Render(EntityPlayer* entity)
 {
 }
 
-bool PlayerGlobalState::OnMessage(EntityPlayer*, const Telegram&)
+bool PlayerGlobalState::OnMessage(EntityPlayer* player, const Telegram& telegram)
 {
+	if (telegram.Message == MSG_PLAYER_TAKE_DAMAGE)
+	{
+		float damage = DereferenceToType<float>(telegram.ExtraInfo);
+		player->TakeDamage(damage);
+		return true;
+	}
 	return false;
 }
 
@@ -89,7 +95,6 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 		// change to PlayerFiringUltimateState
 		entity->GetFSM()->ChangeState(PS_FiringUltimate::GetInstance());
 	}
-
 
 	entity->UpdateAnimationToSprite(entity->GetAnimation(STANDING));
 }
@@ -208,7 +213,7 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.2, 0.1);
 		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
 		                             MSG_SPAWN_KI_BLAST, &kiBlastPosition);
-		entity->IncreaseOverheat(10);
+		entity->IncreaseOverheat(5);
 	}
 
 
@@ -259,7 +264,7 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 
 	if (currentFrame == 2 && entity->IsFrameChanged())
 	{
-		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.7, 0.15);
+		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.75, 0.15);
 		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
 		                             MSG_SPAWN_KAMEHAMEHA, &kamehamehaPosition);
 	}
@@ -312,6 +317,15 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 	entity->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 
 	Animation* firingUltimateAnimation = entity->GetAnimation(FIRING_ULTIMATE);
+
+	int currentFrame = entity->GetFrameCount() % firingUltimateAnimation->GetTotalFrames();
+
+	if (currentFrame == 7 && entity->IsFrameChanged())
+	{
+		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0);
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
+			MSG_SPAWN_TRUE_KAMEHAMEHA, &kamehamehaPosition);
+	}
 	if (!InputMgr->IsPressed(KEY_L) && firingUltimateAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{
 		// change to PlayerStandingState

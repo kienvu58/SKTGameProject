@@ -33,10 +33,13 @@ public:
 	//clone
 	EntityLiving* Clone() override;
 
+	void IncreseScore(int amout);
+	int GetCurrentScore() const;
 private:
 	//player attributes
 	float m_fMaxKi;
 	float m_fCurrentKi;
+	int	  m_iCurrentScore;
 
 	//State info
 	StateMachine<EntityPlayer>* m_pStateMachine;

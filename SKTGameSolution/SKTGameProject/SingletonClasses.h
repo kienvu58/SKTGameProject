@@ -1,5 +1,8 @@
 #pragma once
 #include <Singleton.hpp>
+
+//#include "CrudeTimer.h"
+
 #include "../GraphicsEngine/InputManager.h"
 #include "../GraphicsEngine/FrameManager.h"
 #include "../GraphicsEngine/AnimationManager.h"
@@ -8,21 +11,23 @@
 #include "PhysicsManager.h"
 #include "PlayerOwnedStates.h"
 #include "MinionOwnedStates.h"
-#include "GamePlayState.h"
 #include "GameWelcomeState.h"
+#include "GamePlayState.h"
 #include "MainMenuState.h"
 #include "GameOptionState.h"
-#include "CrudeTimer.h"
 #include "MessageDispatcher.h"
 #include "SoundManager.h"
 #include "GamePauseState.h"
+#include "CellJuniorOwnedStates.h"
+#include "FactoryEntity.h"
+#include "PoolManager.h"
 
-
+class GamePlayState;
 // Game
 typedef Singleton<Game> GameSingleton;
 
-// Clock
-typedef Singleton<CrudeTimer> CrudeTimerSingleton;
+//// Clock
+//typedef Singleton<CrudeTimer> CrudeTimerSingleton;
 
 // Message Dispatcher
 typedef Singleton<MessageDispatcher> MessageDispatcherSingleton;
@@ -48,12 +53,23 @@ typedef Singleton<PlayerGlobalState> PS_Global;
 typedef Singleton<WanderingState> MS_Wandering;
 typedef Singleton<MinionGlobalState> MS_Global;
 
+// CellJunior States
+typedef Singleton<CellJuniorGlobalState> CJS_Global;
+typedef Singleton<CellJuniorWanderingState> CJS_Wandering;
+typedef Singleton<CellJuniorAttackingState> CJS_Attacking;
+
 // Game States
-typedef Singleton<GamePlayState> GS_GamePlay;
 typedef Singleton<GameWelcomeState> GS_Welcome;
 typedef Singleton<MainMenuState> GS_MainMenu;
 typedef Singleton<GameOptionState> GS_Option;
 typedef Singleton<GamePauseState> GS_Pause;
+typedef Singleton<GamePlayState> GS_GamePlay;
+
+// Factory Prototype
+typedef  Singleton<FactoryEntity> FactorySingleton;
+
+// Pool Manager
+typedef Singleton<PoolManager> PoolManagerSingleton;
 
 #define InputMgr InputManagerSingleton::GetInstance()
 #define FrameMgr FrameManagerSingleton::GetInstance()
@@ -61,8 +77,13 @@ typedef Singleton<GamePauseState> GS_Pause;
 #define ResourceMgr ResourceManagerSingleton::GetInstance()
 #define TextMgr TextManagerSingleton::GetInstance()
 #define PhysicsMgr PhysicsManagerSingleton::GetInstance()
-#define Clock CrudeTimerSingleton::GetInstance()
 #define Dispatcher MessageDispatcherSingleton::GetInstance()
 #define GameInstance GameSingleton::GetInstance()
+
 //Music
 #define MusicMgr MusicManagerSingleton::GetInstance()
+#define Factory FactorySingleton::GetInstance()
+#define PoolMgr PoolManagerSingleton::GetInstance()
+
+//#define Clock CrudeTimerSingleton::GetInstance()
+

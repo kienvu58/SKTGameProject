@@ -47,6 +47,9 @@
 			{"id": 44, "spriteSheetID": 4, "index": 6, "duration": 1, "note": "QuitButton"},
 			{"id": 45, "spriteSheetID": 4, "index": 7, "duration": 1, "note": "PauseButton"},
 			{"id": 46, "spriteSheetID": 7, "index": 0, "duration": 1, "note": "GamePauseBackground"},
-			{"id": 47, "spriteSheetID": 8, "index": 0, "duration": 1, "note": "GamePlayBackground"}
+			{"id": 47, "spriteSheetID": 8, "index": 0, "duration": 1, "note": "GamePlayBackground"},
+			{"id": 48, "spriteSheetID": 6, "index": 6, "duration": 1, "note": "TailTrueKamehameha"},
+			{"id": 49, "spriteSheetID": 6, "index": 7, "duration": 1, "note": "BodyTrueKamehameha"},
+			{"id": 50, "spriteSheetID": 6, "index": 8, "duration": 1, "note": "HeadTrueKamehameha"}
 		]
 }

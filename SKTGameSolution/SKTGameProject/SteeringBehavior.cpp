@@ -1,5 +1,6 @@
 #include "SteeringBehavior.h"
 #include <ctime>
+#include <cstdlib>
 
 SteeringBehavior::~SteeringBehavior()
 {
@@ -11,10 +12,14 @@ b2Vec2 SteeringBehavior::Calculate()
 	return CalculatePrioritized();
 }
 
+void SteeringBehavior::SetSeekTarget(b2Vec2 target)
+{
+	m_vSeekTarget = target;
+}
+
 b2Vec2 SteeringBehavior::Seek(b2Vec2 TargetPos)
 {
 	b2Vec2 position = m_pOwner->GetBody()->GetPosition();
-	b2Vec2 currentVelocity = m_pOwner->GetBody()->GetLinearVelocity();
 	b2Vec2 desiredVector = TargetPos - position;
 	return desiredVector;
 }
@@ -91,7 +96,7 @@ b2Vec2 SteeringBehavior::CalculatePrioritized()
 	b2Vec2 force;
 	if (On(seek))
 	{
-		force = Seek(b2Vec2(-5.0f, -4.0f));
+		force = Seek(m_vSeekTarget);
 		if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
 	}
 	if (On(wander))

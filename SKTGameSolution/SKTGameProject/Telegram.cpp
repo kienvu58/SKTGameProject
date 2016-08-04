@@ -4,7 +4,7 @@
 //SmallestDelay apart before two Telegrams are considered unique.
 const double SmallestDelay = 0.025;
 
-Telegram::Telegram(): pSender(nullptr), pReceiver(nullptr), Message(-1), DispatchTime(-1), ExtraInfo(nullptr)
+Telegram::Telegram(): pSender(nullptr), pReceiver(nullptr), Message(), DispatchTime(-1), ExtraInfo(nullptr)
 {
 }
 

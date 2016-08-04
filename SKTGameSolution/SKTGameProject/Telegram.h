@@ -16,7 +16,7 @@ public:
 	Entity* pReceiver;
 
 	// the message itself. These are all enumurated in the file "MessageTypes.h"
-	int Message;
+	MessageType Message;
 
 	// messages can be dispatched immediately or delayed for a specified amount
 	// of time. If a delay is necessary this field is stamped with the time 

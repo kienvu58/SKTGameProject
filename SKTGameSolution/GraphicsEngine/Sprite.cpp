@@ -1,6 +1,5 @@
 #include "Sprite.h"
 #include "../Utilities/utilities.h"
-#include <GLES2/gl2.h>
 #include "Vertex.h"
 #include "Globals.h"
 #include "SpriteSheet.h"

@@ -8,7 +8,6 @@ void WanderingState::Enter(EntityMinion* minion)
 
 void WanderingState::Execute(EntityMinion* minion)
 {
-	
 }
 
 void WanderingState::Exit(EntityMinion* minion)
@@ -17,10 +16,9 @@ void WanderingState::Exit(EntityMinion* minion)
 
 void WanderingState::Render(EntityMinion* minion)
 {
-	
 }
 
-bool WanderingState::OnMessage(EntityMinion*, const Telegram&)
+bool WanderingState::OnMessage(EntityMinion* minion, const Telegram& telegram)
 {
 	return false;
 }
@@ -50,8 +48,14 @@ void MinionGlobalState::Execute(EntityMinion* minion)
 {
 	if (minion->IsOutOfWall())
 	{
-		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, minion, Singleton<Game>::GetInstance(), 
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, minion, Singleton<Game>::GetInstance(),
 			MSG_MINION_OUT_OF_WALL, minion);
+	}
+	if (minion->IsDead())
+	{
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, minion, Singleton<Game>::GetInstance(),
+			MSG_MINION_OUT_OF_WALL, minion);
+		GS_GamePlay::GetInstance()->GetPlayer()->IncreseScore(10);
 	}
 }
 
@@ -63,7 +67,19 @@ void MinionGlobalState::Render(EntityMinion* minion)
 {
 }
 
-bool MinionGlobalState::OnMessage(EntityMinion*, const Telegram&)
+bool MinionGlobalState::OnMessage(EntityMinion* minion, const Telegram& telegram)
 {
+	if (telegram.Message == MSG_MINION_TAKE_DAMAGE)
+	{
+		float damage =DereferenceToType<float>(telegram.ExtraInfo);
+		minion->TakeDamage(damage);
+		return true;
+	}
+	if (telegram.Message == MSG_MINION_HIT_PLAYER)
+	{
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, minion, Singleton<Game>::GetInstance(),
+			MSG_MINION_OUT_OF_WALL, minion);
+		return true;
+	}
 	return false;
 }

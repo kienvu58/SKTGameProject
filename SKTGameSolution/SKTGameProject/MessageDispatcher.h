@@ -1,7 +1,8 @@
 #pragma once
+
 #include "Telegram.h"
 #include <set>
-#include "CrudeTimer.h"
+//#include "CrudeTimer.h"
 
 const float SEND_MSG_IMMEDIATELY = 0.0f;
 const auto NO_ADDITIONAL_INFO = nullptr;
@@ -13,7 +14,7 @@ public:
 	~MessageDispatcher();
 
 	//send a message to another agent. Receiving agent is referenced by ID.
-	void DispatchMessage(float delay,
+	void DispatchMessageA(float delay,
 	                     Entity* pSender,
 	                     Entity* pReceiver,
 	                     MessageType msg,

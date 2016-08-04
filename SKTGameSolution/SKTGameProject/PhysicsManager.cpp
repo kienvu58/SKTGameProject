@@ -1,7 +1,7 @@
 #include "PhysicsManager.h"
 #include <Box2D/Common/b2Math.h>
 #include "../GraphicsEngine/Globals.h"
-#include "../Utilities/Math.h"
+#include "../Utilities/utilities.h"
 #include <Box2D/Collision/Shapes/b2EdgeShape.h>
 #include <Box2D/Dynamics/b2Body.h>
 #include <Box2D/Dynamics/b2Fixture.h>

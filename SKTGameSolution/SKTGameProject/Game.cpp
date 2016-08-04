@@ -2,11 +2,11 @@
 #include "GamePlayState.h"
 #include "MainMenuState.h"
 #include "GameWelcomeState.h"
-#include <Windows.h>
 #include "GameOptionState.h"
 #include "SingletonClasses.h"
 
-Game::Game(): m_pStateMachine(new StateMachine<Game>(this))
+Game::Game(): m_pStateMachine(new StateMachine<Game>(this)),
+              m_fPlayingTime(0)
 {
 }
 
@@ -41,6 +41,13 @@ void Game::CreateStateInstances()
 
 	MS_Wandering::CreateInstance();
 	MS_Global::CreateInstance();
+
+	CJS_Global::CreateInstance();
+	CJS_Wandering::CreateInstance();
+	CJS_Attacking::CreateInstance();
+	
+	FactorySingleton::CreateInstance();
+	PoolManagerSingleton::CreateInstance();
 }
 
 void Game::DestroyStateInstances()
@@ -60,6 +67,13 @@ void Game::DestroyStateInstances()
 
 	MS_Wandering::DestroyInstance();
 	MS_Global::DestroyInstance();
+
+	CJS_Global::DestroyInstance();
+	CJS_Wandering::DestroyInstance();
+	CJS_Attacking::DestroyInstance();
+
+	FactorySingleton::DestroyInstance();
+	PoolManagerSingleton::DestroyInstance();
 }
 
 void Game::Update()
@@ -90,4 +104,27 @@ EntityType Game::GetType()
 Entity* Game::Clone()
 {
 	return nullptr;
+}
+
+void Game::IncreasePlayingTime(float amount)
+{
+	m_fPlayingTime += amount;
+}
+
+float Game::GetPlayingTime() const
+{
+	return m_fPlayingTime;
+}
+
+void Game::UpdateDifficulty(int currentScore)
+{
+	float playingTimeWeight = 1;
+	float currentScoreWeight = 1.0f/50;
+
+	m_fDifficulty = playingTimeWeight * MinutesFromSeconds(m_fPlayingTime) + currentScoreWeight * currentScore + 1; 
+}
+
+float Game::GetDifficulty() const
+{
+	return m_fDifficulty;
 }

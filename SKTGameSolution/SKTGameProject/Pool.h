@@ -30,7 +30,7 @@ Pool<entity_type>::~Pool()
 	for (i = 0; i < m_vAvailable.size(); i++)
 	{
 		delete m_vAvailable[i];
-	}
+	} 
 	m_vAvailable.clear();
 
 	for (i = 0; i < m_vInUse.size(); i++)

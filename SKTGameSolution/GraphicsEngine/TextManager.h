@@ -16,6 +16,6 @@ public:
 	GLuint vbo;
 	unsigned int tex;
 
-	int Init(char *fileName);
+	int Init(const char *fileName);
 	void RenderString(const char *text, Vector4 color, float size, float x, float y, float scaleX, float scaleY);
 };

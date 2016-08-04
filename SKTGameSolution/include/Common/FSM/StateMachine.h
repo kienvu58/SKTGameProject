@@ -102,11 +102,11 @@ public:
 
   //returns true if the current state's type is equal to the type of the
   //class passed as a parameter. 
-  bool  isInState(const State<entity_type>& st)const
-  {
-    if (typeid(*m_pCurrentState) == typeid(st)) return true;
-    return false;
-  }
+//  bool  isInState(const State<entity_type>& st)const
+//  {
+//    if (typeid(*m_pCurrentState) == typeid(st)) return true;
+//    return false;
+//  }
 
   State<entity_type>*  CurrentState()  const{return m_pCurrentState;}
   State<entity_type>*  GlobalState()   const{return m_pGlobalState;}

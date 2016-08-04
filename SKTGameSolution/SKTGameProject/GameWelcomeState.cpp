@@ -12,7 +12,11 @@ void GameWelcomeState::Enter(Game* game)
 void GameWelcomeState::Execute(Game* game)
 {
 	m_Background->Update();
+
+#ifdef WIN32
 	Sleep(1000);
+#endif
+
 	game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
 	MusicMgr->MusicPlay("MainMenu");
 	MusicMgr->MusicLoop("MainMenu");

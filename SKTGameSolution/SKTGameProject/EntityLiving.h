@@ -11,7 +11,7 @@ class EntityLiving : public Entity
 {
 public:
 	EntityLiving();
-	~EntityLiving();
+	virtual ~EntityLiving();
 
 	void Render() override = 0;
 	void Update() override;
@@ -36,6 +36,7 @@ public:
 	b2Body* GetBody() const;
 	float GetMaxSpeed() const;
 	void SetBody(b2Body* body);
+	void ScaleVelocity(int scale) const;
 
 	float GetMovementSpeed() const;
 	void IncreaseOverheat(float amount);
@@ -47,7 +48,13 @@ public:
 	void Reset();
 	bool IsOutOfWall();
 
-	//clone
+	//Battle functions
+	float Attack() const;
+	void TakeDamage(float amount);
+	bool IsDead() const;
+	float GetCurrentHealth() const;
+
+	//Clone
 	Entity* Clone() override = 0;
 
 protected:
@@ -56,6 +63,7 @@ protected:
 	float m_fMaxHealth;
 	float m_fCurrentOverHeat;
 	bool m_bIsOverheated;
+	float m_fAttackDamage;
 
 	//Graphic info
 	Sprite m_Sprite;

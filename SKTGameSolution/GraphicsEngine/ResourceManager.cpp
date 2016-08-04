@@ -4,6 +4,7 @@
 #include "HelperFunctions.h"
 #include "Camera.h"
 #include "Shaders.h"
+#include "../SKTGameProject/Definations.h"
 
 #define MAX_CHAR_LENGTH 100
 
@@ -35,6 +36,7 @@ Shaders* ResourceManager::GetShadersById(int id) const
 
 void ResourceManager::Init(const char* resourcePath)
 {
+	
 	std::ifstream fin(resourcePath);
 	nlohmann::json data(fin);
 	fin.close();
@@ -66,7 +68,9 @@ void ResourceManager::Init(const char* resourcePath)
 		auto path = it["path"].get<std::string>();
 
 		SpriteSheet* spriteSheet = new SpriteSheet(id, nRows, nColumns);
-		spriteSheet->LoadTGAFile(path.c_str());
+		std::string spriteSheetPath(DATA_PATH);
+		spriteSheetPath.append(path);
+		spriteSheet->LoadTGAFile(spriteSheetPath.c_str());
 		m_mapSpiteSheets.insert(std::pair<int, SpriteSheet*>(id, spriteSheet));
 	}
 
@@ -75,10 +79,14 @@ void ResourceManager::Init(const char* resourcePath)
 	{
 		int id;
 		id = it["id"].get<int>();
-		auto vsPath = it["vsPath"].get<std::string>();
-		auto fsPath = it["fsPath"].get<std::string>();
+		auto vs = it["vsPath"].get<std::string>();
+		auto fs = it["fsPath"].get<std::string>();
+		std::string vsPath(DATA_PATH);
+		vsPath.append(vs);
+		std::string fsPath(DATA_PATH);
+		fsPath.append(fs);
 		Shaders* shader = new Shaders();
-		shader->Init(const_cast<char*>(vsPath.c_str()), const_cast<char*>(fsPath.c_str()));
+		shader->Init(vsPath.c_str(), fsPath.c_str());
 		m_mapShaders.insert(std::pair<int, Shaders*>(id, shader));
 	}
 }

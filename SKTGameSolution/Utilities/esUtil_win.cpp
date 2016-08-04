@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include <windows.h>
 #include "esUtil.h"
 
@@ -46,30 +45,10 @@ LRESULT WINAPI ESWindowProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 				  esContext->keyFunc ( esContext, (unsigned char) wParam, false );
 		  }
 		  break;
-	  case WM_MOUSEMOVE:
-		  if (wParam & MK_LBUTTON)
-		  {
-			  POINTS      point;
-			  ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
 
-			  point = MAKEPOINTS(lParam);
-			  if (esContext && esContext->mouseMoveFunc)
-				  esContext->mouseMoveFunc(esContext, (float)point.x, (float)point.y);
-		  }
-		  break;
-	  case WM_LBUTTONDOWN:
-		  {
-			  POINTS      point;
-			  ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
-
-			  point = MAKEPOINTS(lParam);
-			  if (esContext && esContext->mouseDownFunc)
-				  esContext->mouseDownFunc(esContext, (float)point.x, (float)point.y);
-		  }
-		  break;
-      default: 
-         lRet = DefWindowProc (hWnd, uMsg, wParam, lParam); 
-         break; 
+	  default: 
+		 lRet = DefWindowProc (hWnd, uMsg, wParam, lParam); 
+		 break; 
    } 
 
    return lRet; 
