@@ -1,9 +1,8 @@
 #pragma once
-#include "stdafx.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "MemoryOperators.h"
-
+#include "utilities.h"
 
 /// \brief Load a shader, check for compile errors, print error messages to output log
 /// \param type Type of shader (GL_VERTEX_SHADER or GL_FRAGMENT_SHADER)

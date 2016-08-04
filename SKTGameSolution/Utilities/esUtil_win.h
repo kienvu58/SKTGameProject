@@ -1,5 +1,5 @@
 #pragma once
-
+#include "esUtil.h"
 
 // Create Win32 instance and window
 GLboolean WinCreate ( ESContext *esContext, const char *title );

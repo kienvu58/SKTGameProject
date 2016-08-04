@@ -91,15 +91,25 @@ void Key(ESContext* esContext, unsigned char key, bool isPressed)
 	}
 }
 
-void MouseMove(ESContext* ESContext, float x, float y)
-{
-	InputMgr->SetCurrentMousePosition(x, y);
-}
+//void MouseMove(ESContext* ESContext, float x, float y)
+//{
+//	InputMgr->SetCurrentMousePosition(x, y);
+//}
+//
+//void MouseDown(ESContext* esContext, float x, float y)
+//{
+//	InputMgr->SetCurrentMousePosition(x, y);
+//	InputMgr->SetLastMousePosition(x, y);
+//}
 
-void MouseDown(ESContext* esContext, float x, float y)
+void Mouse(ESContext* esContext, bool isClicked, float x, float y)
 {
-	InputMgr->SetCurrentMousePosition(x, y);
-	InputMgr->SetLastMousePosition(x, y);
+	if (isClicked)
+	{
+		InputMgr->SetCurrentMousePosition(x, y);
+	}
+	std::cout << isClicked << std::endl;
+	std::cout << x << " " << y << std::endl;
 }
 
 void CleanUp()
@@ -120,7 +130,7 @@ void CleanUp()
 }
 
 int main(int argc, char* argv[])
-{	
+{
 	ESContext esContext;
 
 	esInitContext(&esContext);
@@ -132,8 +142,7 @@ int main(int argc, char* argv[])
 	esRegisterDrawFunc(&esContext, Draw);
 	esRegisterUpdateFunc(&esContext, Update);
 	esRegisterKeyFunc(&esContext, Key);
-	esRegisterMouseMoveFunc(&esContext, MouseMove);
-	esRegisterMouseDownFunc(&esContext, MouseDown);
+	esRegisterMouseFunc(&esContext, Mouse);
 	esMainLoop(&esContext);
 
 	//releasing OpenGL resources

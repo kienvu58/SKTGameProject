@@ -4,8 +4,13 @@
 
 //  Macros
 
+#ifdef WIN32
 #define ESUTIL_API  __cdecl
 #define ESCALLBACK  __cdecl
+#else
+#define ESUTIL_API
+#define ESCALLBACK
+#endif
 
 
 /// esCreateWindow flag - RGB color buffer
@@ -20,7 +25,7 @@
 #define ES_WINDOW_MULTISAMPLE   8
 
 
-
+#ifdef WIN32
 // Types
 
 class ESContext
@@ -47,9 +52,9 @@ public:
    /// Callbacks
    void (ESCALLBACK *drawFunc) ( ESContext * );
    void (ESCALLBACK *keyFunc) ( ESContext *, unsigned char, bool );
+   void (ESCALLBACK *mouseFunc) ( ESContext *, bool, float, float );
    void (ESCALLBACK *updateFunc) ( ESContext *, float deltaTime );
-   void (ESCALLBACK *mouseMoveFunc) (ESContext *, float, float);
-   void (ESCALLBACK *mouseDownFunc) (ESContext *, float, float);
+   void (ESCALLBACK *touchFunc) ( ESContext *, int, int, int, int );
 };
 
 
@@ -102,7 +107,18 @@ void ESUTIL_API esRegisterUpdateFunc ( ESContext *esContext, void (ESCALLBACK *u
 /// \param keyFunc Key callback function for application processing of keyboard input
 //
 void ESUTIL_API esRegisterKeyFunc ( ESContext *esContext, 
-                                    void (ESCALLBACK *drawFunc) ( ESContext*, unsigned char, bool ) );
+									void (ESCALLBACK *drawFunc) ( ESContext*, unsigned char, bool ) );
+
+void ESUTIL_API esRegisterTouchFunc ( ESContext *esContext,
+									void (ESCALLBACK *touchFunc) (ESContext*, int, int, int, int ) );
+
+//
+/// \brief Register an mouse input processing callback function
+/// \param esContext Application context
+/// \param mouseFunc Mouse callback function for application processing of mouse input
+//
+void ESUTIL_API esRegisterMouseFunc ( ESContext *esContext, 
+                                    void (ESCALLBACK *mouseFunc) ( ESContext*, bool, float, float ) );
 //
 /// \brief Log a message to the debug output for the platform
 /// \param formatStr Format string for error log.  
@@ -116,6 +132,8 @@ void ESUTIL_API esLogMessage ( const char *formatStr, ... );
 /// \param shaderSrc Shader source string
 /// \return A new shader object on success, 0 on failure
 //
+#endif //WIN32
+
 GLuint ESUTIL_API esLoadShader ( GLenum type, char * filename);
 
 //
@@ -128,11 +146,11 @@ GLuint ESUTIL_API esLoadShader ( GLenum type, char * filename);
 //
 GLuint ESUTIL_API esLoadProgram ( GLuint vertexShader, GLuint fragmentShader );
 
-void ESUTIL_API esRegisterMouseMoveFunc(ESContext *esContext,
-	void (ESCALLBACK *mouseMoveFunc) (ESContext*, float, float));
 
-void ESUTIL_API esRegisterMouseDownFunc(ESContext *esContext,
-	void (ESCALLBACK *mouseDownFunc) (ESContext*, float, float));
+
+
+
+
 
 
 
