@@ -43,19 +43,17 @@ Entity* PoolManager::GetEntityByType(EntityType type)
 
 	if (!isReady)
 	{
-//		std::vector<Entity*>* vectorEntity = new std::vector<Entity*>();
 		entity = Factory->GetPrototype(type)->Clone();
-		m_vInUse.push_back(entity);
-//		if (entity)
-//		{
-//			vectorEntity->push_back(entity);
-//		}
-//		m_mapAvailable.insert(std::pair<EntityType, std::vector<Entity*>*>(type, vectorEntity));
+		auto ix = std::find(m_vInUse.begin(), m_vInUse.end(), entity);
+		if (ix == m_vInUse.end())
+			m_vInUse.push_back(entity);
 	}else
 	{
 		entity = it->second->at(0);
 		RemoveFromVector<Entity*>(*(it->second), entity);
-		m_vInUse.push_back(entity);
+		auto ix = std::find(m_vInUse.begin(), m_vInUse.end(), entity);
+		if (ix == m_vInUse.end())
+			m_vInUse.push_back(entity);
 	}
 	return entity;
 }
@@ -69,7 +67,10 @@ void PoolManager::ReleaseEntity(Entity* entity)
 		auto it = m_mapAvailable.find(type);
 		if (it != m_mapAvailable.end())
 		{
-			it->second->push_back(entity);
+			auto ix = std::find(it->second->begin(), it->second->end(), entity);
+			if (ix == it->second->end())
+				it->second->push_back(entity);
+			
 		}else
 		{
 			std::vector<Entity*>* vectorEntity = new std::vector<Entity*>();

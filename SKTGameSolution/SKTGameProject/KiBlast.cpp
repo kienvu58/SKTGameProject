@@ -3,9 +3,12 @@
 #include <Box2D/Dynamics/b2World.h>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
+#include "../GraphicsEngine/Globals.h"
 
 
-KiBlast::KiBlast(): m_fSpeed(6) {
+KiBlast::KiBlast(): m_fSpeed(6),
+                    m_fAttackDamage(10)
+{
 }
 
 
@@ -19,6 +22,11 @@ void KiBlast::Update()
 	{
 		bool isReversed = m_iDirection == -1;
 		m_Sprite.SetRenderInfo(GraphicsFromPhysics(m_pBody->GetPosition()), isReversed);
+		if (IsOutOfWall())
+		{
+			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, this, Singleton<Game>::GetInstance(),
+			                             MSG_KIBLAST_OUT_OF_WALL, this);
+		}
 	}
 }
 
@@ -49,7 +57,7 @@ Entity* KiBlast::Clone()
 	fixture.filter.categoryBits = CATEGORY_KI_BLAST;
 	fixture.filter.maskBits = CATEGORY_MINION;
 	newKiBlast->InitBody(bodyDef, fixture);
-
+	//newKiBlast->GetBody()->SetActive(false);
 	//attributes
 	newKiBlast->SetSpeed(m_fSpeed);
 	newKiBlast->SetSprite(m_Sprite);
@@ -99,4 +107,31 @@ void KiBlast::SetSprite(Sprite sprite)
 void KiBlast::SetSpeed(float speed)
 {
 	m_fSpeed = speed;
+}
+
+bool KiBlast::IsOutOfWall()
+{
+	float tmp = 0;
+	float wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
+	float wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
+	float boundryX = wallHalfWidth + tmp;
+	float boundryY = wallHalfHeight + tmp;
+
+	b2Vec2 position = m_pBody->GetPosition();
+
+	if (-boundryX < position.x && position.x < boundryX
+		&& -boundryY < position.y && position.y < boundryY)
+		return false;
+
+	return true;
+}
+
+b2Body* KiBlast::GetBody() const
+{
+	return m_pBody;
+}
+
+float KiBlast::Attack() const
+{
+	return m_fAttackDamage;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "EntityCellJunior.h"
+#include "MinionOwnedStates.h"
 
 
 class CellJuniorWanderingState : public State<EntityCellJunior>

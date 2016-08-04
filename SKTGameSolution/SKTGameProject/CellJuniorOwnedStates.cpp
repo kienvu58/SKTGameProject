@@ -84,7 +84,6 @@ bool CellJuniorWanderingState::OnMessage(EntityCellJunior* cellJunior, const Tel
 			auto goKuPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 			cellJunior->GetFSM()->ChangeState(CJS_Attacking::GetInstance());
 			cellJunior->GetSteering()->SetSeekTarget(goKuPosition);
-			std::cout << goKuPosition.x << " " << goKuPosition.y << std::endl;
 		}	
 		return true;
 	}
@@ -106,11 +105,7 @@ void CellJuniorGlobalState::Enter(EntityCellJunior* minion)
 
 void CellJuniorGlobalState::Execute(EntityCellJunior* minion)
 {
-	if (minion->IsOutOfWall())
-	{
-		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, minion, Singleton<Game>::GetInstance(),
-			MSG_MINION_OUT_OF_WALL, minion);
-	}
+	MS_Global::GetInstance()->Execute(minion);
 }
 
 void CellJuniorGlobalState::Exit(EntityCellJunior* minion)
@@ -121,7 +116,9 @@ void CellJuniorGlobalState::Render(EntityCellJunior* minion)
 {
 }
 
-bool CellJuniorGlobalState::OnMessage(EntityCellJunior*, const Telegram&)
+bool CellJuniorGlobalState::OnMessage(EntityCellJunior* minion, const Telegram& telegram)
 {
+	if (MS_Global::GetInstance()->OnMessage(minion, telegram))
+		return true;
 	return false;
 }

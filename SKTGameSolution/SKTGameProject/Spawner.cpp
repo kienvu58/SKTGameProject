@@ -75,7 +75,7 @@ void Spawner::SpawnMinions()
 		int numOnTheScreen = GS_GamePlay::GetInstance()->GetNumEntitiesByType(type);
 		float difficulty = GameInstance->GetDifficulty();
 		int numToSpawn = GetNumSpawnMinion(difficulty, numOnTheScreen, type);
-		
+
 		for (int i=0; i<numToSpawn; i++)
 		{
 			if (rand() * 1.0f / RAND_MAX <= GetChanceToSpawnMinion(difficulty, type))

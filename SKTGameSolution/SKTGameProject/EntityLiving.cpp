@@ -171,6 +171,7 @@ bool EntityLiving::IsOverheated() const
 
 void EntityLiving::Reset()
 {
+	m_fCurrentHealth = m_fMaxHealth;
 }
 
 bool EntityLiving::IsOutOfWall()
@@ -183,9 +184,35 @@ bool EntityLiving::IsOutOfWall()
 
 	b2Vec2 position = m_pBody->GetPosition();
 
-	if (-boundryX < position.x && position.x < boundryX
+	if (-boundryX < position.x && position.x < boundryX + 3
 		&& -boundryY < position.y && position.y < boundryY)
 		return false;
 
 	return true;
+}
+
+float EntityLiving::Attack() const
+{
+	return m_fAttackDamage;
+}
+
+void EntityLiving::TakeDamage(float amount)
+{
+	m_fCurrentHealth -= amount;
+	if (m_fCurrentHealth <= 0)
+	{
+		m_fCurrentHealth = 0;
+	}
+}
+
+bool EntityLiving::IsDead() const
+{
+	if (m_fCurrentHealth == 0)
+		return true;
+	return false;
+}
+
+float EntityLiving::GetCurrentHealth() const
+{
+	return m_fCurrentHealth;
 }

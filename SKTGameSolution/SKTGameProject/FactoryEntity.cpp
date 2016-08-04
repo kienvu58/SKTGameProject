@@ -43,6 +43,7 @@ void FactoryEntity::Init(char* filePath)
 	cellJuniorPrototype->InitSprite(1, 28, 1);
 	cellJuniorPrototype->ReverseSprite(true);
 	cellJuniorPrototype->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
+	cellJuniorPrototype->GetBody()->SetActive(false);
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_CELLJUNIOR, cellJuniorPrototype));
 
 	//Goku (Player) prototype
@@ -75,6 +76,7 @@ void FactoryEntity::Init(char* filePath)
 	fixture.filter.maskBits = CATEGORY_MINION;
 	kiBlastPrototype->InitBody(bodyDef, fixture);
 	kiBlastPrototype->InitSprite(4, 36, 1);
+	kiBlastPrototype->GetBody()->SetActive(false);
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(KI_BLAST, kiBlastPrototype));
 }
 

@@ -23,6 +23,12 @@ public:
 
 	void SetSprite(Sprite sprite);
 	void SetSpeed(float speed);
+
+	bool IsOutOfWall();
+	b2Body* GetBody() const;
+
+	//Batle functions
+	float Attack() const;
 private:
 	b2Body* m_pBody;
 	float m_fSpeed;
@@ -30,5 +36,7 @@ private:
 	
 	// direction of ki blast, 1: left to right, -1: right to left
 	int m_iDirection;
+
+	float m_fAttackDamage;
 };
 

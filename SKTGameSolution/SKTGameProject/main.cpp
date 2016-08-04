@@ -113,10 +113,10 @@ void CleanUp()
 	ResourceManagerSingleton::DestroyInstance();
 	AnimationManagerSingleton::DestroyInstance();
 	FrameManagerSingleton::DestroyInstance();
-	PhysicsManagerSingleton::DestroyInstance();
 
 	GameInstance->DestroyStateInstances();
 	GameSingleton::DestroyInstance();
+	PhysicsManagerSingleton::DestroyInstance();
 }
 
 int main(int argc, char* argv[])

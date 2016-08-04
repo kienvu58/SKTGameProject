@@ -82,6 +82,9 @@ void GamePlayState::Render(Game* game)
 	std::string difficultyText = "Difficulty: ";
 	difficultyText.append(std::to_string(game->GetDifficulty()));
 	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
+	std::string currentHealth = "Health: ";
+	currentHealth.append(std::to_string(m_Goku->GetCurrentHealth()));
+	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
 
 	for(auto it : m_mapCurrentEntities)
 	{
@@ -117,20 +120,27 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	if (telegram.Message == MSG_SPAWN_KI_BLAST)
 	{
 		auto kiBlastPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		std::cout << "Spawn ki blast at " << kiBlastPosition.x << " " << kiBlastPosition.y << std::endl;
-		KiBlast* kiBlast = dynamic_cast<KiBlast*>(Factory->GetPrototype(KI_BLAST)->Clone());;
+		KiBlast* kiBlast = dynamic_cast<KiBlast*>(PoolMgr->GetEntityByType(KI_BLAST));
+//		kiBlast->GetBody()->SetActive(true);
 		kiBlast->Fire(kiBlastPosition, 1);
-		m_vCurrentKiBlasts.push_back(kiBlast);
+		AddEntitesToTheScreen(KI_BLAST, kiBlast);
 		return true;
 	}
 
 	if(telegram.Message == MSG_MINION_OUT_OF_WALL)
 	{
 		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
-		theMinion->GetBody()->SetActive(false);
+//		theMinion->GetBody()->SetActive(false);
+		theMinion->Reset();
 		RemoveEntitiesOnTheScreen(theMinion->GetType(), theMinion);
-		m_spawner.RealeaseMinions(theMinion);
-		std::cout << "out of wall .\n";
+		return true;
+	}
+
+	if (telegram.Message == MSG_KIBLAST_OUT_OF_WALL)
+	{
+		KiBlast *theKiBlast = static_cast<KiBlast*>(telegram.ExtraInfo);
+//		theKiBlast->GetBody()->SetActive(false);
+		RemoveEntitiesOnTheScreen(theKiBlast->GetType(), theKiBlast);
 		return true;
 	}
 
@@ -206,6 +216,7 @@ void GamePlayState::RemoveEntitiesOnTheScreen(EntityType type, Entity* entity)
 	auto it = m_mapCurrentEntities.find(type);
 	if (it != m_mapCurrentEntities.end())
 	{
+		PoolMgr->ReleaseEntity(entity);
 		RemoveFromVector<Entity*>(*(it->second), entity);
 	}
 }

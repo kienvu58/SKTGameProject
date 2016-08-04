@@ -41,8 +41,14 @@ void PlayerGlobalState::Render(EntityPlayer* entity)
 {
 }
 
-bool PlayerGlobalState::OnMessage(EntityPlayer*, const Telegram&)
+bool PlayerGlobalState::OnMessage(EntityPlayer* player, const Telegram& telegram)
 {
+	if (telegram.Message == MSG_PLAYER_TAKE_DAMAGE)
+	{
+		float damage = DereferenceToType<float>(telegram.ExtraInfo);
+		player->TakeDamage(damage);
+		return true;
+	}
 	return false;
 }
 
@@ -87,7 +93,6 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 		// change to PlayerFiringUltimateState
 		entity->GetFSM()->ChangeState(PS_FiringUltimate::GetInstance());
 	}
-
 
 	entity->UpdateAnimationToSprite(entity->GetAnimation(STANDING));
 }
@@ -203,7 +208,6 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 
 	if (entity->IsFrameChanged())
 	{
-		entity->IncreseScore(rand() % 5);
 		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.2, 0.1);
 		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
 		                             MSG_SPAWN_KI_BLAST, &kiBlastPosition);
