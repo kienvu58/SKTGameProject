@@ -6,6 +6,10 @@
 
 EntityCellJunior::EntityCellJunior()
 {
+	m_fAttackDamage = 10;
+	m_fCurrentHealth = 30;
+	m_fMaxHealth = 30;
+	
 	m_pSteeringBehavior->WanderOn();
 //	m_pSteeringBehavior->SeekOn();
 	m_pStateMachine = new StateMachine<EntityCellJunior>(this);
@@ -45,6 +49,7 @@ Entity* EntityCellJunior::Clone()
 	fixture.filter.categoryBits = CATEGORY_MINION;
 	fixture.filter.maskBits = CATEGORY_PLAYER | CATEGORY_KI_BLAST;
 	cloneMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
+	cloneMinion->GetBody()->SetActive(false);
 
 	return cloneMinion;
 }

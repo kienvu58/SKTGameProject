@@ -48,7 +48,13 @@ public:
 	void Reset();
 	bool IsOutOfWall();
 
-	//clone
+	//Battle functions
+	float Attack() const;
+	void TakeDamage(float amount);
+	bool IsDead() const;
+	float GetCurrentHealth() const;
+
+	//Clone
 	Entity* Clone() override = 0;
 
 protected:
@@ -57,6 +63,7 @@ protected:
 	float m_fMaxHealth;
 	float m_fCurrentOverHeat;
 	bool m_bIsOverheated;
+	float m_fAttackDamage;
 
 	//Graphic info
 	Sprite m_Sprite;

@@ -46,7 +46,17 @@ void MinionGlobalState::Enter(EntityMinion* minion)
 
 void MinionGlobalState::Execute(EntityMinion* minion)
 {
-	
+	if (minion->IsOutOfWall())
+	{
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, minion, Singleton<Game>::GetInstance(),
+			MSG_MINION_OUT_OF_WALL, minion);
+	}
+	if (minion->IsDead())
+	{
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, minion, Singleton<Game>::GetInstance(),
+			MSG_MINION_OUT_OF_WALL, minion);
+		GS_GamePlay::GetInstance()->GetPlayer()->IncreseScore(10);
+	}
 }
 
 void MinionGlobalState::Exit(EntityMinion* minion)
@@ -57,7 +67,19 @@ void MinionGlobalState::Render(EntityMinion* minion)
 {
 }
 
-bool MinionGlobalState::OnMessage(EntityMinion*, const Telegram&)
+bool MinionGlobalState::OnMessage(EntityMinion* minion, const Telegram& telegram)
 {
+	if (telegram.Message == MSG_MINION_TAKE_DAMAGE)
+	{
+		float damage =DereferenceToType<float>(telegram.ExtraInfo);
+		minion->TakeDamage(damage);
+		return true;
+	}
+	if (telegram.Message == MSG_MINION_HIT_PLAYER)
+	{
+		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, minion, Singleton<Game>::GetInstance(),
+			MSG_MINION_OUT_OF_WALL, minion);
+		return true;
+	}
 	return false;
 }
