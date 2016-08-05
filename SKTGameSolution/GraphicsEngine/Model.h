@@ -14,8 +14,10 @@ public:
 	GLuint GetVboID() const;
 	GLuint GetIboID() const;
 	int GetModelWidth() const;
+	int GetModelHeight() const;
 private:
 	int m_iModelWidth;
+	int m_iModelHeight;
 	GLuint m_ID;
 	GLuint m_VboID;
 	GLuint m_IboID;

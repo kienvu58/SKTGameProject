@@ -40,14 +40,24 @@ void GamePauseState::Execute(Game* game)
 		&& InputMgr->GetLastMousePosition().y >= 195.0f && InputMgr->GetLastMousePosition().y <= 225.0f)
 	{
 		//Quit (back main menu)
-		GameInstance->DestroyStateInstances();
-		GameSingleton::DestroyInstance();
+//		GameInstance->DestroyStateInstances();
+//		GameSingleton::DestroyInstance();
+//
+//		GameSingleton::CreateInstance();
+//
+//		GameInstance->CreateStateInstances();
+		GS_GamePlay::DestroyInstance();
+		PoolManagerSingleton::DestroyInstance();
+		PhysicsManagerSingleton::DestroyInstance();
 
-		GameSingleton::CreateInstance();
-
-		GameInstance->CreateStateInstances();
+		PhysicsManagerSingleton::CreateInstance();
+		PhysicsMgr->Init();
+		PoolManagerSingleton::CreateInstance();
+		GS_GamePlay::CreateInstance();
+		GS_GamePlay::GetInstance()->Init("");
+		
 		GameInstance->GetFSM()->SetCurrentState(GS_MainMenu::GetInstance());
-		GameInstance->Init();
+//		GameInstance->Init();
 
 		MusicMgr->MusicPlay("MainMenu");
 		MusicMgr->MusicLoop("MainMenu");

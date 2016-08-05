@@ -403,12 +403,13 @@ PlayerFallingToDead::~PlayerFallingToDead()
 
 void PlayerFallingToDead::Enter(EntityPlayer* player)
 {
-	player->GetBody()->ApplyForceToCenter(b2Vec2(0, -980), false);
+	player->GetBody()->SetLinearVelocity(b2Vec2_zero);
+	player->GetBody()->ApplyForceToCenter(b2Vec2(0, -100), false);
 }
 
 void PlayerFallingToDead::Execute(EntityPlayer* player)
 {
-	if (player->GetBody()->GetLinearVelocity().Length() == 0)
+	if (player->IsOnTheGround())
 	{
 		player->UpdateAnimationToSprite(player->GetAnimation(DEAD));
 	}

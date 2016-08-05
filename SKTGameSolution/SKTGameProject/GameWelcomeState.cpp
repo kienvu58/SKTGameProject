@@ -16,8 +16,8 @@ void GameWelcomeState::Execute(Game* game)
 #ifdef WIN32
 	Sleep(1000);
 #endif
-
 	game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
+//	if (game->GetFSM()->CurrentState() == GS_MainMenu::GetInstance())
 	MusicMgr->MusicPlay("MainMenu");
 	MusicMgr->MusicLoop("MainMenu");
 }

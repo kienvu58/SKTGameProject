@@ -65,8 +65,8 @@ int EntityPlayer::GetCurrentScore() const
 bool EntityPlayer::IsOnTheGround() const
 {
 	b2Vec2 currentPosition = m_pBody->GetPosition();
-	float groudY = MetersFromPixels(Globals::screenHeight / 2);
-	if (currentPosition.y <= -(groudY + 1))
-		return true;
-	return false;
+	float groundY = MetersFromPixels(
+		float(Globals::screenHeight - m_Sprite.GetModel()->GetModelHeight()) / 2);
+
+	return currentPosition.y <= -groundY;
 }

@@ -13,6 +13,7 @@ public:
 	void SetModel(Model* pModel);
 	void SetTexture(Texture* pTexture);
 	void SetShaders(Shaders* pShaders);
+	Model* GetModel() const;
 protected:
 	Model* m_pModel;
 	Texture* m_pTexture;

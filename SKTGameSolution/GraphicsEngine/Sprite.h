@@ -13,7 +13,6 @@ public:
 	void SetIndex(int index);
 	void SetFrame(Frame* frame);
 
-
 private:
 	int m_Index;
 };

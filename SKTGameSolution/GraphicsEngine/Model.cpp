@@ -139,6 +139,7 @@ void Model::LoadModel(Vertex* vertices, int nVertices)
 void Model::Init(int modelW, int modelH, int spriteW, int spriteH, int textureW, int textureH)
 {
 	m_iModelWidth = modelW;
+	m_iModelHeight = modelH;
 
 	Vertex verticesData[4];
 	verticesData[0].pos = Vector3(-(float)modelW / 2, -(float)modelH / 2, 0.0f);
@@ -166,4 +167,9 @@ GLuint Model::GetIboID() const
 int Model::GetModelWidth() const
 {
 	return m_iModelWidth;
+}
+
+int Model::GetModelHeight() const
+{
+	return m_iModelHeight;
 }

@@ -33,7 +33,7 @@ void FactoryEntity::Init(const char* filePath)
 	b2FixtureDef fixture;
 	fixture.shape = &boxShape;
 	fixture.restitution = 0.5f;
-	fixture.density = 10;
+	fixture.friction = 1;
 //	fixture.filter.groupIndex = -1;
 	fixture.filter.categoryBits = CATEGORY_MINION;
 	fixture.filter.maskBits = CATEGORY_PLAYER | CATEGORY_KI_BLAST;

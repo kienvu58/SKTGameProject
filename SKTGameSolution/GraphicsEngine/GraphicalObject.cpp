@@ -172,3 +172,8 @@ void GraphicalObject::SetShaders(Shaders* pShaders)
 {
 	m_pShaders = pShaders;
 }
+
+Model* GraphicalObject::GetModel() const
+{
+	return m_pModel;
+}
