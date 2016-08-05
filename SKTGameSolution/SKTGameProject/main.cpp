@@ -3,8 +3,6 @@
 #include "../GraphicsEngine/Globals.h"
 #include "SoundManager.h"
 #include "../Utilities/MemoryOperators.h"
-#include <cstdio>
-
 extern int GameInit();
 extern void GameDraw();
 extern void GameUpdate(float);
@@ -71,7 +69,6 @@ int main(int argc, char* argv[])
 
 	if (Init(&esContext) != 0)
 		return 0;
-
 //	MusicMainMenu->MusicPlay();
 
 

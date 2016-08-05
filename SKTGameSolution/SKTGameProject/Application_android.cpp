@@ -38,7 +38,7 @@ int GameInit()
 	GameSingleton::CreateInstance();
 
 	GameInstance->CreateStateInstances();
-	GameInstance->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
+	GameInstance->GetFSM()->SetCurrentState(GS_Welcome::GetInstance());
 	GameInstance->Init();
 
 	// Set OpenGl blending option

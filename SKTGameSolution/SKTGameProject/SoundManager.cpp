@@ -1,81 +1,57 @@
 #include "SoundManager.h"
 #include "../include/SFML/Audio.hpp"
-
-
+#include <SFML/Audio/Music.hpp>
+#include <map>
+using namespace std;
 SoundManager::SoundManager()
 {
 }
 
 SoundManager::~SoundManager()
 {
+	delete m_MainMenuMusic;
+	delete m_GamePlayMusic;
+	delete m_SkillMusic;
 }
 
-int SoundManager::InitMusic(char *type, char * fileName)
+int SoundManager::InitMusic(char *type, char *fileName)
 {
-	if (type == "MainMenu")
-	{
-		if (!MainMenuMusic.openFromFile(fileName))
-			return 0;
-	}
-	else if (type == "GamePlay")
-	{
-		if (!GamePlayMusic.openFromFile(fileName))
-			return 0;
-	}
-	else if (type == "Skill")
-	{
-		if (!Skill.openFromFile(fileName))
-			return 0;
-	}
 
+	music.insert(std::pair<char*, sf::Music*>("MainMenu", m_MainMenuMusic));
+	music.insert(std::pair<char*, sf::Music*>("GamePlay", m_GamePlayMusic));
+	music.insert(std::pair<char*, sf::Music*>("Skill", m_SkillMusic));
+	
+	if (!music[type]->openFromFile(fileName))
+		return 0;
 }
 
 int SoundManager::MusicPlay(char *type)
 {
-	if (type == "MainMenu")
-		MainMenuMusic.play();
-	else if (type == "GamePlay")
-		GamePlayMusic.play();
-	else if (type == "Skill")
-		Skill.play();
+	music[type]->play();	
 	return 0;
 }
 
 int SoundManager::MusicPause(char *type)
 {
-	if (type == "GamePlay")
-		GamePlayMusic.pause();
+	music[type]->pause();
 	return 0;
 }
 
 int SoundManager::MusicStop(char *type)
 {
 
-	if (type == "MainMenu")
-		MainMenuMusic.stop();
-	else if (type == "GamePlay")
-		GamePlayMusic.stop();
-	else if (type == "Skill")
-		Skill.stop();
+	music[type]->stop();
 	return 0;
 }
 
 int SoundManager::MusicLoop(char *type)
 {
-	if (type == "MainMenu")
-		MainMenuMusic.setLoop(1);
-	else if (type == "GamePlay")
-		GamePlayMusic.setLoop(1);
+	music[type]->setLoop(1);
 	return 0;
 }
 
 int SoundManager::MusicVolume(char *type, int value)
 {
-	if (type == "MainMenu")
-		MainMenuMusic.setVolume(value);
-	else if (type == "GamePlay")
-		GamePlayMusic.setVolume(value);
-	else if (type == "Skill")
-		Skill.setVolume(value);
+	music[type]->setVolume(value);
 	return 0;
 }
