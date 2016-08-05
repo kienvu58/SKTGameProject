@@ -2,7 +2,7 @@
 #include "../include/SFML/Audio.hpp"
 #include <SFML/Audio/Music.hpp>
 #include <map>
-using namespace std;
+
 SoundManager::SoundManager()
 {
 }
