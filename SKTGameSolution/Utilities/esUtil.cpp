@@ -181,6 +181,17 @@ void esRegisterMouseFunc(ESContext* esContext, void (* mouseFunc)(ESContext*, bo
 	esContext->mouseFunc = mouseFunc;
 }
 
+void ESUTIL_API esRegisterMouseMoveFunc(ESContext *esContext,
+	void (ESCALLBACK *mouseMoveFunc) (ESContext*, float, float))
+{
+	esContext->mouseMoveFunc = mouseMoveFunc;
+}
+
+void ESUTIL_API esRegisterMouseDownFunc(ESContext *esContext,
+	void (ESCALLBACK *mouseDownFunc) (ESContext*, float, float))
+{
+	esContext->mouseDownFunc = mouseDownFunc;
+}
 
 // esLogMessage()
 //    Log an error message to the debug output for the platform

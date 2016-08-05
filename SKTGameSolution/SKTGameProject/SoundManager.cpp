@@ -1,6 +1,10 @@
 #include "SoundManager.h"
 #include "../include/SFML/Audio.hpp"
-
+enum SoundType
+{
+	MainMenu,
+	Skill
+};
 
 SoundManager::SoundManager()
 {

@@ -4,6 +4,7 @@
 #include "SoundManager.h"
 #include "../Utilities/MemoryOperators.h"
 #include <cstdio>
+#include "SingletonClasses.h"
 
 extern int GameInit();
 extern void GameDraw();
@@ -35,26 +36,26 @@ void Key(ESContext* esContext, unsigned char key, bool isPressed)
 	OnKeyEvent(key, isPressed);
 }
 
-//void MouseMove(ESContext* ESContext, float x, float y)
-//{
-//	InputMgr->SetCurrentMousePosition(x, y);
-//}
-//
-//void MouseDown(ESContext* esContext, float x, float y)
-//{
-//	InputMgr->SetCurrentMousePosition(x, y);
-//	InputMgr->SetLastMousePosition(x, y);
-//}
-
-void Mouse(ESContext* esContext, bool isClicked, float x, float y)
+void MouseMove(ESContext* ESContext, float x, float y)
 {
-	//	if (isClicked)
-	//	{
-	//		InputMgr->SetCurrentMousePosition(x, y);
-	//	}
-	//	std::cout << isClicked << std::endl;
-	//	std::cout << x << " " << y << std::endl;
+	InputMgr->SetCurrentMousePosition(x, y);
 }
+
+void MouseDown(ESContext* esContext, float x, float y)
+{
+	InputMgr->SetCurrentMousePosition(x, y);
+	InputMgr->SetLastMousePosition(x, y);
+}
+//
+//void Mouse(ESContext* esContext, bool isClicked, float x, float y)
+//{
+//	//	if (isClicked)
+//	//	{
+//	//		InputMgr->SetCurrentMousePosition(x, y);
+//	//	}
+//	//	std::cout << isClicked << std::endl;
+//	//	std::cout << x << " " << y << std::endl;
+//}
 
 void CleanUp()
 {
@@ -78,7 +79,8 @@ int main(int argc, char* argv[])
 	esRegisterDrawFunc(&esContext, Draw);
 	esRegisterUpdateFunc(&esContext, Update);
 	esRegisterKeyFunc(&esContext, Key);
-	esRegisterMouseFunc(&esContext, Mouse);
+	esRegisterMouseMoveFunc(&esContext, MouseMove);
+	esRegisterMouseDownFunc(&esContext, MouseDown);
 	esMainLoop(&esContext);
 
 	//releasing OpenGL resources
