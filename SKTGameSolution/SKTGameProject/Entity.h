@@ -1,5 +1,6 @@
 #pragma once
 #include "EntityTypes.h"
+#include <string>
 class Telegram;
 
 class Entity

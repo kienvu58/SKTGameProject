@@ -49,7 +49,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 		{
 			float damage = static_cast<EntityMinion*>(entityA)->Attack();
 			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, nullptr, entityB,
-				MSG_PLAYER_TAKE_DAMAGE, (void*)&damage);
+				MSG_PLAYER_TAKE_DAMAGE, &damage);
 			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, nullptr, entityA,
 				MSG_MINION_HIT_PLAYER, nullptr);
 		}
@@ -58,7 +58,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 		{
 			float damage = static_cast<EntityMinion*>(entityB)->Attack();
 			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, nullptr, entityA,
-				MSG_PLAYER_TAKE_DAMAGE, (void*)&damage);
+				MSG_PLAYER_TAKE_DAMAGE, &damage);
 			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, nullptr, entityB,
 				MSG_MINION_HIT_PLAYER, nullptr);
 		}

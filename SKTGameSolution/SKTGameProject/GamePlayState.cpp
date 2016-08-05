@@ -133,7 +133,7 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 		auto kiBlastPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 		KiBlast* kiBlast = static_cast<KiBlast*>(PoolMgr->GetEntityByType(KI_BLAST));
 		kiBlast->Fire(kiBlastPosition, 1);
-		AddEntitesToTheScreen(KI_BLAST, kiBlast);
+		AddEntitesToTheScreen(kiBlast);
 		return true;
 	}
 
@@ -141,14 +141,14 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	{
 		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
 		theMinion->Reset();
-		RemoveEntitiesOnTheScreen(theMinion->GetType(), theMinion);
+		RemoveEntitiesOnTheScreen(theMinion);
 		return true;
 	}
 
 	if (telegram.Message == MSG_KIBLAST_OUT_OF_WALL)
 	{
 		KiBlast *theKiBlast = static_cast<KiBlast*>(telegram.ExtraInfo);
-		RemoveEntitiesOnTheScreen(theKiBlast->GetType(), theKiBlast);
+		RemoveEntitiesOnTheScreen(theKiBlast);
 		return true;
 	}
 
@@ -201,8 +201,9 @@ GamePlayState::~GamePlayState()
 	}
 }
 
-void GamePlayState::AddEntitesToTheScreen(EntityType type, Entity* entity)
+void GamePlayState::AddEntitesToTheScreen(Entity* entity)
 {
+	EntityType type = entity->GetType();
 	auto it = m_mapCurrentEntities.find(type);
 	if (it != m_mapCurrentEntities.end())
 	{
@@ -222,8 +223,9 @@ void GamePlayState::AddEntitesToTheScreen(EntityType type, Entity* entity)
 	}
 }
 
-void GamePlayState::RemoveEntitiesOnTheScreen(EntityType type, Entity* entity)
+void GamePlayState::RemoveEntitiesOnTheScreen(Entity* entity)
 {
+	EntityType type = entity->GetType();
 	auto it = m_mapCurrentEntities.find(type);
 	if (it != m_mapCurrentEntities.end())
 	{
