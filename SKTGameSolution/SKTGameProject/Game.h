@@ -9,8 +9,8 @@ public:
 	~Game();
 
 	void Init();
-	void CreateStateInstances();
-	void DestroyStateInstances();
+	static void CreateStateInstances();
+	static void DestroyStateInstances();
 	void Update() override;
 	void Render() override;
 

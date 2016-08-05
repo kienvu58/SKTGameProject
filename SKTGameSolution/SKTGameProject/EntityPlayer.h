@@ -33,8 +33,10 @@ public:
 	//clone
 	EntityLiving* Clone() override;
 
-	void IncreseScore(int amout);
+	void IncreseScore(int amount);
 	int GetCurrentScore() const;
+
+	bool IsOnTheGround() const;
 private:
 	//player attributes
 	float m_fMaxKi;

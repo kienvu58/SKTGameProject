@@ -48,6 +48,7 @@ void FactoryEntity::Init(const char* filePath)
 
 	//Goku (Player) prototype
 //	fixture.filter.groupIndex = 1;
+	fixture.restitution = 0;
 	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
 	fixture.filter.categoryBits = CATEGORY_PLAYER;
 	fixture.filter.maskBits = CATEGORY_WALL | CATEGORY_MINION;

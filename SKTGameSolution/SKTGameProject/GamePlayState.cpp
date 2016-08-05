@@ -124,7 +124,6 @@ void GamePlayState::Init(const char* filePath)
 	Factory->Init("File path");
 	m_spawner.Init("File path");
 	m_Goku = static_cast<EntityPlayer*>(Factory->GetPrototype(ENTITY_PLAYER));
-
 }
 
 bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
@@ -132,7 +131,6 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	if (telegram.Message == MSG_SPAWN_KI_BLAST)
 	{
 		auto kiBlastPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		std::cout << "Spawn ki blast at " << kiBlastPosition.x << " " << kiBlastPosition.y << std::endl;
 		KiBlast* kiBlast = static_cast<KiBlast*>(PoolMgr->GetEntityByType(KI_BLAST));
 		kiBlast->Fire(kiBlastPosition, 1);
 		AddEntitesToTheScreen(KI_BLAST, kiBlast);
@@ -142,7 +140,6 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	if (telegram.Message == MSG_MINION_OUT_OF_WALL)
 	{
 		EntityMinion *theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
-//		theMinion->GetBody()->SetActive(false);
 		theMinion->Reset();
 		RemoveEntitiesOnTheScreen(theMinion->GetType(), theMinion);
 		return true;
@@ -151,7 +148,6 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	if (telegram.Message == MSG_KIBLAST_OUT_OF_WALL)
 	{
 		KiBlast *theKiBlast = static_cast<KiBlast*>(telegram.ExtraInfo);
-//		theKiBlast->GetBody()->SetActive(false);
 		RemoveEntitiesOnTheScreen(theKiBlast->GetType(), theKiBlast);
 		return true;
 	}

@@ -70,7 +70,6 @@ void PoolManager::ReleaseEntity(Entity* entity)
 			auto ix = std::find(it->second->begin(), it->second->end(), entity);
 			if (ix == it->second->end())
 				it->second->push_back(entity);
-			
 		}else
 		{
 			std::vector<Entity*>* vectorEntity = new std::vector<Entity*>();

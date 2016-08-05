@@ -2,11 +2,9 @@
 #include "../GraphicsEngine/InputManager.h"
 #include "SingletonClasses.h"
 
-
 /**
 *	PlayerGlobalState
 */
-
 
 PlayerGlobalState::~PlayerGlobalState()
 {
@@ -18,14 +16,22 @@ void PlayerGlobalState::Enter(EntityPlayer* entity)
 
 void PlayerGlobalState::Execute(EntityPlayer* entity)
 {
+	if (entity->IsDead())
+	{
+		entity->GetFSM()->ChangeState(PS_FallToDead::GetInstance());
+	}
+
 	bool keyA = InputMgr->IsPressed(KEY_A);
 	bool keyD = InputMgr->IsPressed(KEY_D);
 	bool keyW = InputMgr->IsPressed(KEY_W);
 	bool keyS = InputMgr->IsPressed(KEY_S);
 
 	b2Vec2 direction(keyD - keyA, keyW - keyS);
-
-	entity->GetBody()->SetLinearVelocity(entity->GetMovementSpeed() * direction);
+	
+	if (entity->GetFSM()->CurrentState() != PS_FallToDead::GetInstance())
+	{
+		entity->GetBody()->SetLinearVelocity(entity->GetMovementSpeed() * direction);
+	}
 
 	if (entity->GetFSM()->CurrentState() != PS_Firing::GetInstance())
 	{
@@ -56,11 +62,9 @@ PlayerGlobalState::PlayerGlobalState()
 {
 }
 
-
 /**
 *	PlayerStandingState
 */
-
 
 PlayerStandingState::~PlayerStandingState()
 {
@@ -117,7 +121,6 @@ PlayerStandingState::PlayerStandingState()
 {
 }
 
-
 /**
  *	PlayerMovingState
  */
@@ -172,7 +175,6 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 		}
 	}
 }
-
 
 void PlayerMovingState::Exit(EntityPlayer* entity)
 {
@@ -324,7 +326,7 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 	{
 		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0);
 		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
-			MSG_SPAWN_TRUE_KAMEHAMEHA, &kamehamehaPosition);
+		                             MSG_SPAWN_TRUE_KAMEHAMEHA, &kamehamehaPosition);
 	}
 	if (!InputMgr->IsPressed(KEY_L) && firingUltimateAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{
@@ -352,4 +354,80 @@ bool PlayerFiringUltimateState::OnMessage(EntityPlayer*, const Telegram&)
 
 PlayerFiringUltimateState::PlayerFiringUltimateState()
 {
+}
+
+
+/**
+*	PlayerTakingDamagedState
+*/
+
+PlayerTakingDamageState::PlayerTakingDamageState()
+{
+}
+
+PlayerTakingDamageState::~PlayerTakingDamageState()
+{
+}
+
+void PlayerTakingDamageState::Enter(EntityPlayer* player)
+{
+}
+
+void PlayerTakingDamageState::Execute(EntityPlayer* player)
+{
+}
+
+void PlayerTakingDamageState::Exit(EntityPlayer* player)
+{
+	player->ResetCurrentAnimationInfo();
+}
+
+void PlayerTakingDamageState::Render(EntityPlayer* player)
+{
+}
+
+bool PlayerTakingDamageState::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
+}
+
+/* Player FallingToDead state*/
+
+PlayerFallingToDead::PlayerFallingToDead()
+{
+}
+
+PlayerFallingToDead::~PlayerFallingToDead()
+{
+}
+
+void PlayerFallingToDead::Enter(EntityPlayer* player)
+{
+	player->GetBody()->ApplyForceToCenter(b2Vec2(0, -980), false);
+}
+
+void PlayerFallingToDead::Execute(EntityPlayer* player)
+{
+	if (player->GetBody()->GetLinearVelocity().Length() == 0)
+	{
+		player->UpdateAnimationToSprite(player->GetAnimation(DEAD));
+	}
+	else
+	{
+		player->UpdateAnimationToSprite(player->GetAnimation(FALLING));
+	}
+}
+
+void PlayerFallingToDead::Exit(EntityPlayer* player)
+{
+	player->ResetCurrentAnimationInfo();
+}
+
+void PlayerFallingToDead::Render(EntityPlayer* player)
+{
+}
+
+bool PlayerFallingToDead::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
 }

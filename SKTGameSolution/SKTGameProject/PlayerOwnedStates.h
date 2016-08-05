@@ -98,3 +98,29 @@ public:
 	bool OnMessage(EntityPlayer*, const Telegram&) override;
 };
 
+class PlayerTakingDamageState : 
+	public State<EntityPlayer>
+{
+public:
+	PlayerTakingDamageState();
+	~PlayerTakingDamageState();
+
+	void Enter(EntityPlayer*) override;
+	void Execute(EntityPlayer*) override;
+	void Exit(EntityPlayer*) override;
+	void Render(EntityPlayer*) override;
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
+};
+
+class PlayerFallingToDead :
+	public State<EntityPlayer>
+{
+public:
+	PlayerFallingToDead();
+	~PlayerFallingToDead();
+	void Enter(EntityPlayer*) override;
+	void Execute(EntityPlayer*) override;
+	void Exit(EntityPlayer*) override;
+	void Render(EntityPlayer*) override;
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
+};

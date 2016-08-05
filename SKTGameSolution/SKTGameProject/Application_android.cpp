@@ -36,8 +36,8 @@ int GameInit()
 
 	// Init game
 	GameSingleton::CreateInstance();
+	Game::CreateStateInstances();
 
-	GameInstance->CreateStateInstances();
 	GameInstance->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
 	GameInstance->Init();
 
@@ -104,7 +104,8 @@ void GameCleanUp()
 	PhysicsManagerSingleton::DestroyInstance();
 	MusicManagerSingleton::DestroyInstance();
 
-	GameInstance->DestroyStateInstances();
+	Game::DestroyStateInstances();
+
 	GameSingleton::DestroyInstance();
 }
 

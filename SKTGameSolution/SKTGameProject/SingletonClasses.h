@@ -48,6 +48,8 @@ typedef Singleton<PlayerFiringState> PS_Firing;
 typedef Singleton<PlayerFiringSpecialState> PS_FiringSpecial;
 typedef Singleton<PlayerFiringUltimateState> PS_FiringUltimate;
 typedef Singleton<PlayerGlobalState> PS_Global;
+typedef Singleton<PlayerTakingDamageState> PS_TakingDamage;
+typedef Singleton<PlayerFallingToDead> PS_FallToDead;
 
 // Minion States
 typedef Singleton<WanderingState> MS_Wandering;
