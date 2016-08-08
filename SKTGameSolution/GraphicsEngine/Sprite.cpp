@@ -1,5 +1,4 @@
 #include "Sprite.h"
-#include "../Utilities/utilities.h"
 #include "Vertex.h"
 #include "Globals.h"
 #include "SpriteSheet.h"
@@ -8,8 +7,8 @@
 
 Sprite::Sprite(): m_Index(0)
 {
-	m_matMVP.SetOrthographic(-static_cast<float>(Globals::screenWidth) / 2, static_cast<float>(Globals::screenWidth / 2),
-	                         static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40);
+	m_matMVP.SetOrthographic(-float(Globals::screenWidth) / 2, float(Globals::screenWidth / 2),
+	                         float(Globals::screenHeight / 2), -float(Globals::screenHeight / 2), 0.1f, 40.0f);
 }
 
 Sprite::~Sprite()
@@ -27,28 +26,38 @@ void Sprite::Render()
 	glUseProgram(m_pShaders->program);
 	glBindBuffer(GL_ARRAY_BUFFER, m_pModel->GetVboID());
 	glBindTexture(GL_TEXTURE_2D, m_pTexture->GetTextureID());
+
+	// Load model
 	GLuint posLocation = m_pShaders->locationAttributePos;
 	if (posLocation != -1)
 	{
 		glEnableVertexAttribArray(posLocation);
 		glVertexAttribPointer(posLocation, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, pos)));
 	}
+
+	// Load UV of first tile in spritesheet
 	GLuint uvLocation = m_pShaders->locationAttributeUV;
 	if (uvLocation != -1)
 	{
 		glEnableVertexAttribArray(uvLocation);
 		glVertexAttribPointer(uvLocation, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, uv)));
 	}
+
+	// Load texture 
 	GLuint iTexLocation = m_pShaders->locationUniformTex;
 	if (iTexLocation != -1)
 	{
 		glUniform1i(iTexLocation, 0);
 	}
+
+	// Load MVP matrix
 	GLuint mvpLocation = m_pShaders->locationUniformMVP;
 	if (mvpLocation != -1)
 	{
 		glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, &(m_matMVP.m[0][0]));
 	}
+
+	// Load delta vector (to calculate UV of actual tile in spritesheet)
 	GLuint deltaLocation = m_pShaders->locationUniformDelta;
 	if (deltaLocation != -1)
 	{
@@ -59,7 +68,10 @@ void Sprite::Render()
 		delta[1] = vec2Delta.y;
 		glUniform2fv(deltaLocation, 1, delta);
 	}
+
+	// Draw sprite
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -76,8 +88,8 @@ void Sprite::SetRenderInfo(Vector2 position, bool isReversed, Vector2 vec2Scale)
 	}
 
 	matModel = matScale * matRotation * matTranslation;
-	matProjection.SetOrthographic(-static_cast<float>(Globals::screenWidth) / 2, static_cast<float>(Globals::screenWidth / 2),
-	                           static_cast<float>(Globals::screenHeight / 2), -static_cast<float>(Globals::screenHeight / 2), 0.1, 40);
+	matProjection.SetOrthographic(-float(Globals::screenWidth) / 2, float(Globals::screenWidth / 2),
+	                              float(Globals::screenHeight / 2), -float(Globals::screenHeight / 2), 0.1f, 40.0f);
 	m_matMVP = matModel * matProjection;
 }
 

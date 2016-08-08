@@ -1,7 +1,6 @@
 #include <json.hpp>
 #include "AnimationManager.h"
 #include <fstream>
-#include "Camera.h"
 #include "HelperFunctions.h"
 
 
@@ -28,9 +27,10 @@ void AnimationManager::Init(const char* path)
 	// Init animations
 	for (auto it : data["animations"])
 	{
-		int id;
+		int id, nStartFrames;
 		id = it["id"].get<int>();
-		Animation* animation = new Animation(id);
+		nStartFrames = it["nStartFrames"].get<int>();
+		Animation* animation = new Animation(id, nStartFrames);
 		animation->Init(it["frameIDs"].get<std::vector<int>>());
 
 		m_mapAnimations.insert(std::pair<int, Animation*>(id, animation));

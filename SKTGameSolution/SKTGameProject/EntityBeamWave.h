@@ -2,12 +2,12 @@
 #include "Entity.h"
 #include "../GraphicsEngine/Sprite.h"
 
-class BeamWave :
+class EntityBeamWave :
 	public Entity
 {
 public:
-	BeamWave();
-	~BeamWave();
+	EntityBeamWave();
+	~EntityBeamWave();
 
 	void Render() override;
 	void Update() override;

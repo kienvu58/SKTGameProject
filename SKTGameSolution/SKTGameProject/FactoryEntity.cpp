@@ -70,7 +70,7 @@ void FactoryEntity::Init(const char* filePath)
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_PLAYER, gokuPrototype));
 
 	//Kiblast prototype
-	KiBlast* kiBlastPrototype = new KiBlast();
+	EntityKiBlast* kiBlastPrototype = new EntityKiBlast();
 	boxShape.SetAsBox(MetersFromPixels(24), MetersFromPixels(12));
 	fixture.isSensor = true;
 	fixture.filter.categoryBits = CATEGORY_KI_BLAST;

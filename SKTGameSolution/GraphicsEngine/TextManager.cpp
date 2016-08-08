@@ -22,7 +22,7 @@ int TextManager::Init(const char * fileName)
 	return shaders->Init("../Resources/Shaders/TextVS.vs", "../Resources/Shaders/TextFS.fs");
 }
 
-void TextManager::RenderString(const char * text, Vector4 color, float size, float x, float y, float scaleX, float scaleY)
+void TextManager::RenderString(const char * text, Vector4 color, float size, float x, float y, float scaleX, float scaleY) const
 {
 	//printf("render");
 	//Set font size

@@ -15,16 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BeamWave.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CellJuniorOwnedStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ContactListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CrudeTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
@@ -61,9 +55,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameWelcomeState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KiBlast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -105,18 +96,18 @@
     <ClCompile Include="GamePauseState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EntityKiBlast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityBeamWave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BeamWave.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CellJuniorOwnedStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ContactListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CrudeTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
@@ -156,9 +147,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameWelcomeState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KiBlast.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuState.h">
@@ -204,6 +192,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GamePauseState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityKiBlast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityBeamWave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

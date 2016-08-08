@@ -27,7 +27,7 @@ void PlayerGlobalState::Execute(EntityPlayer* entity)
 	bool keyS = InputMgr->IsPressed(KEY_S);
 
 	b2Vec2 direction(keyD - keyA, keyW - keyS);
-	
+
 	if (entity->GetFSM()->CurrentState() != PS_FallToDead::GetInstance())
 	{
 		entity->GetBody()->SetLinearVelocity(entity->GetMovementSpeed() * direction);
@@ -213,7 +213,7 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 	if (entity->IsFrameChanged())
 	{
 		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.2, 0.1);
-		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
+		Dispatcher->DispatchMessageA(entity, GameInstance,
 		                             MSG_SPAWN_KI_BLAST, &kiBlastPosition);
 		entity->IncreaseOverheat(5);
 	}
@@ -267,8 +267,7 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 	if (currentFrame == 2 && entity->IsFrameChanged())
 	{
 		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.75, 0.15);
-		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
-		                             MSG_SPAWN_KAMEHAMEHA, &kamehamehaPosition);
+		Dispatcher->DispatchMessageA(entity, GameInstance, MSG_SPAWN_KAMEHAMEHA, &kamehamehaPosition);
 	}
 
 	if (!InputMgr->IsPressed(KEY_K) && firingSpecialAnimation->GetTotalFrames() <= entity->GetFrameCount())
@@ -325,8 +324,7 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 	if (currentFrame == 7 && entity->IsFrameChanged())
 	{
 		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0);
-		Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, entity, GameInstance,
-		                             MSG_SPAWN_TRUE_KAMEHAMEHA, &kamehamehaPosition);
+		Dispatcher->DispatchMessageA(entity, GameInstance, MSG_SPAWN_TRUE_KAMEHAMEHA, &kamehamehaPosition);
 	}
 	if (!InputMgr->IsPressed(KEY_L) && firingUltimateAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{

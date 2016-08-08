@@ -4,8 +4,8 @@
 #define PIXEL_PER_METER 70.0f;
 #define SECOND_PER_MINUTE 60;
 
-#include "esUtil.h"
 #include <Box2D/Common/b2Math.h>
+#include <GLES2/gl2.h>
 
 //Vector2
 

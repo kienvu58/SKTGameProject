@@ -1,7 +1,6 @@
 #include <json.hpp>
 #include "FrameManager.h"
 #include <fstream>
-#include "Camera.h"
 #include "HelperFunctions.h"
 
 

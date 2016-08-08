@@ -3,8 +3,8 @@
 #include "EntityPlayer.h"
 #include "Game.h"
 #include "Pool.h"
-#include "KiBlast.h"
-#include "BeamWave.h"
+#include "EntityKiBlast.h"
+#include "EntityBeamWave.h"
 #include "EntityStatic.h"
 #include "Spawner.h"
 
@@ -34,8 +34,8 @@ private:
 	EntityStatic *m_Button_Pause;
 
 	//current entity on the screen
-	std::vector<KiBlast*> m_vCurrentKiBlasts;
-	std::vector<BeamWave*> m_vCurrentBeamWaves;
+	std::vector<EntityKiBlast*> m_vCurrentKiBlasts;
+	std::vector<EntityBeamWave*> m_vCurrentBeamWaves;
 
 	std::map<EntityType, std::vector<Entity*>*> m_mapCurrentEntities;
 

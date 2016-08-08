@@ -5,7 +5,7 @@
 class Animation
 {
 public:
-	explicit Animation(int id);
+	explicit Animation(int id, int nStartFrames);
 	~Animation();
 
 	void Init(std::vector<int> frameIds);
@@ -15,6 +15,7 @@ public:
 private:
 	std::vector<Frame*> m_Frames;
 	int m_iTotalFrames;
+	int m_iNStartFrames;
 	int m_Id;
 };
 

@@ -2,7 +2,7 @@
 #include "../SKTGameProject/SingletonClasses.h"
 
 
-Animation::Animation(int id): m_iTotalFrames(0), m_Id(id) {
+Animation::Animation(int id, int nStartFrames): m_iTotalFrames(0), m_iNStartFrames(nStartFrames), m_Id(id) {
 }
 
 
