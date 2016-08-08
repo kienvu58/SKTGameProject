@@ -5,7 +5,7 @@
 #include "Frame.h"
 #include "../SKTGameProject/SingletonClasses.h"
 
-Sprite::Sprite(): m_Index(0)
+Sprite::Sprite(): m_fAlpha(1.0f), m_Index(0)
 {
 	m_matMVP.SetOrthographic(-float(Globals::screenWidth) / 2, float(Globals::screenWidth / 2),
 	                         float(Globals::screenHeight / 2), -float(Globals::screenHeight / 2), 0.1f, 40.0f);
@@ -19,6 +19,11 @@ void Sprite::SetFrame(Frame* frame)
 {
 	m_pTexture = ResourceMgr->GetSpriteSheetById(frame->GetSpriteSheetId());
 	m_Index = frame->GetIndex();
+}
+
+void Sprite::SetOpacity(float alpha)
+{
+	m_fAlpha = alpha;
 }
 
 void Sprite::Render()
@@ -67,6 +72,13 @@ void Sprite::Render()
 		delta[0] = vec2Delta.x;
 		delta[1] = vec2Delta.y;
 		glUniform2fv(deltaLocation, 1, delta);
+	}
+
+	// Load alpha value
+	GLuint alphaLocation = m_pShaders->locationUniformAlpha;
+	if (alphaLocation != -1)
+	{
+		glUniform1f(alphaLocation, m_fAlpha);
 	}
 
 	// Draw sprite

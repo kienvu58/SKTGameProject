@@ -13,7 +13,7 @@
 			"id": 9,
 			"note": "goku_firingUltimate",
 			"nStartFrames": 10,
-			"frameIDs": [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+			"frameIDs": [17, 18, 19, 20, 21, 22, 23, 24, 25]
 		},
 		{ "id": 10, "note": "celljr_flying", "nStartFrames": 0, "frameIDs": [28] },
 		{ "id": 11, "note": "celljr_punching", "nStartFrames": 0, "frameIDs": [29] }

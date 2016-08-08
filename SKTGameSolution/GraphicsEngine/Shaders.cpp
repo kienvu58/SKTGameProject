@@ -28,6 +28,7 @@ int Shaders::Init(const char * fileVertexShader, const char * fileFragmentShader
 	locationUniformTexture = glGetUniformLocation(program, "u_s_texture");
 	locationAttributePosition = glGetAttribLocation(program, "a_position");
 	locationUniformColor = glGetUniformLocation(program, "u_color");
+	locationUniformAlpha = glGetUniformLocation(program, "u_alpha");
 	return 0;
 }
 
