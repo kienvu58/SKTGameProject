@@ -22,6 +22,9 @@ public:
 
 	//clone
 	Entity* Clone() override;
+
+
+	void Reset() override;
 protected:
 	//behavior
 	SteeringBehavior* m_pSteeringBehavior;

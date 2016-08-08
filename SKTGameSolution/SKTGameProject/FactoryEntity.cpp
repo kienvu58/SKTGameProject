@@ -46,6 +46,14 @@ void FactoryEntity::Init(const char* filePath)
 	cellJuniorPrototype->GetBody()->SetActive(false);
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_CELLJUNIOR, cellJuniorPrototype));
 
+	//Cell prototype
+	EntityCell* cellPrototype = new EntityCell();
+	cellPrototype->InitSprite(1, 1, 1);
+	cellPrototype->ReverseSprite(true);
+	cellPrototype->InitBody(bodyDef, fixture, b2Vec2(-1.5, 0));
+	cellPrototype->GetBody()->SetActive(false);
+	m_pPrototypes->insert(std::pair<EntityType, Entity*>(ENTITY_CELL, cellPrototype));
+
 	//Goku (Player) prototype
 //	fixture.filter.groupIndex = 1;
 	fixture.restitution = 0;

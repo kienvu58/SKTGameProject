@@ -46,16 +46,8 @@ void GamePauseState::Execute(Game* game)
 //		GameSingleton::CreateInstance();
 //
 //		GameInstance->CreateStateInstances();
-		GS_GamePlay::DestroyInstance();
-		PoolManagerSingleton::DestroyInstance();
-		PhysicsManagerSingleton::DestroyInstance();
+		GameInstance->Reset();
 
-		PhysicsManagerSingleton::CreateInstance();
-		PhysicsMgr->Init();
-		PoolManagerSingleton::CreateInstance();
-		GS_GamePlay::CreateInstance();
-		GS_GamePlay::GetInstance()->Init("");
-		
 		GameInstance->GetFSM()->SetCurrentState(GS_MainMenu::GetInstance());
 //		GameInstance->Init();
 

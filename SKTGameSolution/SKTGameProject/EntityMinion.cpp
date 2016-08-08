@@ -52,6 +52,11 @@ Entity* EntityMinion::Clone()
 	return nullptr;
 }
 
+void EntityMinion::Reset()
+{
+	EntityLiving::Reset();
+}
+
 void EntityMinion::TruncateVelocity(b2Vec2& currentVelocity)
 {
 	if(currentVelocity.Length() > m_fMaxSpeed)

@@ -24,6 +24,7 @@ public:
 	float GetPlayingTime() const;
 	void UpdateDifficulty(int currentScore);
 	float GetDifficulty() const;
+	void Reset();
 private:
 	StateMachine<Game>* m_pStateMachine;
 	float m_fPlayingTime;

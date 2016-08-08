@@ -49,8 +49,7 @@ void MainMenuState::Execute(Game* game)
 		&& InputMgr->GetLastMousePosition().y >= 450.0f && InputMgr->GetLastMousePosition().y <= 550.0f)
 	{
 		MusicMgr->MusicStop("MainMenu");
-//		GameInstance->DestroyStateInstances();
-//		exit(0); 
+		
 #ifdef WIN32
 		HWND hWnd = FindWindow(nullptr, "SKT Game");
 		DestroyWindow(hWnd);
@@ -89,8 +88,6 @@ void MainMenuState::Init(const char* filePath)
 	m_Button_Exit = new EntityStatic();
 	m_Button_Exit->InitSprite(3, 34, 1);
 	m_Button_Exit->InitPosition(300, 500);
-
-	
 }
 
 bool MainMenuState::OnMessage(Game*, const Telegram&)

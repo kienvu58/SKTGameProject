@@ -24,7 +24,7 @@ void GamePlayState::Execute(Game* game)
 	m_Background->Update();
 
 	//update
-	float attackingRadius = 4.0f;
+	float attackingRadius = 3.0f;
 	b2Vec2 distance;
 	b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
 	int i;

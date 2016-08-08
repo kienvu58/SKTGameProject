@@ -44,3 +44,17 @@ public:
 	
 	bool OnMessage(EntityCellJunior*, const Telegram&) override;
 };
+
+class CellJuniorDeadState : public State<EntityCellJunior>
+{
+public:
+	CellJuniorDeadState();
+	~CellJuniorDeadState();
+
+	void Enter(EntityCellJunior* celljunior) override;
+	void Execute(EntityCellJunior* celljunior) override;
+	void Exit(EntityCellJunior* celljunior) override;
+	void Render(EntityCellJunior* celljunior) override;
+
+	bool OnMessage(EntityCellJunior*, const Telegram&) override;
+};

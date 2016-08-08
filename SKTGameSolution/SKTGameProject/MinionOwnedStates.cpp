@@ -50,11 +50,6 @@ void MinionGlobalState::Execute(EntityMinion* minion)
 	{
 		Dispatcher->DispatchMessageA(minion, GameInstance, MSG_MINION_OUT_OF_WALL, minion);
 	}
-	if (minion->IsDead())
-	{
-		Dispatcher->DispatchMessageA(minion, GameInstance, MSG_MINION_OUT_OF_WALL, minion);
-		GS_GamePlay::GetInstance()->GetPlayer()->IncreseScore(10);
-	}
 }
 
 void MinionGlobalState::Exit(EntityMinion* minion)
@@ -78,5 +73,36 @@ bool MinionGlobalState::OnMessage(EntityMinion* minion, const Telegram& telegram
 		Dispatcher->DispatchMessageA(minion, GameInstance, MSG_MINION_OUT_OF_WALL, minion);
 		return true;
 	}
+	return false;
+}
+
+
+/* Dead State */
+MinionDeadState::MinionDeadState()
+{
+}
+
+MinionDeadState::~MinionDeadState()
+{
+}
+
+void MinionDeadState::Enter(EntityMinion* minion)
+{
+}
+
+void MinionDeadState::Execute(EntityMinion* minion)
+{
+}
+
+void MinionDeadState::Exit(EntityMinion* minion)
+{
+}
+
+void MinionDeadState::Render(EntityMinion* minion)
+{
+}
+
+bool MinionDeadState::OnMessage(EntityMinion*, const Telegram&)
+{
 	return false;
 }

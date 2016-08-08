@@ -1,35 +1,34 @@
-#include "EntityCellJunior.h"
+#include "EntityCell.h"
+#include "SingletonClasses.h"
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
-#include "SingletonClasses.h"
 
-
-EntityCellJunior::EntityCellJunior()
+EntityCell::EntityCell()
 {
 	m_fAttackDamage = 10;
 	m_fCurrentHealth = 30;
 	m_fMaxHealth = 30;
 	
 	m_pSteeringBehavior->WanderOn();
-//	m_pSteeringBehavior->SeekOn();
-	m_pStateMachine = new StateMachine<EntityCellJunior>(this);
-	m_pStateMachine->SetCurrentState(CJS_Wandering::GetInstance());
-	m_pStateMachine->SetGlobalState(CJS_Global::GetInstance());
+
+	m_pStateMachine = new StateMachine<EntityCell>(this);
+	m_pStateMachine->SetGlobalState(CS_Global::GetInstance());
+	m_pStateMachine->SetCurrentState(CS_Wandering::GetInstance());
 }
 
-EntityCellJunior::~EntityCellJunior()
+EntityCell::~EntityCell()
 {
 	delete m_pStateMachine;
 }
 
-StateMachine<EntityCellJunior>* EntityCellJunior::GetFSM() const
+StateMachine<EntityCell>* EntityCell::GetFSM() const
 {
 	return m_pStateMachine;
 }
 
-Entity* EntityCellJunior::Clone()
+Entity* EntityCell::Clone()
 {
-	EntityMinion* cloneMinion = new EntityCellJunior();
+	EntityMinion* cloneMinion = new EntityCell();
 	//graphic
 	cloneMinion->SetSprite(this->m_Sprite);
 	cloneMinion->SetAnimations(this->m_vecAnimations);
@@ -54,24 +53,24 @@ Entity* EntityCellJunior::Clone()
 	return cloneMinion;
 }
 
-void EntityCellJunior::Update()
+void EntityCell::Update()
 {
 	EntityMinion::Update();
 	m_pStateMachine->Update();
 }
 
-bool EntityCellJunior::HandleMessage(const Telegram& telegram)
+bool EntityCell::HandleMessage(const Telegram& telegram)
 {
 	return m_pStateMachine->HandleMessage(telegram);
 }
 
-EntityType EntityCellJunior::GetType()
+EntityType EntityCell::GetType()
 {
-	return ENTITY_CELLJUNIOR;
+	return ENTITY_CELL;
 }
 
-void EntityCellJunior::Reset()
+void EntityCell::Reset()
 {
 	EntityMinion::Reset();
-	m_pStateMachine->ChangeState(CJS_Wandering::GetInstance());
+	m_pStateMachine->ChangeState(CS_Wandering::GetInstance());
 }
