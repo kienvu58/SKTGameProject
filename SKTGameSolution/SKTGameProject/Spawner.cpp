@@ -84,7 +84,7 @@ void Spawner::SpawnMinions()
 				entity->GetBody()->SetActive(true);
 				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
 				entity->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));
-				GS_GamePlay::GetInstance()->AddEntitesToTheScreen(type, entity);
+				GS_GamePlay::GetInstance()->AddEntitesToTheScreen(entity);
 			}	
 		}
 	}
