@@ -21,6 +21,7 @@ public:
 	GLuint locationUniformTexture;
 	GLuint locationAttributePosition;
 	GLuint locationUniformColor;
+	GLuint locationUniformAlpha;
 
 	std::vector<ShaderState> states;
 	
