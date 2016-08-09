@@ -45,7 +45,7 @@ public:
 	bool IsOverheated() const;
 
 	//Material
-	void Reset();
+	virtual void Reset();
 	bool IsOutOfWall();
 
 	//Battle functions

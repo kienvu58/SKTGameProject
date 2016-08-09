@@ -37,12 +37,12 @@ void InputManager::SetCurrentMousePosition(float x, float y)
 	m_v2CurrentMousePos = Vector2(x, y);
 }
 
-Vector2 InputManager::GetLastMousePosition()
+Vector2 InputManager::GetLastMousePosition() const
 {
 	return m_v2LastMousePos;
 }
 
-Vector2 InputManager::GetCurrentMousePosition()
+Vector2 InputManager::GetCurrentMousePosition() const
 {
 	return m_v2CurrentMousePos;
 }

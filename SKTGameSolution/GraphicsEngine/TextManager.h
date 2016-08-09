@@ -17,5 +17,5 @@ public:
 	unsigned int tex;
 
 	int Init(const char *fileName);
-	void RenderString(const char *text, Vector4 color, float size, float x, float y, float scaleX, float scaleY);
+	void RenderString(const char *text, Vector4 color, float size, float x, float y, float scaleX, float scaleY) const;
 };

@@ -124,13 +124,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application_android.cpp" />
-    <ClCompile Include="BeamWave.cpp" />
+    <ClCompile Include="CellOwnedStates.cpp" />
+    <ClCompile Include="EntityBeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
+    <ClCompile Include="EntityCell.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
     <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GamePauseState.cpp" />
     <ClCompile Include="ContactListener.cpp" />
-    <ClCompile Include="CrudeTimer.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityEffect.cpp" />
     <ClCompile Include="EntityLiving.cpp" />
@@ -142,7 +143,7 @@
     <ClCompile Include="GameOptionState.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameWelcomeState.cpp" />
-    <ClCompile Include="KiBlast.cpp" />
+    <ClCompile Include="EntityKiBlast.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
@@ -156,13 +157,14 @@
     <ClCompile Include="Telegram.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BeamWave.h" />
+    <ClInclude Include="CellOwnedStates.h" />
+    <ClInclude Include="EntityBeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
+    <ClInclude Include="EntityCell.h" />
     <ClInclude Include="EntityCellJunior.h" />
     <ClInclude Include="GameOverState.h" />
     <ClInclude Include="GamePauseState.h" />
     <ClInclude Include="ContactListener.h" />
-    <ClInclude Include="CrudeTimer.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityEffect.h" />
     <ClInclude Include="EntityLiving.h" />
@@ -176,7 +178,7 @@
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameWelcomeState.h" />
     <ClInclude Include="Definations.h" />
-    <ClInclude Include="KiBlast.h" />
+    <ClInclude Include="EntityKiBlast.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />

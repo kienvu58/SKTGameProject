@@ -2,10 +2,10 @@
 #pragma once
 
 #ifdef WIN32
-#include "esUtil.h"
 #include "esUtil_win.h"
 #include "MemoryOperators.h"
 #endif
 
+#include "esUtil.h"
 #include "Math.h"
 #include "TGA.h"

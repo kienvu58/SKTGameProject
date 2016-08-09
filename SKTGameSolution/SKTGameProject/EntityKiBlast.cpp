@@ -1,4 +1,4 @@
-#include "KiBlast.h"
+#include "EntityKiBlast.h"
 #include "SingletonClasses.h"
 #include <Box2D/Dynamics/b2World.h>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
@@ -6,17 +6,17 @@
 #include "../GraphicsEngine/Globals.h"
 
 
-KiBlast::KiBlast(): m_fSpeed(6),
+EntityKiBlast::EntityKiBlast(): m_fSpeed(6),
                     m_fAttackDamage(10)
 {
 }
 
 
-KiBlast::~KiBlast()
+EntityKiBlast::~EntityKiBlast()
 {
 }
 
-void KiBlast::Update()
+void EntityKiBlast::Update()
 {
 	if (m_pBody->IsActive())
 	{
@@ -24,13 +24,12 @@ void KiBlast::Update()
 		m_Sprite.SetRenderInfo(GraphicsFromPhysics(m_pBody->GetPosition()), isReversed);
 		if (IsOutOfWall())
 		{
-			Dispatcher->DispatchMessageA(SEND_MSG_IMMEDIATELY, this, Singleton<Game>::GetInstance(),
-			                             MSG_KIBLAST_OUT_OF_WALL, this);
+			Dispatcher->DispatchMessageA(this, GameInstance, MSG_KIBLAST_OUT_OF_WALL, this);
 		}
 	}
 }
 
-void KiBlast::Render()
+void EntityKiBlast::Render()
 {
 	if (m_pBody->IsActive())
 	{
@@ -38,9 +37,9 @@ void KiBlast::Render()
 	}
 }
 
-Entity* KiBlast::Clone()
+Entity* EntityKiBlast::Clone()
 {
-	KiBlast* newKiBlast = new KiBlast();
+	EntityKiBlast* newKiBlast = new EntityKiBlast();
 
 	//physics
 	b2BodyDef bodyDef;
@@ -65,24 +64,24 @@ Entity* KiBlast::Clone()
 	return newKiBlast;
 }
 
-EntityType KiBlast::GetType()
+EntityType EntityKiBlast::GetType()
 {
 	return KI_BLAST;
 }
 
-bool KiBlast::HandleMessage(const Telegram& telegram)
+bool EntityKiBlast::HandleMessage(const Telegram& telegram)
 {
 	return false;
 }
 
-void KiBlast::InitSprite(int modelId, int frameId, int shaderId)
+void EntityKiBlast::InitSprite(int modelId, int frameId, int shaderId)
 {
 	m_Sprite.SetModel(ResourceMgr->GetModelById(modelId));
 	m_Sprite.SetFrame(FrameMgr->GetFrameById(frameId));
 	m_Sprite.SetShaders(ResourceMgr->GetShadersById(shaderId));
 }
 
-void KiBlast::InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef)
+void EntityKiBlast::InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef)
 {
 	m_pBody = PhysicsMgr->GetWorld()->CreateBody(&bodyDef);
 	m_pBody->CreateFixture(&fixtureDef);
@@ -91,7 +90,7 @@ void KiBlast::InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef)
 	m_pBody->SetActive(false);
 }
 
-void KiBlast::Fire(b2Vec2 position, int direction)
+void EntityKiBlast::Fire(b2Vec2 position, int direction)
 {
 	m_pBody->SetActive(true);
 	m_pBody->SetTransform(position, m_pBody->GetAngle());
@@ -99,17 +98,17 @@ void KiBlast::Fire(b2Vec2 position, int direction)
 	m_iDirection = direction;
 }
 
-void KiBlast::SetSprite(Sprite sprite)
+void EntityKiBlast::SetSprite(Sprite sprite)
 {
 	m_Sprite = sprite;
 }
 
-void KiBlast::SetSpeed(float speed)
+void EntityKiBlast::SetSpeed(float speed)
 {
 	m_fSpeed = speed;
 }
 
-bool KiBlast::IsOutOfWall()
+bool EntityKiBlast::IsOutOfWall()
 {
 	float tmp = 0;
 	float wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
@@ -126,12 +125,12 @@ bool KiBlast::IsOutOfWall()
 	return true;
 }
 
-b2Body* KiBlast::GetBody() const
+b2Body* EntityKiBlast::GetBody() const
 {
 	return m_pBody;
 }
 
-float KiBlast::Attack() const
+float EntityKiBlast::Attack() const
 {
 	return m_fAttackDamage;
 }

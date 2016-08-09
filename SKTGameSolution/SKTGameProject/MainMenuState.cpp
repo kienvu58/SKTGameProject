@@ -51,6 +51,14 @@ void MainMenuState::PressButton(Game* game)
 			&& InputMgr->GetLastMousePosition().y >= 450.0f && InputMgr->GetLastMousePosition().y <= 550.0f)
 		{
 			MusicMgr->MusicStop("MainMenu");
+		/*MusicMgr->MusicStop("MainMenu");
+		printf("GameOption\n");
+		game->GetFSM()->ChangeState(GS_Option::GetInstance());
+	}
+	if (InputMgr->GetLastMousePosition().x >= 200.0f && InputMgr->GetLastMousePosition().x <= 400.0f
+		&& InputMgr->GetLastMousePosition().y >= 450.0f && InputMgr->GetLastMousePosition().y <= 550.0f)
+	{
+		MusicMgr->MusicStop("MainMenu");*/
 #ifdef WIN32
 			HWND hWnd = FindWindow(nullptr, "SKT Game");
 			DestroyWindow(hWnd);

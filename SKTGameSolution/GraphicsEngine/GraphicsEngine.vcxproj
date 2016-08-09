@@ -115,8 +115,6 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="FrameManager.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CubeTexture.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="HelperFunctions.h" />
@@ -124,7 +122,6 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="GraphicalObject.h" />
     <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSheet.h" />
@@ -136,14 +133,11 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="FrameManager.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CubeTexture.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="GraphicalObject.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
@@ -151,16 +145,10 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Shaders\FireFS.fs" />
-    <None Include="..\Resources\Shaders\FireVS.vs" />
-    <None Include="..\Resources\Shaders\ObjectFS.fs" />
-    <None Include="..\Resources\Shaders\ObjectVS.vs" />
-    <None Include="..\Resources\Shaders\SkyBoxFS.fs" />
-    <None Include="..\Resources\Shaders\SkyBoxVS.vs" />
     <None Include="..\Resources\Shaders\SpriteFS.fs" />
     <None Include="..\Resources\Shaders\SpriteVS.vs" />
-    <None Include="..\Resources\Shaders\TerrainFS.fs" />
-    <None Include="..\Resources\Shaders\TerrainVS.vs" />
+    <None Include="..\Resources\Shaders\TextFS.fs" />
+    <None Include="..\Resources\Shaders\TextVS.vs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utilities\Utilities.vcxproj">

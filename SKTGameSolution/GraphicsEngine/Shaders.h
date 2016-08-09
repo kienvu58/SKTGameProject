@@ -1,6 +1,6 @@
 #pragma once
-#include "../Utilities/utilities.h"
 #include <vector>
+#include "../Utilities/utilities.h"
 
 enum class ShaderState {CULLING, DEPTH_TEST, ALPHA};
 
@@ -21,6 +21,7 @@ public:
 	GLuint locationUniformTexture;
 	GLuint locationAttributePosition;
 	GLuint locationUniformColor;
+	GLuint locationUniformAlpha;
 
 	std::vector<ShaderState> states;
 	

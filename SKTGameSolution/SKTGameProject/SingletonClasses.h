@@ -1,8 +1,5 @@
 #pragma once
 #include <Singleton.hpp>
-
-//#include "CrudeTimer.h"
-
 #include "../GraphicsEngine/InputManager.h"
 #include "../GraphicsEngine/FrameManager.h"
 #include "../GraphicsEngine/AnimationManager.h"
@@ -22,6 +19,8 @@
 #include "FactoryEntity.h"
 #include "PoolManager.h"
 #include "GameOverState.h"
+#include "CellOwnedStates.h"
+
 
 class GamePlayState;
 // Game
@@ -60,6 +59,13 @@ typedef Singleton<MinionGlobalState> MS_Global;
 typedef Singleton<CellJuniorGlobalState> CJS_Global;
 typedef Singleton<CellJuniorWanderingState> CJS_Wandering;
 typedef Singleton<CellJuniorAttackingState> CJS_Attacking;
+typedef Singleton<CellJuniorDeadState> CJS_Dead;
+
+// Cell States
+typedef Singleton<CellGlobalState> CS_Global;
+typedef Singleton<CellWanderingState> CS_Wandering;
+typedef Singleton<CellAttackingState> CS_Attacking;
+typedef Singleton<CellDeadState> CS_Dead;
 
 // Game States
 typedef Singleton<GameWelcomeState> GS_Welcome;
@@ -88,6 +94,4 @@ typedef Singleton<PoolManager> PoolManagerSingleton;
 #define MusicMgr MusicManagerSingleton::GetInstance()
 #define Factory FactorySingleton::GetInstance()
 #define PoolMgr PoolManagerSingleton::GetInstance()
-
-//#define Clock CrudeTimerSingleton::GetInstance()
 

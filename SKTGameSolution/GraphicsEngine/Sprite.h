@@ -12,8 +12,10 @@ public:
 	void SetRenderInfo(Vector2 position, bool isReversed = false, Vector2 vec2Scale = Vector2(1, 1));
 	void SetIndex(int index);
 	void SetFrame(Frame* frame);
+	void SetOpacity(float alpha);
 
 private:
+	float m_fAlpha;
 	int m_Index;
 };
 

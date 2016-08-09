@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -34,9 +28,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shaders.h">
@@ -74,12 +65,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeTexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,9 +72,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shaders.cpp">
@@ -124,34 +106,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Shaders\FireFS.fs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\FireVS.vs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\ObjectFS.fs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\ObjectVS.vs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\SkyBoxFS.fs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\SkyBoxVS.vs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\TerrainFS.fs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Resources\Shaders\TerrainVS.vs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\Resources\Shaders\SpriteFS.fs">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\Resources\Shaders\SpriteVS.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\TextFS.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\TextVS.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

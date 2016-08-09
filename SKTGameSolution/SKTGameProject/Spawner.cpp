@@ -41,7 +41,11 @@ void Spawner::Init(const char* filePath)
 	//tmp hard code.
 	m_mapChanceWeights.insert(std::pair<EntityType, float>(ENTITY_CELLJUNIOR, 1));
 	m_mapNumSpawnWeights.insert(std::pair<EntityType, float>(ENTITY_CELLJUNIOR, 2.0f / 5));
-	m_mapInitNum.insert(std::pair<EntityType, int>(ENTITY_CELLJUNIOR, 10));
+	m_mapInitNum.insert(std::pair<EntityType, int>(ENTITY_CELLJUNIOR, 5));
+
+	m_mapChanceWeights.insert(std::pair<EntityType, float>(ENTITY_CELL, 0.9));
+	m_mapNumSpawnWeights.insert(std::pair<EntityType, float>(ENTITY_CELL, 2.0f / 5));
+	m_mapInitNum.insert(std::pair<EntityType, int>(ENTITY_CELL, 5));
 }
 
 float Spawner::GetChanceToSpawnMinion(float difficulty, EntityType minionType) const

@@ -40,6 +40,22 @@ void GamePauseState::PressButton(Game* game)
 //		MusicMgr->MusicPlay("MainMenu");
 //		MusicMgr->MusicLoop("MainMenu");
 //	}
+
+	if (InputMgr->GetLastMousePosition().x >= 785.0f && InputMgr->GetLastMousePosition().x <= 915.0f
+		&& InputMgr->GetLastMousePosition().y >= 195.0f && InputMgr->GetLastMousePosition().y <= 225.0f)
+	{
+		//Quit (back main menu)
+//		GameInstance->DestroyStateInstances();
+//		GameSingleton::DestroyInstance();
+//
+//		GameSingleton::CreateInstance();
+//
+//		GameInstance->CreateStateInstances();
+		GameInstance->Reset();
+
+		GameInstance->GetFSM()->SetCurrentState(GS_MainMenu::GetInstance());
+//		GameInstance->Init();
+	}
 }
 
 void GamePauseState::Execute(Game* game)

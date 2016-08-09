@@ -1,13 +1,15 @@
 #pragma once
 #include "EntityMinion.h"
 
-class EntityCellJunior : public EntityMinion
+class EntityCell
+	: public EntityMinion
 {
 public:
-	EntityCellJunior();
-	virtual ~EntityCellJunior();
+	EntityCell();
+	~EntityCell();
+
 	//Get FSM
-	StateMachine<EntityCellJunior>* GetFSM() const;
+	StateMachine<EntityCell>* GetFSM() const;
 
 	//clone
 	Entity* Clone() override;
@@ -20,6 +22,6 @@ public:
 	void Reset() override;
 private:
 	//State info
-	StateMachine<EntityCellJunior>* m_pStateMachine;
+	StateMachine<EntityCell>* m_pStateMachine;
 };
 

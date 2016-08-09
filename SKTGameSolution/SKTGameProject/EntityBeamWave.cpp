@@ -1,18 +1,18 @@
-#include "BeamWave.h"
+#include "EntityBeamWave.h"
 #include "SingletonClasses.h"
 #include "../GraphicsEngine/Globals.h"
 
 
-BeamWave::BeamWave(): m_bIsActive(false), m_iInitializedWidth(0), m_fLength(0), m_fSpeed(16), m_iDirection(1)
+EntityBeamWave::EntityBeamWave(): m_bIsActive(false), m_iInitializedWidth(0), m_fLength(0), m_fSpeed(16), m_iDirection(1)
 {
 }
 
 
-BeamWave::~BeamWave()
+EntityBeamWave::~EntityBeamWave()
 {
 }
 
-void BeamWave::Render()
+void EntityBeamWave::Render()
 {
 	if (m_bIsActive)
 	{
@@ -22,7 +22,7 @@ void BeamWave::Render()
 	}
 }
 
-void BeamWave::Update()
+void EntityBeamWave::Update()
 {
 	if (m_bIsActive)
 	{
@@ -63,29 +63,29 @@ void BeamWave::Update()
 	}
 }
 
-bool BeamWave::HandleMessage(const Telegram& telegram)
+bool EntityBeamWave::HandleMessage(const Telegram& telegram)
 {
 	return false;
 }
 
-EntityType BeamWave::GetType()
+EntityType EntityBeamWave::GetType()
 {
 	return BEAM_WAVE;
 }
 
-Entity* BeamWave::Clone()
+Entity* EntityBeamWave::Clone()
 {
 	return nullptr;
 }
 
-void BeamWave::InitSpriteHead(int modelId, int frameId, int shaderId)
+void EntityBeamWave::InitSpriteHead(int modelId, int frameId, int shaderId)
 {
 	m_SpriteHead.SetModel(ResourceMgr->GetModelById(modelId));
 	m_SpriteHead.SetFrame(FrameMgr->GetFrameById(frameId));
 	m_SpriteHead.SetShaders(ResourceMgr->GetShadersById(shaderId));
 }
 
-void BeamWave::InitSpriteBody(int modelId, int frameId, int shaderId)
+void EntityBeamWave::InitSpriteBody(int modelId, int frameId, int shaderId)
 {
 	auto pModel = ResourceMgr->GetModelById(modelId);
 	m_iInitializedWidth = pModel->GetModelWidth();
@@ -94,14 +94,14 @@ void BeamWave::InitSpriteBody(int modelId, int frameId, int shaderId)
 	m_SpriteBody.SetShaders(ResourceMgr->GetShadersById(shaderId));
 }
 
-void BeamWave::InitSpriteTail(int modelId, int frameId, int shaderId)
+void EntityBeamWave::InitSpriteTail(int modelId, int frameId, int shaderId)
 {
 	m_SpriteTail.SetModel(ResourceMgr->GetModelById(modelId));
 	m_SpriteTail.SetFrame(FrameMgr->GetFrameById(frameId));
 	m_SpriteTail.SetShaders(ResourceMgr->GetShadersById(shaderId));
 }
 
-void BeamWave::Fire(b2Vec2 position, int direction)
+void EntityBeamWave::Fire(b2Vec2 position, int direction)
 {
 	m_bIsActive = true;
 	m_fLength = 0;
