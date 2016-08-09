@@ -14,6 +14,7 @@ public:
 	GamePlayState();
 	~GamePlayState();
 	void Enter(Game* game) override;
+	static void PressButton(Game* game);
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
@@ -30,7 +31,6 @@ public:
 private:
 	EntityStatic *m_Background;
 	EntityPlayer* m_Goku;
-
 	EntityStatic *m_Button_Pause;
 
 	//current entity on the screen

@@ -5,6 +5,8 @@
 #include "GamePlayState.h"
 #include "SingletonClasses.h"
 #include "SoundManager.h"
+#include "Definations.h"
+
 GamePauseState::GamePauseState()
 {
 }
@@ -21,12 +23,8 @@ void GamePauseState::Enter(Game* game)
 {
 }
 
-void GamePauseState::Execute(Game* game)
+void GamePauseState::PressButton(Game* game)
 {
-	m_Background->Update();
-	m_Button_Resume->Update();
-	m_Button_Quit->Update();
-	//	printf("%f | %f \n", InputMgr->GetLastMousePosition().x, InputMgr->GetLastMousePosition().y);
 	if (InputMgr->GetLastMousePosition().x >= 765.0f && InputMgr->GetLastMousePosition().x <= 895.0f
 		&& InputMgr->GetLastMousePosition().y >= 147.0f && InputMgr->GetLastMousePosition().y <= 177.0f)
 	{
@@ -34,34 +32,23 @@ void GamePauseState::Execute(Game* game)
 		game->GetFSM()->ChangeState(GS_GamePlay::GetInstance());
 		MusicMgr->MusicPlay("GamePlay");
 		MusicMgr->MusicLoop("GamePlay");
-		MusicMgr->MusicVolume("GamePlay", 50);
 	}
-	if (InputMgr->GetLastMousePosition().x >= 785.0f && InputMgr->GetLastMousePosition().x <= 915.0f
-		&& InputMgr->GetLastMousePosition().y >= 195.0f && InputMgr->GetLastMousePosition().y <= 225.0f)
-	{
-		//Quit (back main menu)
-//		GameInstance->DestroyStateInstances();
-//		GameSingleton::DestroyInstance();
-//
-//		GameSingleton::CreateInstance();
-//
-//		GameInstance->CreateStateInstances();
-		GS_GamePlay::DestroyInstance();
-		PoolManagerSingleton::DestroyInstance();
-		PhysicsManagerSingleton::DestroyInstance();
+//	if (InputMgr->GetLastMousePosition().x >= 785.0f && InputMgr->GetLastMousePosition().x <= 915.0f
+//		&& InputMgr->GetLastMousePosition().y >= 195.0f && InputMgr->GetLastMousePosition().y <= 225.0f)
+//	{
+//		//Quit (back main menu)
+//		MusicMgr->MusicPlay("MainMenu");
+//		MusicMgr->MusicLoop("MainMenu");
+//	}
+}
 
-		PhysicsManagerSingleton::CreateInstance();
-		PhysicsMgr->Init();
-		PoolManagerSingleton::CreateInstance();
-		GS_GamePlay::CreateInstance();
-		GS_GamePlay::GetInstance()->Init("");
-		
-		GameInstance->GetFSM()->SetCurrentState(GS_MainMenu::GetInstance());
-//		GameInstance->Init();
-
-		MusicMgr->MusicPlay("MainMenu");
-		MusicMgr->MusicLoop("MainMenu");
-	}
+void GamePauseState::Execute(Game* game)
+{
+	m_Background->Update();
+	m_Button_Resume->Update();
+	m_Button_Quit->Update();
+	PressButton(game);
+	//	printf("%f | %f \n", InputMgr->GetLastMousePosition().x, InputMgr->GetLastMousePosition().y);
 }
 
 void GamePauseState::Exit(Game* game)

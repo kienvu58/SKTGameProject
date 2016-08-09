@@ -127,6 +127,7 @@
     <ClCompile Include="BeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
+    <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GamePauseState.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="CrudeTimer.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="BeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
     <ClInclude Include="EntityCellJunior.h" />
+    <ClInclude Include="GameOverState.h" />
     <ClInclude Include="GamePauseState.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="CrudeTimer.h" />

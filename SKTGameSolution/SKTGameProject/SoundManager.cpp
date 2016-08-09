@@ -50,7 +50,7 @@ int SoundManager::MusicLoop(char *type)
 	return 0;
 }
 
-int SoundManager::MusicVolume(char *type, int value)
+int SoundManager::MusicVolume(char *type, float value)
 {
 	music[type]->setVolume(value);
 	return 0;

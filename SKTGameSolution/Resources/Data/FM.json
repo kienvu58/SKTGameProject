@@ -30,7 +30,7 @@
 			{"id": 27, "spriteSheetID": 1, "index": 37, "duration": 1, "note": "GokuFiringUltimate"},
 			{"id": 28, "spriteSheetID": 1, "index": 38, "duration": 1, "note": "CellJrFlying"},
 			{"id": 29, "spriteSheetID": 1, "index": 39, "duration": 1, "note": "CellJrPunching"},
-			{"id": 30, "spriteSheetID": 2, "index": 0, "duration": 1, "note": "GameWelcomeState"},
+			{"id": 30, "spriteSheetID": 2, "index": 0, "duration": 1, "note": "GameWelcomeBackground"},
 			{"id": 31, "spriteSheetID": 3, "index": 0, "duration": 1, "note": "MainMenuBackground"},
 			{"id": 32, "spriteSheetID": 4, "index": 0, "duration": 1, "note": "GamePlayButton"},
 			{"id": 33, "spriteSheetID": 4, "index": 1, "duration": 1, "note": "GameOptionButton"},
@@ -50,6 +50,9 @@
 			{"id": 47, "spriteSheetID": 8, "index": 0, "duration": 1, "note": "GamePlayBackground"},
 			{"id": 48, "spriteSheetID": 6, "index": 6, "duration": 1, "note": "TailTrueKamehameha"},
 			{"id": 49, "spriteSheetID": 6, "index": 7, "duration": 1, "note": "BodyTrueKamehameha"},
-			{"id": 50, "spriteSheetID": 6, "index": 8, "duration": 1, "note": "HeadTrueKamehameha"}
+			{"id": 50, "spriteSheetID": 6, "index": 8, "duration": 1, "note": "HeadTrueKamehameha"},
+			{"id": 51, "spriteSheetID": 9, "index": 1, "duration": 1, "note": "MusicBarGreen"},
+			{"id": 52, "spriteSheetID": 9, "index": 0, "duration": 1, "note": "MusicBarBlack"},
+			{"id": 53, "spriteSheetID": 10, "index": 0, "duration": 1, "note": "GameDeadBackground"}
 		]
 }

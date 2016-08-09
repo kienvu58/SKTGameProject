@@ -21,6 +21,7 @@
 #include "CellJuniorOwnedStates.h"
 #include "FactoryEntity.h"
 #include "PoolManager.h"
+#include "GameOverState.h"
 
 class GamePlayState;
 // Game
@@ -66,6 +67,7 @@ typedef Singleton<MainMenuState> GS_MainMenu;
 typedef Singleton<GameOptionState> GS_Option;
 typedef Singleton<GamePauseState> GS_Pause;
 typedef Singleton<GamePlayState> GS_GamePlay;
+typedef Singleton<GameOverState> GS_GameOver;
 
 // Factory Prototype
 typedef  Singleton<FactoryEntity> FactorySingleton;

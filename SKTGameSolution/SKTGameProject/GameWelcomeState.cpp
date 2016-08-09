@@ -17,7 +17,7 @@ void GameWelcomeState::Execute(Game* game)
 	Sleep(1000);
 #endif
 	game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
-//	if (game->GetFSM()->CurrentState() == GS_MainMenu::GetInstance())
+	if (game->GetFSM()->CurrentState() == GS_MainMenu::GetInstance())
 	MusicMgr->MusicPlay("MainMenu");
 	MusicMgr->MusicLoop("MainMenu");
 }

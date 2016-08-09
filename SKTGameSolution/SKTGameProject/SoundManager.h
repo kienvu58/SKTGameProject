@@ -22,7 +22,7 @@ public:
 	int MusicPause(char *type);
 	int MusicStop(char *type);
 	int MusicLoop(char *type);
-	int MusicVolume(char *type, int value);
+	int MusicVolume(char *type, float value);
 };
 
 

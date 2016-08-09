@@ -412,6 +412,7 @@ void PlayerFallingToDead::Execute(EntityPlayer* player)
 	if (player->IsOnTheGround())
 	{
 		player->UpdateAnimationToSprite(player->GetAnimation(DEAD));
+		GameInstance->GetFSM()->ChangeState(GS_GameOver::GetInstance());
 	}
 	else
 	{

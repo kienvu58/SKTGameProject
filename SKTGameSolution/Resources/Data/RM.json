@@ -80,6 +80,36 @@
 				"spriteH": 64,
 				"textureW": 256,
 				"textureH": 256
+			},
+			{
+				"id": 9,
+				"note": "ButtonVX",
+				"modelW": 80,
+				"modelH": 50,
+				"spriteW": 128,
+				"spriteH": 128,
+				"textureW": 512,
+				"textureH": 256
+			},
+			{
+				"id": 10,
+				"note": "MusicBarGreen",
+				"modelW": 200,
+				"modelH": 10,
+				"spriteW": 128,
+				"spriteH": 128,
+				"textureW": 256,
+				"textureH": 128
+			},
+			{
+				"id": 11,
+				"note": "MusicBarBlack",
+				"modelW": 10,
+				"modelH": 25,
+				"spriteW": 128,
+				"spriteH": 128,
+				"textureW": 256,
+				"textureH": 128
 			}
 		],
 	"spriteSheets":
@@ -110,7 +140,7 @@
 			},
 			{
 				"id": 5,
-				"path": "../Resources/Textures/GameOptionState.tga",
+				"path": "../Resources/Textures/GameOptionBackground.tga",
 				"nRows": 1,
 				"nColumns": 1
 			},
@@ -129,6 +159,18 @@
 			{
 				"id": 8,
 				"path": "../Resources/Textures/GamePlayBackground.tga",
+				"nRows": 1,
+				"nColumns":  1
+			},
+			{
+				"id": 9,
+				"path": "../Resources/Textures/MusicBar.tga",
+				"nRows": 1,
+				"nColumns":  2
+			},
+			{
+				"id": 10,
+				"path": "../Resources/Textures/GameDeadBackground.tga",
 				"nRows": 1,
 				"nColumns":  1
 			}

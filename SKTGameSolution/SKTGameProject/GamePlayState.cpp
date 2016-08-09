@@ -16,6 +16,18 @@ void GamePlayState::Enter(Game* game)
 {
 }
 
+void GamePlayState::PressButton(Game* game)
+{
+	if (InputMgr->GetLastMousePosition().x >= 1069.0f && InputMgr->GetLastMousePosition().x <= 1111.0f
+		&& InputMgr->GetLastMousePosition().y >= 9.0f && InputMgr->GetLastMousePosition().y <= 51.0f)
+	{
+		//GamePause
+		MusicMgr->MusicPause("GamePlay");
+//		printf("GamePause\n");
+		game->GetFSM()->ChangeState(GS_Pause::GetInstance());
+	}
+}
+
 void GamePlayState::Execute(Game* game)
 {
 	srand(time(nullptr));
@@ -65,14 +77,7 @@ void GamePlayState::Execute(Game* game)
 	{
 		it->Update();
 	}
-	if (InputMgr->GetLastMousePosition().x >= 1069.0f && InputMgr->GetLastMousePosition().x <= 1111.0f
-		&& InputMgr->GetLastMousePosition().y >= 9.0f && InputMgr->GetLastMousePosition().y <= 51.0f)
-	{
-		//GamePause
-		MusicMgr->MusicStop("GamePlay");
-		printf("GamePause\n");
-		game->GetFSM()->ChangeState(GS_Pause::GetInstance());
-	}
+	PressButton(game);
 }
 
 void GamePlayState::Exit(Game* game)
@@ -124,6 +129,8 @@ void GamePlayState::Init(const char* filePath)
 	Factory->Init("File path");
 	m_spawner.Init("File path");
 	m_Goku = static_cast<EntityPlayer*>(Factory->GetPrototype(ENTITY_PLAYER));
+
+	MusicMgr->MusicVolume("GamePlay", 50);
 }
 
 bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
