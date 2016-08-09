@@ -1,3 +1,5 @@
+#include <json.hpp>
+#include <fstream>
 #include "EntityCell.h"
 #include "SingletonClasses.h"
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
@@ -24,6 +26,15 @@ EntityCell::~EntityCell()
 StateMachine<EntityCell>* EntityCell::GetFSM() const
 {
 	return m_pStateMachine;
+}
+
+void EntityCell::Init(int prototypeId, const char* dataPath)
+{
+	m_iPrototypeId = prototypeId;
+
+	std::ifstream fin(dataPath);
+	nlohmann::json data(fin);
+	fin.close();
 }
 
 Entity* EntityCell::Clone()

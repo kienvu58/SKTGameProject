@@ -35,6 +35,8 @@ public:
 	//clone
 	EntityLiving* Clone() override;
 
+	void Init(int prototypeId, const char* dataPath) override;
+
 	void IncreseScore(int amount);
 	int GetCurrentScore() const;
 

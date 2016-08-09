@@ -1,0 +1,10 @@
+{
+	"prototypes":
+	[
+		{
+			"id": 1,
+			"entityType": "ENTITY_PLAYER",
+			"dataPath": "Prototypes/Goku.json"
+		}
+	]
+}

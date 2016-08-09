@@ -39,16 +39,16 @@ void Spawner::Init(const char* filePath)
 	//read file here.
 
 	//tmp hard code.
-	m_mapChanceWeights.insert(std::pair<EntityType, float>(ENTITY_CELLJUNIOR, 1));
-	m_mapNumSpawnWeights.insert(std::pair<EntityType, float>(ENTITY_CELLJUNIOR, 2.0f / 5));
-	m_mapInitNum.insert(std::pair<EntityType, int>(ENTITY_CELLJUNIOR, 5));
+	m_mapChanceWeights.insert(std::pair<int, float>(ENTITY_CELLJUNIOR, 1));
+	m_mapNumSpawnWeights.insert(std::pair<int, float>(ENTITY_CELLJUNIOR, 2.0f / 5));
+	m_mapInitNum.insert(std::pair<int, int>(ENTITY_CELLJUNIOR, 5));
 
-	m_mapChanceWeights.insert(std::pair<EntityType, float>(ENTITY_CELL, 0.9));
-	m_mapNumSpawnWeights.insert(std::pair<EntityType, float>(ENTITY_CELL, 2.0f / 5));
-	m_mapInitNum.insert(std::pair<EntityType, int>(ENTITY_CELL, 5));
+	m_mapChanceWeights.insert(std::pair<int, float>(ENTITY_CELL, 0.9));
+	m_mapNumSpawnWeights.insert(std::pair<int, float>(ENTITY_CELL, 2.0f / 5));
+	m_mapInitNum.insert(std::pair<int, int>(ENTITY_CELL, 5));
 }
 
-float Spawner::GetChanceToSpawnMinion(float difficulty, EntityType minionType) const
+float Spawner::GetChanceToSpawnMinion(float difficulty, int minionType) const
 {
 	auto it = m_mapChanceWeights.find(minionType);
 	float chance = 1;
@@ -59,7 +59,7 @@ float Spawner::GetChanceToSpawnMinion(float difficulty, EntityType minionType) c
 	return chance;
 }
 
-int Spawner::GetNumSpawnMinion(float difficulty, int numOnTheScreen, EntityType minionType)
+int Spawner::GetNumSpawnMinion(float difficulty, int numOnTheScreen, int minionType)
 {
 	int numSpawn = 0;
 	auto it = m_mapNumSpawnWeights.find(minionType);
@@ -75,7 +75,7 @@ void Spawner::SpawnMinions()
 {
 	for (auto it : m_mapChanceWeights)
 	{
-		EntityType type = it.first;
+		int type = it.first;
 		int numOnTheScreen = GS_GamePlay::GetInstance()->GetNumEntitiesByType(type);
 		float difficulty = GameInstance->GetDifficulty();
 		int numToSpawn = GetNumSpawnMinion(difficulty, numOnTheScreen, type);

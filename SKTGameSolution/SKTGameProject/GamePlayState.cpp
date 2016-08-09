@@ -38,7 +38,7 @@ void GamePlayState::Execute(Game* game)
 	//update
 	float attackingRadius = 3.0f;
 	b2Vec2 distance;
-	b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
+	b2Vec2 goKuPosition = m_Player->GetBody()->GetPosition();
 	int i;
 	std::vector<Entity*>* cellJuniors = GetEntitiesByType(ENTITY_CELLJUNIOR);
 
@@ -51,16 +51,16 @@ void GamePlayState::Execute(Game* game)
 			if (distance.Length() <= attackingRadius
 				&& cellJunior->GetFSM()->CurrentState() != CJS_Attacking::GetInstance())
 			{
-				b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
+				b2Vec2 goKuPosition = m_Player->GetBody()->GetPosition();
 				Dispatcher->DispatchMessageA(GameInstance, cellJunior, MSG_CELLJR_INSIDE_ATTACK_RANGE, &goKuPosition);
 			}
 		}
 	}
 
-	m_Goku->Update();
+	m_Player->Update();
 
 	game->IncreasePlayingTime(Globals::deltaTime);
-	game->UpdateDifficulty(m_Goku->GetCurrentScore());
+	game->UpdateDifficulty(m_Player->GetCurrentScore());
 
 	m_spawner.SpawnMinions();
 	for (auto it : m_mapCurrentEntities)
@@ -88,7 +88,7 @@ void GamePlayState::Render(Game* game)
 {
 	m_Background->Render();
 	m_Button_Pause->Render();
-	std::string currentScore = std::to_string(m_Goku->GetCurrentScore());
+	std::string currentScore = std::to_string(m_Player->GetCurrentScore());
 	std::string scoreText = "Score: ";
 	scoreText.append(currentScore);
 	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0, 0, 1, 1);
@@ -99,7 +99,7 @@ void GamePlayState::Render(Game* game)
 	difficultyText.append(std::to_string(game->GetDifficulty()));
 	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
 	std::string currentHealth = "Health: ";
-	currentHealth.append(std::to_string(m_Goku->GetCurrentHealth()));
+	currentHealth.append(std::to_string(m_Player->GetCurrentHealth()));
 	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
 
 	for (auto it : m_mapCurrentEntities)
@@ -110,11 +110,7 @@ void GamePlayState::Render(Game* game)
 		}
 	}
 
-	for (auto it : m_vCurrentBeamWaves)
-	{
-		it->Render();
-	}
-	m_Goku->Render();
+	m_Player->Render();
 }
 
 void GamePlayState::Init(const char* filePath)
@@ -126,24 +122,18 @@ void GamePlayState::Init(const char* filePath)
 	m_Button_Pause->InitSprite(5, 115, 1);
 	m_Button_Pause->InitPosition(1090, 30);
 
-	Factory->Init("File path");
+
 	m_spawner.Init("File path");
-	m_Goku = static_cast<EntityPlayer*>(Factory->GetPrototype(ENTITY_PLAYER));
+
+
+
+	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(ENTITY_PLAYER));
 
 	MusicMgr->MusicVolume("GamePlay", 50);
 }
 
 bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 {
-	if (telegram.Message == MSG_SPAWN_KI_BLAST)
-	{
-		auto kiBlastPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		EntityKiBlast* kiBlast = static_cast<EntityKiBlast*>(PoolMgr->GetEntityByType(KI_BLAST));
-		kiBlast->Fire(kiBlastPosition, 1);
-		AddEntitesToTheScreen(kiBlast);
-		return true;
-	}
-
 	if (telegram.Message == MSG_MINION_OUT_OF_WALL)
 	{
 		EntityMinion* theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
@@ -159,31 +149,6 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 		return true;
 	}
 
-	if (telegram.Message == MSG_SPAWN_KAMEHAMEHA)
-	{
-		auto kamehamehaPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		std::cout << "Spawn Kamehameha at " << kamehamehaPosition.x << " " << kamehamehaPosition.y << std::endl;
-		EntityBeamWave* kamehameha = new EntityBeamWave();
-		kamehameha->InitSpriteHead(4, 84, 1);
-		kamehameha->InitSpriteBody(4, 83, 1);
-		kamehameha->InitSpriteTail(4, 82, 1);
-		kamehameha->Fire(kamehamehaPosition);
-		m_vCurrentBeamWaves.push_back(kamehameha);
-		return true;
-	}
-
-	if (telegram.Message == MSG_SPAWN_TRUE_KAMEHAMEHA)
-	{
-		auto kamehamehaPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		std::cout << "Spawn True Kamehameha at " << kamehamehaPosition.x << " " << kamehamehaPosition.y << std::endl;
-		EntityBeamWave* kamehameha = new EntityBeamWave();
-		kamehameha->InitSpriteHead(8, 39, 1);
-		kamehameha->InitSpriteBody(8, 38, 1);
-		kamehameha->InitSpriteTail(8, 37, 1);
-		kamehameha->Fire(kamehamehaPosition);
-		m_vCurrentBeamWaves.push_back(kamehameha);
-		return true;
-	}
 	return false;
 }
 
@@ -191,16 +156,6 @@ GamePlayState::~GamePlayState()
 {
 	delete m_Button_Pause;
 	delete m_Background;
-
-	for (auto it : m_vCurrentKiBlasts)
-	{
-		delete it;
-	}
-
-	for (auto it : m_vCurrentBeamWaves)
-	{
-		delete it;
-	}
 
 	for (auto it: m_mapCurrentEntities)
 	{
@@ -272,5 +227,5 @@ std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)
 
 EntityPlayer* GamePlayState::GetPlayer() const
 {
-	return m_Goku;
+	return m_Player;
 }

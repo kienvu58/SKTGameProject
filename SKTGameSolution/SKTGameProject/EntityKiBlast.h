@@ -1,10 +1,10 @@
 #pragma once
 #include <Box2D/Dynamics/b2Body.h>
-#include "Entity.h"
 #include "../GraphicsEngine/Sprite.h"
+#include "EntityBullet.h"
 
 class EntityKiBlast :
-	public Entity
+	public EntityBullet
 {
 public:
 	EntityKiBlast();

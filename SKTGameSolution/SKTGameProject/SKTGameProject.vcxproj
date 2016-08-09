@@ -127,6 +127,7 @@
     <ClCompile Include="CellOwnedStates.cpp" />
     <ClCompile Include="EntityBeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
+    <ClCompile Include="EntityBullet.cpp" />
     <ClCompile Include="EntityCell.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
     <ClCompile Include="GameOverState.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="CellOwnedStates.h" />
     <ClInclude Include="EntityBeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
+    <ClInclude Include="EntityBullet.h" />
     <ClInclude Include="EntityCell.h" />
     <ClInclude Include="EntityCellJunior.h" />
     <ClInclude Include="GameOverState.h" />
@@ -195,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json" />
+    <None Include="..\Resources\Data\FE.json" />
     <None Include="..\Resources\Data\FM.json" />
     <None Include="..\Resources\Data\GamePlayState.json" />
     <None Include="..\Resources\Data\MainMenuState.json" />

@@ -3,8 +3,6 @@
 #include "EntityPlayer.h"
 #include "Game.h"
 #include "Pool.h"
-#include "EntityKiBlast.h"
-#include "EntityBeamWave.h"
 #include "EntityStatic.h"
 #include "Spawner.h"
 
@@ -29,15 +27,13 @@ public:
 	std::vector<Entity*>* GetEntitiesByType(EntityType type);
 	EntityPlayer* GetPlayer() const;
 private:
-	EntityStatic *m_Background;
-	EntityPlayer* m_Goku;
-	EntityStatic *m_Button_Pause;
+	EntityStatic* m_Background;
+	EntityStatic* m_Button_Pause;
 
-	//current entity on the screen
-	std::vector<EntityKiBlast*> m_vCurrentKiBlasts;
-	std::vector<EntityBeamWave*> m_vCurrentBeamWaves;
-
-	std::map<EntityType, std::vector<Entity*>*> m_mapCurrentEntities;
+	EntityPlayer* m_Player;
+	
+	// map to store minion by protypeId
+	std::map<int, std::vector<Entity*>*> m_mapCurrentEntities;
 
 	//spawner
 	Spawner m_spawner;

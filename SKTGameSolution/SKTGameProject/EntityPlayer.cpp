@@ -1,5 +1,6 @@
+#include <json.hpp>
+#include <fstream>
 #include "EntityPlayer.h"
-#include "GamePlayState.h"
 #include "SingletonClasses.h"
 #include "../GraphicsEngine/Globals.h"
 
@@ -51,6 +52,15 @@ StateMachine<EntityPlayer>* EntityPlayer::GetFSM() const
 EntityLiving* EntityPlayer::Clone()
 {
 	return nullptr;
+}
+
+void EntityPlayer::Init(int prototypeId, const char* dataPath)
+{
+	m_iPrototypeId = prototypeId;
+	
+	std::ifstream fin(dataPath);
+	nlohmann::json data(fin);
+	fin.close();
 }
 
 void EntityPlayer::IncreseScore(int amount)

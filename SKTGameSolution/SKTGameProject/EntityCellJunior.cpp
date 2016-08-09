@@ -1,3 +1,5 @@
+#include <json.hpp>
+#include <fstream>
 #include "EntityCellJunior.h"
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
@@ -52,6 +54,15 @@ Entity* EntityCellJunior::Clone()
 	cloneMinion->GetBody()->SetActive(false);
 
 	return cloneMinion;
+}
+
+void EntityCellJunior::Init(int prototypeId, const char* dataPath)
+{
+	m_iPrototypeId = prototypeId;
+
+	std::ifstream fin(dataPath);
+	nlohmann::json data(fin);
+	fin.close();
 }
 
 void EntityCellJunior::Update()

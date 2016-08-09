@@ -1,6 +1,6 @@
 #pragma once
 #include "EntityTypes.h"
-#include <string>
+
 class Telegram;
 
 class Entity
@@ -15,5 +15,12 @@ public:
 	virtual EntityType GetType();
 
 	virtual Entity* Clone() = 0;
+
+	virtual void Init(int prototypeId, const char* dataPath);
+
+	int GetPrototypeId() const;
+
+protected:
+	int m_iPrototypeId;
 };
 
