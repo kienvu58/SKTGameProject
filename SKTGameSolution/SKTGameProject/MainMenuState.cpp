@@ -94,18 +94,18 @@ void MainMenuState::Init(const char* filePath)
 {
 
 	m_Background = new EntityStatic();
-	m_Background->InitSprite(2, 31, 1);
+	m_Background->InitSprite(2, 101, 1);
 
 	m_Button_PlayGame = new EntityStatic();
-	m_Button_PlayGame->InitSprite(3, 32, 1);
+	m_Button_PlayGame->InitSprite(3, 108, 1);
 	m_Button_PlayGame->InitPosition(300, 200);
 
 	m_Button_Option = new EntityStatic();
-	m_Button_Option->InitSprite(3, 33, 1);
+	m_Button_Option->InitSprite(3, 109, 1);
 	m_Button_Option->InitPosition(300, 350);
 
 	m_Button_Exit = new EntityStatic();
-	m_Button_Exit->InitSprite(3, 34, 1);
+	m_Button_Exit->InitSprite(3, 110, 1);
 	m_Button_Exit->InitPosition(300, 500);
 
 	MusicMgr->MusicVolume("MainMenu", 50);

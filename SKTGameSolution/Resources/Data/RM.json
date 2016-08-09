@@ -1,188 +1,158 @@
 {
-	"models": 
-		[
-			{
-				"id": 1,
-				"note":  "EntityLivingSprite",
-				"modelW": 128,
-				"modelH": 128,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 1024,
-				"textureH": 1024
-			},
-			{
-				"id": 2,
-				"note": "Background",
-				"modelW": 1120,
-				"modelH": 630,
-				"spriteW": 1024,
-				"spriteH": 1024,
-				"textureW": 1024,
-				"textureH": 1024
-			},
-			{
-				"id": 3,
-				"note": "Button",
-				"modelW": 200,
-				"modelH": 100,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 512,
-				"textureH": 256
-			},
-			{
-				"id": 4,
-				"note": "EntityKiBlast",
-				"modelW": 64,
-				"modelH": 64,
-				"spriteW": 64,
-				"spriteH": 64,
-				"textureW": 256,
-				"textureH": 256
-			},
-			{
-				"id": 5,
-				"note": "ButtonMini",
-				"modelW": 42,
-				"modelH": 42,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 512,
-				"textureH": 256
-			},
-			{
-				"id": 6,
-				"note": "TextResume",
-				"modelW": 130,
-				"modelH": 30,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 512,
-				"textureH": 256
-			},
-			{
-				"id": 7,
-				"note": "TextQuit",
-				"modelW": 90,
-				"modelH": 30,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 512,
-				"textureH": 256
-			},
-			{
-				"id": 8,
-				"note": "TrueKamehameha",
-				"modelW": 110,
-				"modelH": 110,
-				"spriteW": 64,
-				"spriteH": 64,
-				"textureW": 256,
-				"textureH": 256
-			},
-			{
-				"id": 9,
-				"note": "ButtonVX",
-				"modelW": 80,
-				"modelH": 50,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 512,
-				"textureH": 256
-			},
-			{
-				"id": 10,
-				"note": "MusicBarGreen",
-				"modelW": 200,
-				"modelH": 10,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 256,
-				"textureH": 128
-			},
-			{
-				"id": 11,
-				"note": "MusicBarBlack",
-				"modelW": 10,
-				"modelH": 25,
-				"spriteW": 128,
-				"spriteH": 128,
-				"textureW": 256,
-				"textureH": 128
-			}
-		],
+	"models":
+	[
+		{
+			"id": 1,
+			"note": "Sprite128",
+			"modelW": 128,
+			"modelH": 128,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 1024,
+			"textureH": 1024
+		},
+		{
+			"id": 2,
+			"note": "Background",
+			"modelW": 1120,
+			"modelH": 630,
+			"spriteW": 1024,
+			"spriteH": 1024,
+			"textureW": 4096,
+			"textureH": 2048
+		},
+		{
+			"id": 3,
+			"note": "Button",
+			"modelW": 200,
+			"modelH": 100,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
+			"id": 4,
+			"note": "Sprite64",
+			"modelW": 64,
+			"modelH": 64,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
+			"id": 5,
+			"note": "ButtonMini",
+			"modelW": 42,
+			"modelH": 42,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
+			"id": 6,
+			"note": "TextResume",
+			"modelW": 130,
+			"modelH": 30,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
+			"id": 7,
+			"note": "TextQuit",
+			"modelW": 90,
+			"modelH": 30,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
+			"id": 8,
+			"note": "TrueKamehameha",
+			"modelW": 256,
+			"modelH": 256,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 1024,
+			"textureH": 1024
+		},
+		{
+			"id": 9,
+			"note": "ButtonVX",
+			"modelW": 80,
+			"modelH": 50,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
+			"id": 10,
+			"note": "MusicBarGreen",
+			"modelW": 200,
+			"modelH": 10,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 256,
+			"textureH": 128
+		},
+		{
+			"id": 11,
+			"note": "MusicBarBlack",
+			"modelW": 10,
+			"modelH": 25,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 256,
+			"textureH": 128
+		}
+	],
 	"spriteSheets":
-		[
-			{
-				"id": 1,
-				"path": "Textures/SpriteEntityLiving.tga",
-				"nRows": 8,
-				"nColumns": 8
-			},
-			{
-				"id": 2,
-				"path": "Textures/GameWelcomeState.tga",
-				"nRows": 1,
-				"nColumns": 1
-			},
-			{
-				"id": 3,
-				"path": "Textures/GameMenuState.tga",
-				"nRows": 1,
-				"nColumns": 1
-			},
-			{
-				"id": 4,
-				"path": "../Resources/Textures/GameButtons.tga",
-				"nRows": 2,
-				"nColumns": 4
-			},
-			{
-				"id": 5,
-				"path": "../Resources/Textures/GameOptionBackground.tga",
-				"nRows": 1,
-				"nColumns": 1
-			},
-			{
-				"id": 6,
-				"path": "../Resources/Textures/Bullets.tga",
-				"nRows": 4,
-				"nColumns":  4
-			},
-			{
-				"id": 7,
-				"path": "../Resources/Textures/GamePauseState.tga",
-				"nRows": 1,
-				"nColumns":  1
-			},
-			{
-				"id": 8,
-				"path": "../Resources/Textures/GamePlayBackground.tga",
-				"nRows": 1,
-				"nColumns":  1
-			},
-			{
-				"id": 9,
-				"path": "../Resources/Textures/MusicBar.tga",
-				"nRows": 1,
-				"nColumns":  2
-			},
-			{
-				"id": 10,
-				"path": "../Resources/Textures/GameDeadBackground.tga",
-				"nRows": 1,
-				"nColumns":  1
-			}
-		],
+	[
+		{
+			"id": 1,
+			"path": "Textures/Sprite128.tga",
+			"nRows": 8,
+			"nColumns": 8
+		},
+		{
+			"id": 2,
+			"path": "Textures/Sprite64.tga",
+			"nRows": 4,
+			"nColumns": 8
+		},
+		{
+			"id": 3,
+			"path": "Textures/Backgrounds.tga",
+			"nRows": 2,
+			"nColumns": 4
+		},
+		{
+			"id": 4,
+			"path": "Textures/GameButtons.tga",
+			"nRows": 2,
+			"nColumns": 4
+		},
+		{
+			"id": 9,
+			"path": "Textures/MusicBar.tga",
+			"nRows": 1,
+			"nColumns": 2
+		}
+	],
 	"shaders":
-		[
-			{
-				"id": 1,
-				"vsPath": "Shaders/SpriteVS.vs",
-				"fsPath": "Shaders/SpriteFS.fs"
-			}
-		],
+	[
+		{
+			"id": 1,
+			"vsPath": "Shaders/SpriteVS.vs",
+			"fsPath": "Shaders/SpriteFS.fs"
+		}
+	],
 	"sound":
 	[
 		{

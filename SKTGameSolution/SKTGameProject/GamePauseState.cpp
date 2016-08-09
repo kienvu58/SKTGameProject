@@ -82,14 +82,14 @@ void GamePauseState::Init(const char* filePath)
 {
 
 	m_Background = new EntityStatic();
-	m_Background->InitSprite(2, 46, 1);
+	m_Background->InitSprite(2, 105, 1);
 
 	m_Button_Resume = new EntityStatic();
-	m_Button_Resume->InitSprite(6, 43, 1);
+	m_Button_Resume->InitSprite(6, 113, 1);
 	m_Button_Resume->InitPosition(830, 162);
 
 	m_Button_Quit = new EntityStatic();
-	m_Button_Quit->InitSprite(7, 44, 1);
+	m_Button_Quit->InitSprite(7, 114, 1);
 	m_Button_Quit->InitPosition(830, 210);
 }
 

@@ -72,6 +72,8 @@ void FactoryEntity::Init(const char* filePath)
 	gokuAnimations.push_back(AnimationMgr->GetAnimationById(7));
 	gokuAnimations.push_back(AnimationMgr->GetAnimationById(8));
 	gokuAnimations.push_back(AnimationMgr->GetAnimationById(9));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(10));
+	gokuAnimations.push_back(AnimationMgr->GetAnimationById(11));
 	gokuPrototype->SetAnimations(gokuAnimations);
 	bodyDef.position = b2Vec2(0, 0);
 	gokuPrototype->InitBody(bodyDef, fixture);
@@ -84,7 +86,7 @@ void FactoryEntity::Init(const char* filePath)
 	fixture.filter.categoryBits = CATEGORY_KI_BLAST;
 	fixture.filter.maskBits = CATEGORY_MINION;
 	kiBlastPrototype->InitBody(bodyDef, fixture);
-	kiBlastPrototype->InitSprite(4, 36, 1);
+	kiBlastPrototype->InitSprite(4, 66, 1);
 	kiBlastPrototype->GetBody()->SetActive(false);
 	m_pPrototypes->insert(std::pair<EntityType, Entity*>(KI_BLAST, kiBlastPrototype));
 }

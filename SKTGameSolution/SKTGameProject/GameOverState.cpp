@@ -27,7 +27,7 @@ void GameOverState::Render(Game* game)
 void GameOverState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
-	m_Background->InitSprite(2, 53, 1);
+	m_Background->InitSprite(2, 102, 1);
 }
 
 bool GameOverState::OnMessage(Game*, const Telegram&)

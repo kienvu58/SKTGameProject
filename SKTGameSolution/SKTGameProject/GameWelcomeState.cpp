@@ -34,7 +34,7 @@ void GameWelcomeState::Render(Game* game)
 void GameWelcomeState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
-	m_Background->InitSprite(2, 30, 1); 
+	m_Background->InitSprite(2, 100, 1); 
 	MusicMgr->InitMusic("MainMenu", "../Resources/Sound/musicMainMenu.wav");
 	MusicMgr->InitMusic("GamePlay", "../Resources/Sound/musicGamePlay.wav");
 	MusicMgr->InitMusic("Skill", "../Resources/Sound/hamehameha.wav");

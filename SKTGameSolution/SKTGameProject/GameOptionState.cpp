@@ -93,22 +93,22 @@ void GameOptionState::Render(Game* game)
 void GameOptionState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
-	m_Background->InitSprite(2, 35, 1);
+	m_Background->InitSprite(2, 103, 1);
 
 	m_Button_V = new EntityStatic();
-	m_Button_V->InitSprite(9, 41, 1);
+	m_Button_V->InitSprite(9, 111, 1);
 	m_Button_V->InitPosition(280, 320);
 
 	m_Button_X = new EntityStatic();
-	m_Button_X->InitSprite(9, 42, 1);
+	m_Button_X->InitSprite(9, 112, 1);
 	m_Button_X->InitPosition(460, 320);
 
 	m_MusicBarGreen = new EntityStatic();
-	m_MusicBarGreen->InitSprite(10, 51, 1);
+	m_MusicBarGreen->InitSprite(10, 121, 1);
 	m_MusicBarGreen->InitPosition(460, 230);
 
 	m_MusicBarBlack = new EntityStatic();
-	m_MusicBarBlack->InitSprite(11, 52, 1);
+	m_MusicBarBlack->InitSprite(11, 122, 1);
 	m_MusicBarBlack->InitPosition(460, 230);
 
 	MusicBarBlack.x = 460;

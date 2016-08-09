@@ -120,10 +120,10 @@ void GamePlayState::Render(Game* game)
 void GamePlayState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
-	m_Background->InitSprite(2, 47, 1);
+	m_Background->InitSprite(2, 106, 1);
 
 	m_Button_Pause = new EntityStatic();
-	m_Button_Pause->InitSprite(5, 45, 1);
+	m_Button_Pause->InitSprite(5, 115, 1);
 	m_Button_Pause->InitPosition(1090, 30);
 
 	Factory->Init("File path");
@@ -164,9 +164,9 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 		auto kamehamehaPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 		std::cout << "Spawn Kamehameha at " << kamehamehaPosition.x << " " << kamehamehaPosition.y << std::endl;
 		EntityBeamWave* kamehameha = new EntityBeamWave();
-		kamehameha->InitSpriteHead(4, 40, 1);
-		kamehameha->InitSpriteBody(4, 39, 1);
-		kamehameha->InitSpriteTail(4, 38, 1);
+		kamehameha->InitSpriteHead(4, 84, 1);
+		kamehameha->InitSpriteBody(4, 83, 1);
+		kamehameha->InitSpriteTail(4, 82, 1);
 		kamehameha->Fire(kamehamehaPosition);
 		m_vCurrentBeamWaves.push_back(kamehameha);
 		return true;
@@ -177,9 +177,9 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 		auto kamehamehaPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 		std::cout << "Spawn True Kamehameha at " << kamehamehaPosition.x << " " << kamehamehaPosition.y << std::endl;
 		EntityBeamWave* kamehameha = new EntityBeamWave();
-		kamehameha->InitSpriteHead(8, 50, 1);
-		kamehameha->InitSpriteBody(8, 49, 1);
-		kamehameha->InitSpriteTail(8, 48, 1);
+		kamehameha->InitSpriteHead(8, 39, 1);
+		kamehameha->InitSpriteBody(8, 38, 1);
+		kamehameha->InitSpriteTail(8, 37, 1);
 		kamehameha->Fire(kamehamehaPosition);
 		m_vCurrentBeamWaves.push_back(kamehameha);
 		return true;
