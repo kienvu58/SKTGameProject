@@ -37,7 +37,10 @@ void GameWelcomeState::Init(const char* filePath)
 	m_Background->InitSprite(2, 100, 1); 
 	MusicMgr->InitMusic("MainMenu", "../Resources/Sound/musicMainMenu.wav");
 	MusicMgr->InitMusic("GamePlay", "../Resources/Sound/musicGamePlay.wav");
-	MusicMgr->InitMusic("Skill", "../Resources/Sound/hamehameha.wav");
+	MusicMgr->InitMusic("SkillUlti_1", "../Resources/Sound/hamehameha.wav");
+	MusicMgr->InitMusic("SkillUlti_2", "../Resources/Sound/Ultimate2.wav");
+	MusicMgr->InitMusic("SkillShot", "../Resources/Sound/SkillShot.wav");
+	MusicMgr->InitMusic("GokuDead", "../Resources/Sound/GokuDead.wav");
 }
 
 bool GameWelcomeState::OnMessage(Game*, const Telegram&)

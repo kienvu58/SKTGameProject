@@ -86,18 +86,22 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 	{
 		// change to PlayerFiringState
 		entity->GetFSM()->ChangeState(PS_Firing::GetInstance());
+		MusicMgr->MusicPlay("SkillShot");
+		MusicMgr->MusicVolume("SkillShot", 50);
 	}
 	if (InputMgr->IsPressed(KEY_K))
 	{
 		// change to PlayerFiringSpecialState
 		entity->GetFSM()->ChangeState(PS_FiringSpecial::GetInstance());
-		MusicMgr->MusicPlay("Skill");
-		MusicMgr->MusicVolume("Skill", 100);
+		MusicMgr->MusicPlay("SkillUlti_1");
+		MusicMgr->MusicVolume("SkillUlti_1", 50);
 	}
 	if (InputMgr->IsPressed(KEY_L))
 	{
 		// change to PlayerFiringUltimateState
 		entity->GetFSM()->ChangeState(PS_FiringUltimate::GetInstance());
+		MusicMgr->MusicPlay("SkillUlti_2");
+		MusicMgr->MusicVolume("SkillUlti_2", 50);
 	}
 
 	entity->UpdateAnimationToSprite(entity->GetAnimation(STANDING));
@@ -410,6 +414,8 @@ void PlayerFallingToDead::Execute(EntityPlayer* player)
 	if (player->IsOnTheGround())
 	{
 		player->UpdateAnimationToSprite(player->GetAnimation(DEAD));
+		MusicMgr->MusicPlay("GokuDead");
+		MusicMgr->MusicVolume("GokuDead", 50);
 		GameInstance->GetFSM()->ChangeState(GS_GameOver::GetInstance());
 	}
 	else

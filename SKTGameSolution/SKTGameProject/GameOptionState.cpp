@@ -50,17 +50,20 @@ void GameOptionState::PressButton(Game* game)
 			{
 				m_MusicBarBlack->InitPosition(365, MusicBarBlack.y);
 				MusicMgr->MusicVolume("GamePlay", 0);
+				MusicMgr->MusicVolume("MainMenu", 0);
 			}
 			else if (InputMgr->GetCurrentMousePosition().x >= 460 + 100 - 5)
 			{
 				m_MusicBarBlack->InitPosition(555, MusicBarBlack.y);
 				MusicMgr->MusicVolume("GamePlay", 100);
+				MusicMgr->MusicVolume("MainMenu", 100);
 			}
 			else
 			{
 				m_MusicBarBlack->InitPosition(MusicBarBlack.x, MusicBarBlack.y);
 				//printf("a: %f \n", 100-(565- MusicBarBlack.x)/2);
 				MusicMgr->MusicVolume("GamePlay", 100 - (555 - MusicBarBlack.x) / 2);
+				MusicMgr->MusicVolume("MainMenu", 100 - (555 - MusicBarBlack.x) / 2);
 			}
 		}
 	}

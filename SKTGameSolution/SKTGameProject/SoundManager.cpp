@@ -11,7 +11,10 @@ SoundManager::~SoundManager()
 {
 	delete m_MainMenuMusic;
 	delete m_GamePlayMusic;
-	delete m_SkillMusic;
+	delete m_SkillShot;
+	delete m_SkillUlti_1;
+	delete m_SkillUlti_2;
+	delete m_GokuDead;
 }
 
 int SoundManager::InitMusic(char *type, char *fileName)
@@ -19,8 +22,10 @@ int SoundManager::InitMusic(char *type, char *fileName)
 
 	music.insert(std::pair<char*, sf::Music*>("MainMenu", m_MainMenuMusic));
 	music.insert(std::pair<char*, sf::Music*>("GamePlay", m_GamePlayMusic));
-	music.insert(std::pair<char*, sf::Music*>("Skill", m_SkillMusic));
-	
+	music.insert(std::pair<char*, sf::Music*>("SkillUlti_1", m_SkillUlti_1));
+	music.insert(std::pair<char*, sf::Music*>("SkillUlti_2", m_SkillUlti_2));
+	music.insert(std::pair<char*, sf::Music*>("SkillShot", m_SkillShot));
+	music.insert(std::pair<char*, sf::Music*>("GokuDead", m_GokuDead));
 	if (!music[type]->openFromFile(fileName))
 		return 0;
 }
