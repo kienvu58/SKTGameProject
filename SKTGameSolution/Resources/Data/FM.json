@@ -82,10 +82,12 @@
 		{ "id": 113, "spriteSheetID": 4, "index": 5, "duration": 1, "note": "ResumeButton" },
 		{ "id": 114, "spriteSheetID": 4, "index": 6, "duration": 1, "note": "QuitButton" },
 		{ "id": 115, "spriteSheetID": 4, "index": 7, "duration": 1, "note": "PauseButton" },
-
-		{ "id": 121, "spriteSheetID": 9, "index": 1, "duration": 1, "note": "MusicBarGreen" },
-		{ "id": 122, "spriteSheetID": 9, "index": 0, "duration": 1, "note": "MusicBarBlack" },
-
+		{ "id": 121, "spriteSheetID": 4, "index": 9, "duration": 1, "note": "MusicBarGreen" },
+		{ "id": 122, "spriteSheetID": 4, "index": 8, "duration": 1, "note": "MusicBarBlack" },
+		{ "id": 123, "spriteSheetID": 4, "index": 10, "duration": 1, "note": "CircleWithDirections" },
+		{ "id": 124, "spriteSheetID": 4, "index": 11, "duration": 1, "note": "Circle4Dash" },
+		{ "id": 125, "spriteSheetID": 4, "index": 12, "duration": 1, "note": "Circle2Dash" },
+		
 		{ "id": 200, "spriteSheetID": 100, "index": 0, "duration": 1, "note": "BackgroundRunning" },
 		{ "id": 201, "spriteSheetID": 101, "index": 0, "duration": 1, "note": "BackgroundRunning" }
 	]
