@@ -8,6 +8,7 @@ class EntityBullet :
 {
 public:
 	EntityBullet();
+	EntityBullet(const EntityBullet& other);
 	virtual ~EntityBullet();
 
 	void Render() override;
@@ -16,8 +17,9 @@ public:
 	EntityType GetType() override;
 	Entity* Clone() override;
 
+	float GetAttackDamage() const;
+
 	virtual void Fire(b2Vec2 position, int direction) = 0;
-	virtual bool IsActive() = 0;
 
 protected:
 	float m_fSpeed;

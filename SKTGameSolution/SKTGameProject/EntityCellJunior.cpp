@@ -6,7 +6,9 @@
 #include "SingletonClasses.h"
 
 
-EntityCellJunior::EntityCellJunior(): m_pStateMachine(nullptr) {
+EntityCellJunior::EntityCellJunior()
+{
+	InitStateMachine();
 }
 
 EntityCellJunior::~EntityCellJunior()
@@ -41,10 +43,6 @@ void EntityCellJunior::Init(int prototypeId, const char* dataPath)
 	auto positionY = bodyData["position"]["y"].get<float>();
 	auto physicsPosition = b2Vec2(positionX, positionY);
 
-	auto velocityX = data["physics"]["initializedVelocity"]["x"].get<float>();
-	auto velocityY = data["physics"]["initializedVelocity"]["y"].get<float>();
-	m_vec2InitializedVelocity = b2Vec2(velocityX, velocityY);
-
 	auto modelId = data["graphics"]["modelId"].get<int>();
 	auto frameId = data["graphics"]["frameId"].get<int>();
 	auto shaderId = data["graphics"]["shaderId"].get<int>();
@@ -78,7 +76,7 @@ void EntityCellJunior::Init(int prototypeId, const char* dataPath)
 	}
 
 	SetAnimations(animations);
-	InitBody(m_b2BodyDef, m_b2FixtureDef, m_vec2InitializedVelocity);
+	InitBody(m_b2BodyDef, m_b2FixtureDef);
 	InitSprite(modelId, frameId, shaderId);
 	ReverseSprite(isReversed);
 }
@@ -101,11 +99,6 @@ void EntityCellJunior::Update()
 bool EntityCellJunior::HandleMessage(const Telegram& telegram)
 {
 	return m_pStateMachine->HandleMessage(telegram);
-}
-
-EntityType EntityCellJunior::GetType()
-{
-	return ENTITY_CELLJUNIOR;
 }
 
 void EntityCellJunior::Reset()

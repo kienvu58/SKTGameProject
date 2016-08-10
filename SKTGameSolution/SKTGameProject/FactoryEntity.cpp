@@ -4,8 +4,6 @@
 #include "../GraphicsEngine/HelperFunctions.h"
 #include "SingletonClasses.h"
 #include "Definations.h"
-#include <Box2D/Dynamics/b2Fixture.h>
-#include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include "EntityKiBlast.h"
 
 FactoryEntity::FactoryEntity()

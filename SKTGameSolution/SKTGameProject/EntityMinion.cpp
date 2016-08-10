@@ -62,6 +62,12 @@ void EntityMinion::Reset()
 	EntityLiving::Reset();
 }
 
+void EntityMinion::Explode()
+{
+	// Create explosion effect here
+	m_bIsActive = false;
+}
+
 void EntityMinion::TruncateVelocity(b2Vec2& currentVelocity) const
 {
 	if(currentVelocity.Length() > m_fMaxSpeed)

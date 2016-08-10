@@ -5,11 +5,12 @@
 #include "../GraphicsEngine/Globals.h"
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
+#include "EntityBullet.h"
 
 
 EntityPlayer::EntityPlayer(): m_fMaxKi(0),
                               m_fCurrentKi(0),
-                              m_iCurrentScore(0),
+                              m_iCurrentScore(0), m_iNormalPID(0), m_iSpecialPID(0), m_iUltimatePID(0), m_iAuraPID(0),
                               m_pStateMachine(new StateMachine<EntityPlayer>(this))
 {
 	m_fCurrentHealth = 100;
@@ -27,13 +28,19 @@ EntityPlayer::~EntityPlayer()
 
 void EntityPlayer::Render()
 {
-	m_Sprite.Render();
+	if (IsActive())
+	{
+		m_Sprite.Render();
+	}
 }
 
 void EntityPlayer::Update()
 {
-	EntityLiving::Update();
-	m_pStateMachine->Update();
+	if (IsActive())
+	{
+		EntityLiving::Update();
+		m_pStateMachine->Update();
+	}
 }
 
 EntityType EntityPlayer::GetType()
@@ -71,10 +78,6 @@ void EntityPlayer::Init(int prototypeId, const char* dataPath)
 	auto positionY = bodyData["position"]["y"].get<float>();
 	auto physicsPosition = b2Vec2(positionX, positionY);
 	
-	auto velocityX = data["physics"]["initializedVelocity"]["x"].get<float>();
-	auto velocityY = data["physics"]["initializedVelocity"]["y"].get<float>();
-	m_vec2InitializedVelocity = b2Vec2(velocityX, velocityY);
-
 	auto modelId = data["graphics"]["modelId"].get<int>();
 	auto frameId = data["graphics"]["frameId"].get<int>();
 	auto shaderId = data["graphics"]["shaderId"].get<int>();
@@ -85,10 +88,9 @@ void EntityPlayer::Init(int prototypeId, const char* dataPath)
 
 	auto boxHalfWidth = fixtureData["boxShape"]["hx"].get<float>();
 	auto boxHalfHeight = fixtureData["boxShape"]["hy"].get<float>();
-	b2PolygonShape boxShape;
-	boxShape.SetAsBox(boxHalfWidth, boxHalfHeight);
+	m_b2PolygonShape.SetAsBox(boxHalfWidth, boxHalfHeight);
 
-	m_b2FixtureDef.shape = &boxShape;
+	m_b2FixtureDef.shape = &m_b2PolygonShape;
 	m_b2FixtureDef.friction = fixtureData["friction"].get<float>();
 	m_b2FixtureDef.restitution = fixtureData["restitution"].get<float>();
 	m_b2FixtureDef.filter.categoryBits = fixtureData["filter"]["categoryBits"].get<int>();
@@ -115,7 +117,7 @@ void EntityPlayer::Init(int prototypeId, const char* dataPath)
 	}
 
 	SetAnimations(animations);
-	InitBody(m_b2BodyDef, m_b2FixtureDef, m_vec2InitializedVelocity);
+	InitBody(m_b2BodyDef, m_b2FixtureDef);
 	InitSprite(modelId, frameId, shaderId);
 	ReverseSprite(isReversed);
 }
@@ -137,4 +139,12 @@ bool EntityPlayer::IsOnTheGround() const
 		float(Globals::screenHeight - m_Sprite.GetModel()->GetModelHeight()) / 2);
 
 	return currentPosition.y <= -groundY;
+}
+
+void EntityPlayer::Fire() const
+{
+	auto bullet = static_cast<EntityBullet*>(PoolMgr->GetEntityByPrototypeId(m_iNormalPID));
+	auto position = m_pBody->GetPosition() + b2Vec2(0.2f, 0.2f);
+	bullet->Fire(position, 1);
+	GS_GamePlay::GetInstance()->AddEntityToTheScreen(bullet);
 }

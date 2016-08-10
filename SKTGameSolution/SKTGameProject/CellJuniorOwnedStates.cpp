@@ -57,7 +57,7 @@ CellJuniorWanderingState::~CellJuniorWanderingState()
 
 void CellJuniorWanderingState::Enter(EntityCellJunior* cellJunior)
 {
-	cellJunior->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));
+	cellJunior->GetBody()->SetLinearVelocity(cellJunior->GetMovementSpeed() * b2Vec2(-1, 0));
 	cellJunior->GetSteering()->WanderOn();
 	cellJunior->GetSteering()->SeekOff();
 }

@@ -41,6 +41,7 @@ public:
 	int GetCurrentScore() const;
 
 	bool IsOnTheGround() const;
+	void Fire() const;
 private:
 	//player attributes
 	float m_fMaxKi;

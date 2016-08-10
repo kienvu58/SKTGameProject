@@ -19,7 +19,17 @@ void Entity::Init(int prototypeId, const char* dataPath)
 	std::cout << "Init Base Entity" << std::endl;
 }
 
+void Entity::Reset()
+{
+	std::cout << "Reset nothing" << std::endl;
+}
+
 int Entity::GetPrototypeId() const
 {
 	return m_iPrototypeId;
+}
+
+bool Entity::IsActive() const
+{
+	return m_bIsActive;
 }

@@ -121,24 +121,17 @@ void GamePlayState::Init(const char* filePath)
 
 
 	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
+	m_Player->Activate();
 
 	MusicMgr->MusicVolume("GamePlay", 50);
 }
 
 bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 {
-	if (telegram.Message == MSG_MINION_OUT_OF_WALL)
-	{
-		EntityMinion* theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
-		theMinion->Reset();
-		RemoveEntityFromTheScreen(theMinion);
-		return true;
-	}
-
 	if (telegram.Message == MSG_CLEAN_UP)
 	{
-		EntityKiBlast* theKiBlast = static_cast<EntityKiBlast*>(telegram.ExtraInfo);
-		RemoveEntityFromTheScreen(theKiBlast);
+		Entity* entity = static_cast<Entity*>(telegram.ExtraInfo);
+		RemoveEntityFromTheScreen(entity);
 		return true;
 	}
 

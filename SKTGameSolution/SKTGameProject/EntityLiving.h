@@ -41,7 +41,6 @@ public:
 	float GetMaxSpeed() const;
 	void ScaleVelocity(int scale) const;
 
-	float GetAttackDamage() const;
 	float GetMaxHealth() const;
 	float GetMovementSpeed() const;
 	void IncreaseOverheat(float amount);
@@ -50,17 +49,19 @@ public:
 	bool IsOverheated() const;
 
 	//Material
-	virtual void Reset();
-	bool IsOutOfWall();
+	void Reset() override;
+	bool IsOutOfWall() const;
 
 	//Battle functions
-	float Attack() const;
+	float GetAttackDamage() const;
 	void TakeDamage(float amount);
 	bool IsDead() const;
 	float GetCurrentHealth() const;
 
 	//Clone
 	Entity* Clone() override = 0;
+
+	void Activate();
 
 protected:
 	//Owned Attribute
@@ -88,6 +89,5 @@ protected:
 	b2PolygonShape m_b2PolygonShape;
 	b2BodyDef m_b2BodyDef;
 	b2FixtureDef m_b2FixtureDef;
-	b2Vec2 m_vec2InitializedVelocity;
 };
 

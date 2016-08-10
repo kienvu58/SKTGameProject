@@ -25,6 +25,7 @@ public:
 
 
 	void Reset() override;
+	void Explode();
 protected:
 	//behavior
 	SteeringBehavior* m_pSteeringBehavior;
@@ -34,5 +35,7 @@ protected:
 
 	//physics info
 	float m_fMaxForce;
+
+	int m_iExplosionPID;
 };
 

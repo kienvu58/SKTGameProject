@@ -14,7 +14,7 @@
 		{
 			"id": 3,
 			"entityType": "ENTITY_KIBLAST",
-			"dataPath": "Prototypes/KiBlast.json"
+			"dataPath": "Prototypes/YellowKiBlast.json"
 		}
 	]
 }

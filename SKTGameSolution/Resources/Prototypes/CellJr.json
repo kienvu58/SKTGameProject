@@ -2,21 +2,20 @@
 	"attackDamage": 10,
 	"maxSpeed": 3,
 	"movementSpeed": 3,
-	"maxHealth": 100,
+	"maxHealth": 50,
 	"animationIds": [13, 15],
 	"graphics": { "modelId": 1, "frameId": 28, "shaderId": 1, "isReversed": true },
 	"physics":
 	{
-		"initializedVelocity": { "x": -2, "y": 0 },
 		"bodyDef":
 		{
-			"position": { "x": 0, "y": 10 }
+			"position": { "x": 10, "y": 0 }
 		},
 		"fixtureDef":
 		{
 			"boxShape": { "hx": 0.2, "hy": 0.25 },
 			"friction": 1,
-			"restitution": 0.5,
+			"restitution": 0,
 			"filter": { "categoryBits": 4, "maskBits": [2, 8], "note": "1: Wall, 2:Player, 4:Minion, 8: KiBlast" }
 		}
 	}

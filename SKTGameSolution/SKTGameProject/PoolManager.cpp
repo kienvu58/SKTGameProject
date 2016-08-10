@@ -68,9 +68,9 @@ void PoolManager::ReleaseEntity(Entity* entity)
 {
 	if (entity)
 	{
-		CleanUp(entity);
-		EntityType type = entity->GetType();
-		auto it = m_mapAvailable.find(type);
+		entity->Reset();
+		auto prototypeId = entity->GetPrototypeId();
+		auto it = m_mapAvailable.find(prototypeId);
 		if (it != m_mapAvailable.end())
 		{
 			auto ix = std::find(it->second.begin(), it->second.end(), entity);
@@ -81,17 +81,8 @@ void PoolManager::ReleaseEntity(Entity* entity)
 		{
 			std::vector<Entity*> vectorEntity;
 			vectorEntity.push_back(entity);
-			m_mapAvailable.insert(std::pair<EntityType, std::vector<Entity*>>(type, vectorEntity));
+			m_mapAvailable.insert(std::pair<int, std::vector<Entity*>>(prototypeId, vectorEntity));
 		}
 		RemoveFromVector<Entity*>(m_vInUse, entity);
 	}
-}
-
-void PoolManager::CleanUp(Entity* entity)
-{
-	//
-}
-
-void PoolManager::Add(Entity* entity)
-{
 }

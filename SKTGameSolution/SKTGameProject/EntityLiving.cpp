@@ -37,11 +37,10 @@ EntityLiving::EntityLiving(const EntityLiving& entityLiving): m_fCurrentHealth(e
                                                               m_fMovementSpeed(entityLiving.m_fMovementSpeed),
                                                               m_b2PolygonShape(entityLiving.m_b2PolygonShape),
                                                               m_b2BodyDef(entityLiving.m_b2BodyDef),
-                                                              m_b2FixtureDef(entityLiving.m_b2FixtureDef),
-                                                              m_vec2InitializedVelocity(entityLiving.m_vec2InitializedVelocity)
+                                                              m_b2FixtureDef(entityLiving.m_b2FixtureDef)
 {
 	m_iPrototypeId = entityLiving.m_iPrototypeId;
-	InitBody(m_b2BodyDef, m_b2FixtureDef, m_vec2InitializedVelocity);
+	InitBody(m_b2BodyDef, m_b2FixtureDef);
 	m_pBody->SetUserData(this);
 }
 
@@ -51,7 +50,10 @@ EntityLiving::~EntityLiving()
 
 void EntityLiving::Update()
 {
-	m_Sprite.SetRenderInfo(GraphicsFromPhysics(m_pBody->GetPosition()), m_bIsReversed);
+	if (IsActive())
+	{
+		m_Sprite.SetRenderInfo(GraphicsFromPhysics(m_pBody->GetPosition()), m_bIsReversed);
+	}
 }
 
 EntityType EntityLiving::GetType()
@@ -201,15 +203,17 @@ bool EntityLiving::IsOverheated() const
 void EntityLiving::Reset()
 {
 	m_fCurrentHealth = m_fMaxHealth;
+	m_bIsActive = false;
+	m_pBody->SetActive(false);
 }
 
-bool EntityLiving::IsOutOfWall()
+bool EntityLiving::IsOutOfWall() const
 {
-	float tmp = 2;
+	float padding = 2;
 	float wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
 	float wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
-	float boundryX = wallHalfWidth + tmp;
-	float boundryY = wallHalfHeight + tmp;
+	float boundryX = wallHalfWidth + padding;
+	float boundryY = wallHalfHeight + padding;
 
 	b2Vec2 position = m_pBody->GetPosition();
 
@@ -218,11 +222,6 @@ bool EntityLiving::IsOutOfWall()
 		return false;
 
 	return true;
-}
-
-float EntityLiving::Attack() const
-{
-	return m_fAttackDamage;
 }
 
 void EntityLiving::TakeDamage(float amount)
@@ -244,4 +243,10 @@ bool EntityLiving::IsDead() const
 float EntityLiving::GetCurrentHealth() const
 {
 	return m_fCurrentHealth;
+}
+
+void EntityLiving::Activate()
+{
+	m_bIsActive = true;
+	m_pBody->SetActive(true);
 }

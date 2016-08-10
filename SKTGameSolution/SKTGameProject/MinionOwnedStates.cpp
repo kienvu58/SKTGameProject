@@ -46,9 +46,9 @@ void MinionGlobalState::Enter(EntityMinion* minion)
 
 void MinionGlobalState::Execute(EntityMinion* minion)
 {
-	if (minion->IsOutOfWall())
+	if (minion->IsDead() || !minion->IsActive() || minion->IsOutOfWall())
 	{
-		Dispatcher->DispatchMessageA(minion, GameInstance, MSG_MINION_OUT_OF_WALL, minion);
+		Dispatcher->DispatchMessageA(minion, GameInstance, MSG_CLEAN_UP, minion);
 	}
 }
 
@@ -64,13 +64,13 @@ bool MinionGlobalState::OnMessage(EntityMinion* minion, const Telegram& telegram
 {
 	if (telegram.Message == MSG_MINION_TAKE_DAMAGE)
 	{
-		float damage = DereferenceToType<float>(telegram.ExtraInfo);
+		auto damage = DereferenceToType<float>(telegram.ExtraInfo);
 		minion->TakeDamage(damage);
 		return true;
 	}
-	if (telegram.Message == MSG_MINION_HIT_PLAYER)
+	if (telegram.Message == MSG_EXPLODE)
 	{
-		Dispatcher->DispatchMessageA(minion, GameInstance, MSG_MINION_OUT_OF_WALL, minion);
+		minion->Explode();
 		return true;
 	}
 	return false;

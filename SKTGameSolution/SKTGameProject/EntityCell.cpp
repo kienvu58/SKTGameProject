@@ -2,8 +2,6 @@
 #include <fstream>
 #include "EntityCell.h"
 #include "SingletonClasses.h"
-#include <Box2D/Collision/Shapes/b2PolygonShape.h>
-#include <Box2D/Dynamics/b2Fixture.h>
 
 EntityCell::EntityCell()
 {
@@ -52,11 +50,6 @@ void EntityCell::Update()
 bool EntityCell::HandleMessage(const Telegram& telegram)
 {
 	return m_pStateMachine->HandleMessage(telegram);
-}
-
-EntityType EntityCell::GetType()
-{
-	return ENTITY_CELL;
 }
 
 void EntityCell::Reset()

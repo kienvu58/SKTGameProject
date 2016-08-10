@@ -20,8 +20,6 @@ public:
 	void Update() override;
 	bool HandleMessage(const Telegram& telegram) override;
 
-	EntityType GetType() override;
-
 	void Reset() override;
 private:
 	//State info

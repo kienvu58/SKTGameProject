@@ -21,10 +21,11 @@ public:
 
 	void InitSprite(int modelId, int frameId, int shaderId);
 	void InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef);
-	void Fire(b2Vec2 position, int direction = 1) override;
+	void Fire(b2Vec2 position, int direction) override;
+	void Reset() override;
+	void Explode();
 
 	void Init(int prototypeId, const char* dataPath) override;
-	bool IsActive() override;
 
 	void SetSprite(Sprite sprite);
 	void SetSpeed(float speed);
@@ -32,11 +33,11 @@ public:
 	bool IsOutOfWall() const;
 	b2Body* GetBody() const;
 
-	//Batle functions
-	float Attack() const;
 private:
 	b2Body* m_pBody;
 	Sprite m_Sprite;
+
+	int m_iExplosionPID;
 
 	b2PolygonShape m_b2PolygonShape;
 	b2BodyDef m_b2BodyDef;
