@@ -15,16 +15,16 @@ public:
 	EntityType GetType() override;
 	Entity* Clone() override;
 
-	void Init(const char* filePath) override;
+	void Init(const char* filePath);
 
-	float GetChanceToSpawnMinion(float difficulty, int prototypeId) const;
-	int GetNumSpawnMinion(float difficulty, int numOnTheScreen, int prototypeId);
+	float GetSpawnMinionChance(float difficulty, int prototypeId) const;
+	int GetNumberOfMinionsToSpawn(float difficulty, int numOnTheScreen, int prototypeId);
 	void SpawnMinions();
 	void RealeaseMinions(EntityMinion* minion);
 private:
 	// first int is prototypeId
 	std::map<int, float> m_mapChanceWeights;
-	std::map<int, float> m_mapNumSpawnWeights;
+	std::map<int, float> m_mapNumberToSpawnWeights;
 	std::map<int, int> m_mapInitNum;
 };
 

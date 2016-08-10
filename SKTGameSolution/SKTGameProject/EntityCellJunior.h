@@ -11,7 +11,7 @@ public:
 
 	//clone
 	Entity* Clone() override;
-
+	void Init(int prototypeId, const char* dataPath) override;
 	void Update() override;
 	bool HandleMessage(const Telegram& telegram) override;
 

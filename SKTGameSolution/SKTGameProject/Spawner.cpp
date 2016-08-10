@@ -8,7 +8,6 @@ Spawner::Spawner()
 
 Spawner::~Spawner()
 {
-
 }
 
 void Spawner::Render()
@@ -40,63 +39,63 @@ void Spawner::Init(const char* filePath)
 
 	//tmp hard code.
 	m_mapChanceWeights.insert(std::pair<int, float>(ENTITY_CELLJUNIOR, 1));
-	m_mapNumSpawnWeights.insert(std::pair<int, float>(ENTITY_CELLJUNIOR, 2.0f / 5));
+	m_mapNumberToSpawnWeights.insert(std::pair<int, float>(ENTITY_CELLJUNIOR, 2.0f / 5));
 	m_mapInitNum.insert(std::pair<int, int>(ENTITY_CELLJUNIOR, 5));
 
 	m_mapChanceWeights.insert(std::pair<int, float>(ENTITY_CELL, 0.9));
-	m_mapNumSpawnWeights.insert(std::pair<int, float>(ENTITY_CELL, 2.0f / 5));
+	m_mapNumberToSpawnWeights.insert(std::pair<int, float>(ENTITY_CELL, 2.0f / 5));
 	m_mapInitNum.insert(std::pair<int, int>(ENTITY_CELL, 5));
 }
 
-float Spawner::GetChanceToSpawnMinion(float difficulty, int minionType) const
+float Spawner::GetSpawnMinionChance(float difficulty, int prototypeId) const
 {
-	auto it = m_mapChanceWeights.find(minionType);
+	auto chanceWeight = m_mapChanceWeights.find(prototypeId);
 	float chance = 1;
-	if (it != m_mapChanceWeights.end())
+	if (chanceWeight != m_mapChanceWeights.end())
 	{
-		chance = Sigmoid(difficulty, it->second);
+		chance = Sigmoid(difficulty, chanceWeight->second);
 	}
 	return chance;
 }
 
-int Spawner::GetNumSpawnMinion(float difficulty, int numOnTheScreen, int minionType)
+int Spawner::GetNumberOfMinionsToSpawn(float difficulty, int numOnTheScreen, int minionType)
 {
-	int numSpawn = 0;
-	auto it = m_mapNumSpawnWeights.find(minionType);
-	auto it2 = m_mapInitNum.find(minionType);
-	if (it != m_mapNumSpawnWeights.end() && it2 != m_mapInitNum.end())
+	auto nMinionsToSpawn = 0;
+	auto nMinionsToSpawnWeight = m_mapNumberToSpawnWeights.find(minionType);
+	auto nInitMinions = m_mapInitNum.find(minionType);
+	if (nMinionsToSpawnWeight != m_mapNumberToSpawnWeights.end() && nInitMinions != m_mapInitNum.end())
 	{
-		numSpawn = it->second * difficulty - numOnTheScreen + it2->second;
+		nMinionsToSpawn = nMinionsToSpawnWeight->second * difficulty - numOnTheScreen + nInitMinions->second;
 	}
-	return numSpawn;
+	return nMinionsToSpawn;
 }
 
 void Spawner::SpawnMinions()
 {
 	for (auto it : m_mapChanceWeights)
 	{
-		int type = it.first;
-		int numOnTheScreen = GS_GamePlay::GetInstance()->GetNumEntitiesByType(type);
-		float difficulty = GameInstance->GetDifficulty();
-		int numToSpawn = GetNumSpawnMinion(difficulty, numOnTheScreen, type);
+		auto prototypeId = it.first;
+		auto nMinionsOnScreen = GS_GamePlay::GetInstance()->GetNumberOfEntitiesByPrototypeId(prototypeId);
+		auto difficulty = GameInstance->GetDifficulty();
+		auto nMinionsToSpawn = GetNumberOfMinionsToSpawn(difficulty, nMinionsOnScreen, prototypeId);
 
-		for (int i=0; i<numToSpawn; i++)
+		for (auto i = 0; i < nMinionsToSpawn; i++)
 		{
-			if (rand() * 1.0f / RAND_MAX <= GetChanceToSpawnMinion(difficulty, type))
+			if (rand() * 1.0f / RAND_MAX <= GetSpawnMinionChance(difficulty, prototypeId))
 			{
-				EntityMinion* entity = static_cast<EntityMinion*>(PoolMgr->GetEntityByType(type));
+				auto entity = static_cast<EntityMinion*>(PoolMgr->GetEntityByPrototypeId(prototypeId));
 				entity->GetBody()->SetActive(true);
 				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
 				entity->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));
-				GS_GamePlay::GetInstance()->AddEntitesToTheScreen(entity);
-			}	
+				GS_GamePlay::GetInstance()->AddEntityToTheScreen(entity);
+			}
 		}
 	}
 }
 
 void Spawner::RealeaseMinions(EntityMinion* minion)
 {
-	if(minion)
+	if (minion)
 	{
 		PoolMgr->ReleaseEntity(minion);
 	}

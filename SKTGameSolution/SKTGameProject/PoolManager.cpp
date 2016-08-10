@@ -25,9 +25,9 @@ PoolManager::~PoolManager()
 	m_vInUse.clear();
 }
 
-Entity* PoolManager::GetEntityByType(EntityType type)
+Entity* PoolManager::GetEntityByPrototypeId(int prototypeId)
 {
-	auto it = m_mapAvailable.find(type);
+	auto it = m_mapAvailable.find(prototypeId);
 	Entity* entity;
 
 	auto isReady = true;
@@ -44,7 +44,7 @@ Entity* PoolManager::GetEntityByType(EntityType type)
 
 	if (!isReady)
 	{
-		entity = Factory->GetPrototypeById(type)->Clone();
+		entity = Factory->GetPrototypeById(prototypeId)->Clone();
 		auto ix = std::find(m_vInUse.begin(), m_vInUse.end(), entity);
 		if (ix == m_vInUse.end())
 			m_vInUse.push_back(entity);

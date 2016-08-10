@@ -20,10 +20,10 @@ public:
 
 	bool OnMessage(Game*, const Telegram&) override;
 
-	void AddEntitesToTheScreen(Entity* entity);
-	void RemoveEntitiesOnTheScreen(Entity* entity);
-	int GetNumEntitiesByType(EntityType type);
-	int GetNumAllEntities();
+	void AddEntityToTheScreen(Entity* entity);
+	void RemoveEntityFromTheScreen(Entity* entity);
+	int GetNumberOfEntitiesByPrototypeId(int prototypeId);
+	int GetNumberOfAllEntities();
 	std::vector<Entity*>* GetEntitiesByType(EntityType type);
 	EntityPlayer* GetPlayer() const;
 private:

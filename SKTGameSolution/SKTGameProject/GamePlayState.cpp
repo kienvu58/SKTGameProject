@@ -7,6 +7,7 @@
 #include "EntityBeamWave.h"
 #include "../GraphicsEngine/Globals.h"
 #include "../GraphicsEngine/HelperFunctions.h"
+#include "EntityKiBlast.h"
 
 GamePlayState::GamePlayState()
 {
@@ -69,14 +70,6 @@ void GamePlayState::Execute(Game* game)
 			it.second->at(i)->Update();
 	}
 
-	for (auto it : m_vCurrentKiBlasts)
-	{
-		it->Update();
-	}
-	for (auto it : m_vCurrentBeamWaves)
-	{
-		it->Update();
-	}
 	PressButton(game);
 }
 
@@ -138,14 +131,14 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 	{
 		EntityMinion* theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
 		theMinion->Reset();
-		RemoveEntitiesOnTheScreen(theMinion);
+		RemoveEntityFromTheScreen(theMinion);
 		return true;
 	}
 
 	if (telegram.Message == MSG_KIBLAST_OUT_OF_WALL)
 	{
 		EntityKiBlast* theKiBlast = static_cast<EntityKiBlast*>(telegram.ExtraInfo);
-		RemoveEntitiesOnTheScreen(theKiBlast);
+		RemoveEntityFromTheScreen(theKiBlast);
 		return true;
 	}
 
@@ -163,7 +156,7 @@ GamePlayState::~GamePlayState()
 	}
 }
 
-void GamePlayState::AddEntitesToTheScreen(Entity* entity)
+void GamePlayState::AddEntityToTheScreen(Entity* entity)
 {
 	EntityType type = entity->GetType();
 	auto it = m_mapCurrentEntities.find(type);
@@ -186,7 +179,7 @@ void GamePlayState::AddEntitesToTheScreen(Entity* entity)
 	}
 }
 
-void GamePlayState::RemoveEntitiesOnTheScreen(Entity* entity)
+void GamePlayState::RemoveEntityFromTheScreen(Entity* entity)
 {
 	EntityType type = entity->GetType();
 	auto it = m_mapCurrentEntities.find(type);
@@ -197,15 +190,15 @@ void GamePlayState::RemoveEntitiesOnTheScreen(Entity* entity)
 	}
 }
 
-int GamePlayState::GetNumEntitiesByType(EntityType type)
+int GamePlayState::GetNumberOfEntitiesByPrototypeId(int prototypeId)
 {
-	auto it = m_mapCurrentEntities.find(type);
+	auto it = m_mapCurrentEntities.find(prototypeId);
 	if (it != m_mapCurrentEntities.end())
 		return it->second->size();
 	return 0;
 }
 
-int GamePlayState::GetNumAllEntities()
+int GamePlayState::GetNumberOfAllEntities()
 {
 	int size = 0;
 	for (auto it : m_mapCurrentEntities)

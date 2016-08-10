@@ -4,6 +4,7 @@
 #include <iostream>
 #include "MessageTypes.h"
 #include "SingletonClasses.h"
+#include "EntityKiBlast.h"
 
 ContactListener::ContactListener()
 {

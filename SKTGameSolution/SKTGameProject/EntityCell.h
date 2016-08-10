@@ -10,6 +10,8 @@ public:
 
 	//Get FSM
 	StateMachine<EntityCell>* GetFSM() const;
+	
+	void Init(int prototypeId, const char* dataPath) override;
 
 	//clone
 	Entity* Clone() override;
