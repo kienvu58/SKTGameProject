@@ -26,6 +26,7 @@ void GamePlayState::PressButton(Game* game)
 //		printf("GamePause\n");
 		game->GetFSM()->ChangeState(GS_Pause::GetInstance());
 	}
+	
 }
 
 void GamePlayState::Execute(Game* game)

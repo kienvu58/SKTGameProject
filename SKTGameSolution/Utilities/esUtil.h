@@ -58,6 +58,7 @@ public:
 
    void (ESCALLBACK *mouseMoveFunc) (ESContext *, float, float);
    void (ESCALLBACK *mouseDownFunc) (ESContext *, float, float);
+   void (ESCALLBACK *mouseUpFunc) (ESContext *, float, float);
 };
 
 
@@ -155,7 +156,8 @@ void ESUTIL_API esRegisterMouseMoveFunc(ESContext *esContext,
 void ESUTIL_API esRegisterMouseDownFunc(ESContext *esContext,
 	void (ESCALLBACK *mouseDownFunc) (ESContext*, float, float));
 
-
+void ESUTIL_API esRegisterMouseUpFunc(ESContext *esContext,
+	void (ESCALLBACK *mouseUpFunc) (ESContext*, float, float));
 
 
 

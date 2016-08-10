@@ -20,10 +20,13 @@ public:
 	bool IsPressed(int key) const;
 	void SetLastMousePosition(float x, float y);
 	void SetCurrentMousePosition(float x, float y);
+	void SetMouseDown(bool b);
+	bool IsMouseDown() const;
 	Vector2 GetLastMousePosition() const;
 	Vector2 GetCurrentMousePosition() const;
 private:
 	int m_iKeyPressed;
+	bool m_bIsMouseDown;
 	Vector2 m_v2LastMousePos;
 	Vector2 m_v2CurrentMousePos;
 };

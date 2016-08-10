@@ -45,6 +45,12 @@ void MouseDown(ESContext* esContext, float x, float y)
 {
 	InputMgr->SetCurrentMousePosition(x, y);
 	InputMgr->SetLastMousePosition(x, y);
+	InputMgr->SetMouseDown(true);
+}
+
+void MouseUp(ESContext* esContext, float x, float y)
+{
+	InputMgr->SetMouseDown(false);
 }
 //
 //void Mouse(ESContext* esContext, bool isClicked, float x, float y)
@@ -80,6 +86,7 @@ int main(int argc, char* argv[])
 	esRegisterKeyFunc(&esContext, Key);
 	esRegisterMouseMoveFunc(&esContext, MouseMove);
 	esRegisterMouseDownFunc(&esContext, MouseDown);
+	esRegisterMouseUpFunc(&esContext, MouseUp);
 	esMainLoop(&esContext);
 
 	//releasing OpenGL resources
