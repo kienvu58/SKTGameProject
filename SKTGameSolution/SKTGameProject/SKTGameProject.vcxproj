@@ -202,6 +202,13 @@
     <None Include="..\Resources\Data\GamePlayState.json" />
     <None Include="..\Resources\Data\MainMenuState.json" />
     <None Include="..\Resources\Data\RM.json" />
+    <None Include="..\Resources\Prototypes\Cell.json" />
+    <None Include="..\Resources\Prototypes\CellJr.json" />
+    <None Include="..\Resources\Prototypes\Goku.json" />
+    <None Include="..\Resources\Prototypes\GreenKiBlast.json" />
+    <None Include="..\Resources\Prototypes\Kamehameha.json" />
+    <None Include="..\Resources\Prototypes\TrueKamehameha.json" />
+    <None Include="..\Resources\Prototypes\YellowKiBlast.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

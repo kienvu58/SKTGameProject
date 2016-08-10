@@ -37,7 +37,7 @@ public:
 
 	void Init(int prototypeId, const char* dataPath) override;
 
-	void IncreseScore(int amount);
+	void IncreaseScore(int amount);
 	int GetCurrentScore() const;
 
 	bool IsOnTheGround() const;
@@ -46,6 +46,12 @@ private:
 	float m_fMaxKi;
 	float m_fCurrentKi;
 	int	  m_iCurrentScore;
+
+	// prototypeIds of player's skills
+	int m_iNormalPID;
+	int m_iSpecialPID;
+	int m_iUltimatePID;
+	int m_iAuraPID;
 
 	//State info
 	StateMachine<EntityPlayer>* m_pStateMachine;

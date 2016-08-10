@@ -38,13 +38,13 @@ void Spawner::Init(const char* filePath)
 	//read file here.
 
 	//tmp hard code.
-	m_mapChanceWeights.insert(std::pair<int, float>(ENTITY_CELLJUNIOR, 1));
-	m_mapNumberToSpawnWeights.insert(std::pair<int, float>(ENTITY_CELLJUNIOR, 2.0f / 5));
-	m_mapInitNum.insert(std::pair<int, int>(ENTITY_CELLJUNIOR, 5));
+	m_mapChanceWeights.insert(std::pair<int, float>(2, 1));
+	m_mapNumberToSpawnWeights.insert(std::pair<int, float>(2, 2.0f / 5));
+	m_mapInitNum.insert(std::pair<int, int>(2, 5));
 
-	m_mapChanceWeights.insert(std::pair<int, float>(ENTITY_CELL, 0.9));
-	m_mapNumberToSpawnWeights.insert(std::pair<int, float>(ENTITY_CELL, 2.0f / 5));
-	m_mapInitNum.insert(std::pair<int, int>(ENTITY_CELL, 5));
+//	m_mapChanceWeights.insert(std::pair<int, float>(ENTITY_CELL, 0.9));
+//	m_mapNumberToSpawnWeights.insert(std::pair<int, float>(ENTITY_CELL, 2.0f / 5));
+//	m_mapInitNum.insert(std::pair<int, int>(ENTITY_CELL, 5));
 }
 
 float Spawner::GetSpawnMinionChance(float difficulty, int prototypeId) const
@@ -84,6 +84,10 @@ void Spawner::SpawnMinions()
 			if (rand() * 1.0f / RAND_MAX <= GetSpawnMinionChance(difficulty, prototypeId))
 			{
 				auto entity = static_cast<EntityMinion*>(PoolMgr->GetEntityByPrototypeId(prototypeId));
+				if (!entity)
+				{
+					return;
+				}
 				entity->GetBody()->SetActive(true);
 				entity->GetBody()->SetTransform(b2Vec2(10, (rand() - rand()) % 6), 0);
 				entity->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));

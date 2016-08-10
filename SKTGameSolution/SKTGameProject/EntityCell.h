@@ -1,5 +1,6 @@
 #pragma once
 #include "EntityMinion.h"
+#include <Common/FSM/StateMachine.h>
 
 class EntityCell
 	: public EntityMinion

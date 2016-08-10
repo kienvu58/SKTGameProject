@@ -140,7 +140,7 @@ CellJuniorDeadState::~CellJuniorDeadState()
 
 void CellJuniorDeadState::Enter(EntityCellJunior* celljunior)
 {
-	GS_GamePlay::GetInstance()->GetPlayer()->IncreseScore(10);
+	GS_GamePlay::GetInstance()->GetPlayer()->IncreaseScore(10);
 }
 
 void CellJuniorDeadState::Execute(EntityCellJunior* celljunior)

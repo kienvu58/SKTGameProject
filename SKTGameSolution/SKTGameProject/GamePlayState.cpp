@@ -120,7 +120,7 @@ void GamePlayState::Init(const char* filePath)
 
 
 
-	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(ENTITY_PLAYER));
+	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
 
 	MusicMgr->MusicVolume("GamePlay", 50);
 }
@@ -135,7 +135,7 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 		return true;
 	}
 
-	if (telegram.Message == MSG_KIBLAST_OUT_OF_WALL)
+	if (telegram.Message == MSG_CLEAN_UP)
 	{
 		EntityKiBlast* theKiBlast = static_cast<EntityKiBlast*>(telegram.ExtraInfo);
 		RemoveEntityFromTheScreen(theKiBlast);
@@ -158,16 +158,16 @@ GamePlayState::~GamePlayState()
 
 void GamePlayState::AddEntityToTheScreen(Entity* entity)
 {
-	EntityType type = entity->GetType();
-	auto it = m_mapCurrentEntities.find(type);
-	if (it != m_mapCurrentEntities.end())
+	auto prototypeId = entity->GetPrototypeId();
+	auto pair = m_mapCurrentEntities.find(prototypeId);
+	if (pair != m_mapCurrentEntities.end())
 	{
 		if (entity != nullptr)
 		{
-			auto it2 = std::find(it->second->begin(), it->second->end(), entity);
-			if (it2 == it->second->end())
+			auto it2 = std::find(pair->second->begin(), pair->second->end(), entity);
+			if (it2 == pair->second->end())
 			{
-				it->second->push_back(entity);
+				pair->second->push_back(entity);
 			}
 		}
 	}
@@ -175,35 +175,35 @@ void GamePlayState::AddEntityToTheScreen(Entity* entity)
 	{
 		std::vector<Entity*>* vecEntity = new std::vector<Entity*>();
 		vecEntity->push_back(entity);
-		m_mapCurrentEntities.insert(std::pair<EntityType, std::vector<Entity*>*>(type, vecEntity));
+		m_mapCurrentEntities.insert(std::pair<int, std::vector<Entity*>*>(prototypeId, vecEntity));
 	}
 }
 
 void GamePlayState::RemoveEntityFromTheScreen(Entity* entity)
 {
-	EntityType type = entity->GetType();
-	auto it = m_mapCurrentEntities.find(type);
-	if (it != m_mapCurrentEntities.end())
+	auto prototypeId = entity->GetPrototypeId();
+	auto pair = m_mapCurrentEntities.find(prototypeId);
+	if (pair != m_mapCurrentEntities.end())
 	{
 		PoolMgr->ReleaseEntity(entity);
-		RemoveFromVector<Entity*>(*(it->second), entity);
+		RemoveFromVector<Entity*>(*(pair->second), entity);
 	}
 }
 
 int GamePlayState::GetNumberOfEntitiesByPrototypeId(int prototypeId)
 {
-	auto it = m_mapCurrentEntities.find(prototypeId);
-	if (it != m_mapCurrentEntities.end())
-		return it->second->size();
+	auto pair = m_mapCurrentEntities.find(prototypeId);
+	if (pair != m_mapCurrentEntities.end())
+		return pair->second->size();
 	return 0;
 }
 
 int GamePlayState::GetNumberOfAllEntities()
 {
-	int size = 0;
-	for (auto it : m_mapCurrentEntities)
+	auto size = 0;
+	for (auto pair : m_mapCurrentEntities)
 	{
-		size += it.second->size();
+		size += pair.second->size();
 	}
 	return size;
 }

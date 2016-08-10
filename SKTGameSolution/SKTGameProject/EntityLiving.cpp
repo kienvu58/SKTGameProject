@@ -11,6 +11,7 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_fMaxHealth(50),
                               m_fCurrentOverHeat(0),
                               m_bIsOverheated(false),
+                              m_fAttackDamage(0),
                               m_bIsReversed(false),
                               m_iCurrentFrameIndex(0),
                               m_iLastFrameIndex(0),
@@ -20,6 +21,28 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_fMaxSpeed(10),
                               m_fMovementSpeed(3)
 {
+}
+
+EntityLiving::EntityLiving(const EntityLiving& entityLiving): m_fCurrentHealth(entityLiving.m_fMaxHealth),
+                                                              m_fMaxHealth(entityLiving.m_fMaxHealth),
+                                                              m_fCurrentOverHeat(0), m_bIsOverheated(false),
+                                                              m_fAttackDamage(entityLiving.m_fAttackDamage),
+                                                              m_Sprite(entityLiving.m_Sprite),
+                                                              m_bIsReversed(entityLiving.m_bIsReversed),
+                                                              m_iCurrentFrameIndex(0),
+                                                              m_iLastFrameIndex(0),
+                                                              m_fCurrentDelay(0),
+                                                              m_iFrameCount(0),
+                                                              m_fMaxSpeed(entityLiving.m_fMaxSpeed),
+                                                              m_fMovementSpeed(entityLiving.m_fMovementSpeed),
+                                                              m_b2PolygonShape(entityLiving.m_b2PolygonShape),
+                                                              m_b2BodyDef(entityLiving.m_b2BodyDef),
+                                                              m_b2FixtureDef(entityLiving.m_b2FixtureDef),
+                                                              m_vec2InitializedVelocity(entityLiving.m_vec2InitializedVelocity)
+{
+	m_iPrototypeId = entityLiving.m_iPrototypeId;
+	InitBody(m_b2BodyDef, m_b2FixtureDef, m_vec2InitializedVelocity);
+	m_pBody->SetUserData(this);
 }
 
 EntityLiving::~EntityLiving()
@@ -123,15 +146,21 @@ float EntityLiving::GetMaxSpeed() const
 	return m_fMaxSpeed;
 }
 
-void EntityLiving::SetBody(b2Body* body)
-{
-}
-
 void EntityLiving::ScaleVelocity(int scale) const
 {
 	b2Vec2 currentVelocity = m_pBody->GetLinearVelocity();
 	currentVelocity *= scale;
 	m_pBody->SetLinearVelocity(currentVelocity);
+}
+
+float EntityLiving::GetAttackDamage() const
+{
+	return m_fAttackDamage;
+}
+
+float EntityLiving::GetMaxHealth() const
+{
+	return m_fMaxHealth;
 }
 
 float EntityLiving::GetMovementSpeed() const

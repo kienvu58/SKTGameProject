@@ -9,7 +9,7 @@ public:
 	~FactoryEntity();
 
 	void Init(const char* filePath);
-	Entity* GetPrototypeById(int prototyteId);
+	Entity* GetPrototypeById(int prototyteId) const;
 private:
 	std::map<int, Entity*> m_mapPrototypes;
 };

@@ -6,11 +6,17 @@
 #include "../GraphicsEngine/Globals.h"
 
 
-EntityKiBlast::EntityKiBlast(): m_fSpeed(6),
-                    m_fAttackDamage(10)
+EntityKiBlast::EntityKiBlast(): m_pBody(nullptr)
 {
 }
 
+EntityKiBlast::EntityKiBlast(const EntityKiBlast& other) : m_b2PolygonShape(other.m_b2PolygonShape),
+                                                           m_b2BodyDef(other.m_b2BodyDef),
+                                                           m_b2FixtureDef(other.m_b2FixtureDef)
+{
+	m_iPrototypeId = other.m_iPrototypeId;
+	InitBody(m_b2BodyDef, m_b2FixtureDef);
+}
 
 EntityKiBlast::~EntityKiBlast()
 {
@@ -18,20 +24,20 @@ EntityKiBlast::~EntityKiBlast()
 
 void EntityKiBlast::Update()
 {
-	if (m_pBody->IsActive())
+	if (IsActive())
 	{
-		bool isReversed = m_iDirection == -1;
+		auto isReversed = m_iDirection == -1;
 		m_Sprite.SetRenderInfo(GraphicsFromPhysics(m_pBody->GetPosition()), isReversed);
 		if (IsOutOfWall())
 		{
-			Dispatcher->DispatchMessageA(this, GameInstance, MSG_KIBLAST_OUT_OF_WALL, this);
+			Dispatcher->DispatchMessageA(this, GameInstance, MSG_CLEAN_UP, this);
 		}
 	}
 }
 
 void EntityKiBlast::Render()
 {
-	if (m_pBody->IsActive())
+	if (IsActive())
 	{
 		m_Sprite.Render();
 	}
@@ -39,27 +45,7 @@ void EntityKiBlast::Render()
 
 Entity* EntityKiBlast::Clone()
 {
-	EntityKiBlast* newKiBlast = new EntityKiBlast();
-
-	//physics
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = b2Vec2(0, 0);
-
-	b2PolygonShape boxShape;
-	boxShape.SetAsBox(MetersFromPixels(24), MetersFromPixels(12));
-
-	b2FixtureDef fixture;
-	fixture.shape = &boxShape;
-	fixture.restitution = 1.0f;
-	fixture.isSensor = true;
-	fixture.filter.categoryBits = CATEGORY_KI_BLAST;
-	fixture.filter.maskBits = CATEGORY_MINION;
-	newKiBlast->InitBody(bodyDef, fixture);
-	//newKiBlast->GetBody()->SetActive(false);
-	//attributes
-	newKiBlast->SetSpeed(m_fSpeed);
-	newKiBlast->SetSprite(m_Sprite);
+	EntityKiBlast* newKiBlast = new EntityKiBlast(*this);
 
 	return newKiBlast;
 }
@@ -98,6 +84,16 @@ void EntityKiBlast::Fire(b2Vec2 position, int direction)
 	m_iDirection = direction;
 }
 
+void EntityKiBlast::Init(int prototypeId, const char* dataPath)
+{
+
+}
+
+bool EntityKiBlast::IsActive()
+{
+	return m_pBody->IsActive();
+}
+
 void EntityKiBlast::SetSprite(Sprite sprite)
 {
 	m_Sprite = sprite;
@@ -108,21 +104,20 @@ void EntityKiBlast::SetSpeed(float speed)
 	m_fSpeed = speed;
 }
 
-bool EntityKiBlast::IsOutOfWall()
+bool EntityKiBlast::IsOutOfWall() const
 {
-	float tmp = 0;
-	float wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
-	float wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
-	float boundryX = wallHalfWidth + tmp;
-	float boundryY = wallHalfHeight + tmp;
+	float padding = 0.1;
+	auto wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
+	auto wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
+	auto boundaryX = wallHalfWidth + padding;
+	auto boundaryY = wallHalfHeight + padding;
 
 	b2Vec2 position = m_pBody->GetPosition();
 
-	if (-boundryX < position.x && position.x < boundryX
-		&& -boundryY < position.y && position.y < boundryY)
-		return false;
+	auto outOfBoundaryX = abs(position.x) > boundaryX;
+	auto outOfBoundaryY = abs(position.y) > boundaryY;
 
-	return true;
+	return outOfBoundaryX || outOfBoundaryY;
 }
 
 b2Body* EntityKiBlast::GetBody() const

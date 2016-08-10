@@ -110,7 +110,7 @@ CellDeadState::~CellDeadState()
 
 void CellDeadState::Enter(EntityCell* Cell)
 {
-	GS_GamePlay::GetInstance()->GetPlayer()->IncreseScore(10);
+	GS_GamePlay::GetInstance()->GetPlayer()->IncreaseScore(10);
 }
 
 void CellDeadState::Execute(EntityCell* Cell)

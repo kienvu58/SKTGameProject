@@ -35,7 +35,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 		{
 			float damage = static_cast<EntityKiBlast*>(entityB)->Attack();
 			Dispatcher->DispatchMessageA(nullptr, entityA, MSG_MINION_TAKE_DAMAGE, &damage);
-			Dispatcher->DispatchMessageA(nullptr, GameInstance, MSG_KIBLAST_OUT_OF_WALL, entityB);
+			Dispatcher->DispatchMessageA(nullptr, GameInstance, MSG_CLEAN_UP, entityB);
 		}
 
 		if (typeA == KI_BLAST && (typeB == ENTITY_CELLJUNIOR ||
@@ -43,7 +43,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 		{
 			float damage = static_cast<EntityKiBlast*>(entityA)->Attack();
 			Dispatcher->DispatchMessageA(nullptr, entityB, MSG_MINION_TAKE_DAMAGE, &damage);
-			Dispatcher->DispatchMessageA(nullptr, GameInstance, MSG_KIBLAST_OUT_OF_WALL, entityA);
+			Dispatcher->DispatchMessageA(nullptr, GameInstance, MSG_CLEAN_UP, entityA);
 		}
 
 		if ((typeA == ENTITY_CELLJUNIOR ||

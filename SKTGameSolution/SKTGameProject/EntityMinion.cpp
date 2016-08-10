@@ -1,6 +1,5 @@
 #include "EntityMinion.h"
 #include <Box2D/Dynamics/b2Fixture.h>
-#include <iostream>
 #include "SingletonClasses.h"
 
 
@@ -27,17 +26,23 @@ EntityType EntityMinion::GetType()
 	return ENTITY_MINION;
 }
 
-EntityMinion::EntityMinion():m_fMaxForce(2)
+void EntityMinion::InitSteeringBehavior()
 {
 	m_pSteeringBehavior = new SteeringBehavior(this);
 }
 
-EntityMinion::~EntityMinion()
+EntityMinion::EntityMinion():m_fMaxForce(2)
 {
-	delete m_pSteeringBehavior;
+	InitSteeringBehavior();
 }
 
-float EntityMinion::GetMaxForce()
+EntityMinion::~EntityMinion()
+{
+	if (m_pSteeringBehavior)
+		delete m_pSteeringBehavior;
+}
+
+float EntityMinion::GetMaxForce() const
 {
 	return m_fMaxForce;
 }
@@ -57,7 +62,7 @@ void EntityMinion::Reset()
 	EntityLiving::Reset();
 }
 
-void EntityMinion::TruncateVelocity(b2Vec2& currentVelocity)
+void EntityMinion::TruncateVelocity(b2Vec2& currentVelocity) const
 {
 	if(currentVelocity.Length() > m_fMaxSpeed)
 	{

@@ -39,28 +39,7 @@ void EntityCell::Init(int prototypeId, const char* dataPath)
 
 Entity* EntityCell::Clone()
 {
-	EntityMinion* cloneMinion = new EntityCell();
-	//graphic
-	cloneMinion->SetSprite(this->m_Sprite);
-	cloneMinion->SetAnimations(this->m_vecAnimations);
-	cloneMinion->ReverseSprite(this->m_bIsReversed);
-
-	//physics
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = b2Vec2(0, 0);
-
-	b2PolygonShape boxShape;
-	boxShape.SetAsBox(MetersFromPixels(128) / 2 / 4, MetersFromPixels(128) / 2 / 4);
-
-	b2FixtureDef fixture;
-	fixture.shape = &boxShape;
-	fixture.restitution = 1.0f;
-	fixture.filter.categoryBits = CATEGORY_MINION;
-	fixture.filter.maskBits = CATEGORY_PLAYER | CATEGORY_KI_BLAST;
-	cloneMinion->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
-	cloneMinion->GetBody()->SetActive(false);
-
+	EntityMinion* cloneMinion = new EntityCell(*this);
 	return cloneMinion;
 }
 

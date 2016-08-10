@@ -15,7 +15,7 @@ public:
 	void CleanUp(Entity* entity);
 	void Add(Entity* entity);
 private:
-	std::map<int, std::vector<Entity*>*> m_mapAvailable;
+	std::map<int, std::vector<Entity*>> m_mapAvailable;
 	std::vector<Entity*> m_vInUse;
 };
 

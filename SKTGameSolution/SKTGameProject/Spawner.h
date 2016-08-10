@@ -20,7 +20,7 @@ public:
 	float GetSpawnMinionChance(float difficulty, int prototypeId) const;
 	int GetNumberOfMinionsToSpawn(float difficulty, int numOnTheScreen, int prototypeId);
 	void SpawnMinions();
-	void RealeaseMinions(EntityMinion* minion);
+	static void RealeaseMinions(EntityMinion* minion);
 private:
 	// first int is prototypeId
 	std::map<int, float> m_mapChanceWeights;

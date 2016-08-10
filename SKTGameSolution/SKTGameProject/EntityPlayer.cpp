@@ -3,6 +3,8 @@
 #include "EntityPlayer.h"
 #include "SingletonClasses.h"
 #include "../GraphicsEngine/Globals.h"
+#include <Box2D/Collision/Shapes/b2PolygonShape.h>
+#include <Box2D/Dynamics/b2Fixture.h>
 
 
 EntityPlayer::EntityPlayer(): m_fMaxKi(0),
@@ -61,9 +63,64 @@ void EntityPlayer::Init(int prototypeId, const char* dataPath)
 	std::ifstream fin(dataPath);
 	nlohmann::json data(fin);
 	fin.close();
+
+	auto bodyData = data["physics"]["bodyDef"];
+	auto fixtureData = data["physics"]["fixtureDef"];
+
+	auto positionX = bodyData["position"]["x"].get<float>();
+	auto positionY = bodyData["position"]["y"].get<float>();
+	auto physicsPosition = b2Vec2(positionX, positionY);
+	
+	auto velocityX = data["physics"]["initializedVelocity"]["x"].get<float>();
+	auto velocityY = data["physics"]["initializedVelocity"]["y"].get<float>();
+	m_vec2InitializedVelocity = b2Vec2(velocityX, velocityY);
+
+	auto modelId = data["graphics"]["modelId"].get<int>();
+	auto frameId = data["graphics"]["frameId"].get<int>();
+	auto shaderId = data["graphics"]["shaderId"].get<int>();
+	auto isReversed = data["graphics"]["isReversed"].get<bool>();
+
+	m_b2BodyDef.type = b2_dynamicBody;
+	m_b2BodyDef.position = physicsPosition;
+
+	auto boxHalfWidth = fixtureData["boxShape"]["hx"].get<float>();
+	auto boxHalfHeight = fixtureData["boxShape"]["hy"].get<float>();
+	b2PolygonShape boxShape;
+	boxShape.SetAsBox(boxHalfWidth, boxHalfHeight);
+
+	m_b2FixtureDef.shape = &boxShape;
+	m_b2FixtureDef.friction = fixtureData["friction"].get<float>();
+	m_b2FixtureDef.restitution = fixtureData["restitution"].get<float>();
+	m_b2FixtureDef.filter.categoryBits = fixtureData["filter"]["categoryBits"].get<int>();
+	for (auto maskBits : fixtureData["filter"]["maskBits"])
+	{
+		m_b2FixtureDef.filter.maskBits |= maskBits.get<int>();
+	}
+
+	m_iNormalPID = data["skillPIDs"]["normal"].get<int>();
+	m_iSpecialPID = data["skillPIDs"]["special"].get<int>();
+	m_iUltimatePID = data["skillPIDs"]["ultimate"].get<int>();
+	m_iAuraPID = data["skillPIDs"]["aura"].get<int>();
+
+	m_fCurrentKi = m_fMaxKi = data["maxKi"].get<float>();
+	m_fMaxSpeed = data["maxSpeed"].get<float>();
+	m_fCurrentHealth = m_fMaxHealth = data["maxHealth"].get<float>();
+	m_fMovementSpeed = data["movementSpeed"].get<float>();
+	m_fAttackDamage = data["attackDamage"].get<float>();
+
+	std::vector<Animation*> animations;
+	for (auto animationId : data["animationIds"])
+	{
+		animations.push_back(AnimationMgr->GetAnimationById(animationId.get<int>()));
+	}
+
+	SetAnimations(animations);
+	InitBody(m_b2BodyDef, m_b2FixtureDef, m_vec2InitializedVelocity);
+	InitSprite(modelId, frameId, shaderId);
+	ReverseSprite(isReversed);
 }
 
-void EntityPlayer::IncreseScore(int amount)
+void EntityPlayer::IncreaseScore(int amount)
 {
 	m_iCurrentScore += amount;
 }
@@ -76,7 +133,7 @@ int EntityPlayer::GetCurrentScore() const
 bool EntityPlayer::IsOnTheGround() const
 {
 	b2Vec2 currentPosition = m_pBody->GetPosition();
-	float groundY = MetersFromPixels(
+	auto groundY = MetersFromPixels(
 		float(Globals::screenHeight - m_Sprite.GetModel()->GetModelHeight()) / 2);
 
 	return currentPosition.y <= -groundY;

@@ -5,6 +5,16 @@
 			"id": 1,
 			"entityType": "ENTITY_PLAYER",
 			"dataPath": "Prototypes/Goku.json"
+		},
+		{
+			"id": 2,
+			"entityType": "ENTITY_CELLJUNIOR",
+			"dataPath": "Prototypes/CellJr.json"
+		},
+		{
+			"id": 3,
+			"entityType": "ENTITY_KIBLAST",
+			"dataPath": "Prototypes/KiBlast.json"
 		}
 	]
 }

@@ -2,7 +2,7 @@
 
 
 
-EntityBullet::EntityBullet()
+EntityBullet::EntityBullet(): m_fSpeed(0), m_fAttackDamage(0), m_iDirection(0)
 {
 }
 

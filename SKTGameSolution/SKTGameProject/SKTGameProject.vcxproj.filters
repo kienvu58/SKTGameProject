@@ -244,5 +244,26 @@
     <None Include="..\Resources\Data\FE.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Resources\Prototypes\Cell.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\CellJr.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Goku.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\GreenKiBlast.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Kamehameha.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\TrueKamehameha.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\YellowKiBlast.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -4,6 +4,9 @@
 #include "../GraphicsEngine/HelperFunctions.h"
 #include "SingletonClasses.h"
 #include "Definations.h"
+#include <Box2D/Dynamics/b2Fixture.h>
+#include <Box2D/Collision/Shapes/b2PolygonShape.h>
+#include "EntityKiBlast.h"
 
 FactoryEntity::FactoryEntity()
 {
@@ -36,6 +39,8 @@ void FactoryEntity::Init(const char* filePath)
 			entity = new EntityCellJunior();
 		if (entityType.compare("ENTITY_CELL") == 0)
 			entity = new EntityCell();
+		if (entityType.compare("ENTITY_KIBLAST") == 0)
+			entity = new EntityKiBlast();
 
 		if (entity)
 		{
@@ -43,77 +48,9 @@ void FactoryEntity::Init(const char* filePath)
 			m_mapPrototypes.insert(std::pair<int, Entity*>(id, entity));
 		}
 	}
-	/*
-		b2BodyDef bodyDef;
-		bodyDef.type = b2_dynamicBody;
-		bodyDef.position = b2Vec2(0, 0);
-	
-		b2PolygonShape boxShape;
-		boxShape.SetAsBox(MetersFromPixels(128) / 2 / 4, MetersFromPixels(128) / 2 / 4);
-	
-		b2FixtureDef fixture;
-		fixture.shape = &boxShape;
-		fixture.restitution = 0.5f;
-		fixture.friction = 1;
-	//	fixture.filter.groupIndex = -1;
-		fixture.filter.categoryBits = CATEGORY_MINION;
-		fixture.filter.maskBits = CATEGORY_PLAYER | CATEGORY_KI_BLAST;
-	
-		//CellJunior prototype
-		EntityCellJunior* cellJuniorPrototype = new EntityCellJunior();
-		cellJuniorPrototype->InitSprite(1, 28, 1);
-		cellJuniorPrototype->ReverseSprite(true);
-		cellJuniorPrototype->InitBody(bodyDef, fixture, b2Vec2(-2, 0));
-		cellJuniorPrototype->GetBody()->SetActive(false);
-		m_mapPrototypes.insert(std::pair<EntityType, Entity*>(ENTITY_CELLJUNIOR, cellJuniorPrototype));
-	
-		//Cell prototype
-		EntityCell* cellPrototype = new EntityCell();
-		cellPrototype->InitSprite(1, 1, 1);
-		cellPrototype->ReverseSprite(true);
-		cellPrototype->InitBody(bodyDef, fixture, b2Vec2(-1.5, 0));
-		cellPrototype->GetBody()->SetActive(false);
-		m_mapPrototypes.insert(std::pair<EntityType, Entity*>(ENTITY_CELL, cellPrototype));
-	
-		//Goku (Player) prototype
-	//	fixture.filter.groupIndex = 1;
-		fixture.restitution = 0;
-		boxShape.SetAsBox(MetersFromPixels(128) / 2 / 2, MetersFromPixels(128) / 2 / 2);
-		fixture.filter.categoryBits = CATEGORY_PLAYER;
-		fixture.filter.maskBits = CATEGORY_WALL | CATEGORY_MINION;
-		EntityPlayer* gokuPrototype = new EntityPlayer();
-		gokuPrototype->InitSprite(1, 1, 1);
-		std::vector<Animation*> gokuAnimations;
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(1));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(2));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(3));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(4));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(5));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(6));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(7));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(8));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(9));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(10));
-		gokuAnimations.push_back(AnimationMgr->GetAnimationById(11));
-		gokuPrototype->SetAnimations(gokuAnimations);
-		bodyDef.position = b2Vec2(0, 0);
-		gokuPrototype->InitBody(bodyDef, fixture);
-		m_mapPrototypes.insert(std::pair<EntityType, Entity*>(ENTITY_PLAYER, gokuPrototype));
-	
-		//Kiblast prototype
-		EntityKiBlast* kiBlastPrototype = new EntityKiBlast();
-		boxShape.SetAsBox(MetersFromPixels(24), MetersFromPixels(12));
-		fixture.isSensor = true;
-		fixture.filter.categoryBits = CATEGORY_KI_BLAST;
-		fixture.filter.maskBits = CATEGORY_MINION;
-		kiBlastPrototype->InitBody(bodyDef, fixture);
-		kiBlastPrototype->InitSprite(4, 66, 1);
-		kiBlastPrototype->GetBody()->SetActive(false);
-		m_mapPrototypes.insert(std::pair<EntityType, Entity*>(KI_BLAST, kiBlastPrototype));
-	*/
 }
 
-Entity* FactoryEntity::GetPrototypeById(int prototypeId)
+Entity* FactoryEntity::GetPrototypeById(int prototypeId) const
 {
 	return GetResourceById<int, Entity>(prototypeId, m_mapPrototypes);
 }
