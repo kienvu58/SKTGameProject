@@ -30,10 +30,21 @@ void GamePlayState::PressButton(Game* game)
 
 void GamePlayState::Execute(Game* game)
 {
+	if(i==-560)
+	{
+		i = 1680;
+	}
+	if(j==-560)
+	{
+		j = 1680;
+	}
+	m_Background->InitPosition(i--, 315);
+	m_Background_Clone->InitPosition(j--, 315);
 	srand(time(nullptr));
 	PhysicsMgr->Update();
 	m_Button_Pause->Update();
 	m_Background->Update();
+	m_Background_Clone->Update();
 
 	//update
 	float attackingRadius = 3.0f;
@@ -87,6 +98,7 @@ void GamePlayState::Exit(Game* game)
 void GamePlayState::Render(Game* game)
 {
 	m_Background->Render();
+	m_Background_Clone->Render();
 	m_Button_Pause->Render();
 	std::string currentScore = std::to_string(m_Goku->GetCurrentScore());
 	std::string scoreText = "Score: ";
@@ -120,7 +132,12 @@ void GamePlayState::Render(Game* game)
 void GamePlayState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
-	m_Background->InitSprite(2, 106, 1);
+	//m_Background->InitSprite(2, 106, 1);
+	m_Background->InitSprite(100, 200, 1);
+
+	m_Background_Clone = new EntityStatic();
+	m_Background_Clone->InitSprite(100, 201, 1);
+	m_Background_Clone->InitPosition(1120+1120/2, 315);
 
 	m_Button_Pause = new EntityStatic();
 	m_Button_Pause->InitSprite(5, 115, 1);
@@ -191,6 +208,7 @@ GamePlayState::~GamePlayState()
 {
 	delete m_Button_Pause;
 	delete m_Background;
+	delete m_Background_Clone;
 
 	for (auto it : m_vCurrentKiBlasts)
 	{

@@ -9,8 +9,8 @@ EntityPlayer::EntityPlayer(): m_fMaxKi(0),
                               m_iCurrentScore(0),
                               m_pStateMachine(new StateMachine<EntityPlayer>(this))
 {
-	m_fCurrentHealth = 100;
-	m_fMaxHealth = 100;
+	m_fCurrentHealth = 100000;
+	m_fMaxHealth = 100000;
 
 	m_pStateMachine->SetGlobalState(PS_Global::GetInstance());
 	m_pStateMachine->SetCurrentState(PS_Standing::GetInstance());

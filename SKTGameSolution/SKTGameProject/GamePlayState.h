@@ -30,9 +30,11 @@ public:
 	EntityPlayer* GetPlayer() const;
 private:
 	EntityStatic *m_Background;
+	EntityStatic *m_Background_Clone;
 	EntityPlayer* m_Goku;
 	EntityStatic *m_Button_Pause;
-
+	int i = 1120/2;
+	int j = 1120 + 1120/2;
 	//current entity on the screen
 	std::vector<EntityKiBlast*> m_vCurrentKiBlasts;
 	std::vector<EntityBeamWave*> m_vCurrentBeamWaves;

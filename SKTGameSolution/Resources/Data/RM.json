@@ -110,6 +110,16 @@
 			"spriteH": 128,
 			"textureW": 256,
 			"textureH": 128
+		},
+		{
+			"id": 100,
+			"note": "BackgroundRunning",
+			"modelW": 1120,
+			"modelH": 630,
+			"spriteW": 1024,
+			"spriteH": 1024,
+			"textureW": 1024,
+			"textureH": 1024
 		}
 	],
 	"spriteSheets":
@@ -143,6 +153,18 @@
 			"path": "Textures/MusicBar.tga",
 			"nRows": 1,
 			"nColumns": 2
+		},
+		{
+			"id": 100,
+			"path": "Textures/Background1.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 101,
+			"path": "Textures/Background2.tga",
+			"nRows": 1,
+			"nColumns": 1
 		}
 	],
 	"shaders":

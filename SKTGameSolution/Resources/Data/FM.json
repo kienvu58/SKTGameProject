@@ -84,6 +84,9 @@
 		{ "id": 115, "spriteSheetID": 4, "index": 7, "duration": 1, "note": "PauseButton" },
 
 		{ "id": 121, "spriteSheetID": 9, "index": 1, "duration": 1, "note": "MusicBarGreen" },
-		{ "id": 122, "spriteSheetID": 9, "index": 0, "duration": 1, "note": "MusicBarBlack" }
+		{ "id": 122, "spriteSheetID": 9, "index": 0, "duration": 1, "note": "MusicBarBlack" },
+
+		{ "id": 200, "spriteSheetID": 100, "index": 0, "duration": 1, "note": "BackgroundRunning" },
+		{ "id": 201, "spriteSheetID": 101, "index": 0, "duration": 1, "note": "BackgroundRunning" }
 	]
 }
