@@ -59,7 +59,6 @@ typedef Singleton<MinionGlobalState> MS_Global;
 typedef Singleton<CellJuniorGlobalState> CJS_Global;
 typedef Singleton<CellJuniorWanderingState> CJS_Wandering;
 typedef Singleton<CellJuniorAttackingState> CJS_Attacking;
-typedef Singleton<CellJuniorDeadState> CJS_Dead;
 
 // Cell States
 typedef Singleton<CellGlobalState> CS_Global;

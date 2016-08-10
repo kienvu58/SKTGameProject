@@ -50,10 +50,7 @@ EntityLiving::~EntityLiving()
 
 void EntityLiving::Update()
 {
-	if (IsActive())
-	{
-		m_Sprite.SetRenderInfo(GraphicsFromPhysics(m_pBody->GetPosition()), m_bIsReversed);
-	}
+	m_Sprite.SetRenderInfo(GraphicsFromPhysics(m_pBody->GetPosition()), m_bIsReversed);
 }
 
 EntityType EntityLiving::GetType()

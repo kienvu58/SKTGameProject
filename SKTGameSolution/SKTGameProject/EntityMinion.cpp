@@ -31,9 +31,8 @@ void EntityMinion::InitSteeringBehavior()
 	m_pSteeringBehavior = new SteeringBehavior(this);
 }
 
-EntityMinion::EntityMinion():m_fMaxForce(2)
+EntityMinion::EntityMinion(): m_pSteeringBehavior(nullptr), m_fMaxForce(2)
 {
-	InitSteeringBehavior();
 }
 
 EntityMinion::~EntityMinion()

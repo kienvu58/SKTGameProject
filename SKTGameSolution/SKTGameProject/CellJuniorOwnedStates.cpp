@@ -106,11 +106,6 @@ void CellJuniorGlobalState::Enter(EntityCellJunior* minion)
 void CellJuniorGlobalState::Execute(EntityCellJunior* minion)
 {
 	MS_Global::GetInstance()->Execute(minion);
-
-	if (minion->IsDead())
-	{
-		minion->GetFSM()->ChangeState(CJS_Dead::GetInstance());
-	}
 }
 
 void CellJuniorGlobalState::Exit(EntityCellJunior* minion)
@@ -128,35 +123,3 @@ bool CellJuniorGlobalState::OnMessage(EntityCellJunior* minion, const Telegram& 
 	return false;
 }
 
-/* Dead State */
-
-CellJuniorDeadState::CellJuniorDeadState()
-{
-}
-
-CellJuniorDeadState::~CellJuniorDeadState()
-{
-}
-
-void CellJuniorDeadState::Enter(EntityCellJunior* celljunior)
-{
-	GS_GamePlay::GetInstance()->GetPlayer()->IncreaseScore(10);
-}
-
-void CellJuniorDeadState::Execute(EntityCellJunior* celljunior)
-{
-	Dispatcher->DispatchMessageA(celljunior, GameInstance, MSG_MINION_OUT_OF_WALL, celljunior);
-}
-
-void CellJuniorDeadState::Exit(EntityCellJunior* celljunior)
-{
-}
-
-void CellJuniorDeadState::Render(EntityCellJunior* celljunior)
-{
-}
-
-bool CellJuniorDeadState::OnMessage(EntityCellJunior*, const Telegram&)
-{
-	return false;
-}

@@ -29,7 +29,7 @@ void ContactListener::BeginContact(b2Contact* contact)
 		EntityType typeA = entityA->GetType();
 		EntityType typeB = entityB->GetType();
 
-		if (typeA == ENTITY_MINION && typeB == ENTITY_KIBLAST)
+		if (typeB == ENTITY_MINION && typeA == ENTITY_KIBLAST)
 		{
 			KiBlastHitsMinion(static_cast<EntityKiBlast*>(entityA), static_cast<EntityMinion*>(entityB));
 		}
@@ -67,7 +67,7 @@ void ContactListener::EndContact(b2Contact* contact)
 void ContactListener::KiBlastHitsMinion(EntityKiBlast* bullet, EntityMinion* minion)
 {
 	auto damage = static_cast<EntityBullet*>(bullet)->GetAttackDamage();
-//	Dispatcher->DispatchMessageA(nullptr, minion, MSG_MINION_TAKE_DAMAGE, &damage);
+	Dispatcher->DispatchMessageA(nullptr, minion, MSG_MINION_TAKE_DAMAGE, &damage);
 	Dispatcher->DispatchMessageA(nullptr, bullet, MSG_EXPLODE, nullptr);
 	std::cout << "Hit" << std::endl;
 }

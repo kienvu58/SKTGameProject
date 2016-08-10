@@ -21,6 +21,7 @@ EntityKiBlast::EntityKiBlast(const EntityKiBlast& other) : m_Sprite(other.m_Spri
 	m_fAttackDamage = other.m_fAttackDamage;
 	m_iPrototypeId = other.m_iPrototypeId;
 	InitBody(m_b2BodyDef, m_b2FixtureDef);
+	m_pBody->SetUserData(this);
 }
 
 EntityKiBlast::~EntityKiBlast()

@@ -50,7 +50,6 @@ void Game::CreateStateInstances()
 	CJS_Global::CreateInstance();
 	CJS_Wandering::CreateInstance();
 	CJS_Attacking::CreateInstance();
-	CJS_Dead::CreateInstance();
 	
 	CS_Global::CreateInstance();
 	CS_Wandering::CreateInstance();
@@ -82,13 +81,10 @@ void Game::DestroyStateInstances()
 	CJS_Global::DestroyInstance();
 	CJS_Wandering::DestroyInstance();
 	CJS_Attacking::DestroyInstance();
-	CJS_Dead::DestroyInstance();
 
 	CS_Global::DestroyInstance();
 	CS_Wandering::DestroyInstance();
 	CS_Attacking::DestroyInstance();
-	CS_Dead::DestroyInstance();
-
 }
 
 void Game::Update()

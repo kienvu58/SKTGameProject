@@ -23,7 +23,6 @@ public:
 	//clone
 	Entity* Clone() override;
 
-
 	void Reset() override;
 	void Explode();
 protected:
