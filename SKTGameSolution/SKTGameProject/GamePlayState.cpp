@@ -1,4 +1,4 @@
-#include "GamePlayState.h"
+﻿#include "GamePlayState.h"
 #include "../GraphicsEngine/AnimationManager.h"
 #include "../GraphicsEngine/TextManager.h"
 #include <Box2D/Dynamics/b2Fixture.h>
@@ -23,18 +23,32 @@ void GamePlayState::PressButton(Game* game)
 	{
 		//GamePause
 		MusicMgr->MusicPause("GamePlay");
-//		printf("GamePause\n");
+		//		printf("GamePause\n");
 		game->GetFSM()->ChangeState(GS_Pause::GetInstance());
+	}
+	m_Circle4DashPos.x = InputMgr->GetCurrentMousePosition().x;
+	m_Circle4DashPos.y = InputMgr->GetCurrentMousePosition().y;
+	if (InputMgr->GetCurrentMousePosition().x >= (120 - 60) && InputMgr->GetCurrentMousePosition().x <= (120 + 60)
+		&& InputMgr->GetCurrentMousePosition().y >= (520 - 60) && InputMgr->GetCurrentMousePosition().y <= (520 + 60)
+		||
+		InputMgr->GetLastMousePosition().x >= (120 - 60) && InputMgr->GetLastMousePosition().x <= (120 + 60)
+		&& InputMgr->GetLastMousePosition().y >= (520 - 60) && InputMgr->GetLastMousePosition().y <= (520 + 60)
+		&&
+		m_Circle4DashPos.x >= (150 - 60) && m_Circle4DashPos.x <= (150 + 60)
+		&& m_Circle4DashPos.y >= (520 - 60) && m_Circle4DashPos.y <= (520 + 60)
+		)
+	{
+		m_Circle4Dash->InitPosition(InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
 	}
 }
 
 void GamePlayState::Execute(Game* game)
 {
-	if(i==-560)
+	if (i == -560)
 	{
 		i = 1680;
 	}
-	if(j==-560)
+	if (j == -560)
 	{
 		j = 1680;
 	}
@@ -45,8 +59,11 @@ void GamePlayState::Execute(Game* game)
 	m_Button_Pause->Update();
 	m_Background->Update();
 	m_Background_Clone->Update();
+	m_CircleWithDirections->Update();
+	m_Circle4Dash->Update();
+	//	m_Circle2Dash->Update();
 
-	//update
+		//update
 	float attackingRadius = 3.0f;
 	b2Vec2 distance;
 	b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
@@ -100,6 +117,9 @@ void GamePlayState::Render(Game* game)
 	m_Background->Render();
 	m_Background_Clone->Render();
 	m_Button_Pause->Render();
+	m_CircleWithDirections->Render();
+	m_Circle4Dash->Render();
+	//	m_Circle2Dash->Render();
 	std::string currentScore = std::to_string(m_Goku->GetCurrentScore());
 	std::string scoreText = "Score: ";
 	scoreText.append(currentScore);
@@ -137,11 +157,20 @@ void GamePlayState::Init(const char* filePath)
 
 	m_Background_Clone = new EntityStatic();
 	m_Background_Clone->InitSprite(100, 201, 1);
-	m_Background_Clone->InitPosition(1120+1120/2, 315);
+	m_Background_Clone->InitPosition(1120 + 1120 / 2, 315);
 
 	m_Button_Pause = new EntityStatic();
 	m_Button_Pause->InitSprite(5, 115, 1);
 	m_Button_Pause->InitPosition(1090, 30);
+
+	m_CircleWithDirections = new EntityStatic();
+	m_CircleWithDirections->InitSprite(101, 123, 1);
+	m_CircleWithDirections->InitPosition(120, 520);
+
+	m_Circle4Dash = new EntityStatic();
+	m_Circle4Dash->InitSprite(102, 124, 1);
+	m_Circle4Dash->InitPosition(120, 520);
+	m_Circle4Dash->InitPosition(InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
 
 	Factory->Init("File path");
 	m_spawner.Init("File path");
@@ -209,6 +238,9 @@ GamePlayState::~GamePlayState()
 	delete m_Button_Pause;
 	delete m_Background;
 	delete m_Background_Clone;
+	delete m_CircleWithDirections;
+	delete m_Circle4Dash;
+//	delete m_Circle2Dash;
 
 	for (auto it : m_vCurrentKiBlasts)
 	{
@@ -220,7 +252,7 @@ GamePlayState::~GamePlayState()
 		delete it;
 	}
 
-	for (auto it: m_mapCurrentEntities)
+	for (auto it : m_mapCurrentEntities)
 	{
 		delete it.second;
 	}

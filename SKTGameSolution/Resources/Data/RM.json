@@ -120,6 +120,26 @@
 			"spriteH": 1024,
 			"textureW": 1024,
 			"textureH": 1024
+		},
+		{
+			"id": 101,
+			"note": "CircleWithDirections",
+			"modelW": 150,
+			"modelH": 150,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 512,
+			"textureH": 512
+		},
+		{
+			"id": 102,
+			"note": "CircleWithDirections",
+			"modelW": 120,
+			"modelH": 120,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 512,
+			"textureH": 512
 		}
 	],
 	"spriteSheets":

@@ -14,7 +14,7 @@ public:
 	GamePlayState();
 	~GamePlayState();
 	void Enter(Game* game) override;
-	static void PressButton(Game* game);
+	void PressButton(Game* game);
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
@@ -33,6 +33,11 @@ private:
 	EntityStatic *m_Background_Clone;
 	EntityPlayer* m_Goku;
 	EntityStatic *m_Button_Pause;
+
+	EntityStatic *m_CircleWithDirections;
+	EntityStatic *m_Circle4Dash;
+	EntityStatic *m_Circle2Dash;
+	Vector2 m_Circle4DashPos;
 	int i = 1120/2;
 	int j = 1120 + 1120/2;
 	//current entity on the screen
