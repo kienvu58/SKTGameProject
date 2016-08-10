@@ -7,15 +7,14 @@ class SteeringBehavior;
 class EntityMinion : public EntityLiving
 {
 public:
-
+	EntityMinion();
+	virtual ~EntityMinion();
+	
 	void Render() override;
 	void Update() override;
 	EntityType GetType() override;
 	void InitSteeringBehavior();
 	bool HandleMessage(const Telegram& telegram) override = 0;
-
-	EntityMinion();
-	virtual ~EntityMinion();
 
 	float GetMaxForce() const;
 	SteeringBehavior* GetSteering() const;
@@ -25,6 +24,7 @@ public:
 
 	void Reset() override;
 	void Explode();
+	int GetPrize() const;
 protected:
 	//behavior
 	SteeringBehavior* m_pSteeringBehavior;
@@ -36,5 +36,5 @@ protected:
 	float m_fMaxForce;
 
 	int m_iExplosionPID;
+	int m_iPrize;
 };
-

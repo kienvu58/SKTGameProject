@@ -20,6 +20,7 @@ void PlayerGlobalState::Execute(EntityPlayer* entity)
 	{
 		entity->GetFSM()->ChangeState(PS_FallToDead::GetInstance());
 	}
+	entity->DetectMinions();
 
 	auto keyA = InputMgr->IsPressed(KEY_A);
 	auto keyD = InputMgr->IsPressed(KEY_D);
@@ -265,7 +266,6 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 	if (currentFrame == 2 && entity->IsFrameChanged())
 	{
 		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.75, 0.15);
-		Dispatcher->DispatchMessageA(entity, GameInstance, MSG_SPAWN_KAMEHAMEHA, &kamehamehaPosition);
 	}
 
 	if (!InputMgr->IsPressed(KEY_K) && firingSpecialAnimation->GetTotalFrames() <= entity->GetFrameCount())
@@ -322,7 +322,6 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 	if (currentFrame == 7 && entity->IsFrameChanged())
 	{
 		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0);
-		Dispatcher->DispatchMessageA(entity, GameInstance, MSG_SPAWN_TRUE_KAMEHAMEHA, &kamehamehaPosition);
 	}
 	if (!InputMgr->IsPressed(KEY_L) && firingUltimateAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{

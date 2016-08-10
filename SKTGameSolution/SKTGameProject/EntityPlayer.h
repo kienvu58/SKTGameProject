@@ -37,16 +37,15 @@ public:
 
 	void Init(int prototypeId, const char* dataPath) override;
 
-	void IncreaseScore(int amount);
-	int GetCurrentScore() const;
-
 	bool IsOnTheGround() const;
+	void DetectMinions();
 	void Fire() const;
 private:
 	//player attributes
 	float m_fMaxKi;
 	float m_fCurrentKi;
-	int	  m_iCurrentScore;
+	float m_fVisionRange;
+	float m_fVisionFreq;
 
 	// prototypeIds of player's skills
 	int m_iNormalPID;

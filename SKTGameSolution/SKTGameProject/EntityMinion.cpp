@@ -3,6 +3,10 @@
 #include "SingletonClasses.h"
 
 
+EntityMinion::EntityMinion() : m_pSteeringBehavior(nullptr), m_fMaxForce(2), m_iExplosionPID(0), m_iPrize(10)
+{
+}
+
 void EntityMinion::Render()
 {
 	m_Sprite.Render();
@@ -29,10 +33,6 @@ EntityType EntityMinion::GetType()
 void EntityMinion::InitSteeringBehavior()
 {
 	m_pSteeringBehavior = new SteeringBehavior(this);
-}
-
-EntityMinion::EntityMinion(): m_pSteeringBehavior(nullptr), m_fMaxForce(2)
-{
 }
 
 EntityMinion::~EntityMinion()
@@ -67,9 +67,14 @@ void EntityMinion::Explode()
 	m_bIsActive = false;
 }
 
+int EntityMinion::GetPrize() const
+{
+	return m_iPrize;
+}
+
 void EntityMinion::TruncateVelocity(b2Vec2& currentVelocity) const
 {
-	if(currentVelocity.Length() > m_fMaxSpeed)
+	if (currentVelocity.Length() > m_fMaxSpeed)
 	{
 		currentVelocity.Normalize();
 		currentVelocity *= m_fMaxSpeed;

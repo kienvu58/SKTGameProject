@@ -151,6 +151,7 @@
     <ClCompile Include="MinionOwnedStates.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerOwnedStates.cpp" />
+    <ClCompile Include="RayCastMultipleCallback.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="PoolManager.cpp" />
     <ClCompile Include="Spawner.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="PlayerOwnedStates.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="PoolManager.h" />
+    <ClInclude Include="RayCastMultipleCallback.h" />
     <ClInclude Include="SingletonClasses.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Spawner.h" />

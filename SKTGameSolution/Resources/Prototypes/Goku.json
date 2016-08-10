@@ -1,4 +1,6 @@
 {
+  "visionRange": 4,
+  "visionFreq": 10,
 	"attackDamage": 10,
 	"maxKi": 100,
 	"maxSpeed": 3,

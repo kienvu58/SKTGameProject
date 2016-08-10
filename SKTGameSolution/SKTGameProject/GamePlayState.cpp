@@ -9,8 +9,7 @@
 #include "../GraphicsEngine/HelperFunctions.h"
 #include "EntityKiBlast.h"
 
-GamePlayState::GamePlayState()
-{
+GamePlayState::GamePlayState(): m_iScore(0) {
 }
 
 void GamePlayState::Enter(Game* game)
@@ -36,38 +35,16 @@ void GamePlayState::Execute(Game* game)
 	m_Button_Pause->Update();
 	m_Background->Update();
 
-	//update
-	float attackingRadius = 3.0f;
-	b2Vec2 distance;
-	b2Vec2 goKuPosition = m_Player->GetBody()->GetPosition();
-	int i;
-	std::vector<Entity*>* cellJuniors = GetEntitiesByType(ENTITY_CELLJUNIOR);
-
-	if (cellJuniors)
-	{
-		for (i = 0; i < cellJuniors->size(); i++)
-		{
-			EntityCellJunior* cellJunior = static_cast<EntityCellJunior*>(cellJuniors->at(i));
-			distance = goKuPosition - cellJunior->GetBody()->GetPosition();
-			if (distance.Length() <= attackingRadius
-				&& cellJunior->GetFSM()->CurrentState() != CJS_Attacking::GetInstance())
-			{
-				b2Vec2 goKuPosition = m_Player->GetBody()->GetPosition();
-				Dispatcher->DispatchMessageA(GameInstance, cellJunior, MSG_CELLJR_INSIDE_ATTACK_RANGE, &goKuPosition);
-			}
-		}
-	}
-
 	m_Player->Update();
 
 	game->IncreasePlayingTime(Globals::deltaTime);
-	game->UpdateDifficulty(m_Player->GetCurrentScore());
+	game->UpdateDifficulty(m_iScore);
 
 	m_spawner.SpawnMinions();
-	for (auto it : m_mapCurrentEntities)
+	for (auto pair : m_mapCurrentEntities)
 	{
-		for (int i = 0; i < it.second->size(); i++)
-			it.second->at(i)->Update();
+		for (auto entity : pair.second)
+			entity->Update();
 	}
 
 	PressButton(game);
@@ -81,7 +58,7 @@ void GamePlayState::Render(Game* game)
 {
 	m_Background->Render();
 	m_Button_Pause->Render();
-	std::string currentScore = std::to_string(m_Player->GetCurrentScore());
+	std::string currentScore = std::to_string(m_iScore);
 	std::string scoreText = "Score: ";
 	scoreText.append(currentScore);
 	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0, 0, 1, 1);
@@ -95,11 +72,11 @@ void GamePlayState::Render(Game* game)
 	currentHealth.append(std::to_string(m_Player->GetCurrentHealth()));
 	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
 
-	for (auto it : m_mapCurrentEntities)
+	for (const auto& pair : m_mapCurrentEntities)
 	{
-		for (int i = 0; i < it.second->size(); i++)
+		for (auto entity : pair.second)
 		{
-			it.second->at(i)->Render();
+			entity->Render();
 		}
 	}
 
@@ -142,11 +119,6 @@ GamePlayState::~GamePlayState()
 {
 	delete m_Button_Pause;
 	delete m_Background;
-
-	for (auto it: m_mapCurrentEntities)
-	{
-		delete it.second;
-	}
 }
 
 void GamePlayState::AddEntityToTheScreen(Entity* entity)
@@ -157,18 +129,18 @@ void GamePlayState::AddEntityToTheScreen(Entity* entity)
 	{
 		if (entity != nullptr)
 		{
-			auto it2 = std::find(pair->second->begin(), pair->second->end(), entity);
-			if (it2 == pair->second->end())
+			auto it2 = std::find(pair->second.begin(), pair->second.end(), entity);
+			if (it2 == pair->second.end())
 			{
-				pair->second->push_back(entity);
+				pair->second.push_back(entity);
 			}
 		}
 	}
 	else
 	{
-		std::vector<Entity*>* vecEntity = new std::vector<Entity*>();
-		vecEntity->push_back(entity);
-		m_mapCurrentEntities.insert(std::pair<int, std::vector<Entity*>*>(prototypeId, vecEntity));
+		std::vector<Entity*> vecEntity;
+		vecEntity.push_back(entity);
+		m_mapCurrentEntities.insert(std::pair<int, std::vector<Entity*>>(prototypeId, vecEntity));
 	}
 }
 
@@ -179,7 +151,7 @@ void GamePlayState::RemoveEntityFromTheScreen(Entity* entity)
 	if (pair != m_mapCurrentEntities.end())
 	{
 		PoolMgr->ReleaseEntity(entity);
-		RemoveFromVector<Entity*>(*(pair->second), entity);
+		RemoveFromVector<Entity*>(pair->second, entity);
 	}
 }
 
@@ -187,7 +159,7 @@ int GamePlayState::GetNumberOfEntitiesByPrototypeId(int prototypeId)
 {
 	auto pair = m_mapCurrentEntities.find(prototypeId);
 	if (pair != m_mapCurrentEntities.end())
-		return pair->second->size();
+		return pair->second.size();
 	return 0;
 }
 
@@ -196,17 +168,17 @@ int GamePlayState::GetNumberOfAllEntities()
 	auto size = 0;
 	for (auto pair : m_mapCurrentEntities)
 	{
-		size += pair.second->size();
+		size += pair.second.size();
 	}
 	return size;
 }
 
 std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)
 {
-	auto it = m_mapCurrentEntities.find(type);
-	if (it != m_mapCurrentEntities.end())
+	auto pair = m_mapCurrentEntities.find(type);
+	if (pair != m_mapCurrentEntities.end())
 	{
-		return it->second;
+		return &pair->second;
 	}
 	return nullptr;
 }
@@ -214,4 +186,9 @@ std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)
 EntityPlayer* GamePlayState::GetPlayer() const
 {
 	return m_Player;
+}
+
+void GamePlayState::IncreaseScore(int amount)
+{
+	m_iScore += amount;
 }

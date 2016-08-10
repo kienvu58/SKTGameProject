@@ -1,6 +1,7 @@
 {
+  "prize": 100,
 	"attackDamage": 10,
-	"maxSpeed": 3,
+	"maxSpeed": 10,
 	"movementSpeed": 3,
 	"maxHealth": 50,
 	"animationIds": [13, 15],

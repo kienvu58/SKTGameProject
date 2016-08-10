@@ -26,6 +26,8 @@ public:
 	int GetNumberOfAllEntities();
 	std::vector<Entity*>* GetEntitiesByType(EntityType type);
 	EntityPlayer* GetPlayer() const;
+
+	void IncreaseScore(int amount);
 private:
 	EntityStatic* m_Background;
 	EntityStatic* m_Button_Pause;
@@ -33,8 +35,10 @@ private:
 	EntityPlayer* m_Player;
 	
 	// map to store minion by protypeId
-	std::map<int, std::vector<Entity*>*> m_mapCurrentEntities;
+	std::map<int, std::vector<Entity*>> m_mapCurrentEntities;
 
 	//spawner
 	Spawner m_spawner;
+
+	int m_iScore;
 };

@@ -8,7 +8,7 @@ PoolManager::PoolManager()
 
 PoolManager::~PoolManager()
 {
-	for (auto pair : m_mapAvailable)
+	for (auto& pair : m_mapAvailable)
 	{
 		for (auto entity : pair.second)
 		{

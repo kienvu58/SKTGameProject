@@ -22,14 +22,14 @@ void CellJuniorAttackingState::Enter(EntityCellJunior* celljunior)
 	celljunior->GetSteering()->SeekOn();
 }
 
-void CellJuniorAttackingState::Execute(EntityCellJunior* celljunior)
+void CellJuniorAttackingState::Execute(EntityCellJunior* cellJunior)
 {
-	b2Vec2 playerPositon = GS_GamePlay::GetInstance()->GetPlayer()->GetBody()->GetPosition();
-	celljunior->GetSteering()->SetSeekTarget(playerPositon);
-	celljunior->IncreaseOverheat(2);
-	if (celljunior->IsOverheated())
+	cellJunior->IncreaseOverheat(2);
+	auto playerPosition = GS_GamePlay::GetInstance()->GetPlayer()->GetBody()->GetPosition();
+	cellJunior->GetSteering()->SetSeekTarget(playerPosition);
+	if (cellJunior->IsOverheated())
 	{
-		celljunior->GetFSM()->ChangeState(CJS_Wandering::GetInstance());
+		cellJunior->GetFSM()->ChangeState(CJS_Wandering::GetInstance());
 	}
 }
 
@@ -77,14 +77,13 @@ void CellJuniorWanderingState::Render(EntityCellJunior* cellJunior)
 
 bool CellJuniorWanderingState::OnMessage(EntityCellJunior* cellJunior, const Telegram& telegram)
 {
-	if (telegram.Message == MSG_CELLJR_INSIDE_ATTACK_RANGE)
+	if (telegram.Message == MSG_MINION_INSIDE_VISION_RANGE)
 	{
 		if (!cellJunior->IsOverheated())
 		{
-			auto goKuPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
+			auto playerPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 			cellJunior->GetFSM()->ChangeState(CJS_Attacking::GetInstance());
-			cellJunior->GetSteering()->SetSeekTarget(goKuPosition);
-		}	
+		}
 		return true;
 	}
 	return false;
@@ -122,4 +121,3 @@ bool CellJuniorGlobalState::OnMessage(EntityCellJunior* minion, const Telegram& 
 		return true;
 	return false;
 }
-

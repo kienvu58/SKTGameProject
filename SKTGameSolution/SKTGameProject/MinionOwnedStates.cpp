@@ -46,10 +46,10 @@ void MinionGlobalState::Enter(EntityMinion* minion)
 
 void MinionGlobalState::Execute(EntityMinion* minion)
 {
-	if (minion->IsDead)
+	if (minion->IsDead())
 	{
 		minion->Explode();
-		Dispatcher->DispatchMessageA();
+		GS_GamePlay::GetInstance()->IncreaseScore(minion->GetPrize());
 	}
 	if (!minion->IsActive() || minion->IsOutOfWall())
 	{

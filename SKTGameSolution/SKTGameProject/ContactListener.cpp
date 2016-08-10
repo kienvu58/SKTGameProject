@@ -39,23 +39,16 @@ void ContactListener::BeginContact(b2Contact* contact)
 			KiBlastHitsMinion(static_cast<EntityKiBlast*>(entityB), static_cast<EntityMinion*>(entityA));
 		}
 
+		if (typeA == ENTITY_MINION && typeB == ENTITY_PLAYER)
+		{
+			MinionHitsPlayer(static_cast<EntityMinion*>(entityA), static_cast<EntityPlayer*>(entityB));
+		}
 
-//		if ((typeA == ENTITY_CELLJUNIOR ||
-//			 typeA == ENTITY_CELL
-//			) && typeB == ENTITY_PLAYER)
-//		{
-//			float damage = static_cast<EntityMinion*>(entityA)->GetAttackDamage();
-//			Dispatcher->DispatchMessageA(nullptr, entityB, MSG_PLAYER_TAKE_DAMAGE, &damage);
-//			Dispatcher->DispatchMessageA(nullptr, entityA, MSG_MINION_HIT_PLAYER, nullptr);
-//		}
-//
-//		if ((typeB == ENTITY_CELLJUNIOR ||
-//			 typeB == ENTITY_CELL) && typeA == ENTITY_PLAYER)
-//		{
-//			float damage = static_cast<EntityMinion*>(entityB)->GetAttackDamage();
-//			Dispatcher->DispatchMessageA(nullptr, entityA, MSG_PLAYER_TAKE_DAMAGE, &damage);
-//			Dispatcher->DispatchMessageA(nullptr, entityB, MSG_MINION_HIT_PLAYER, nullptr);
-//		}
+		if (typeB == ENTITY_MINION && typeA == ENTITY_PLAYER)
+		{
+			MinionHitsPlayer(static_cast<EntityMinion*>(entityB), static_cast<EntityPlayer*>(entityA));
+		}
+
 	}
 }
 
@@ -64,10 +57,16 @@ void ContactListener::EndContact(b2Contact* contact)
 	//	std::cout << "End contact.\n";
 }
 
-void ContactListener::KiBlastHitsMinion(EntityKiBlast* bullet, EntityMinion* minion)
+void ContactListener::KiBlastHitsMinion(EntityKiBlast* kiBlast, EntityMinion* minion)
 {
-	auto damage = static_cast<EntityBullet*>(bullet)->GetAttackDamage();
+	auto damage = kiBlast->GetAttackDamage();
 	Dispatcher->DispatchMessageA(nullptr, minion, MSG_MINION_TAKE_DAMAGE, &damage);
-	Dispatcher->DispatchMessageA(nullptr, bullet, MSG_EXPLODE, nullptr);
-	std::cout << "Hit" << std::endl;
+	Dispatcher->DispatchMessageA(nullptr, kiBlast, MSG_EXPLODE, nullptr);
+}
+
+void ContactListener::MinionHitsPlayer(EntityMinion* minion, EntityPlayer* player)
+{
+	auto damage = minion->GetAttackDamage();
+	Dispatcher->DispatchMessageA(nullptr, player, MSG_PLAYER_TAKE_DAMAGE, &damage);
+	Dispatcher->DispatchMessageA(nullptr, minion, MSG_EXPLODE, nullptr);
 }

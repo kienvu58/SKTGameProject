@@ -47,11 +47,6 @@ void CellGlobalState::Enter(EntityCell* minion)
 void CellGlobalState::Execute(EntityCell* minion)
 {
 	MS_Global::GetInstance()->Execute(minion);
-
-	if (minion->IsDead())
-	{
-		minion->GetFSM()->ChangeState(CS_Dead::GetInstance());
-	}
 }
 
 void CellGlobalState::Exit(EntityCell* minion)

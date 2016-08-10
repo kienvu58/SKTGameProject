@@ -1,8 +1,8 @@
 #pragma once
 #include <Box2D/Dynamics/b2WorldCallbacks.h>
-#include "EntityLiving.h"
 #include "EntityKiBlast.h"
 #include "EntityMinion.h"
+#include "EntityPlayer.h"
 
 class ContactListener : public b2ContactListener
 {
@@ -14,6 +14,7 @@ public:
 	void EndContact(b2Contact* contact) override;
 
 private:
-	static void KiBlastHitsMinion(EntityKiBlast* bullet, EntityMinion* minion);
+	static void KiBlastHitsMinion(EntityKiBlast* kiBlast, EntityMinion* minion);
+	static void MinionHitsPlayer(EntityMinion* minion, EntityPlayer* player);
 };
 
