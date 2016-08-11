@@ -29,6 +29,7 @@ EntityLiving::EntityLiving(const EntityLiving& entityLiving): m_fCurrentHealth(e
                                                               m_fAttackDamage(entityLiving.m_fAttackDamage),
                                                               m_Sprite(entityLiving.m_Sprite),
                                                               m_bIsReversed(entityLiving.m_bIsReversed),
+                                                              m_vecAnimations(entityLiving.m_vecAnimations),
                                                               m_iCurrentFrameIndex(0),
                                                               m_iLastFrameIndex(0),
                                                               m_fCurrentDelay(0),
@@ -197,9 +198,15 @@ bool EntityLiving::IsOverheated() const
 	return m_bIsOverheated;
 }
 
+void EntityLiving::SetOverheat(float value)
+{
+	m_fCurrentOverHeat = value;
+}
+
 void EntityLiving::Reset()
 {
 	m_fCurrentHealth = m_fMaxHealth;
+	m_fCurrentOverHeat = MIN_OVERHEAT;
 	m_bIsActive = false;
 	m_pBody->SetActive(false);
 }

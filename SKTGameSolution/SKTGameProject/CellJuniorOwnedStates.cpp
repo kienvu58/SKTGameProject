@@ -18,7 +18,6 @@ CellJuniorAttackingState::~CellJuniorAttackingState()
 void CellJuniorAttackingState::Enter(EntityCellJunior* celljunior)
 {
 	celljunior->ScaleVelocity(2.0);
-	celljunior->GetSteering()->WanderOff();
 	celljunior->GetSteering()->SeekOn();
 }
 
@@ -27,6 +26,7 @@ void CellJuniorAttackingState::Execute(EntityCellJunior* cellJunior)
 	cellJunior->IncreaseOverheat(2);
 	auto playerPosition = GS_GamePlay::GetInstance()->GetPlayer()->GetBody()->GetPosition();
 	cellJunior->GetSteering()->SetSeekTarget(playerPosition);
+	cellJunior->UpdateAnimationToSprite(cellJunior->GetAnimation(CELLJR_ATTACKING));
 	if (cellJunior->IsOverheated())
 	{
 		cellJunior->GetFSM()->ChangeState(CJS_Wandering::GetInstance());
@@ -35,6 +35,8 @@ void CellJuniorAttackingState::Execute(EntityCellJunior* cellJunior)
 
 void CellJuniorAttackingState::Exit(EntityCellJunior* celljunior)
 {
+	celljunior->GetSteering()->SeekOff();
+	celljunior->ResetCurrentAnimationInfo();
 }
 
 void CellJuniorAttackingState::Render(EntityCellJunior* celljunior)
@@ -59,16 +61,18 @@ void CellJuniorWanderingState::Enter(EntityCellJunior* cellJunior)
 {
 	cellJunior->GetBody()->SetLinearVelocity(cellJunior->GetMovementSpeed() * b2Vec2(-1, 0));
 	cellJunior->GetSteering()->WanderOn();
-	cellJunior->GetSteering()->SeekOff();
 }
 
 void CellJuniorWanderingState::Execute(EntityCellJunior* cellJunior)
 {
 	cellJunior->DecreaseOverheatPerSecond(15);
+	cellJunior->UpdateAnimationToSprite(cellJunior->GetAnimation(CELLJR_WANDERING));
 }
 
 void CellJuniorWanderingState::Exit(EntityCellJunior* cellJunior)
 {
+	cellJunior->GetSteering()->WanderOff();
+	cellJunior->ResetCurrentAnimationInfo();
 }
 
 void CellJuniorWanderingState::Render(EntityCellJunior* cellJunior)
@@ -120,3 +124,4 @@ bool CellJuniorGlobalState::OnMessage(EntityCellJunior* minion, const Telegram& 
 	}
 	return isHandled;
 }
+

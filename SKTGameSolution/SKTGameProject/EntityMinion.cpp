@@ -21,7 +21,7 @@ void EntityMinion::Update()
 
 	currentVelocity += force;
 	TruncateVelocity(currentVelocity);
-
+	auto length = currentVelocity.Length();
 	m_pBody->SetLinearVelocity(currentVelocity);
 }
 

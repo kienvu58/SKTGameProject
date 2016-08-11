@@ -54,6 +54,7 @@ void Game::CreateStateInstances()
 	CS_Global::CreateInstance();
 	CS_Wandering::CreateInstance();
 	CS_Attacking::CreateInstance();
+	CS_Dodging::CreateInstance();
 }
 
 void Game::DestroyStateInstances()
@@ -84,6 +85,7 @@ void Game::DestroyStateInstances()
 	CS_Global::DestroyInstance();
 	CS_Wandering::DestroyInstance();
 	CS_Attacking::DestroyInstance();
+	CS_Dodging::DestroyInstance();
 }
 
 void Game::Update()

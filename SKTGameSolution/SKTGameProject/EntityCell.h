@@ -2,6 +2,16 @@
 #include "EntityMinion.h"
 #include <Common/FSM/StateMachine.h>
 
+enum CellAnimationName
+{
+	CELL_STANDING,
+	CELL_FORWARD,
+	CELL_BACKWARD,
+	CELL_UP,
+	CELL_DOWN,
+	CELL_FIRING
+};
+
 class EntityCell
 	: public EntityMinion
 {

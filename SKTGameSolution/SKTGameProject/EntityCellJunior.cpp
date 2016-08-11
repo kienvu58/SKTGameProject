@@ -73,7 +73,8 @@ void EntityCellJunior::Init(int prototypeId, const char* dataPath)
 	std::vector<Animation*> animations;
 	for (auto animationId : data["animationIds"])
 	{
-		animations.push_back(AnimationMgr->GetAnimationById(animationId.get<int>()));
+		auto animation = AnimationMgr->GetAnimationById(animationId.get<int>());
+		animations.push_back(animation);
 	}
 
 	SetAnimations(animations);

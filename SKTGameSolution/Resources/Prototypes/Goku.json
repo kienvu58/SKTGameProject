@@ -31,7 +31,7 @@
 			"boxShape": { "hx": 0.4, "hy": 0.5 },
 			"friction": 1,
 			"restitution": 0,
-			"filter": { "categoryBits": 2, "maskBits": [1, 4], "note": "1: Wall, 2:Player, 4:Minion, 8: KiBlast" }
+			"filter": { "categoryBits": 2, "maskBits": [1, 4, 16], "note": "1: Wall, 2:Player, 4:Minion, 8: KiBlast" }
 		}
 	}
 }
