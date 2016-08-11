@@ -67,6 +67,7 @@ void EntityCell::Init(int prototypeId, const char* dataPath)
 		m_b2FixtureDef.filter.maskBits |= maskBits.get<int>();
 	}
 
+	m_iExplosionPID = data["explosionPID"].get<int>();
 	m_iPrize = data["prize"].get<int>();
 	m_fMaxSpeed = data["maxSpeed"].get<float>();
 	m_fCurrentHealth = m_fMaxHealth = data["maxHealth"].get<float>();

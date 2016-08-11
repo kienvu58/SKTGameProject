@@ -112,6 +112,16 @@
 			"textureH": 512
 		},
 		{
+			"id": 12,
+			"note": "BigExplosion",
+			"modelW": 70,
+			"modelH": 70,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
 			"id": 100,
 			"note": "BackgroundRunning",
 			"modelW": 1120,

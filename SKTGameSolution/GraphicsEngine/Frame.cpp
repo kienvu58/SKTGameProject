@@ -1,7 +1,7 @@
 #include "Frame.h"
 
 
-Frame::Frame(int ID, int spriteSheetID, int index, int duration): m_iDuration(duration), m_Index(index), m_Id(ID), m_SpriteSheetId(spriteSheetID)
+Frame::Frame(int ID, int spriteSheetID, int index, float duration): m_fDuration(duration), m_Index(index), m_Id(ID), m_SpriteSheetId(spriteSheetID)
 {
 }
 
@@ -21,5 +21,5 @@ int Frame::GetIndex() const
 
 int Frame::GetDuration() const
 {
-	return m_iDuration;
+	return m_fDuration;
 }

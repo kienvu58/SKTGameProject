@@ -6,6 +6,7 @@
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
 #include "../GraphicsEngine/Globals.h"
+#include "EntityEffect.h"
 
 
 EntityKiBlast::EntityKiBlast(): m_pBody(nullptr), m_iExplosionPID(0)
@@ -13,6 +14,8 @@ EntityKiBlast::EntityKiBlast(): m_pBody(nullptr), m_iExplosionPID(0)
 }
 
 EntityKiBlast::EntityKiBlast(const EntityKiBlast& other) : m_Sprite(other.m_Sprite),
+                                                           m_iExplosionPID(other.m_iExplosionPID),
+                                                           m_iTriggerEffectPID(other.m_iTriggerEffectPID),
                                                            m_b2PolygonShape(other.m_b2PolygonShape),
                                                            m_b2BodyDef(other.m_b2BodyDef),
                                                            m_b2FixtureDef(other.m_b2FixtureDef)
@@ -41,7 +44,7 @@ void EntityKiBlast::Update()
 	}
 	else
 	{
-		Dispatcher->DispatchMessageA(this, GameInstance, MSG_CLEAN_UP, this);
+		Dispatcher->DispatchMessageA(this, GameInstance, MSG_CLEAN_UP, nullptr);
 	}
 }
 
@@ -91,6 +94,14 @@ void EntityKiBlast::InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtu
 	m_pBody->SetActive(false);
 }
 
+void EntityKiBlast::Trigger() const
+{
+	auto triggerEffect = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iTriggerEffectPID));
+	auto effectPos = m_pBody->GetPosition() - b2Vec2(0.1f, 0);
+	triggerEffect->Start(effectPos, GameInstance);
+	GS_GamePlay::GetInstance()->AddEntityToTheScreen(triggerEffect);
+}
+
 void EntityKiBlast::Fire(b2Vec2 position, int direction)
 {
 	m_bIsActive = true;
@@ -98,6 +109,7 @@ void EntityKiBlast::Fire(b2Vec2 position, int direction)
 	m_pBody->SetTransform(position, m_pBody->GetAngle());
 	m_pBody->SetLinearVelocity(m_fSpeed * b2Vec2(direction, 0));
 	m_iDirection = direction;
+	Trigger();
 }
 
 void EntityKiBlast::Reset()
@@ -108,7 +120,11 @@ void EntityKiBlast::Reset()
 
 void EntityKiBlast::Explode()
 {
-	// Create explosion effect here
+	auto explosionEffect = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iExplosionPID));
+	auto explosionPos = m_pBody->GetPosition();
+	explosionEffect->Start(explosionPos, GameInstance);
+	GS_GamePlay::GetInstance()->AddEntityToTheScreen(explosionEffect);
+
 	m_bIsActive = false;
 }
 
@@ -150,6 +166,8 @@ void EntityKiBlast::Init(int prototypeId, const char* dataPath)
 
 	m_fAttackDamage = data["attackDamage"].get<float>();
 	m_fSpeed = data["speed"].get<float>();
+	m_iExplosionPID = data["explosionPID"].get<int>();
+	m_iTriggerEffectPID = data["triggerEffectPID"].get<int>();
 
 	InitSprite(modelId, frameId, shaderId);
 }

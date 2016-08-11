@@ -108,7 +108,7 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 		MusicMgr->MusicVolume("SkillUlti_2", 50);
 	}
 
-	entity->UpdateAnimationToSprite(entity->GetAnimation(STANDING));
+	entity->UpdateSpriteFrame(entity->GetAnimation(STANDING));
 }
 
 void PlayerStandingState::Exit(EntityPlayer* entity)
@@ -161,25 +161,25 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 	if (velocity.x > 0)
 	{
 		// MOVING FORWARD
-		entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_FORWARD));
+		entity->UpdateSpriteFrame(entity->GetAnimation(MOVING_FORWARD));
 	}
 	if (velocity.x < 0)
 	{
 		// MOVING BACKWARD	
-		entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_BACKWARD));
+		entity->UpdateSpriteFrame(entity->GetAnimation(MOVING_BACKWARD));
 	}
 	if (velocity.x == 0)
 	{
 		if (velocity.y > 0)
 		{
 			// MOVING UP
-			entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_UP));
+			entity->UpdateSpriteFrame(entity->GetAnimation(MOVING_UP));
 		}
 
 		if (velocity.y < 0)
 		{
 			// MOVING DOWN
-			entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_DOWN));
+			entity->UpdateSpriteFrame(entity->GetAnimation(MOVING_DOWN));
 		}
 	}
 }
@@ -232,7 +232,7 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
 
-	entity->UpdateAnimationToSprite(firingAnimation);
+	entity->UpdateSpriteFrame(firingAnimation);
 }
 
 void PlayerFiringState::Exit(EntityPlayer* entity)
@@ -281,7 +281,7 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
 
-	entity->UpdateAnimationToSprite(firingSpecialAnimation);
+	entity->UpdateSpriteFrame(firingSpecialAnimation);
 }
 
 void PlayerFiringSpecialState::Exit(EntityPlayer* entity)
@@ -336,7 +336,7 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
 
-	entity->UpdateAnimationToSprite(firingUltimateAnimation);
+	entity->UpdateSpriteFrame(firingUltimateAnimation);
 }
 
 void PlayerFiringUltimateState::Exit(EntityPlayer* entity)
@@ -413,14 +413,14 @@ void PlayerFallingToDead::Execute(EntityPlayer* player)
 {
 	if (player->IsOnTheGround())
 	{
-		player->UpdateAnimationToSprite(player->GetAnimation(DEAD));
+		player->UpdateSpriteFrame(player->GetAnimation(DEAD));
 		MusicMgr->MusicPlay("GokuDead");
 		MusicMgr->MusicVolume("GokuDead", 50);
 		GameInstance->GetFSM()->ChangeState(GS_GameOver::GetInstance());
 	}
 	else
 	{
-		player->UpdateAnimationToSprite(player->GetAnimation(FALLING));
+		player->UpdateSpriteFrame(player->GetAnimation(FALLING));
 	}
 }
 

@@ -44,7 +44,7 @@ void Spawner::Init(const char* filePath)
 
 	m_mapChanceWeights.insert(std::pair<int, float>(69, 0.9));
 	m_mapNumberToSpawnWeights.insert(std::pair<int, float>(69, 2.0f / 5));
-	m_mapInitNum.insert(std::pair<int, int>(69, 10));
+	m_mapInitNum.insert(std::pair<int, int>(69, 1));
 }
 
 float Spawner::GetSpawnMinionChance(float difficulty, int prototypeId) const

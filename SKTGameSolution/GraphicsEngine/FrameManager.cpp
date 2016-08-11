@@ -26,7 +26,7 @@ void FrameManager::Init(const char* path)
 		id = it["id"].get<int>();
 		spriteSheetId = it["spriteSheetID"].get<int>();
 		index = it["index"].get<int>();
-		duration = it["duration"].get<int>();
+		duration = it["duration"].get<float>();
 
 		Frame* frame = new Frame(id, spriteSheetId, index, duration);
 		m_mapFrames.insert(std::pair<int, Frame*>(id, frame));

@@ -1,6 +1,7 @@
 #include "EntityMinion.h"
 #include <Box2D/Dynamics/b2Fixture.h>
 #include "SingletonClasses.h"
+#include "EntityEffect.h"
 
 
 EntityMinion::EntityMinion() : m_pSteeringBehavior(nullptr), m_fMaxForce(2), m_iExplosionPID(0), m_iPrize(10)
@@ -63,7 +64,11 @@ void EntityMinion::Reset()
 
 void EntityMinion::Explode()
 {
-	// Create explosion effect here
+	auto explosionEffect = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iExplosionPID));
+	auto explosionPos = m_pBody->GetPosition();
+	explosionEffect->Start(explosionPos, GameInstance);
+	GS_GamePlay::GetInstance()->AddEntityToTheScreen(explosionEffect);
+
 	m_bIsActive = false;
 }
 

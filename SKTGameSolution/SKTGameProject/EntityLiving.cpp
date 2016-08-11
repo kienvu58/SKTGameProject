@@ -29,6 +29,7 @@ EntityLiving::EntityLiving(const EntityLiving& entityLiving): m_fCurrentHealth(e
                                                               m_fAttackDamage(entityLiving.m_fAttackDamage),
                                                               m_Sprite(entityLiving.m_Sprite),
                                                               m_bIsReversed(entityLiving.m_bIsReversed),
+                                                              m_vecAnimations(entityLiving.m_vecAnimations),
                                                               m_iCurrentFrameIndex(0),
                                                               m_iLastFrameIndex(0),
                                                               m_fCurrentDelay(0),
@@ -91,7 +92,7 @@ Animation* EntityLiving::GetAnimation(int index)
 	return m_vecAnimations.at(index);
 }
 
-void EntityLiving::UpdateAnimationToSprite(Animation* animation)
+void EntityLiving::UpdateSpriteFrame(Animation* animation)
 {
 	if (m_iCurrentFrameIndex == m_iLastFrameIndex)
 	{ // in duration of current frame, increase delay
@@ -102,7 +103,7 @@ void EntityLiving::UpdateAnimationToSprite(Animation* animation)
 		m_iFrameCount++;
 		m_fCurrentDelay = 0;
 	}
-	Frame* frame = animation->GetFrameByIndex(m_iCurrentFrameIndex);
+	auto frame = animation->GetFrameByIndex(m_iCurrentFrameIndex);
 	m_Sprite.SetFrame(frame);
 
 	m_iLastFrameIndex = m_iCurrentFrameIndex;
