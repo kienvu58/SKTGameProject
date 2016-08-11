@@ -72,7 +72,6 @@
 		{ "id": 102, "spriteSheetID": 3, "index": 2, "duration": 1, "note": "GameDeadBackground" },
 		{ "id": 103, "spriteSheetID": 3, "index": 3, "duration": 1, "note": "GameOptionButton" },
 		{ "id": 105, "spriteSheetID": 3, "index": 5, "duration": 1, "note": "GamePauseBackground" },
-		{ "id": 106, "spriteSheetID": 3, "index": 6, "duration": 1, "note": "GamePlayBackground" },
 
 		{ "id": 108, "spriteSheetID": 4, "index": 0, "duration": 1, "note": "PlayButton" },
 		{ "id": 109, "spriteSheetID": 4, "index": 1, "duration": 1, "note": "OptionButton" },
@@ -84,9 +83,6 @@
 		{ "id": 115, "spriteSheetID": 4, "index": 7, "duration": 1, "note": "PauseButton" },
 		{ "id": 121, "spriteSheetID": 4, "index": 9, "duration": 1, "note": "MusicBarGreen" },
 		{ "id": 122, "spriteSheetID": 4, "index": 8, "duration": 1, "note": "MusicBarBlack" },
-		{ "id": 123, "spriteSheetID": 4, "index": 10, "duration": 1, "note": "CircleWithDirections" },
-		{ "id": 124, "spriteSheetID": 4, "index": 11, "duration": 1, "note": "Circle4Dash" },
-		{ "id": 125, "spriteSheetID": 4, "index": 12, "duration": 1, "note": "Circle2Dash" },
 		
 		{ "id": 200, "spriteSheetID": 100, "index": 0, "duration": 1, "note": "BackgroundRunning" },
 		{ "id": 201, "spriteSheetID": 101, "index": 0, "duration": 1, "note": "BackgroundRunning" }
