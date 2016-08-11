@@ -10,6 +10,8 @@
 
 GamePlayState::GamePlayState()
 {
+	m_BackgroundPosition.x = Globals::screenWidth / 2;
+	m_BackgroundPosition.y = Globals::screenWidth + Globals::screenWidth / 2;
 }
 
 void GamePlayState::Enter(Game* game)
@@ -26,34 +28,12 @@ void GamePlayState::PressButton(Game* game)
 		//		printf("GamePause\n");
 		game->GetFSM()->ChangeState(GS_Pause::GetInstance());
 	}
-	m_Circle4DashPos.x = InputMgr->GetCurrentMousePosition().x;
-	m_Circle4DashPos.y = InputMgr->GetCurrentMousePosition().y;
-	if (InputMgr->GetCurrentMousePosition().x >= (120 - 60) && InputMgr->GetCurrentMousePosition().x <= (120 + 60)
-		&& InputMgr->GetCurrentMousePosition().y >= (520 - 60) && InputMgr->GetCurrentMousePosition().y <= (520 + 60)
-		||
-		InputMgr->GetLastMousePosition().x >= (120 - 60) && InputMgr->GetLastMousePosition().x <= (120 + 60)
-		&& InputMgr->GetLastMousePosition().y >= (520 - 60) && InputMgr->GetLastMousePosition().y <= (520 + 60)
-		&&
-		m_Circle4DashPos.x >= (150 - 60) && m_Circle4DashPos.x <= (150 + 60)
-		&& m_Circle4DashPos.y >= (520 - 60) && m_Circle4DashPos.y <= (520 + 60)
-		)
-	{
-		m_Circle4Dash->InitPosition(InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
-	}
 }
+
+
 
 void GamePlayState::Execute(Game* game)
 {
-	if (i == -560)
-	{
-		i = 1680;
-	}
-	if (j == -560)
-	{
-		j = 1680;
-	}
-	m_Background->InitPosition(i--, 315);
-	m_Background_Clone->InitPosition(j--, 315);
 	srand(time(nullptr));
 	PhysicsMgr->Update();
 	m_Button_Pause->Update();
@@ -62,7 +42,7 @@ void GamePlayState::Execute(Game* game)
 	m_CircleWithDirections->Update();
 	m_Circle4Dash->Update();
 	//	m_Circle2Dash->Update();
-
+	RunningBackground(game);
 		//update
 	float attackingRadius = 3.0f;
 	b2Vec2 distance;
@@ -106,6 +86,7 @@ void GamePlayState::Execute(Game* game)
 		it->Update();
 	}
 	PressButton(game);
+	HandlingCircleDirection(game);
 }
 
 void GamePlayState::Exit(Game* game)
@@ -149,6 +130,49 @@ void GamePlayState::Render(Game* game)
 	m_Goku->Render();
 }
 
+void GamePlayState::RunningBackground(Game * game)
+{
+	if (m_BackgroundPosition.x == -Globals::screenWidth / 2)
+	{
+		m_BackgroundPosition.x = Globals::screenWidth + Globals::screenWidth / 2;
+	}
+	if (m_BackgroundPosition.y == -Globals::screenWidth / 2)
+	{
+		m_BackgroundPosition.y = Globals::screenWidth + Globals::screenWidth / 2;
+	}
+	m_Background->InitPosition(m_BackgroundPosition.x--, Globals::screenHeight / 2);
+	m_Background_Clone->InitPosition(m_BackgroundPosition.y--, Globals::screenHeight / 2);
+}
+
+void GamePlayState::HandlingCircleDirection(Game * game)
+{
+	m_Circle4DashPos.x = InputMgr->GetCurrentMousePosition().x;
+	m_Circle4DashPos.y = InputMgr->GetCurrentMousePosition().y;
+	//A is circle direction position. C is point mouse position.
+	if (InputMgr->GetLastMousePosition().x >= 120 - 60 && InputMgr->GetLastMousePosition().x <= 120 + 60	//Check collision mouse and circle directions.
+		&& InputMgr->GetLastMousePosition().y >= 520 - 60 && InputMgr->GetLastMousePosition().y <= 520 + 60)
+	{
+		if (InputMgr->IsMouseDown()) //if keep the mouse
+		{
+			cout << "B: " << sqrt(pow((InputMgr->GetCurrentMousePosition().x - 120), 2) + pow((InputMgr->GetCurrentMousePosition().y - 520), 2)) << endl;
+			if (sqrt(pow((InputMgr->GetCurrentMousePosition().x - 120), 2) + pow((InputMgr->GetCurrentMousePosition().y - 520), 2)) > 75)
+			{
+				Vector2 AC;
+				AC.x = InputMgr->GetCurrentMousePosition().x - 120;
+				AC.y = InputMgr->GetCurrentMousePosition().y - 520;
+				AC.Normalize();
+				AC *= 75;
+				cout << "Vector AC: x: " << AC.x + 120 << " y: " << AC.y + 520 << endl;
+				m_Circle4Dash->InitPosition(AC.x + 120, AC.y + 520);
+			}
+			else
+				m_Circle4Dash->InitPosition(m_Circle4DashPos.x, m_Circle4DashPos.y);
+		}
+		else
+			m_Circle4Dash->InitPosition(120, 520);
+	}
+}
+
 void GamePlayState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
@@ -157,7 +181,7 @@ void GamePlayState::Init(const char* filePath)
 
 	m_Background_Clone = new EntityStatic();
 	m_Background_Clone->InitSprite(100, 201, 1);
-	m_Background_Clone->InitPosition(1120 + 1120 / 2, 315);
+	m_Background_Clone->InitPosition(Globals::screenWidth + Globals::screenWidth / 2, Globals::screenHeight / 2);
 
 	m_Button_Pause = new EntityStatic();
 	m_Button_Pause->InitSprite(5, 115, 1);
@@ -170,7 +194,6 @@ void GamePlayState::Init(const char* filePath)
 	m_Circle4Dash = new EntityStatic();
 	m_Circle4Dash->InitSprite(102, 124, 1);
 	m_Circle4Dash->InitPosition(120, 520);
-	m_Circle4Dash->InitPosition(InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
 
 	Factory->Init("File path");
 	m_spawner.Init("File path");
@@ -240,7 +263,7 @@ GamePlayState::~GamePlayState()
 	delete m_Background_Clone;
 	delete m_CircleWithDirections;
 	delete m_Circle4Dash;
-//	delete m_Circle2Dash;
+	//	delete m_Circle2Dash;
 
 	for (auto it : m_vCurrentKiBlasts)
 	{

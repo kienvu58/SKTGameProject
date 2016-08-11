@@ -1,7 +1,8 @@
 #include "InputManager.h"
 
 
-InputManager::InputManager(): m_iKeyPressed(0)
+InputManager::InputManager(): m_iKeyPressed(0),
+                              m_bIsMouseDown(false)
 {
 }
 
@@ -45,4 +46,14 @@ Vector2 InputManager::GetLastMousePosition() const
 Vector2 InputManager::GetCurrentMousePosition() const
 {
 	return m_v2CurrentMousePos;
+}
+
+void InputManager::SetMouseDown(bool b)
+{
+	m_bIsMouseDown = b;
+}
+
+bool InputManager::IsMouseDown() const
+{
+	return m_bIsMouseDown;
 }

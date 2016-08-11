@@ -18,6 +18,8 @@ public:
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
+	void RunningBackground(Game* game);
+	void HandlingCircleDirection(Game* game);
 	void Init(const char* filePath);
 
 	bool OnMessage(Game*, const Telegram&) override;
@@ -38,14 +40,13 @@ private:
 	EntityStatic *m_Circle4Dash;
 	EntityStatic *m_Circle2Dash;
 	Vector2 m_Circle4DashPos;
-	int i = 1120/2;
-	int j = 1120 + 1120/2;
 	//current entity on the screen
 	std::vector<EntityKiBlast*> m_vCurrentKiBlasts;
 	std::vector<EntityBeamWave*> m_vCurrentBeamWaves;
 
 	std::map<EntityType, std::vector<Entity*>*> m_mapCurrentEntities;
-
+	Vector2 m_BackgroundPosition;
+	
 	//spawner
 	Spawner m_spawner;
 };
