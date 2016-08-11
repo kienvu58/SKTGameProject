@@ -4,10 +4,11 @@
 
 enum CollisionCategory
 {
-	CATEGORY_WALL		= 1 << 0,
-	CATEGORY_PLAYER		= 1 << 1,
-	CATEGORY_MINION		= 1 << 2,
-	CATEGORY_KI_BLAST	= 1 << 3
+	CATEGORY_WALL			= 1 << 0,
+	CATEGORY_PLAYER			= 1 << 1,
+	CATEGORY_MINION			= 1 << 2,
+	CATEGORY_KI_BLAST		= 1 << 3,
+	CATEGORY_CELL_JUNIOR	= 1 << 4
 };
 
 class PhysicsManager

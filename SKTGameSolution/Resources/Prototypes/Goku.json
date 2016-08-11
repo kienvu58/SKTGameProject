@@ -1,0 +1,37 @@
+{
+  "visionRange": 4,
+  "visionFreq": 10,
+	"attackDamage": 10,
+	"maxKi": 100,
+	"maxSpeed": 3,
+	"movementSpeed": 3,
+	"maxHealth": 100,
+	"animationIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+	"skillPIDs":
+	{
+		"normal": 3,
+		"special": 4,
+		"ultimate": 5,
+		"aura": 6
+	},
+	"graphics": {
+		"modelId": 1,
+		"frameId": 1,
+		"shaderId": 1,
+		"isReversed": false
+	},
+	"physics":
+	{
+		"bodyDef":
+		{
+			"position": { "x": 0, "y": 0 }
+		},
+		"fixtureDef":
+		{
+			"boxShape": { "hx": 0.4, "hy": 0.5 },
+			"friction": 1,
+			"restitution": 0,
+			"filter": { "categoryBits": 2, "maskBits": [1, 4], "note": "1: Wall, 2:Player, 4:Minion, 8: KiBlast" }
+		}
+	}
+}

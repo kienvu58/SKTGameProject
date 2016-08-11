@@ -4,6 +4,7 @@
 #include <iostream>
 #include "MessageTypes.h"
 #include "SingletonClasses.h"
+#include "EntityKiBlast.h"
 
 ContactListener::ContactListener()
 {
@@ -28,43 +29,44 @@ void ContactListener::BeginContact(b2Contact* contact)
 		EntityType typeA = entityA->GetType();
 		EntityType typeB = entityB->GetType();
 
-		if ((typeA == ENTITY_CELLJUNIOR ||
-			 typeA == ENTITY_CELL) 
-			&& typeB == KI_BLAST)
+		if (typeB == ENTITY_MINION && typeA == ENTITY_KIBLAST)
 		{
-			float damage = static_cast<EntityKiBlast*>(entityB)->Attack();
-			Dispatcher->DispatchMessageA(nullptr, entityA, MSG_MINION_TAKE_DAMAGE, &damage);
-			Dispatcher->DispatchMessageA(nullptr, GameInstance, MSG_KIBLAST_OUT_OF_WALL, entityB);
+			KiBlastHitsMinion(static_cast<EntityKiBlast*>(entityA), static_cast<EntityMinion*>(entityB));
 		}
 
-		if (typeA == KI_BLAST && (typeB == ENTITY_CELLJUNIOR ||
-								  typeB == ENTITY_CELL))
+		if (typeA == ENTITY_MINION && typeB == ENTITY_KIBLAST)
 		{
-			float damage = static_cast<EntityKiBlast*>(entityA)->Attack();
-			Dispatcher->DispatchMessageA(nullptr, entityB, MSG_MINION_TAKE_DAMAGE, &damage);
-			Dispatcher->DispatchMessageA(nullptr, GameInstance, MSG_KIBLAST_OUT_OF_WALL, entityA);
+			KiBlastHitsMinion(static_cast<EntityKiBlast*>(entityB), static_cast<EntityMinion*>(entityA));
 		}
 
-		if ((typeA == ENTITY_CELLJUNIOR ||
-			 typeA == ENTITY_CELL
-			) && typeB == ENTITY_PLAYER)
+		if (typeA == ENTITY_MINION && typeB == ENTITY_PLAYER)
 		{
-			float damage = static_cast<EntityMinion*>(entityA)->Attack();
-			Dispatcher->DispatchMessageA(nullptr, entityB, MSG_PLAYER_TAKE_DAMAGE, &damage);
-			Dispatcher->DispatchMessageA(nullptr, entityA, MSG_MINION_HIT_PLAYER, nullptr);
+			MinionHitsPlayer(static_cast<EntityMinion*>(entityA), static_cast<EntityPlayer*>(entityB));
 		}
 
-		if ((typeB == ENTITY_CELLJUNIOR ||
-			 typeB == ENTITY_CELL) && typeA == ENTITY_PLAYER)
+		if (typeB == ENTITY_MINION && typeA == ENTITY_PLAYER)
 		{
-			float damage = static_cast<EntityMinion*>(entityB)->Attack();
-			Dispatcher->DispatchMessageA(nullptr, entityA, MSG_PLAYER_TAKE_DAMAGE, &damage);
-			Dispatcher->DispatchMessageA(nullptr, entityB, MSG_MINION_HIT_PLAYER, nullptr);
+			MinionHitsPlayer(static_cast<EntityMinion*>(entityB), static_cast<EntityPlayer*>(entityA));
 		}
+
 	}
 }
 
 void ContactListener::EndContact(b2Contact* contact)
 {
 	//	std::cout << "End contact.\n";
+}
+
+void ContactListener::KiBlastHitsMinion(EntityKiBlast* kiBlast, EntityMinion* minion)
+{
+	auto damage = kiBlast->GetAttackDamage();
+	Dispatcher->DispatchMessageA(nullptr, minion, MSG_MINION_TAKE_DAMAGE, &damage);
+	Dispatcher->DispatchMessageA(nullptr, kiBlast, MSG_EXPLODE, nullptr);
+}
+
+void ContactListener::MinionHitsPlayer(EntityMinion* minion, EntityPlayer* player)
+{
+	auto damage = minion->GetAttackDamage();
+	Dispatcher->DispatchMessageA(nullptr, player, MSG_PLAYER_TAKE_DAMAGE, &damage);
+	Dispatcher->DispatchMessageA(nullptr, minion, MSG_EXPLODE, nullptr);
 }

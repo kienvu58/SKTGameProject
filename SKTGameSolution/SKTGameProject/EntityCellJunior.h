@@ -1,5 +1,6 @@
 #pragma once
 #include "EntityMinion.h"
+#include <Common/FSM/StateMachine.h>
 
 class EntityCellJunior : public EntityMinion
 {
@@ -11,11 +12,10 @@ public:
 
 	//clone
 	Entity* Clone() override;
-
+	void Init(int prototypeId, const char* dataPath) override;
+	void InitStateMachine();
 	void Update() override;
 	bool HandleMessage(const Telegram& telegram) override;
-
-	EntityType GetType() override;
 
 	void Reset() override;
 private:

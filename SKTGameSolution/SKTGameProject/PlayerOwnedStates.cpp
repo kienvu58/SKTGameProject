@@ -20,11 +20,15 @@ void PlayerGlobalState::Execute(EntityPlayer* entity)
 	{
 		entity->GetFSM()->ChangeState(PS_FallToDead::GetInstance());
 	}
+	else
+	{
+		entity->DetectMinions();
+	}
 
-	bool keyA = InputMgr->IsPressed(KEY_A);
-	bool keyD = InputMgr->IsPressed(KEY_D);
-	bool keyW = InputMgr->IsPressed(KEY_W);
-	bool keyS = InputMgr->IsPressed(KEY_S);
+	auto keyA = InputMgr->IsPressed(KEY_A);
+	auto keyD = InputMgr->IsPressed(KEY_D);
+	auto keyW = InputMgr->IsPressed(KEY_W);
+	auto keyS = InputMgr->IsPressed(KEY_S);
 
 	b2Vec2 direction(keyD - keyA, keyW - keyS);
 
@@ -51,7 +55,7 @@ bool PlayerGlobalState::OnMessage(EntityPlayer* player, const Telegram& telegram
 {
 	if (telegram.Message == MSG_PLAYER_TAKE_DAMAGE)
 	{
-		float damage = DereferenceToType<float>(telegram.ExtraInfo);
+		auto damage = DereferenceToType<float>(telegram.ExtraInfo);
 		player->TakeDamage(damage);
 		return true;
 	}
@@ -168,14 +172,14 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 	{
 		if (velocity.y > 0)
 		{
-			// MOVING FORWARD
-			entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_FORWARD));
+			// MOVING UP
+			entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_UP));
 		}
 
 		if (velocity.y < 0)
 		{
-			// MOVING BACKWARD
-			entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_BACKWARD));
+			// MOVING DOWN
+			entity->UpdateAnimationToSprite(entity->GetAnimation(MOVING_DOWN));
 		}
 	}
 }
@@ -216,9 +220,7 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 
 	if (entity->IsFrameChanged())
 	{
-		b2Vec2 kiBlastPosition = entity->GetBody()->GetPosition() + b2Vec2(0.2, 0.1);
-		Dispatcher->DispatchMessageA(entity, GameInstance,
-		                             MSG_SPAWN_KI_BLAST, &kiBlastPosition);
+		entity->Fire();
 		entity->IncreaseOverheat(5);
 	}
 
@@ -271,7 +273,6 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 	if (currentFrame == 2 && entity->IsFrameChanged())
 	{
 		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.75, 0.15);
-		Dispatcher->DispatchMessageA(entity, GameInstance, MSG_SPAWN_KAMEHAMEHA, &kamehamehaPosition);
 	}
 
 	if (!InputMgr->IsPressed(KEY_K) && firingSpecialAnimation->GetTotalFrames() <= entity->GetFrameCount())
@@ -328,7 +329,6 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 	if (currentFrame == 7 && entity->IsFrameChanged())
 	{
 		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0);
-		Dispatcher->DispatchMessageA(entity, GameInstance, MSG_SPAWN_TRUE_KAMEHAMEHA, &kamehamehaPosition);
 	}
 	if (!InputMgr->IsPressed(KEY_L) && firingUltimateAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{

@@ -22,14 +22,14 @@ void CellJuniorAttackingState::Enter(EntityCellJunior* celljunior)
 	celljunior->GetSteering()->SeekOn();
 }
 
-void CellJuniorAttackingState::Execute(EntityCellJunior* celljunior)
+void CellJuniorAttackingState::Execute(EntityCellJunior* cellJunior)
 {
-	b2Vec2 playerPositon = GS_GamePlay::GetInstance()->GetPlayer()->GetBody()->GetPosition();
-	celljunior->GetSteering()->SetSeekTarget(playerPositon);
-	celljunior->IncreaseOverheat(2);
-	if (celljunior->IsOverheated())
+	cellJunior->IncreaseOverheat(2);
+	auto playerPosition = GS_GamePlay::GetInstance()->GetPlayer()->GetBody()->GetPosition();
+	cellJunior->GetSteering()->SetSeekTarget(playerPosition);
+	if (cellJunior->IsOverheated())
 	{
-		celljunior->GetFSM()->ChangeState(CJS_Wandering::GetInstance());
+		cellJunior->GetFSM()->ChangeState(CJS_Wandering::GetInstance());
 	}
 }
 
@@ -57,7 +57,7 @@ CellJuniorWanderingState::~CellJuniorWanderingState()
 
 void CellJuniorWanderingState::Enter(EntityCellJunior* cellJunior)
 {
-	cellJunior->GetBody()->SetLinearVelocity(b2Vec2(-2, 0));
+	cellJunior->GetBody()->SetLinearVelocity(cellJunior->GetMovementSpeed() * b2Vec2(-1, 0));
 	cellJunior->GetSteering()->WanderOn();
 	cellJunior->GetSteering()->SeekOff();
 }
@@ -77,16 +77,6 @@ void CellJuniorWanderingState::Render(EntityCellJunior* cellJunior)
 
 bool CellJuniorWanderingState::OnMessage(EntityCellJunior* cellJunior, const Telegram& telegram)
 {
-	if (telegram.Message == MSG_CELLJR_INSIDE_ATTACK_RANGE)
-	{
-		if (!cellJunior->IsOverheated())
-		{
-			auto goKuPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-			cellJunior->GetFSM()->ChangeState(CJS_Attacking::GetInstance());
-			cellJunior->GetSteering()->SetSeekTarget(goKuPosition);
-		}	
-		return true;
-	}
 	return false;
 }
 
@@ -106,11 +96,6 @@ void CellJuniorGlobalState::Enter(EntityCellJunior* minion)
 void CellJuniorGlobalState::Execute(EntityCellJunior* minion)
 {
 	MS_Global::GetInstance()->Execute(minion);
-
-	if (minion->IsDead())
-	{
-		minion->GetFSM()->ChangeState(CJS_Dead::GetInstance());
-	}
 }
 
 void CellJuniorGlobalState::Exit(EntityCellJunior* minion)
@@ -123,40 +108,15 @@ void CellJuniorGlobalState::Render(EntityCellJunior* minion)
 
 bool CellJuniorGlobalState::OnMessage(EntityCellJunior* minion, const Telegram& telegram)
 {
-	if (MS_Global::GetInstance()->OnMessage(minion, telegram))
+	auto isHandled = MS_Global::GetInstance()->OnMessage(minion, telegram);
+	if (telegram.Message == MSG_MINION_INSIDE_VISION_RANGE)
+	{
+		if (!minion->IsOverheated() && minion->GetFSM()->CurrentState() != CJS_Attacking::GetInstance())
+		{
+			auto playerPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
+			minion->GetFSM()->ChangeState(CJS_Attacking::GetInstance());
+		}
 		return true;
-	return false;
-}
-
-/* Dead State */
-
-CellJuniorDeadState::CellJuniorDeadState()
-{
-}
-
-CellJuniorDeadState::~CellJuniorDeadState()
-{
-}
-
-void CellJuniorDeadState::Enter(EntityCellJunior* celljunior)
-{
-	GS_GamePlay::GetInstance()->GetPlayer()->IncreseScore(10);
-}
-
-void CellJuniorDeadState::Execute(EntityCellJunior* celljunior)
-{
-	Dispatcher->DispatchMessageA(celljunior, GameInstance, MSG_MINION_OUT_OF_WALL, celljunior);
-}
-
-void CellJuniorDeadState::Exit(EntityCellJunior* celljunior)
-{
-}
-
-void CellJuniorDeadState::Render(EntityCellJunior* celljunior)
-{
-}
-
-bool CellJuniorDeadState::OnMessage(EntityCellJunior*, const Telegram&)
-{
-	return false;
+	}
+	return isHandled;
 }

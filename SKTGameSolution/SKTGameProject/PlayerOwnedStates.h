@@ -1,7 +1,6 @@
 #pragma once
 #include <Common/FSM/State.h>
 #include "EntityPlayer.h"
-#include "EntityStatic.h"
 
 class PlayerGlobalState :
 	public State<EntityPlayer>

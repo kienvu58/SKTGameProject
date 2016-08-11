@@ -46,17 +46,3 @@ public:
 
 	bool OnMessage(EntityCell*, const Telegram&) override;
 };
-
-class CellDeadState : public State<EntityCell>
-{
-public:
-	CellDeadState();
-	~CellDeadState();
-
-	void Enter(EntityCell* Cell) override;
-	void Execute(EntityCell* Cell) override;
-	void Exit(EntityCell* Cell) override;
-	void Render(EntityCell* Cell) override;
-
-	bool OnMessage(EntityCell*, const Telegram&) override;
-};

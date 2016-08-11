@@ -3,6 +3,8 @@
 #include "../GraphicsEngine/Sprite.h"
 #include "Entity.h"
 #include <Box2D/Dynamics/b2Body.h>
+#include <Box2D/Dynamics/b2Fixture.h>
+#include <Box2D/Collision/Shapes/b2PolygonShape.h>
 
 const float MAX_OVERHEAT = 100.0f;
 const float MIN_OVERHEAT = 0.0f;
@@ -11,6 +13,8 @@ class EntityLiving : public Entity
 {
 public:
 	EntityLiving();
+	EntityLiving(const EntityLiving& entityLiving);
+
 	virtual ~EntityLiving();
 
 	void Render() override = 0;
@@ -35,9 +39,9 @@ public:
 	void InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef, b2Vec2 velocity = b2Vec2_zero);
 	b2Body* GetBody() const;
 	float GetMaxSpeed() const;
-	void SetBody(b2Body* body);
 	void ScaleVelocity(int scale) const;
 
+	float GetMaxHealth() const;
 	float GetMovementSpeed() const;
 	void IncreaseOverheat(float amount);
 	float GetCurrentOverheat() const;
@@ -45,17 +49,19 @@ public:
 	bool IsOverheated() const;
 
 	//Material
-	virtual void Reset();
-	bool IsOutOfWall();
+	virtual void Reset() override;
+	bool IsOutOfWall() const;
 
 	//Battle functions
-	float Attack() const;
+	float GetAttackDamage() const;
 	void TakeDamage(float amount);
 	bool IsDead() const;
 	float GetCurrentHealth() const;
 
 	//Clone
 	Entity* Clone() override = 0;
+
+	void Activate();
 
 protected:
 	//Owned Attribute
@@ -80,5 +86,8 @@ protected:
 	b2Body *m_pBody;
 	float m_fMaxSpeed;
 	float m_fMovementSpeed;
+	b2PolygonShape m_b2PolygonShape;
+	b2BodyDef m_b2BodyDef;
+	b2FixtureDef m_b2FixtureDef;
 };
 

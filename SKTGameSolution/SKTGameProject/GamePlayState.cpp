@@ -7,9 +7,9 @@
 #include "EntityBeamWave.h"
 #include "../GraphicsEngine/Globals.h"
 #include "../GraphicsEngine/HelperFunctions.h"
+#include "EntityKiBlast.h"
 
-GamePlayState::GamePlayState()
-{
+GamePlayState::GamePlayState(): m_iScore(0) {
 }
 
 void GamePlayState::Enter(Game* game)
@@ -47,48 +47,18 @@ void GamePlayState::Execute(Game* game)
 	m_Background->Update();
 	m_Background_Clone->Update();
 
-	//update
-	float attackingRadius = 3.0f;
-	b2Vec2 distance;
-	b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
-	int i;
-	std::vector<Entity*>* cellJuniors = GetEntitiesByType(ENTITY_CELLJUNIOR);
-
-	if (cellJuniors)
-	{
-		for (i = 0; i < cellJuniors->size(); i++)
-		{
-			EntityCellJunior* cellJunior = static_cast<EntityCellJunior*>(cellJuniors->at(i));
-			distance = goKuPosition - cellJunior->GetBody()->GetPosition();
-			if (distance.Length() <= attackingRadius
-				&& cellJunior->GetFSM()->CurrentState() != CJS_Attacking::GetInstance())
-			{
-				b2Vec2 goKuPosition = m_Goku->GetBody()->GetPosition();
-				Dispatcher->DispatchMessageA(GameInstance, cellJunior, MSG_CELLJR_INSIDE_ATTACK_RANGE, &goKuPosition);
-			}
-		}
-	}
-
-	m_Goku->Update();
+	m_Player->Update();
 
 	game->IncreasePlayingTime(Globals::deltaTime);
-	game->UpdateDifficulty(m_Goku->GetCurrentScore());
+	game->UpdateDifficulty(m_iScore);
 
 	m_spawner.SpawnMinions();
-	for (auto it : m_mapCurrentEntities)
+	for (auto pair : m_mapCurrentEntities)
 	{
-		for (int i = 0; i < it.second->size(); i++)
-			it.second->at(i)->Update();
+		for (auto entity : pair.second)
+			entity->Update();
 	}
 
-	for (auto it : m_vCurrentKiBlasts)
-	{
-		it->Update();
-	}
-	for (auto it : m_vCurrentBeamWaves)
-	{
-		it->Update();
-	}
 	PressButton(game);
 }
 
@@ -101,7 +71,7 @@ void GamePlayState::Render(Game* game)
 	m_Background->Render();
 	m_Background_Clone->Render();
 	m_Button_Pause->Render();
-	std::string currentScore = std::to_string(m_Goku->GetCurrentScore());
+	std::string currentScore = std::to_string(m_iScore);
 	std::string scoreText = "Score: ";
 	scoreText.append(currentScore);
 	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0, 0, 1, 1);
@@ -112,22 +82,18 @@ void GamePlayState::Render(Game* game)
 	difficultyText.append(std::to_string(game->GetDifficulty()));
 	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
 	std::string currentHealth = "Health: ";
-	currentHealth.append(std::to_string(m_Goku->GetCurrentHealth()));
+	currentHealth.append(std::to_string(m_Player->GetCurrentHealth()));
 	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
 
-	for (auto it : m_mapCurrentEntities)
+	for (const auto& pair : m_mapCurrentEntities)
 	{
-		for (int i = 0; i < it.second->size(); i++)
+		for (auto entity : pair.second)
 		{
-			it.second->at(i)->Render();
+			entity->Render();
 		}
 	}
 
-	for (auto it : m_vCurrentBeamWaves)
-	{
-		it->Render();
-	}
-	m_Goku->Render();
+	m_Player->Render();
 }
 
 void GamePlayState::Init(const char* filePath)
@@ -144,64 +110,26 @@ void GamePlayState::Init(const char* filePath)
 	m_Button_Pause->InitSprite(5, 115, 1);
 	m_Button_Pause->InitPosition(1090, 30);
 
-	Factory->Init("File path");
+
 	m_spawner.Init("File path");
-	m_Goku = static_cast<EntityPlayer*>(Factory->GetPrototype(ENTITY_PLAYER));
+
+
+
+	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
+	m_Player->Activate();
 
 	MusicMgr->MusicVolume("GamePlay", 50);
 }
 
 bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 {
-	if (telegram.Message == MSG_SPAWN_KI_BLAST)
+	if (telegram.Message == MSG_CLEAN_UP)
 	{
-		auto kiBlastPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		EntityKiBlast* kiBlast = static_cast<EntityKiBlast*>(PoolMgr->GetEntityByType(KI_BLAST));
-		kiBlast->Fire(kiBlastPosition, 1);
-		AddEntitesToTheScreen(kiBlast);
+		Entity* entity = static_cast<Entity*>(telegram.ExtraInfo);
+		RemoveEntityFromTheScreen(entity);
 		return true;
 	}
 
-	if (telegram.Message == MSG_MINION_OUT_OF_WALL)
-	{
-		EntityMinion* theMinion = static_cast<EntityMinion*>(telegram.ExtraInfo);
-		theMinion->Reset();
-		RemoveEntitiesOnTheScreen(theMinion);
-		return true;
-	}
-
-	if (telegram.Message == MSG_KIBLAST_OUT_OF_WALL)
-	{
-		EntityKiBlast* theKiBlast = static_cast<EntityKiBlast*>(telegram.ExtraInfo);
-		RemoveEntitiesOnTheScreen(theKiBlast);
-		return true;
-	}
-
-	if (telegram.Message == MSG_SPAWN_KAMEHAMEHA)
-	{
-		auto kamehamehaPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		std::cout << "Spawn Kamehameha at " << kamehamehaPosition.x << " " << kamehamehaPosition.y << std::endl;
-		EntityBeamWave* kamehameha = new EntityBeamWave();
-		kamehameha->InitSpriteHead(4, 84, 1);
-		kamehameha->InitSpriteBody(4, 83, 1);
-		kamehameha->InitSpriteTail(4, 82, 1);
-		kamehameha->Fire(kamehamehaPosition);
-		m_vCurrentBeamWaves.push_back(kamehameha);
-		return true;
-	}
-
-	if (telegram.Message == MSG_SPAWN_TRUE_KAMEHAMEHA)
-	{
-		auto kamehamehaPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
-		std::cout << "Spawn True Kamehameha at " << kamehamehaPosition.x << " " << kamehamehaPosition.y << std::endl;
-		EntityBeamWave* kamehameha = new EntityBeamWave();
-		kamehameha->InitSpriteHead(8, 39, 1);
-		kamehameha->InitSpriteBody(8, 38, 1);
-		kamehameha->InitSpriteTail(8, 37, 1);
-		kamehameha->Fire(kamehamehaPosition);
-		m_vCurrentBeamWaves.push_back(kamehameha);
-		return true;
-	}
 	return false;
 }
 
@@ -210,86 +138,82 @@ GamePlayState::~GamePlayState()
 	delete m_Button_Pause;
 	delete m_Background;
 	delete m_Background_Clone;
-
-	for (auto it : m_vCurrentKiBlasts)
-	{
-		delete it;
-	}
-
-	for (auto it : m_vCurrentBeamWaves)
-	{
-		delete it;
-	}
-
-	for (auto it: m_mapCurrentEntities)
-	{
-		delete it.second;
-	}
 }
 
-void GamePlayState::AddEntitesToTheScreen(Entity* entity)
+void GamePlayState::AddEntityToTheScreen(Entity* entity)
 {
-	EntityType type = entity->GetType();
-	auto it = m_mapCurrentEntities.find(type);
-	if (it != m_mapCurrentEntities.end())
+	auto prototypeId = entity->GetPrototypeId();
+	auto pair = m_mapCurrentEntities.find(prototypeId);
+	if (pair != m_mapCurrentEntities.end())
 	{
 		if (entity != nullptr)
 		{
-			auto it2 = std::find(it->second->begin(), it->second->end(), entity);
-			if (it2 == it->second->end())
+			auto it2 = std::find(pair->second.begin(), pair->second.end(), entity);
+			if (it2 == pair->second.end())
 			{
-				it->second->push_back(entity);
+				pair->second.push_back(entity);
 			}
 		}
 	}
 	else
 	{
-		std::vector<Entity*>* vecEntity = new std::vector<Entity*>();
-		vecEntity->push_back(entity);
-		m_mapCurrentEntities.insert(std::pair<EntityType, std::vector<Entity*>*>(type, vecEntity));
+		std::vector<Entity*> vecEntity;
+		vecEntity.push_back(entity);
+		m_mapCurrentEntities.insert(std::pair<int, std::vector<Entity*>>(prototypeId, vecEntity));
 	}
 }
 
-void GamePlayState::RemoveEntitiesOnTheScreen(Entity* entity)
+void GamePlayState::RemoveEntityFromTheScreen(Entity* entity)
 {
-	EntityType type = entity->GetType();
-	auto it = m_mapCurrentEntities.find(type);
-	if (it != m_mapCurrentEntities.end())
+	auto prototypeId = entity->GetPrototypeId();
+	auto pair = m_mapCurrentEntities.find(prototypeId);
+	if (pair != m_mapCurrentEntities.end())
 	{
 		PoolMgr->ReleaseEntity(entity);
-		RemoveFromVector<Entity*>(*(it->second), entity);
+		RemoveFromVector<Entity*>(pair->second, entity);
 	}
 }
 
-int GamePlayState::GetNumEntitiesByType(EntityType type)
+int GamePlayState::GetNumberOfEntitiesByPrototypeId(int prototypeId)
 {
-	auto it = m_mapCurrentEntities.find(type);
-	if (it != m_mapCurrentEntities.end())
-		return it->second->size();
+	auto pair = m_mapCurrentEntities.find(prototypeId);
+	if (pair != m_mapCurrentEntities.end())
+		return pair->second.size();
 	return 0;
 }
 
-int GamePlayState::GetNumAllEntities()
+int GamePlayState::GetNumberOfAllEntities()
 {
-	int size = 0;
-	for (auto it : m_mapCurrentEntities)
+	auto size = 0;
+	for (auto pair : m_mapCurrentEntities)
 	{
-		size += it.second->size();
+		size += pair.second.size();
 	}
 	return size;
 }
 
 std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)
 {
-	auto it = m_mapCurrentEntities.find(type);
-	if (it != m_mapCurrentEntities.end())
+	auto pair = m_mapCurrentEntities.find(type);
+	if (pair != m_mapCurrentEntities.end())
 	{
-		return it->second;
+		return &pair->second;
 	}
 	return nullptr;
 }
 
 EntityPlayer* GamePlayState::GetPlayer() const
 {
-	return m_Goku;
+	return m_Player;
+}
+
+void GamePlayState::IncreaseScore(int amount)
+{
+	m_iScore += amount;
+}
+
+void GamePlayState::Reset()
+{
+	m_iScore = 0;
+	m_Player->Reset();
 }

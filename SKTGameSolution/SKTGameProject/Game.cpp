@@ -4,6 +4,7 @@
 #include "GameWelcomeState.h"
 #include "GameOptionState.h"
 #include "SingletonClasses.h"
+#include "Definations.h"
 
 Game::Game(): m_pStateMachine(new StateMachine<Game>(this)),
               m_fPlayingTime(0)
@@ -19,7 +20,7 @@ void Game::Init()
 {
 	GS_Welcome::GetInstance()->Init("");
 	GS_MainMenu::GetInstance()->Init("");
-	GS_GamePlay::GetInstance()->Init("");
+	GS_GamePlay::GetInstance()->Init(GS_GAMEPLAY_PATH);
 	GS_Option::GetInstance()->Init("");
 	GS_Pause::GetInstance()->Init("");
 	GS_GameOver::GetInstance()->Init("");
@@ -49,15 +50,10 @@ void Game::CreateStateInstances()
 	CJS_Global::CreateInstance();
 	CJS_Wandering::CreateInstance();
 	CJS_Attacking::CreateInstance();
-	CJS_Dead::CreateInstance();
 	
 	CS_Global::CreateInstance();
 	CS_Wandering::CreateInstance();
 	CS_Attacking::CreateInstance();
-	CS_Dead::CreateInstance();
-
-	FactorySingleton::CreateInstance();
-	PoolManagerSingleton::CreateInstance();
 }
 
 void Game::DestroyStateInstances()
@@ -84,15 +80,10 @@ void Game::DestroyStateInstances()
 	CJS_Global::DestroyInstance();
 	CJS_Wandering::DestroyInstance();
 	CJS_Attacking::DestroyInstance();
-	CJS_Dead::DestroyInstance();
 
 	CS_Global::DestroyInstance();
 	CS_Wandering::DestroyInstance();
 	CS_Attacking::DestroyInstance();
-	CS_Dead::DestroyInstance();
-
-	FactorySingleton::DestroyInstance();
-	PoolManagerSingleton::DestroyInstance();
 }
 
 void Game::Update()
@@ -151,13 +142,14 @@ float Game::GetDifficulty() const
 void Game::Reset()
 {
 	m_fPlayingTime = 0;
-	GS_GamePlay::DestroyInstance();
-	PoolManagerSingleton::DestroyInstance();
-	PhysicsManagerSingleton::DestroyInstance();
+	GS_GamePlay::GetInstance()->Reset();
+//	GS_GamePlay::DestroyInstance();
+//	PoolManagerSingleton::DestroyInstance();
+//	PhysicsManagerSingleton::DestroyInstance();
 
-	PhysicsManagerSingleton::CreateInstance();
-	PhysicsMgr->Init();
-	PoolManagerSingleton::CreateInstance();
-	GS_GamePlay::CreateInstance();
-	GS_GamePlay::GetInstance()->Init("");
+//	PhysicsManagerSingleton::CreateInstance();
+//	PhysicsMgr->Init();
+//	PoolManagerSingleton::CreateInstance();
+//	GS_GamePlay::CreateInstance();
+//	GS_GamePlay::GetInstance()->Init("");
 }

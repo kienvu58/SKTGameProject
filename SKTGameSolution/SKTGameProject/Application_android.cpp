@@ -13,9 +13,6 @@ float Globals::deltaTime = 0;
 
 int GameInit()
 {
-	// Start the clock
-	//	CrudeTimerSingleton::CreateInstance();
-
 	// Create instance for each manager class
 	InputManagerSingleton::CreateInstance();
 	TextManagerSingleton::CreateInstance();
@@ -25,7 +22,11 @@ int GameInit()
 	PhysicsManagerSingleton::CreateInstance();
 	MusicManagerSingleton::CreateInstance();
 
+	FactorySingleton::CreateInstance();
+	PoolManagerSingleton::CreateInstance();
 	MessageDispatcherSingleton::CreateInstance();
+
+	Game::CreateStateInstances();
 
 	// Initialize data for each manager
 	TextMgr->Init(FONT_PATH);
@@ -33,12 +34,13 @@ int GameInit()
 	FrameMgr->Init(FM_PATH);
 	AnimationMgr->Init(AM_PATH);
 	PhysicsMgr->Init();
+	Factory->Init(FE_PATH);
+
 
 	// Init game
 	GameSingleton::CreateInstance();
-	Game::CreateStateInstances();
 
-	GameInstance->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
+	GameInstance->GetFSM()->SetCurrentState(GS_Welcome::GetInstance());
 	GameInstance->Init();
 
 	// Set OpenGl blending option
@@ -92,8 +94,6 @@ void OnKeyEvent(unsigned char key, bool isPressed)
 
 void GameCleanUp()
 {
-	//	CrudeTimerSingleton::DestroyInstance();
-
 	MessageDispatcherSingleton::DestroyInstance();
 
 	TextManagerSingleton::DestroyInstance();
@@ -103,6 +103,9 @@ void GameCleanUp()
 	FrameManagerSingleton::DestroyInstance();
 	PhysicsManagerSingleton::DestroyInstance();
 	MusicManagerSingleton::DestroyInstance();
+
+	FactorySingleton::DestroyInstance();
+	PoolManagerSingleton::DestroyInstance();
 
 	Game::DestroyStateInstances();
 

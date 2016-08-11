@@ -127,6 +127,7 @@
     <ClCompile Include="CellOwnedStates.cpp" />
     <ClCompile Include="EntityBeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
+    <ClCompile Include="EntityBullet.cpp" />
     <ClCompile Include="EntityCell.cpp" />
     <ClCompile Include="EntityCellJunior.cpp" />
     <ClCompile Include="GameOverState.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="MinionOwnedStates.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerOwnedStates.cpp" />
+    <ClCompile Include="RayCastMultipleCallback.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="PoolManager.cpp" />
     <ClCompile Include="Spawner.cpp" />
@@ -160,6 +162,7 @@
     <ClInclude Include="CellOwnedStates.h" />
     <ClInclude Include="EntityBeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
+    <ClInclude Include="EntityBullet.h" />
     <ClInclude Include="EntityCell.h" />
     <ClInclude Include="EntityCellJunior.h" />
     <ClInclude Include="GameOverState.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="PlayerOwnedStates.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="PoolManager.h" />
+    <ClInclude Include="RayCastMultipleCallback.h" />
     <ClInclude Include="SingletonClasses.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Spawner.h" />
@@ -195,10 +199,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json" />
+    <None Include="..\Resources\Data\FE.json" />
     <None Include="..\Resources\Data\FM.json" />
     <None Include="..\Resources\Data\GamePlayState.json" />
     <None Include="..\Resources\Data\MainMenuState.json" />
     <None Include="..\Resources\Data\RM.json" />
+    <None Include="..\Resources\Prototypes\Cell.json" />
+    <None Include="..\Resources\Prototypes\CellJr.json" />
+    <None Include="..\Resources\Prototypes\Goku.json" />
+    <None Include="..\Resources\Prototypes\GreenKiBlast.json" />
+    <None Include="..\Resources\Prototypes\Kamehameha.json" />
+    <None Include="..\Resources\Prototypes\TrueKamehameha.json" />
+    <None Include="..\Resources\Prototypes\YellowKiBlast.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
