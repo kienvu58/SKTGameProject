@@ -1,11 +1,11 @@
 {
-  "visionRange": 4,
-  "visionFreq": 10,
+    "visionRange": 4,
+    "visionFreq": 10,
 	"attackDamage": 10,
 	"maxKi": 100,
 	"maxSpeed": 3,
 	"movementSpeed": 3,
-	"maxHealth": 100,
+	"maxHealth": 10,
 	"animationIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
 	"skillPIDs":
 	{

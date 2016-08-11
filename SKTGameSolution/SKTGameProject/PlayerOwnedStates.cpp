@@ -416,6 +416,7 @@ void PlayerFallingToDead::Execute(EntityPlayer* player)
 		player->UpdateSpriteFrame(player->GetAnimation(DEAD));
 		MusicMgr->MusicPlay("GokuDead");
 		MusicMgr->MusicVolume("GokuDead", 50);
+		MusicMgr->MusicStop("GamePlay");
 		GameInstance->GetFSM()->ChangeState(GS_GameOver::GetInstance());
 	}
 	else

@@ -1,4 +1,4 @@
-#include "GamePlayState.h"
+﻿#include "GamePlayState.h"
 #include "../GraphicsEngine/AnimationManager.h"
 #include "../GraphicsEngine/TextManager.h"
 #include <Box2D/Dynamics/b2Fixture.h>
@@ -9,9 +9,11 @@
 #include "../GraphicsEngine/HelperFunctions.h"
 #include "EntityKiBlast.h"
 
-GamePlayState::GamePlayState(): m_iScore(0) {
+GamePlayState::GamePlayState(): m_iScore(0) 
+{
+	m_BackgroundPosition.x = Globals::screenWidth / 2;
+	m_BackgroundPosition.y = Globals::screenWidth + Globals::screenWidth / 2;
 }
-
 void GamePlayState::Enter(Game* game)
 {
 }
@@ -21,31 +23,28 @@ void GamePlayState::PressButton(Game* game)
 	if (InputMgr->GetLastMousePosition().x >= 1069.0f && InputMgr->GetLastMousePosition().x <= 1111.0f
 		&& InputMgr->GetLastMousePosition().y >= 9.0f && InputMgr->GetLastMousePosition().y <= 51.0f)
 	{
+		InputMgr->SetLastMousePosition(0, 0);
 		//GamePause
 		MusicMgr->MusicPause("GamePlay");
-//		printf("GamePause\n");
+		//		printf("GamePause\n");
 		game->GetFSM()->ChangeState(GS_Pause::GetInstance());
 	}
-	
+	m_Button_Pause->IsClicked(InputMgr->GetLastMousePosition());
 }
+
+
 
 void GamePlayState::Execute(Game* game)
 {
-	if(i==-560)
-	{
-		i = 1680;
-	}
-	if(j==-560)
-	{
-		j = 1680;
-	}
-	m_Background->InitPosition(i--, 315);
-	m_Background_Clone->InitPosition(j--, 315);
 	srand(time(nullptr));
 	PhysicsMgr->Update();
 	m_Button_Pause->Update();
 	m_Background->Update();
 	m_Background_Clone->Update();
+
+	m_CircleWithDirections->Update();
+	m_Circle4Dash->Update();
+	RunningBackground(game);
 
 	m_Player->Update();
 
@@ -60,6 +59,7 @@ void GamePlayState::Execute(Game* game)
 	}
 
 	PressButton(game);
+	HandlingCircleDirection(game);
 }
 
 void GamePlayState::Exit(Game* game)
@@ -71,7 +71,11 @@ void GamePlayState::Render(Game* game)
 	m_Background->Render();
 	m_Background_Clone->Render();
 	m_Button_Pause->Render();
+	m_CircleWithDirections->Render();
+	m_Circle4Dash->Render();
+
 	std::string currentScore = std::to_string(m_iScore);
+
 	std::string scoreText = "Score: ";
 	scoreText.append(currentScore);
 	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0, 0, 1, 1);
@@ -96,6 +100,49 @@ void GamePlayState::Render(Game* game)
 	m_Player->Render();
 }
 
+void GamePlayState::RunningBackground(Game * game)
+{
+	if (m_BackgroundPosition.x == -Globals::screenWidth / 2)
+	{
+		m_BackgroundPosition.x = Globals::screenWidth + Globals::screenWidth / 2;
+	}
+	if (m_BackgroundPosition.y == -Globals::screenWidth / 2)
+	{
+		m_BackgroundPosition.y = Globals::screenWidth + Globals::screenWidth / 2;
+	}
+	m_Background->InitPosition(m_BackgroundPosition.x--, Globals::screenHeight / 2);
+	m_Background_Clone->InitPosition(m_BackgroundPosition.y--, Globals::screenHeight / 2);
+}
+
+void GamePlayState::HandlingCircleDirection(Game * game)
+{
+	m_Circle4DashPos.x = InputMgr->GetCurrentMousePosition().x;
+	m_Circle4DashPos.y = InputMgr->GetCurrentMousePosition().y;
+	//A is circle direction position. C is point mouse position.
+	if (InputMgr->GetLastMousePosition().x >= 120 - 60 && InputMgr->GetLastMousePosition().x <= 120 + 60	//Check collision mouse and circle directions.
+		&& InputMgr->GetLastMousePosition().y >= 520 - 60 && InputMgr->GetLastMousePosition().y <= 520 + 60)
+	{
+		if (InputMgr->IsMouseDown()) //if keep the mouse
+		{
+			std::cout << "B: " << sqrt(pow((InputMgr->GetCurrentMousePosition().x - 120), 2) + pow((InputMgr->GetCurrentMousePosition().y - 520), 2)) << std::endl;
+			if (sqrt(pow((InputMgr->GetCurrentMousePosition().x - 120), 2) + pow((InputMgr->GetCurrentMousePosition().y - 520), 2)) > 75)
+			{
+				Vector2 AC;
+				AC.x = InputMgr->GetCurrentMousePosition().x - 120;
+				AC.y = InputMgr->GetCurrentMousePosition().y - 520;
+				AC.Normalize();
+				AC *= 75;
+				std::cout << "Vector AC: x: " << AC.x + 120 << " y: " << AC.y + 520 << std::endl;
+				m_Circle4Dash->InitPosition(AC.x + 120, AC.y + 520);
+			}
+			else
+				m_Circle4Dash->InitPosition(m_Circle4DashPos.x, m_Circle4DashPos.y);
+		}
+		else
+			m_Circle4Dash->InitPosition(120, 520);
+	}
+}
+
 void GamePlayState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
@@ -104,16 +151,21 @@ void GamePlayState::Init(const char* filePath)
 
 	m_Background_Clone = new EntityStatic();
 	m_Background_Clone->InitSprite(100, 201, 1);
-	m_Background_Clone->InitPosition(1120+1120/2, 315);
+	m_Background_Clone->InitPosition(Globals::screenWidth + Globals::screenWidth / 2, Globals::screenHeight / 2);
 
 	m_Button_Pause = new EntityStatic();
 	m_Button_Pause->InitSprite(5, 115, 1);
 	m_Button_Pause->InitPosition(1090, 30);
 
+	m_CircleWithDirections = new EntityStatic();
+	m_CircleWithDirections->InitSprite(101, 202, 1);
+	m_CircleWithDirections->InitPosition(120, 520);
+
+	m_Circle4Dash = new EntityStatic();
+	m_Circle4Dash->InitSprite(102, 203, 1);
+	m_Circle4Dash->InitPosition(120, 520);
 
 	m_spawner.Init("File path");
-
-
 
 	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
 	m_Player->Activate();
@@ -137,6 +189,9 @@ GamePlayState::~GamePlayState()
 	delete m_Button_Pause;
 	delete m_Background;
 	delete m_Background_Clone;
+	delete m_CircleWithDirections;
+	delete m_Circle4Dash;
+	
 }
 
 void GamePlayState::AddEntityToTheScreen(Entity* entity)

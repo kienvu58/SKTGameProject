@@ -164,4 +164,5 @@ void EntityPlayer::Reset()
 	m_fCurrentHealth = m_fMaxHealth;
 	m_fCurrentKi = m_fMaxKi;
 	m_fCurrentOverHeat = 0;
+	m_pStateMachine->SetCurrentState(PS_Standing::GetInstance());
 }

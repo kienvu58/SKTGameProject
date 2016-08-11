@@ -12,10 +12,12 @@ public:
 	GamePlayState();
 	~GamePlayState();
 	void Enter(Game* game) override;
-	static void PressButton(Game* game);
+	void PressButton(Game* game);
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
+	void RunningBackground(Game* game);
+	void HandlingCircleDirection(Game* game);
 	void Init(const char* filePath);
 
 	bool OnMessage(Game*, const Telegram&) override;
@@ -30,10 +32,16 @@ public:
 	void IncreaseScore(int amount);
 	void Reset();
 private:
+	EntityStatic *m_CircleWithDirections;
+	EntityStatic *m_Circle4Dash;
+	EntityStatic *m_Circle2Dash;
+	Vector2 m_Circle4DashPos;
+	
 	EntityStatic* m_Background;
 	EntityStatic* m_Background_Clone;
 	EntityStatic* m_Button_Pause;
-
+	Vector2 m_BackgroundPosition;
+	
 	EntityPlayer* m_Player;
 	
 	// map to store minion by protypeId
@@ -43,7 +51,4 @@ private:
 	Spawner m_spawner;
 
 	int m_iScore;
-
-	int i = 1120/2;
-	int j = 1120 + 1120/2;
 };
