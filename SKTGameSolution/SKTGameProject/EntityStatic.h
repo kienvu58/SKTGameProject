@@ -13,13 +13,16 @@ public:
 	void Update() override;
 	bool HandleMessage(const Telegram& telegram) override;
 	EntityType GetType() override;
-	Entity* Clone();
+	Entity* Clone() override;
 
 	void InitSprite(int modelId, int frameId, int shaderId);
 	void InitPosition(int x, int y);
 	Sprite& GetSprite();
 
+	bool IsClicked(Vector2 mousePosition) const;
+
 private:
 	Sprite m_Sprite;
+	Vector2 m_Position;
 };
 

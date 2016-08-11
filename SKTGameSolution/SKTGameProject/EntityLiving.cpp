@@ -11,6 +11,7 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_fMaxHealth(50),
                               m_fCurrentOverHeat(0),
                               m_bIsOverheated(false),
+                              m_fAttackDamage(0),
                               m_bIsReversed(false),
                               m_iCurrentFrameIndex(0),
                               m_iLastFrameIndex(0),
@@ -20,6 +21,28 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_fMaxSpeed(10),
                               m_fMovementSpeed(3)
 {
+}
+
+EntityLiving::EntityLiving(const EntityLiving& entityLiving): m_fCurrentHealth(entityLiving.m_fMaxHealth),
+                                                              m_fMaxHealth(entityLiving.m_fMaxHealth),
+                                                              m_fCurrentOverHeat(0), m_bIsOverheated(false),
+                                                              m_fAttackDamage(entityLiving.m_fAttackDamage),
+                                                              m_Sprite(entityLiving.m_Sprite),
+                                                              m_bIsReversed(entityLiving.m_bIsReversed),
+                                                              m_vecAnimations(entityLiving.m_vecAnimations),
+                                                              m_iCurrentFrameIndex(0),
+                                                              m_iLastFrameIndex(0),
+                                                              m_fCurrentDelay(0),
+                                                              m_iFrameCount(0),
+                                                              m_fMaxSpeed(entityLiving.m_fMaxSpeed),
+                                                              m_fMovementSpeed(entityLiving.m_fMovementSpeed),
+                                                              m_b2PolygonShape(entityLiving.m_b2PolygonShape),
+                                                              m_b2BodyDef(entityLiving.m_b2BodyDef),
+                                                              m_b2FixtureDef(entityLiving.m_b2FixtureDef)
+{
+	m_iPrototypeId = entityLiving.m_iPrototypeId;
+	InitBody(m_b2BodyDef, m_b2FixtureDef);
+	m_pBody->SetUserData(this);
 }
 
 EntityLiving::~EntityLiving()
@@ -69,7 +92,7 @@ Animation* EntityLiving::GetAnimation(int index)
 	return m_vecAnimations.at(index);
 }
 
-void EntityLiving::UpdateAnimationToSprite(Animation* animation)
+void EntityLiving::UpdateSpriteFrame(Animation* animation)
 {
 	if (m_iCurrentFrameIndex == m_iLastFrameIndex)
 	{ // in duration of current frame, increase delay
@@ -80,7 +103,7 @@ void EntityLiving::UpdateAnimationToSprite(Animation* animation)
 		m_iFrameCount++;
 		m_fCurrentDelay = 0;
 	}
-	Frame* frame = animation->GetFrameByIndex(m_iCurrentFrameIndex);
+	auto frame = animation->GetFrameByIndex(m_iCurrentFrameIndex);
 	m_Sprite.SetFrame(frame);
 
 	m_iLastFrameIndex = m_iCurrentFrameIndex;
@@ -123,15 +146,21 @@ float EntityLiving::GetMaxSpeed() const
 	return m_fMaxSpeed;
 }
 
-void EntityLiving::SetBody(b2Body* body)
-{
-}
-
 void EntityLiving::ScaleVelocity(int scale) const
 {
 	b2Vec2 currentVelocity = m_pBody->GetLinearVelocity();
 	currentVelocity *= scale;
 	m_pBody->SetLinearVelocity(currentVelocity);
+}
+
+float EntityLiving::GetAttackDamage() const
+{
+	return m_fAttackDamage;
+}
+
+float EntityLiving::GetMaxHealth() const
+{
+	return m_fMaxHealth;
 }
 
 float EntityLiving::GetMovementSpeed() const
@@ -172,15 +201,17 @@ bool EntityLiving::IsOverheated() const
 void EntityLiving::Reset()
 {
 	m_fCurrentHealth = m_fMaxHealth;
+	m_bIsActive = false;
+	m_pBody->SetActive(false);
 }
 
-bool EntityLiving::IsOutOfWall()
+bool EntityLiving::IsOutOfWall() const
 {
-	float tmp = 2;
+	float padding = 2;
 	float wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
 	float wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
-	float boundryX = wallHalfWidth + tmp;
-	float boundryY = wallHalfHeight + tmp;
+	float boundryX = wallHalfWidth + padding;
+	float boundryY = wallHalfHeight + padding;
 
 	b2Vec2 position = m_pBody->GetPosition();
 
@@ -189,11 +220,6 @@ bool EntityLiving::IsOutOfWall()
 		return false;
 
 	return true;
-}
-
-float EntityLiving::Attack() const
-{
-	return m_fAttackDamage;
 }
 
 void EntityLiving::TakeDamage(float amount)
@@ -215,4 +241,10 @@ bool EntityLiving::IsDead() const
 float EntityLiving::GetCurrentHealth() const
 {
 	return m_fCurrentHealth;
+}
+
+void EntityLiving::Activate()
+{
+	m_bIsActive = true;
+	m_pBody->SetActive(true);
 }

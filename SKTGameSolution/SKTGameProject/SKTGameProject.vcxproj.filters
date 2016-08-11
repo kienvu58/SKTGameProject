@@ -97,7 +97,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameOverState.cpp">
-	  <Filter>Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EntityKiBlast.cpp">
       <Filter>Source Files</Filter>
@@ -109,6 +109,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CellOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCastMultipleCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -204,7 +210,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameOverState.h">
-	  <Filter>Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EntityKiBlast.h">
       <Filter>Header Files</Filter>
@@ -216,6 +222,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CellOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCastMultipleCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,6 +245,42 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\Resources\Data\RM.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\FE.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Cell.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\CellJr.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Goku.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\GreenKiBlast.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Kamehameha.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\TrueKamehameha.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\YellowKiBlast.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\CellExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\CellJrExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\KiBlastExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\TriggerEffect.json">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

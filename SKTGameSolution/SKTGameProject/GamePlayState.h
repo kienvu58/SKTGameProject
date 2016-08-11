@@ -3,8 +3,6 @@
 #include "EntityPlayer.h"
 #include "Game.h"
 #include "Pool.h"
-#include "EntityKiBlast.h"
-#include "EntityBeamWave.h"
 #include "EntityStatic.h"
 #include "Spawner.h"
 
@@ -24,29 +22,33 @@ public:
 
 	bool OnMessage(Game*, const Telegram&) override;
 
-	void AddEntitesToTheScreen(Entity* entity);
-	void RemoveEntitiesOnTheScreen(Entity* entity);
-	int GetNumEntitiesByType(EntityType type);
-	int GetNumAllEntities();
+	void AddEntityToTheScreen(Entity* entity);
+	void RemoveEntityFromTheScreen(Entity* entity);
+	int GetNumberOfEntitiesByPrototypeId(int prototypeId);
+	int GetNumberOfAllEntities();
 	std::vector<Entity*>* GetEntitiesByType(EntityType type);
 	EntityPlayer* GetPlayer() const;
-private:
-	EntityStatic *m_Background;
-	EntityStatic *m_Background_Clone;
-	EntityPlayer* m_Goku;
-	EntityStatic *m_Button_Pause;
 
+	void IncreaseScore(int amount);
+	void Reset();
+private:
 	EntityStatic *m_CircleWithDirections;
 	EntityStatic *m_Circle4Dash;
 	EntityStatic *m_Circle2Dash;
 	Vector2 m_Circle4DashPos;
-	//current entity on the screen
-	std::vector<EntityKiBlast*> m_vCurrentKiBlasts;
-	std::vector<EntityBeamWave*> m_vCurrentBeamWaves;
-
-	std::map<EntityType, std::vector<Entity*>*> m_mapCurrentEntities;
+	
+	EntityStatic* m_Background;
+	EntityStatic* m_Background_Clone;
+	EntityStatic* m_Button_Pause;
 	Vector2 m_BackgroundPosition;
 	
+	EntityPlayer* m_Player;
+	
+	// map to store minion by protypeId
+	std::map<int, std::vector<Entity*>> m_mapCurrentEntities;
+
 	//spawner
 	Spawner m_spawner;
+
+	int m_iScore;
 };

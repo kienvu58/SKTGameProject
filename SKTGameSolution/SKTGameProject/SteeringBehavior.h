@@ -46,10 +46,10 @@ private:
 
 	bool On(behavior_type bt) const
 	{ return (m_iFlags & bt) == bt; }
-	b2Vec2 Seek(b2Vec2 TargetPos);
+	b2Vec2 Seek(b2Vec2 TargetPos) const;
 	b2Vec2 Wander();
 	b2Vec2 CalculatePrioritized();
 
-	bool AccumulateForce(b2Vec2 &totalForce, b2Vec2 forceToAdd);
+	bool AccumulateForce(b2Vec2 &totalForce, b2Vec2 forceToAdd) const;
 };
 

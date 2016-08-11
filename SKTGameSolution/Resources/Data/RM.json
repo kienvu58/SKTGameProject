@@ -112,6 +112,16 @@
 			"textureH": 512
 		},
 		{
+			"id": 12,
+			"note": "BigExplosion",
+			"modelW": 70,
+			"modelH": 70,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
 			"id": 100,
 			"note": "BackgroundRunning",
 			"modelW": 1120,
@@ -128,8 +138,8 @@
 			"modelH": 150,
 			"spriteW": 128,
 			"spriteH": 128,
-			"textureW": 512,
-			"textureH": 512
+			"textureW": 256,
+			"textureH": 256
 		},
 		{
 			"id": 102,
@@ -138,9 +148,20 @@
 			"modelH": 120,
 			"spriteW": 128,
 			"spriteH": 128,
+			"textureW": 256,
+			"textureH": 256
+		},
+		{
+			"id": 103,
+			"note": "ButtonYES_NO",
+			"modelW": 200,
+			"modelH": 70,
+			"spriteW": 128,
+			"spriteH": 128,
 			"textureW": 512,
 			"textureH": 512
 		}
+
 	],
 	"spriteSheets":
 	[
@@ -185,6 +206,12 @@
 			"path": "Textures/Background2.tga",
 			"nRows": 1,
 			"nColumns": 1
+		},
+		{
+			"id": 102,
+			"path": "Textures/PhoneButtons.tga",
+			"nRows": 2,
+			"nColumns": 2
 		}
 	],
 	"shaders":

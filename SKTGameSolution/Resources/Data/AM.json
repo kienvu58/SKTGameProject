@@ -25,8 +25,10 @@
 		{ "id": 18, "note": "cell_movingBackward", "nStartFrames": 0, "frameIDs": [32] },
 		{ "id": 19, "note": "cell_movingUp", "nStartFrames": 0, "frameIDs": [33] },
 		{ "id": 20, "note": "cell_movingDown", "nStartFrames": 0, "frameIDs": [34] },
-		{ "id": 21, "note": "aura_charging", "nStartFrames": 2, "frameIDs": [40, 41, 42, 43, 44] },
+		{ "id": 21, "note": "cell_firing", "nStartFrames": 0, "frameIDs": [35, 36] },
 		{ "id": 22, "note": "hit", "nStartFrames": 0, "frameIDs": [69, 70, 71, 72, 73, 74] },
-		{ "id": 23, "note": "explosion", "nStartFrames": 0, "frameIDs": [76, 77, 78, 79, 80] }
+		{ "id": 23, "note": "explosion", "nStartFrames": 0, "frameIDs": [76, 77, 78, 79, 80] },
+		{ "id": 24, "note": "aura_charging", "nStartFrames": 2, "frameIDs": [40, 41, 42, 43, 44] },
+		{ "id": 25, "note": "aura_charging", "nStartFrames": 0, "frameIDs": [65, 65] }
 	]
 }

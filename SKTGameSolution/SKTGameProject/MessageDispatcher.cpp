@@ -12,7 +12,7 @@ void MessageDispatcher::Discharge(Entity* pReceiver, const Telegram& telegram)
 	if (!pReceiver->HandleMessage(telegram))
 	{
 		//telegram could not be handled
-		std::cout << "Message not handled";
+		std::cout << "Prototype: " << pReceiver->GetPrototypeId() << " Message not handled: " << MessageToString(telegram.Message) << std::endl;
 	}
 }
 

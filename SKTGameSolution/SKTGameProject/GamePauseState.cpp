@@ -1,11 +1,9 @@
 #include "GamePauseState.h"
 #include "GameWelcomeState.h"
 #include <Windows.h>
-#include "GameOptionState.h"
 #include "GamePlayState.h"
 #include "SingletonClasses.h"
 #include "SoundManager.h"
-#include "Definations.h"
 
 GamePauseState::GamePauseState()
 {

@@ -1,9 +1,6 @@
 #pragma once
 
 #include "Telegram.h"
-#include <set>
-
-const auto NO_ADDITIONAL_INFO = nullptr;
 
 class MessageDispatcher
 {

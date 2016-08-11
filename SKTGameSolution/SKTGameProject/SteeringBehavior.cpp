@@ -17,7 +17,7 @@ void SteeringBehavior::SetSeekTarget(b2Vec2 target)
 	m_vSeekTarget = target;
 }
 
-b2Vec2 SteeringBehavior::Seek(b2Vec2 TargetPos)
+b2Vec2 SteeringBehavior::Seek(b2Vec2 TargetPos) const
 {
 	b2Vec2 position = m_pOwner->GetBody()->GetPosition();
 	b2Vec2 desiredVector = TargetPos - position;
@@ -107,7 +107,7 @@ b2Vec2 SteeringBehavior::CalculatePrioritized()
 	return m_vSteeringForce;
 }
 
-bool SteeringBehavior::AccumulateForce(b2Vec2& runningTotalForce, b2Vec2 forceToAdd)
+bool SteeringBehavior::AccumulateForce(b2Vec2& runningTotalForce, b2Vec2 forceToAdd) const
 {
 	runningTotalForce += forceToAdd;
 	b2Vec2 currentVelocity = m_pOwner->GetBody()->GetLinearVelocity();

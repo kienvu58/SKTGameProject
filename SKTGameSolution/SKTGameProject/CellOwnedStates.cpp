@@ -4,6 +4,7 @@
 /* Wandering State */
 CellWanderingState::CellWanderingState()
 {
+
 }
 
 CellWanderingState::~CellWanderingState()
@@ -47,11 +48,6 @@ void CellGlobalState::Enter(EntityCell* minion)
 void CellGlobalState::Execute(EntityCell* minion)
 {
 	MS_Global::GetInstance()->Execute(minion);
-
-	if (minion->IsDead())
-	{
-		minion->GetFSM()->ChangeState(CS_Dead::GetInstance());
-	}
 }
 
 void CellGlobalState::Exit(EntityCell* minion)
@@ -95,38 +91,6 @@ void CellAttackingState::Render(EntityCell* Cell)
 }
 
 bool CellAttackingState::OnMessage(EntityCell*, const Telegram&)
-{
-	return false;
-}
-
-/* Dead State */
-CellDeadState::CellDeadState()
-{
-}
-
-CellDeadState::~CellDeadState()
-{
-}
-
-void CellDeadState::Enter(EntityCell* Cell)
-{
-	GS_GamePlay::GetInstance()->GetPlayer()->IncreseScore(10);
-}
-
-void CellDeadState::Execute(EntityCell* Cell)
-{
-	Dispatcher->DispatchMessageA(Cell, GameInstance, MSG_MINION_OUT_OF_WALL, Cell);
-}
-
-void CellDeadState::Exit(EntityCell* Cell)
-{
-}
-
-void CellDeadState::Render(EntityCell* Cell)
-{
-}
-
-bool CellDeadState::OnMessage(EntityCell*, const Telegram&)
 {
 	return false;
 }

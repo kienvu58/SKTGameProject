@@ -1,8 +1,12 @@
 #include "EntityMinion.h"
 #include <Box2D/Dynamics/b2Fixture.h>
-#include <iostream>
 #include "SingletonClasses.h"
+#include "EntityEffect.h"
 
+
+EntityMinion::EntityMinion() : m_pSteeringBehavior(nullptr), m_fMaxForce(2), m_iExplosionPID(0), m_iPrize(10)
+{
+}
 
 void EntityMinion::Render()
 {
@@ -27,17 +31,18 @@ EntityType EntityMinion::GetType()
 	return ENTITY_MINION;
 }
 
-EntityMinion::EntityMinion():m_fMaxForce(2)
+void EntityMinion::InitSteeringBehavior()
 {
 	m_pSteeringBehavior = new SteeringBehavior(this);
 }
 
 EntityMinion::~EntityMinion()
 {
-	delete m_pSteeringBehavior;
+	if (m_pSteeringBehavior)
+		delete m_pSteeringBehavior;
 }
 
-float EntityMinion::GetMaxForce()
+float EntityMinion::GetMaxForce() const
 {
 	return m_fMaxForce;
 }
@@ -57,9 +62,24 @@ void EntityMinion::Reset()
 	EntityLiving::Reset();
 }
 
-void EntityMinion::TruncateVelocity(b2Vec2& currentVelocity)
+void EntityMinion::Explode()
 {
-	if(currentVelocity.Length() > m_fMaxSpeed)
+	auto explosionEffect = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iExplosionPID));
+	auto explosionPos = m_pBody->GetPosition();
+	explosionEffect->Start(explosionPos, GameInstance);
+	GS_GamePlay::GetInstance()->AddEntityToTheScreen(explosionEffect);
+
+	m_bIsActive = false;
+}
+
+int EntityMinion::GetPrize() const
+{
+	return m_iPrize;
+}
+
+void EntityMinion::TruncateVelocity(b2Vec2& currentVelocity) const
+{
+	if (currentVelocity.Length() > m_fMaxSpeed)
 	{
 		currentVelocity.Normalize();
 		currentVelocity *= m_fMaxSpeed;

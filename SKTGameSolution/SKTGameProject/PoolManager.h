@@ -1,6 +1,5 @@
 #pragma once
 #include <map>
-#include "EntityTypes.h"
 #include "Entity.h"
 #include <vector>
 
@@ -10,12 +9,10 @@ public:
 	PoolManager();
 	~PoolManager();
 
-	Entity* GetEntityByType(EntityType type);
+	Entity* GetEntityByPrototypeId(int prototypeId);
 	void ReleaseEntity(Entity* entity);
-	void CleanUp(Entity* entity);
-	void Add(Entity* entity);
 private:
-	std::map<EntityType, std::vector<Entity*>*> m_mapAvailable;
+	std::map<int, std::vector<Entity*>> m_mapAvailable;
 	std::vector<Entity*> m_vInUse;
 };
 

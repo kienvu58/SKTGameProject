@@ -4,21 +4,27 @@
 
 enum MessageType
 {
-	MSG_SPAWN_KI_BLAST,
-	MSG_CELLJR_INSIDE_ATTACK_RANGE,
-	MSG_SPAWN_KAMEHAMEHA,
-	MSG_MINION_OUT_OF_WALL,
-	MSG_SPAWN_TRUE_KAMEHAMEHA,
-	MSG_KIBLAST_OUT_OF_WALL,
+	MSG_MINION_INSIDE_VISION_RANGE,
+	MSG_CLEAN_UP,
 	MSG_MINION_TAKE_DAMAGE,
 	MSG_PLAYER_TAKE_DAMAGE,
-	MSG_MINION_HIT_PLAYER
+	MSG_EXPLODE
 };
 
-inline std::string MessageToString(int message)
+inline std::string MessageToString(MessageType message)
 {
 	switch (message)
 	{
+	case MSG_MINION_INSIDE_VISION_RANGE:
+		return "MSG_MINION_INSIDE_VISION_RANGE";
+	case MSG_CLEAN_UP: 
+		return "MSG_CLEAN_UP";
+	case MSG_MINION_TAKE_DAMAGE: 
+		return "MSG_MINION_TAKE_DAMAGE";
+	case MSG_PLAYER_TAKE_DAMAGE:
+		return "MSG_PLAYER_TAKE_DAMAGE";
+	case MSG_EXPLODE:
+		return "MSG_EXPLODE";
 	default:
 		return "Not recognized";
 	}
