@@ -1,7 +1,8 @@
 {
 	"attackDamage": 10,
 	"speed": 6,
-	"explosionPID": 0,
+	"explosionPID": 4,
+	"triggerEffectPID": 7,
 	"graphics":  
 	{
 		"modelId": 4,

@@ -4,6 +4,7 @@
 	"maxSpeed": 10,
 	"movementSpeed": 2,
 	"maxHealth": 50,
+	"explosionPID": 5,
 	"animationIds": [13, 15],
 	"graphics": { "modelId": 1, "frameId": 28, "shaderId": 1, "isReversed": true },
 	"physics":

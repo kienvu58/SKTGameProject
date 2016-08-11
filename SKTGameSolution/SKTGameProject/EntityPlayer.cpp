@@ -154,7 +154,7 @@ void EntityPlayer::DetectMinions()
 void EntityPlayer::Fire() const
 {
 	auto bullet = static_cast<EntityBullet*>(PoolMgr->GetEntityByPrototypeId(m_iNormalPID));
-	auto position = m_pBody->GetPosition() + b2Vec2(0.4f, 0.2f);
+	auto position = m_pBody->GetPosition() + b2Vec2(0.4f, 0.15f);
 	bullet->Fire(position, 1);
 	GS_GamePlay::GetInstance()->AddEntityToTheScreen(bullet);
 }

@@ -5,6 +5,7 @@
 #include "SingletonClasses.h"
 #include "Definations.h"
 #include "EntityKiBlast.h"
+#include "EntityEffect.h"
 
 FactoryEntity::FactoryEntity()
 {
@@ -39,6 +40,8 @@ void FactoryEntity::Init(const char* filePath)
 			entity = new EntityCell();
 		if (entityType.compare("ENTITY_KIBLAST") == 0)
 			entity = new EntityKiBlast();
+		if (entityType.compare("ENTITY_EFFECT") == 0)
+			entity = new EntityEffect();
 
 		if (entity)
 		{

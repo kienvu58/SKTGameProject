@@ -125,8 +125,7 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 {
 	if (telegram.Message == MSG_CLEAN_UP)
 	{
-		Entity* entity = static_cast<Entity*>(telegram.ExtraInfo);
-		RemoveEntityFromTheScreen(entity);
+		RemoveEntityFromTheScreen(telegram.pSender);
 		return true;
 	}
 

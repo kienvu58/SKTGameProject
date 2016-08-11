@@ -53,7 +53,7 @@ void MinionGlobalState::Execute(EntityMinion* minion)
 	}
 	if (!minion->IsActive() || minion->IsOutOfWall())
 	{
-		Dispatcher->DispatchMessageA(minion, GameInstance, MSG_CLEAN_UP, minion);
+		Dispatcher->DispatchMessageA(minion, GameInstance, MSG_CLEAN_UP, nullptr);
 	}
 }
 

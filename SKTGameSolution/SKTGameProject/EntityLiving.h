@@ -30,7 +30,7 @@ public:
 	//Animation functions
 	void SetAnimations(std::vector<Animation*> animations);
 	Animation* GetAnimation(int index);
-	void UpdateAnimationToSprite(Animation* animation);
+	void UpdateSpriteFrame(Animation* animation);
 	int GetFrameCount() const;
 	void ResetCurrentAnimationInfo();
 	bool IsFrameChanged() const;
@@ -50,7 +50,7 @@ public:
 	void SetOverheat(float value);
 
 	//Material
-	virtual void Reset() override;
+	void Reset() override;
 	bool IsOutOfWall() const;
 
 	//Battle functions

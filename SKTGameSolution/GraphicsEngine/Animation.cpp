@@ -31,7 +31,7 @@ Frame* Animation::GetFrameByIndex(int index) const
 int Animation::GetNextFrameIndex(int currentFrame, float delay)
 {
 
-	if (int(++delay) > m_Frames.at(currentFrame)->GetDuration())
+	if (delay >= m_Frames.at(currentFrame)->GetDuration())
 	{
 		currentFrame++;
 		currentFrame %= m_iTotalFrames;

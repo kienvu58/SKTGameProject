@@ -21,6 +21,7 @@ public:
 
 	void InitSprite(int modelId, int frameId, int shaderId);
 	void InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtureDef);
+	void Trigger() const;
 	void Fire(b2Vec2 position, int direction) override;
 	void Reset() override;
 	void Explode();
@@ -38,6 +39,7 @@ private:
 	Sprite m_Sprite;
 
 	int m_iExplosionPID;
+	int m_iTriggerEffectPID;
 
 	b2PolygonShape m_b2PolygonShape;
 	b2BodyDef m_b2BodyDef;

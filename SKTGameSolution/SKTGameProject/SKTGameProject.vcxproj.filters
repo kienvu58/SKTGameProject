@@ -272,5 +272,17 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="..\Resources\Prototypes\CellExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\CellJrExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\KiBlastExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\TriggerEffect.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -54,7 +54,7 @@ void CellWanderingState::Enter(EntityCell* cell)
 
 void CellWanderingState::Execute(EntityCell* cell)
 {
-	cell->UpdateAnimationToSprite(cell->GetAnimation(CELL_FORWARD));
+	cell->UpdateSpriteFrame(cell->GetAnimation(CELL_FORWARD));
 	static float angle = 0.0f;
 	angle += Globals::deltaTime * 10 * Radians(360);
 	b2Vec2 eye = cell->GetBody()->GetPosition();
@@ -138,7 +138,7 @@ void CellDodgingState::Enter(EntityCell* cell)
 void CellDodgingState::Execute(EntityCell* cell)
 {
 	cell->IncreaseOverheat(6);
-	cell->UpdateAnimationToSprite(cell->GetAnimation(CELL_BACKWARD));
+	cell->UpdateSpriteFrame(cell->GetAnimation(CELL_BACKWARD));
 	if (cell->IsOverheated())
 	{
 		cell->GetFSM()->ChangeState(CS_Wandering::GetInstance());

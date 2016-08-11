@@ -4,6 +4,7 @@
 	"maxSpeed": 10,
 	"movementSpeed": 3,
 	"maxHealth": 50,
+	"explosionPID": 6,
 	"animationIds": [16, 17, 18, 19, 20, 21],
 	"graphics": { "modelId": 1, "frameId": 31, "shaderId": 1, "isReversed": true },
 	"physics":
@@ -14,7 +15,7 @@
 		},
 		"fixtureDef":
 		{
-			"boxShape": { "hx": 0.2, "hy": 0.25 },
+			"boxShape": { "hx": 0.4, "hy": 0.5 },
 			"friction": 1,
 			"restitution": 0,
 			"filter": { "categoryBits": 4, "maskBits": [2, 8], "note": "1: Wall, 2:Player, 4:Minion, 8: KiBlast" }

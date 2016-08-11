@@ -92,7 +92,7 @@ Animation* EntityLiving::GetAnimation(int index)
 	return m_vecAnimations.at(index);
 }
 
-void EntityLiving::UpdateAnimationToSprite(Animation* animation)
+void EntityLiving::UpdateSpriteFrame(Animation* animation)
 {
 	if (m_iCurrentFrameIndex == m_iLastFrameIndex)
 	{ // in duration of current frame, increase delay
@@ -103,7 +103,7 @@ void EntityLiving::UpdateAnimationToSprite(Animation* animation)
 		m_iFrameCount++;
 		m_fCurrentDelay = 0;
 	}
-	Frame* frame = animation->GetFrameByIndex(m_iCurrentFrameIndex);
+	auto frame = animation->GetFrameByIndex(m_iCurrentFrameIndex);
 	m_Sprite.SetFrame(frame);
 
 	m_iLastFrameIndex = m_iCurrentFrameIndex;

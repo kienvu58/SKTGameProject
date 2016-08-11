@@ -26,7 +26,7 @@ void CellJuniorAttackingState::Execute(EntityCellJunior* cellJunior)
 	cellJunior->IncreaseOverheat(2);
 	auto playerPosition = GS_GamePlay::GetInstance()->GetPlayer()->GetBody()->GetPosition();
 	cellJunior->GetSteering()->SetSeekTarget(playerPosition);
-	cellJunior->UpdateAnimationToSprite(cellJunior->GetAnimation(CELLJR_ATTACKING));
+	cellJunior->UpdateSpriteFrame(cellJunior->GetAnimation(CELLJR_ATTACKING));
 	if (cellJunior->IsOverheated())
 	{
 		cellJunior->GetFSM()->ChangeState(CJS_Wandering::GetInstance());
@@ -66,7 +66,7 @@ void CellJuniorWanderingState::Enter(EntityCellJunior* cellJunior)
 void CellJuniorWanderingState::Execute(EntityCellJunior* cellJunior)
 {
 	cellJunior->DecreaseOverheatPerSecond(15);
-	cellJunior->UpdateAnimationToSprite(cellJunior->GetAnimation(CELLJR_WANDERING));
+	cellJunior->UpdateSpriteFrame(cellJunior->GetAnimation(CELLJR_WANDERING));
 }
 
 void CellJuniorWanderingState::Exit(EntityCellJunior* cellJunior)
