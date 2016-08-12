@@ -39,7 +39,7 @@ int GameInit()
 	// Init game
 	GameSingleton::CreateInstance();
 
-	GameInstance->GetFSM()->SetCurrentState(GS_MainMenu::GetInstance());
+	GameInstance->GetFSM()->SetCurrentState(GS_GamePlay::GetInstance());
 
 	GameInstance->Init();
 

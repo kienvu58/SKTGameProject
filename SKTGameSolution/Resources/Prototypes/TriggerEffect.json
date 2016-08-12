@@ -1,6 +1,7 @@
 {
 	"animationId": 25,
 	"isLoop": false,
+	"autoScaling":  false,
 	"graphics": 
 	{
 		"modelId": 12,

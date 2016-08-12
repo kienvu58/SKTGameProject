@@ -22,7 +22,6 @@ public:
 
 	void UpdateSpriteFrame();
 	void Stop();
-	void Play();
 	void Start(b2Vec2 position, Entity* pOwner);
 	void ResetCurrentAnimationInfo();
 private:
@@ -35,5 +34,7 @@ private:
 	float m_fCurrentDelay;
 	int m_iFrameCount;
 	bool m_bIsLoop;
+	bool m_bAutoScaling;
+	Vector2 m_vec2Position;
 };
 

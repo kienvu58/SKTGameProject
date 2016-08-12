@@ -47,6 +47,11 @@
 			"dataPath": "Prototypes/BeamWaveHit.json"
 		},
 		{
+			"id": 10,
+			"entityType": "ENTITY_EFFECT",
+			"dataPath": "Prototypes/KamehamehaLight.json"
+		},
+		{
 			"id": 69,
 			"entityType": "ENTITY_CELL",
 			"dataPath": "Prototypes/Cell.json"

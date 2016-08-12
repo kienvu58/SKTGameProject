@@ -64,7 +64,7 @@ void GamePlayState::Execute(Game* game)
 
 	PressButton(game);
 	HandlingCircleDirection(game);
-	printf("%f | %f \n", InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
+//	printf("%f | %f \n", InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
 }
 
 void GamePlayState::Exit(Game* game)
