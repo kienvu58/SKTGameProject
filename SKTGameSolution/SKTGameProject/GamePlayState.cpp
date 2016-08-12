@@ -45,8 +45,9 @@ void GamePlayState::Execute(Game* game)
 	m_CircleWithDirections->Update();
 	m_Circle4Dash->Update();
 	m_Circle2Dash_J->Update();
-	m_Circle2Dash_K->Render();
-	m_Circle2Dash_L->Render();
+	m_Circle2Dash_K->Update();
+	m_Circle2Dash_L->Update();
+	m_Circle2Dash_I->Update();
 	RunningBackground(game);
 
 	m_Player->Update();
@@ -80,6 +81,7 @@ void GamePlayState::Render(Game* game)
 	m_Circle2Dash_J->Render();
 	m_Circle2Dash_K->Render();
 	m_Circle2Dash_L->Render();
+	m_Circle2Dash_I->Render();
 
 	std::string currentScore = std::to_string(m_iScore);
 
@@ -184,6 +186,10 @@ void GamePlayState::Init(const char* filePath)
 	m_Circle2Dash_L->InitSprite(104, 204, 1);
 	m_Circle2Dash_L->InitPosition(1058, 390);
 
+	m_Circle2Dash_I = new EntityStatic();
+	m_Circle2Dash_I->InitSprite(104, 204, 1);
+	m_Circle2Dash_I->InitPosition(940, 570);
+
 	m_spawner.Init("Data/SPAWNER.json");
 
 	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
@@ -213,6 +219,7 @@ GamePlayState::~GamePlayState()
 	delete m_Circle2Dash_J;
 	delete m_Circle2Dash_K;
 	delete m_Circle2Dash_L;
+	delete m_Circle2Dash_I;
 	
 }
 

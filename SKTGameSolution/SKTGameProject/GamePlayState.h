@@ -39,6 +39,7 @@ private:
 	EntityStatic *m_Circle2Dash_J;
 	EntityStatic *m_Circle2Dash_K;
 	EntityStatic *m_Circle2Dash_L;
+	EntityStatic *m_Circle2Dash_I;
 	Vector2 m_Circle4DashPos;
 	
 	EntityStatic* m_Background;
