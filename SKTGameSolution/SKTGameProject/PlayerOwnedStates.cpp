@@ -357,15 +357,19 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 	auto startFiringFrameIndex = firingUltimateAnimation->GetNStartFrame();
 	auto currentFrameIndex = entity->GetFrameCount();
 
+	if (currentFrameIndex >= startFiringFrameIndex)
+	{
+		auto amount = Globals::deltaTime * entity->GetUltimateSkillCost();
+		entity->DecreaseKi(amount);
+	}
+
 	if (currentFrameIndex == startFiringFrameIndex && entity->IsFrameChanged())
 	{
 		entity->FireUltimate();
-		// Decrease Ki here
 	}
 
-	if (1)
+	if (!InputMgr->IsPressed(KEY_L) || entity->GetCurrentKi() <= 0)
 	{
-		// change to PlayerStandingState
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
 

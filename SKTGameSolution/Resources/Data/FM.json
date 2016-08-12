@@ -45,6 +45,9 @@
 		{ "id": 42, "spriteSheetID": 1, "index": 41, "duration": 1, "note": "AuraLoop_0" },
 		{ "id": 43, "spriteSheetID": 1, "index": 42, "duration": 1, "note": "AuraLoop_1" },
 		{ "id": 44, "spriteSheetID": 1, "index": 43, "duration": 1, "note": "AuraLoop_2" },
+		{ "id": 45, "spriteSheetID": 1, "index": 44, "duration": 1, "note": "GokuBarrier_0" },
+		{ "id": 46, "spriteSheetID": 1, "index": 45, "duration": 1, "note": "GokuBarrier_1" },
+		{ "id": 47, "spriteSheetID": 1, "index": 46, "duration": 1, "note": "GokuBarrier_2" },
 
 		{ "id": 65, "spriteSheetID": 2, "index": 0, "duration": 0.5, "note": "Light_A" },
 		{ "id": 66, "spriteSheetID": 2, "index": 1, "duration": 1, "note": "YellowKiBlast" },
@@ -66,6 +69,8 @@
 		{ "id": 82, "spriteSheetID": 2, "index": 17, "duration": 1, "note": "Kamehameha_Start" },
 		{ "id": 83, "spriteSheetID": 2, "index": 18, "duration": 1, "note": "Kamehameha_Mid" },
 		{ "id": 84, "spriteSheetID": 2, "index": 19, "duration": 1, "note": "Kamehameha_End" },
+		{ "id": 85, "spriteSheetID": 2, "index": 20, "duration": 1, "note": "Barrier_0" },
+		{ "id": 86, "spriteSheetID": 2, "index": 21, "duration": 1, "note": "Barrier_1" },
 
 		{ "id": 100, "spriteSheetID": 3, "index": 0, "duration": 1, "note": "GameWelcomeBackground" },
 		{ "id": 101, "spriteSheetID": 3, "index": 1, "duration": 1, "note": "MainMenuBackground" },

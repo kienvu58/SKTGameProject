@@ -51,10 +51,20 @@
 			"entityType": "ENTITY_EFFECT",
 			"dataPath": "Prototypes/KamehamehaLight.json"
 		},
-		{
-			"id": 11,
-			"entityType": "ENTITY_EFFECT",
-			"dataPath": "Prototypes/Aura.json"
+    {
+      "id": 11,
+      "entityType": "ENTITY_EFFECT",
+      "dataPath": "Prototypes/Aura.json"
+    },
+    {
+      "id": 12,
+      "entityType": "ENTITY_EFFECT",
+      "dataPath": "Prototypes/BarrierEffect.json"
+    },
+    {
+			"id": 13,
+			"entityType": "ENTITY_BARRIER",
+			"dataPath": "Prototypes/Barrier.json"
 		},
 		{
 			"id": 69,

@@ -6,6 +6,7 @@
 #include "Definations.h"
 #include "EntityKiBlast.h"
 #include "EntityEffect.h"
+#include "EntityBarrier.h"
 
 FactoryEntity::FactoryEntity()
 {
@@ -44,6 +45,8 @@ void FactoryEntity::Init(const char* filePath)
 			entity = new EntityEffect();
 		if (entityType.compare("ENTITY_BEAMWAVE") == 0)
 			entity = new EntityBeamWave();
+		if (entityType.compare("ENTITY_BARRIER") == 0)
+			entity = new EntityBarrier();
 
 		if (entity)
 		{

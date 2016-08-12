@@ -31,6 +31,8 @@
 		{ "id": 24, "note": "aura_charging", "nStartFrames": 2, "frameIDs": [40, 41, 42, 43, 44] },
 		{ "id": 25, "note": "trigger_effect", "nStartFrames": 0, "frameIDs": [65, 65] },
 		{ "id": 26, "note": "kame_hit_effect", "nStartFrames": 0, "frameIDs": [75, 75] },
-		{ "id": 27, "note": "kame_light_effect", "nStartFrames": 0, "frameIDs": [81, 81] }
+		{ "id": 27, "note": "kame_light_effect", "nStartFrames": 0, "frameIDs": [81, 81] },
+		{ "id": 28, "note": "Goku_barrier", "nStartFrames": 2, "frameIDs": [45, 46, 47] },
+		{ "id": 29, "note": "Barrier", "nStartFrames": 1, "frameIDs": [85, 86] }
 	]
 }

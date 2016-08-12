@@ -1,6 +1,6 @@
 {
 	"attackDamage": 30,
-	"speed": 6,
+	"speed": 8,
 	"explosionPID": 4,
 	"triggerEffectPID": 7,
 	"graphics":  

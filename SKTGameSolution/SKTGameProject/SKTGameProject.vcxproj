@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Application_android.cpp" />
     <ClCompile Include="CellOwnedStates.cpp" />
+    <ClCompile Include="EntityBarrier.cpp" />
     <ClCompile Include="EntityBeamWave.cpp" />
     <ClCompile Include="CellJuniorOwnedStates.cpp" />
     <ClCompile Include="EntityBullet.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CellOwnedStates.h" />
+    <ClInclude Include="EntityBarrier.h" />
     <ClInclude Include="EntityBeamWave.h" />
     <ClInclude Include="CellJuniorOwnedStates.h" />
     <ClInclude Include="EntityBullet.h" />
@@ -205,6 +207,8 @@
     <None Include="..\Resources\Data\MainMenuState.json" />
     <None Include="..\Resources\Data\RM.json" />
     <None Include="..\Resources\Prototypes\Aura.json" />
+    <None Include="..\Resources\Prototypes\Barrier.json" />
+    <None Include="..\Resources\Prototypes\BarrierEffect.json" />
     <None Include="..\Resources\Prototypes\BeamWaveHit.json" />
     <None Include="..\Resources\Prototypes\Cell.json" />
     <None Include="..\Resources\Prototypes\CellExplosion.json" />

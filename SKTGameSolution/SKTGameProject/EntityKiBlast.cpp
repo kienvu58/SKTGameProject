@@ -162,7 +162,6 @@ void EntityKiBlast::Init(int prototypeId, const char* dataPath)
 	m_b2FixtureDef.filter.maskBits = 0;
 	for (auto maskBits : fixtureData["filter"]["maskBits"])
 	{
-		int a = maskBits.get<int>();
 		m_b2FixtureDef.filter.maskBits |= maskBits.get<int>();
 	}
 	m_fAttackDamage = data["attackDamage"].get<float>();

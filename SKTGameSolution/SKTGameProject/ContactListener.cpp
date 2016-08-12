@@ -30,39 +30,31 @@ void ContactListener::BeginContact(b2Contact* contact)
 		EntityType typeB = entityB->GetType();
 
 		if (typeB == ENTITY_MINION && typeA == ENTITY_KIBLAST)
-		{
 			KiBlastHitsMinion(static_cast<EntityKiBlast*>(entityA), static_cast<EntityMinion*>(entityB));
-		}
 
 		if (typeA == ENTITY_MINION && typeB == ENTITY_KIBLAST)
-		{
 			KiBlastHitsMinion(static_cast<EntityKiBlast*>(entityB), static_cast<EntityMinion*>(entityA));
-		}
 
 		if (typeA == ENTITY_MINION && typeB == ENTITY_PLAYER)
-		{
 			MinionHitsPlayer(static_cast<EntityMinion*>(entityA), static_cast<EntityPlayer*>(entityB));
-		}
 
 		if (typeB == ENTITY_MINION && typeA == ENTITY_PLAYER)
-		{
 			MinionHitsPlayer(static_cast<EntityMinion*>(entityB), static_cast<EntityPlayer*>(entityA));
-		}
 
 		if (typeA == ENTITY_PLAYER && typeB == ENTITY_KIBLAST)
-		{
 			KiBlastHitsPlayer(static_cast<EntityKiBlast*>(entityB), static_cast<EntityPlayer*>(entityA));
-		}
 
 		if (typeB == ENTITY_PLAYER && typeA == ENTITY_KIBLAST)
-		{
 			KiBlastHitsPlayer(static_cast<EntityKiBlast*>(entityA), static_cast<EntityPlayer*>(entityB));
-		}
 
 		if (typeA == ENTITY_KIBLAST && typeB == ENTITY_KIBLAST)
-		{
 			KiBlastHitsKiBlast(static_cast<EntityKiBlast*>(entityA), static_cast<EntityKiBlast*>(entityB));
-		}
+
+		if (typeA == ENTITY_BARRIER)
+			HitsBarrier(entityB);
+
+		if (typeB == ENTITY_BARRIER)
+			HitsBarrier(entityA);
 	}
 }
 
@@ -96,4 +88,9 @@ void ContactListener::KiBlastHitsKiBlast(EntityKiBlast* kiBlast1, EntityKiBlast*
 {
 	Dispatcher->DispatchMessageA(nullptr, kiBlast1, MSG_EXPLODE, nullptr);
 	Dispatcher->DispatchMessageA(nullptr, kiBlast2, MSG_EXPLODE, nullptr);
+}
+
+void ContactListener::HitsBarrier(Entity* entity)
+{
+	Dispatcher->DispatchMessageA(nullptr, entity, MSG_EXPLODE, nullptr);
 }

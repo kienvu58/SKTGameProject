@@ -40,6 +40,8 @@ void EntityPlayer::Render()
 			m_pSpecial->Render();
 		if (m_pAura)
 			m_pAura->Render();
+		if (m_pUltimate)
+			m_pUltimate->Render();
 	}
 }
 
@@ -53,6 +55,8 @@ void EntityPlayer::Update()
 			m_pSpecial->Update();
 		if (m_pAura)
 			m_pAura->Update();
+		if (m_pUltimate)
+			m_pUltimate->Update();
 	}
 }
 
@@ -195,10 +199,10 @@ void EntityPlayer::FireUltimate()
 {
 	if (!m_pUltimate)
 	{
-		m_pUltimate = static_cast<EntityBeamWave*>(PoolMgr->GetEntityByPrototypeId(m_iUltimatePID));
+		m_pUltimate = static_cast<EntityBarrier*>(PoolMgr->GetEntityByPrototypeId(m_iUltimatePID));
 	}
 	auto position = m_pBody->GetPosition();
-	m_pUltimate->Fire(position, 1);
+	m_pUltimate->Activate(position);
 }
 
 void EntityPlayer::StopSpecial() const

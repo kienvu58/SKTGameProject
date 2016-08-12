@@ -65,20 +65,21 @@ void EntityBeamWave::DetectIntersections()
 void EntityBeamWave::UpdateGraphics()
 {
 	auto scaleMidX = PixelsFromMeters(m_fLength) / m_iSpriteWidth;
+	auto randScale = 0.9 + Globals::deltaTime * 9;
 	auto endPhysicsPosition = m_vec2Pos + m_iDirection * m_fLength * b2Vec2(1, 0);
 	auto midPhysicsPosition = m_vec2Pos + m_iDirection * m_fLength / 2 * b2Vec2(1, 0);
 	auto isReversed = m_iDirection == -1;
 
 	auto midGraphicsPosition =
 		GraphicsFromPhysics(midPhysicsPosition) - Vector2(1, 0) * m_iDirection * m_iSpriteWidth / 4;
-	m_SpriteMid.SetRenderInfo(midGraphicsPosition, isReversed, Vector2(scaleMidX, 1));
+	m_SpriteMid.SetRenderInfo(midGraphicsPosition, isReversed, Vector2(scaleMidX, randScale));
 
 
 	auto endGraphicsPosition =
 		GraphicsFromPhysics(endPhysicsPosition) - Vector2(1, 0) * m_iDirection * m_iSpriteWidth / 2;
-	m_SpriteEnd.SetRenderInfo(endGraphicsPosition, isReversed);
+	m_SpriteEnd.SetRenderInfo(endGraphicsPosition, isReversed, Vector2(1, 1) * randScale);
 
-	m_SpriteStart.SetRenderInfo(GraphicsFromPhysics(m_vec2Pos), isReversed);
+	m_SpriteStart.SetRenderInfo(GraphicsFromPhysics(m_vec2Pos), isReversed, Vector2(1, 1) * randScale);
 }
 
 void EntityBeamWave::UpdateLength()

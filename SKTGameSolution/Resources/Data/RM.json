@@ -131,6 +131,16 @@
 			"textureW": 512,
 			"textureH": 256
 		},
+    {
+			"id": 14,
+			"note": "BarrierEffect",
+			"modelW": 128,
+			"modelH": 128,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
 		{
 			"id": 100,
 			"note": "BackgroundRunning",

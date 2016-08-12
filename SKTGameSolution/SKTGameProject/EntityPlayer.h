@@ -2,6 +2,7 @@
 #include <Common/FSM/StateMachine.h>
 #include "EntityLiving.h"
 #include "EntityBeamWave.h"
+#include "EntityBarrier.h"
 
 enum AnimationName
 {
@@ -47,9 +48,6 @@ public:
 	void FireSpecial();
 	void FireUltimate();
 
-	float GetUltimateDuration() const;
-	float GetSpecialDuration() const;
-	
 	void StopSpecial() const;
 	void StopUltimate() const;
 
@@ -86,7 +84,7 @@ private:
 
 	EntityEffect* m_pAura;
 	EntityBeamWave* m_pSpecial;
-	EntityBeamWave* m_pUltimate;
+	EntityBarrier* m_pUltimate;
 	float m_fNormalCost;
 	float m_fSpecialCost;
 	float m_fUltimateCost;

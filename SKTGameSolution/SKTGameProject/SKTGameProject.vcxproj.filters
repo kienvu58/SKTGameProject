@@ -117,6 +117,9 @@
     <ClCompile Include="RayCastMultipleCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EntityBarrier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CellJuniorOwnedStates.h">
@@ -230,6 +233,9 @@
     <ClInclude Include="RayCastMultipleCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EntityBarrier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\Data\AM.json">
@@ -291,6 +297,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\Resources\Prototypes\Aura.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Barrier.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\BarrierEffect.json">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

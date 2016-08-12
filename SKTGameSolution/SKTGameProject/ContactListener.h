@@ -18,5 +18,6 @@ private:
 	static void MinionHitsPlayer(EntityMinion* minion, EntityPlayer* player);
 	static void KiBlastHitsPlayer(EntityKiBlast* kiBlast, EntityPlayer* player);
 	static void KiBlastHitsKiBlast(EntityKiBlast* kiBlast1, EntityKiBlast* kiBlast2);
+	static void HitsBarrier(Entity* entity);
 };
 
