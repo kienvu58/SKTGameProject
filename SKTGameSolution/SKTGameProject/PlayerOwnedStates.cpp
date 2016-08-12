@@ -93,11 +93,17 @@ void PlayerStandingState::Execute(EntityPlayer* entity)
 	auto keyJ = InputMgr->IsPressed(KEY_J);
 	auto keyK = InputMgr->IsPressed(KEY_K);
 	auto keyL = InputMgr->IsPressed(KEY_L);
+	auto keyI = InputMgr->IsPressed(KEY_I);
+	auto isCharging = keyI;
 	auto isMoving = velocity.Length() > 0;
 	auto isFiring = keyJ && !entity->IsOverheated();
 	auto isFiringSpecial = keyK && entity->GetCurrentKi() > SPECIAL_KI;
 	auto isFiringUltimate = keyL && entity->GetCurrentKi() > ULTIMATE_KI;
 
+	if (isCharging)
+	{
+		entity->GetFSM()->ChangeState(PS_Charging::GetInstance());
+	}
 	if (isMoving)
 	{
 		entity->GetFSM()->ChangeState(PS_Moving::GetInstance());
@@ -165,11 +171,13 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 	auto keyJ = InputMgr->IsPressed(KEY_J);
 	auto keyK = InputMgr->IsPressed(KEY_K);
 	auto keyL = InputMgr->IsPressed(KEY_L);
+	auto keyI = InputMgr->IsPressed(KEY_I);
+	auto isCharging = keyI;
 	auto isStanding = velocity.Length() == 0;
 	auto isFiring = keyJ && !entity->IsOverheated();
 	auto isFiringSpecial = keyK && entity->GetCurrentKi() > SPECIAL_KI;
 	auto isFiringUltimate = keyL && entity->GetCurrentKi() > ULTIMATE_KI;
-	if (isStanding || isFiring || isFiringSpecial || isFiringUltimate)
+	if (isStanding || isFiring || isFiringSpecial || isFiringUltimate || isCharging)
 	{
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
@@ -469,6 +477,57 @@ void PlayerFallingToDead::Render(EntityPlayer* player)
 }
 
 bool PlayerFallingToDead::OnMessage(EntityPlayer*, const Telegram&)
+{
+	return false;
+}
+
+
+/*
+ *	PlayerChargingState
+ */
+
+PlayerChargingState::PlayerChargingState()
+{
+}
+
+PlayerChargingState::~PlayerChargingState()
+{
+}
+
+void PlayerChargingState::Enter(EntityPlayer* player)
+{
+}
+
+void PlayerChargingState::Execute(EntityPlayer* player)
+{
+	// player cannot mow while firing special
+	player->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
+	Animation* chargingAnimation = player->GetAnimation(CHARGING);
+	player->UpdateSpriteFrame(chargingAnimation);
+
+	auto startFiringFrameIndex = chargingAnimation->GetNStartFrame();
+	auto currentFrameIndex = player->GetFrameCount();
+
+	if (currentFrameIndex > startFiringFrameIndex)
+		player->Charge();
+
+	if (!InputMgr->IsPressed(KEY_I))
+	{
+		player->GetFSM()->ChangeState(PS_Standing::GetInstance());
+	}
+}
+
+void PlayerChargingState::Exit(EntityPlayer* player)
+{
+	player->StopCharging();
+	player->ResetCurrentAnimationInfo();
+}
+
+void PlayerChargingState::Render(EntityPlayer* player)
+{
+}
+
+bool PlayerChargingState::OnMessage(EntityPlayer* player, const Telegram& telegram)
 {
 	return false;
 }

@@ -9,6 +9,7 @@
 #define KEY_J (1 << 4)
 #define KEY_K (1 << 5)
 #define KEY_L (1 << 6)
+#define KEY_I (1 << 7)
 
 class InputManager
 {

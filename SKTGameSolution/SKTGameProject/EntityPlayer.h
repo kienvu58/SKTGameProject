@@ -15,7 +15,8 @@ enum AnimationName
 	DEAD,
 	FIRING,
 	FIRING_SPECIAL,
-	FIRING_ULTIMATE
+	FIRING_ULTIMATE,
+	CHARGING
 };
 
 class EntityPlayer :
@@ -63,6 +64,10 @@ public:
 	void DeCreaseCantDieTime(float amnout);
 	bool IsCantDie() const;
 	void ResetCantDieTime();
+
+	void StopCharging() const;
+	void Charge();
+
 private:
 	//player attributes
 	float m_fMaxKi;
@@ -79,9 +84,7 @@ private:
 	int m_iUltimatePID;
 	int m_iAuraPID;
 
-	float m_fSpecialDuration;
-	float m_fUltimateDuration;
-
+	EntityEffect* m_pAura;
 	EntityBeamWave* m_pSpecial;
 	EntityBeamWave* m_pUltimate;
 	float m_fNormalCost;

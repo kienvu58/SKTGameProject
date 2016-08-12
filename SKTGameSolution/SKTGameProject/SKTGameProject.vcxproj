@@ -204,6 +204,7 @@
     <None Include="..\Resources\Data\GamePlayState.json" />
     <None Include="..\Resources\Data\MainMenuState.json" />
     <None Include="..\Resources\Data\RM.json" />
+    <None Include="..\Resources\Prototypes\Aura.json" />
     <None Include="..\Resources\Prototypes\BeamWaveHit.json" />
     <None Include="..\Resources\Prototypes\Cell.json" />
     <None Include="..\Resources\Prototypes\CellExplosion.json" />

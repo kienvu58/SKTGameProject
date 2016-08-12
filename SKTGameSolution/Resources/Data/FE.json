@@ -52,6 +52,11 @@
 			"dataPath": "Prototypes/KamehamehaLight.json"
 		},
 		{
+			"id": 11,
+			"entityType": "ENTITY_EFFECT",
+			"dataPath": "Prototypes/Aura.json"
+		},
+		{
 			"id": 69,
 			"entityType": "ENTITY_CELL",
 			"dataPath": "Prototypes/Cell.json"

@@ -290,5 +290,8 @@
     <None Include="..\Resources\Prototypes\KamehamehaLight.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Resources\Prototypes\Aura.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

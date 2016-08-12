@@ -38,6 +38,8 @@ void EntityPlayer::Render()
 		m_Sprite.Render();
 		if (m_pSpecial)
 			m_pSpecial->Render();
+		if (m_pAura)
+			m_pAura->Render();
 	}
 }
 
@@ -49,6 +51,8 @@ void EntityPlayer::Update()
 		m_pStateMachine->Update();
 		if (m_pSpecial)
 			m_pSpecial->Update();
+		if (m_pAura)
+			m_pAura->Update();
 	}
 }
 
@@ -121,8 +125,6 @@ void EntityPlayer::Init(int prototypeId, const char* dataPath)
 	m_fAttackDamage = data["attackDamage"].get<float>();
 	m_fVisionRange = data["visionRange"].get<float>();
 	m_fVisionFreq = data["visionFreq"].get<float>();
-	m_fSpecialDuration = data["skillDuration"]["special"].get<float>();
-	m_fUltimateDuration = data["skillDuration"]["ultimate"].get<float>();
 	m_fNormalCost = data["cost"]["normal"].get<float>();
 	m_fSpecialCost = data["cost"]["special"].get<float>();
 	m_fUltimateCost = data["cost"]["ultimate"].get<float>();
@@ -225,14 +227,23 @@ float EntityPlayer::GetCurrentKi() const
 	return m_fCurrentKi;
 }
 
-float EntityPlayer::GetUltimateDuration() const
+void EntityPlayer::StopCharging() const
 {
-	return m_fUltimateDuration;
+	if (m_pAura)
+	{
+		m_pAura->Stop();
+		m_pAura->ResetCurrentAnimationInfo();
+	}
 }
 
-float EntityPlayer::GetSpecialDuration() const
+void EntityPlayer::Charge()
 {
-	return m_fSpecialDuration;
+	if (!m_pAura)
+		m_pAura = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iAuraPID));
+	if (!m_pAura->IsActive())
+		m_pAura->Start(m_pBody->GetPosition() + b2Vec2(-0.05, 0.3), nullptr);
+	m_fCurrentKi += Globals::deltaTime * 100;
+	m_fCurrentKi = m_fCurrentKi <= m_fMaxKi ? m_fCurrentKi : m_fMaxKi;
 }
 
 float EntityPlayer::GetNormalSkillCost() const
