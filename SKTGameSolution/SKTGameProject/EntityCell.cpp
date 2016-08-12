@@ -62,6 +62,7 @@ void EntityCell::Init(int prototypeId, const char* dataPath)
 	m_b2FixtureDef.friction = fixtureData["friction"].get<float>();
 	m_b2FixtureDef.restitution = fixtureData["restitution"].get<float>();
 	m_b2FixtureDef.filter.categoryBits = fixtureData["filter"]["categoryBits"].get<int>();
+	m_b2FixtureDef.filter.maskBits = 0;
 	for (auto maskBits : fixtureData["filter"]["maskBits"])
 	{
 		m_b2FixtureDef.filter.maskBits |= maskBits.get<int>();
@@ -73,6 +74,8 @@ void EntityCell::Init(int prototypeId, const char* dataPath)
 	m_fCurrentHealth = m_fMaxHealth = data["maxHealth"].get<float>();
 	m_fMovementSpeed = data["movementSpeed"].get<float>();
 	m_fAttackDamage = data["attackDamage"].get<float>();
+
+	m_iGreenKiBlastID = data["skillPIDs"]["greenKiBlast"].get<int>();
 
 	std::vector<Animation*> animations;
 	for (auto animationId : data["animationIds"])
@@ -108,4 +111,12 @@ void EntityCell::Reset()
 {
 	EntityMinion::Reset();
 	m_pStateMachine->ChangeState(CS_Wandering::GetInstance());
+}
+
+void EntityCell::Fire() const
+{
+	auto bullet = static_cast<EntityBullet*>(PoolMgr->GetEntityByPrototypeId(m_iGreenKiBlastID));
+	auto position = m_pBody->GetPosition() - b2Vec2(0.5f, 0.0f);
+	bullet->Fire(position, -1);
+	GS_GamePlay::GetInstance()->AddEntityToTheScreen(bullet);
 }

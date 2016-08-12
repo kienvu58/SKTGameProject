@@ -18,7 +18,16 @@
 			"boxShape": { "hx": 0.4, "hy": 0.5 },
 			"friction": 1,
 			"restitution": 0,
-			"filter": { "categoryBits": 4, "maskBits": [2, 8], "note": "1: Wall, 2:Player, 4:Minion, 8: KiBlast" }
+			"filter": 
+			{ 
+				"categoryBits": 4, 
+				"maskBits": [2, 8], 
+				"note": "1: Wall, 2:Player, 4: Cell, 8: KiBlast, 16: CellJr, 32: Green KiBlast"
+			}
 		}
+	},
+	"skillPIDs":
+	{
+		"greenKiBlast": 70
 	}
 }

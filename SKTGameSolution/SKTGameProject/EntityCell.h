@@ -32,8 +32,14 @@ public:
 	bool HandleMessage(const Telegram& telegram) override;
 
 	void Reset() override;
+
+	//battle
+	void Fire() const;
 private:
 	//State info
 	StateMachine<EntityCell>* m_pStateMachine;
+
+	//Skill prototype ids.
+	int m_iGreenKiBlastID;
 };
 

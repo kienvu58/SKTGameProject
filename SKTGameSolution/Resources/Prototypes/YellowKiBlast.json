@@ -1,5 +1,5 @@
 {
-	"attackDamage": 10,
+	"attackDamage": 30,
 	"speed": 6,
 	"explosionPID": 4,
 	"triggerEffectPID": 7,
@@ -20,7 +20,12 @@
 			"boxShape": { "hx": 0.2, "hy": 0.1 },
 			"friction": 1,
 			"restitution": 0,
-			"filter": { "categoryBits": 8, "maskBits": [4], "note": "1: Wall, 2:Player, 4:Minion, 8: KiBlast" }
+			"filter": 
+			{ 
+				"categoryBits": 8, 
+				"maskBits": [4, 16, 32], 
+				"note": "1: Wall, 2:Player, 4: Cell, 8: KiBlast, 16: CellJr, 32: Green KiBlast"
+			}
 		}
 	}
 }

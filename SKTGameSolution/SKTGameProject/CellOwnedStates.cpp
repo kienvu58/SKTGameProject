@@ -54,6 +54,7 @@ void CellWanderingState::Enter(EntityCell* cell)
 
 void CellWanderingState::Execute(EntityCell* cell)
 {
+	cell->DecreaseOverheatPerSecond(15);
 	cell->UpdateSpriteFrame(cell->GetAnimation(CELL_FORWARD));
 	static float angle = 0.0f;
 	angle += Globals::deltaTime * 10 * Radians(360);
@@ -68,7 +69,11 @@ void CellWanderingState::Execute(EntityCell* cell)
 		cell->GetSteering()->SetFleeTarget(fleeTarget);
 		cell->GetFSM()->ChangeState(CS_Dodging::GetInstance());
 	}
-	cell->DecreaseOverheatPerSecond(15);
+
+	if (!cell->IsOverheated() && !cell->IsOutOfWall())
+	{
+		cell->GetFSM()->ChangeState(CS_Attacking::GetInstance());
+	}
 }
 
 void CellWanderingState::Exit(EntityCell* cell)
@@ -99,8 +104,22 @@ void CellAttackingState::Enter(EntityCell* Cell)
 {
 }
 
-void CellAttackingState::Execute(EntityCell* Cell)
+void CellAttackingState::Execute(EntityCell* cell)
 {
+	Animation* animationFire = cell->GetAnimation(CELL_FIRING);
+	float x = cell->GetBody()->GetPosition().x;
+	float boundry = MetersFromPixels(Globals::screenWidth) / 2;
+	if (cell->IsFrameChanged() && x < boundry - 5)
+	{
+		cell->Fire();
+		cell->IncreaseOverheat(30);
+	}
+	if (cell->IsOverheated() && animationFire->GetTotalFrames() <= cell->GetFrameCount())
+	{
+		cell->GetFSM()->ChangeState(CS_Wandering::GetInstance());
+	}
+
+	cell->UpdateSpriteFrame(animationFire);
 }
 
 void CellAttackingState::Exit(EntityCell* cell)

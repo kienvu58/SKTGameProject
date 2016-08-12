@@ -59,6 +59,7 @@ void EntityCellJunior::Init(int prototypeId, const char* dataPath)
 	m_b2FixtureDef.friction = fixtureData["friction"].get<float>();
 	m_b2FixtureDef.restitution = fixtureData["restitution"].get<float>();
 	m_b2FixtureDef.filter.categoryBits = fixtureData["filter"]["categoryBits"].get<int>();
+	m_b2FixtureDef.filter.maskBits = 0;
 	for (auto maskBits : fixtureData["filter"]["maskBits"])
 	{
 		m_b2FixtureDef.filter.maskBits |= maskBits.get<int>();

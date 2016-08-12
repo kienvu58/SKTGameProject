@@ -218,7 +218,7 @@ bool EntityLiving::IsOutOfWall() const
 	float wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
 	float boundryX = wallHalfWidth + padding;
 	float boundryY = wallHalfHeight + padding;
-
+	
 	b2Vec2 position = m_pBody->GetPosition();
 
 	if (-boundryX < position.x && position.x < boundryX + 3

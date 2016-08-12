@@ -41,7 +41,6 @@ public:
 	void DetectMinions();
 	void Fire() const;
 
-
 	void Reset() override;
 private:
 	//player attributes

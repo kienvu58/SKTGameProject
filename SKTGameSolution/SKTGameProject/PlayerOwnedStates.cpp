@@ -224,7 +224,6 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 		entity->IncreaseOverheat(5);
 	}
 
-
 	if (entity->IsOverheated() ||
 		!InputMgr->IsPressed(KEY_J) && firingAnimation->GetTotalFrames() <= entity->GetFrameCount())
 	{

@@ -40,6 +40,11 @@
 			"id": 69,
 			"entityType": "ENTITY_CELL",
 			"dataPath": "Prototypes/Cell.json"
+		},
+		{
+			"id": 70,
+			"entityType": "ENTITY_KIBLAST",
+			"dataPath": "Prototypes/GreenKiBlast.json"
 		}
 	]
 }
