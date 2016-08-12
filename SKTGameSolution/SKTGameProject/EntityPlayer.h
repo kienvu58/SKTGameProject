@@ -58,12 +58,20 @@ public:
 
 	void Reset() override;
 	float GetCurrentKi() const;
+
+	void InCreaseCantDieTime(float amount);
+	void DeCreaseCantDieTime(float amnout);
+	bool IsCantDie() const;
+	void ResetCantDieTime();
 private:
 	//player attributes
 	float m_fMaxKi;
 	float m_fCurrentKi;
 	float m_fVisionRange;
 	float m_fVisionFreq;
+	float m_fCurrentCantDieCount;
+	float m_fMaxCantDieTime;
+	bool m_bIsCantDie;
 
 	// prototypeIds of player's skills
 	int m_iNormalPID;

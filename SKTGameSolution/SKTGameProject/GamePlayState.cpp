@@ -4,7 +4,6 @@
 #include <Box2D/Dynamics/b2Fixture.h>
 #include "SingletonClasses.h"
 #include <ctime>
-#include "EntityBeamWave.h"
 #include "../GraphicsEngine/Globals.h"
 #include "../GraphicsEngine/HelperFunctions.h"
 #include "EntityKiBlast.h"

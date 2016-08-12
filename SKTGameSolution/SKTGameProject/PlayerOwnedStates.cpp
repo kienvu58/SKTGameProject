@@ -60,8 +60,12 @@ bool PlayerGlobalState::OnMessage(EntityPlayer* player, const Telegram& telegram
 {
 	if (telegram.Message == MSG_PLAYER_TAKE_DAMAGE)
 	{
-		auto damage = DereferenceToType<float>(telegram.ExtraInfo);
-		player->TakeDamage(damage);
+		if (player->GetFSM()->CurrentState() != PS_TakingDamage::GetInstance())
+		{
+			auto damage = DereferenceToType<float>(telegram.ExtraInfo);
+			player->TakeDamage(damage);
+			player->GetFSM()->ChangeState(PS_TakingDamage::GetInstance());
+		}
 		return true;
 	}
 	return false;
@@ -395,15 +399,23 @@ PlayerTakingDamageState::~PlayerTakingDamageState()
 
 void PlayerTakingDamageState::Enter(EntityPlayer* player)
 {
+	
 }
 
 void PlayerTakingDamageState::Execute(EntityPlayer* player)
 {
+	player->InCreaseCantDieTime(Globals::deltaTime);
+	player->UpdateSpriteFrame(player->GetAnimation(TAKING_DAMAGED));
+	if (!player->IsCantDie())
+	{
+		player->GetFSM()->ChangeState(PS_Standing::GetInstance());
+	}
 }
 
 void PlayerTakingDamageState::Exit(EntityPlayer* player)
 {
 	player->ResetCurrentAnimationInfo();
+	player->ResetCantDieTime();
 }
 
 void PlayerTakingDamageState::Render(EntityPlayer* player)

@@ -19,6 +19,10 @@ EntityPlayer::EntityPlayer(): m_fMaxKi(0),
 
 	m_pStateMachine->SetGlobalState(PS_Global::GetInstance());
 	m_pStateMachine->SetCurrentState(PS_Standing::GetInstance());
+
+	m_fCurrentCantDieCount = 0;
+	m_fMaxCantDieTime = 0.5;
+	m_bIsCantDie = true;
 }
 
 
@@ -244,4 +248,35 @@ float EntityPlayer::GetSpecialSkillCost() const
 float EntityPlayer::GetUltimateSkillCost() const
 {
 	return m_fUltimateCost;
+}
+
+void EntityPlayer::InCreaseCantDieTime(float amount)
+{
+	m_fCurrentCantDieCount += amount;
+	if (m_fCurrentCantDieCount >= m_fMaxCantDieTime)
+	{
+		m_fCurrentCantDieCount = m_fMaxCantDieTime;
+		m_bIsCantDie = false;
+	}
+}
+
+void EntityPlayer::DeCreaseCantDieTime(float amount)
+{
+	m_fCurrentCantDieCount -= amount;
+	if (m_fCurrentCantDieCount <= 0)
+	{
+		m_fCurrentCantDieCount = 0;
+		m_bIsCantDie = true;
+	}
+}
+
+bool EntityPlayer::IsCantDie() const
+{
+	return m_bIsCantDie;
+}
+
+void EntityPlayer::ResetCantDieTime()
+{
+	m_fCurrentCantDieCount = 0;
+	m_bIsCantDie = true;
 }
