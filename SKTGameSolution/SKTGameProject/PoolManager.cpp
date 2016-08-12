@@ -86,3 +86,8 @@ void PoolManager::ReleaseEntity(Entity* entity)
 		RemoveFromVector<Entity*>(m_vInUse, entity);
 	}
 }
+
+std::vector<Entity*> PoolManager::GetInUseEntities()
+{
+	return m_vInUse;
+}

@@ -1,6 +1,9 @@
+#include <json.hpp>
+#include <fstream>
 #include "GameOverState.h"
 #include "SingletonClasses.h"
 #include "GamePlayState.h"
+#include "Definations.h"
 
 GameOverState::GameOverState()
 {
@@ -8,6 +11,24 @@ GameOverState::GameOverState()
 
 void GameOverState::Enter(Game* game)
 {
+	auto dataPath = std::string(DATA_PATH);
+	dataPath.append("BEST_SCORE.json");
+	std::ifstream scoreFile(dataPath.c_str());
+	std::ofstream outFile(dataPath.c_str());
+
+	if (scoreFile.is_open())
+	{
+		float bestScore;
+		scoreFile >> bestScore;
+		float currentScore = GS_GamePlay::GetInstance()->GetCurrentScore();
+		if (currentScore > bestScore)
+		{
+			outFile << currentScore;
+			SetBestScore(currentScore);
+		}
+	}
+	scoreFile.close();
+	outFile.close();
 }
 
 void GameOverState::PressButton(Game * game)
@@ -45,8 +66,6 @@ void GameOverState::Execute(Game* game)
 	m_Button_Yes->Update();
 	m_Button_No->Update();
 	PressButton(game);
-	std::cout << "SCOR: " << GS_GamePlay::GetInstance()->GetCurrentScore() << std::endl;
-//	GPS->GetCurrentScore();
 }
 
 void GameOverState::Exit(Game* game)
@@ -58,6 +77,10 @@ void GameOverState::Render(Game* game)
 	m_Background->Render();
 	m_Button_Yes->Render();
 	m_Button_No->Render();
+
+	std::string scoreText = "Best Score: ";
+	scoreText.append(std::to_string(GetBestScore()));
+	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 0, 0, 1), 100.0f, 0, 0, 1, 1);
 }
 
 void GameOverState::Init(const char* filePath)
@@ -84,5 +107,14 @@ GameOverState::~GameOverState()
 	delete m_Background;
 	delete m_Button_Yes;
 	delete m_Button_No;
-	delete GPS;
+}
+
+void GameOverState::SetBestScore(int s)
+{
+	m_iBestScore = s;
+}
+
+int GameOverState::GetBestScore() const
+{
+	return m_iBestScore;
 }
