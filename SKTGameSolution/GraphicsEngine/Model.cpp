@@ -1,13 +1,12 @@
 #include "Model.h"
-#include <iostream>
-#include <fstream>
+#include "Vertex.h"
 
-Model::Model(): m_pVertices(nullptr),
-                m_pIndices(nullptr),
-                m_iNumVertices(0),
-                m_iNumIndices(0),
-                m_iVboId(0),
-                m_iIboId(0)
+
+Model::Model(): m_ID(0), m_VboID(0), m_IboID(0)
+{
+}
+
+Model::Model(int ID): m_ID(ID), m_VboID(0), m_IboID(0)
 {
 }
 
@@ -15,101 +14,48 @@ Model::~Model()
 {
 }
 
-void Model::LoadModel(char* filePath)
+void Model::LoadModel(Vertex* vertices, int nVertices)
 {
-	FILE* pFile;
-	pFile = fopen(filePath, "r");
-	if (!pFile)
-	{
-		std::cout << "Could not open file " << filePath << std::endl;
-	}
-
-	fscanf(pFile, "NrVertices: %d\n", &m_iNumVertices);
-	m_pVertices = new Vertex[m_iNumVertices];
-
-	int i;
-	for (i = 0; i < m_iNumVertices; i++)
-	{
-		fscanf(pFile, "%*d. pos:[%f, %f, %f]; norm:[%*f, %*f, %*f]; binorm:[%*f, %*f, %*f]; tgt:[%*f, %*f, %*f]; uv:[%f, %f];\n",
-		       &(m_pVertices[i].pos.x),
-		       &(m_pVertices[i].pos.y),
-		       &(m_pVertices[i].pos.z),
-		       &(m_pVertices[i].uv.x),
-		       &(m_pVertices[i].uv.y)
-		);
-	}
-
-	fscanf(pFile, "NrIndices: %d\n", &m_iNumIndices);
-	m_pIndices = new unsigned int[m_iNumIndices];
-
-	for (i = 0; i < m_iNumIndices; i++)
-	{
-		fscanf(pFile, "%*d.    %d,    %d,    %d",
-		       &(m_pIndices[i * 3]), &(m_pIndices[i * 3 + 1]), &(m_pIndices[i * 3 + 2])
-		);
-	}
-	fclose(pFile);
-}
-
-void Model::Init(char* filePath, char* heightMapPath)
-{
-	LoadModel(filePath);
-	//triangle data (heap)
-	Vertex* verticesData = GetVertices();
-
-	//read height map
-	if (heightMapPath != nullptr)
-	{
-		SetHeightMap(heightMapPath);
-	}
-
-	//buffer object
-	glGenBuffers(1, &m_iVboId);
-	glBindBuffer(GL_ARRAY_BUFFER, m_iVboId);
-	glBufferData(GL_ARRAY_BUFFER, GetSizeVertices(), verticesData, GL_STATIC_DRAW);
+	glGenBuffers(1, &m_VboID);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VboID);
+	glBufferData(GL_ARRAY_BUFFER, nVertices * sizeof(Vertex), vertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	//buffer object
-	unsigned int* indices = GetIndices();
-
-	glGenBuffers(1, &m_iIboId);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_iIboId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, GetSizeIndices(), indices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	this->Clear();
 }
 
-void Model::SetHeightMap(char* filePath)
+void Model::Init(int modelW, int modelH, int spriteW, int spriteH, int textureW, int textureH)
 {
-	std::ifstream inFile(filePath,
-	                     std::ifstream::in | std::ifstream::binary | std::ifstream::ate);
+	m_iModelWidth = modelW;
+	m_iModelHeight = modelH;
 
-	char* data;
-	int size = inFile.tellg();
-	inFile.seekg(0, std::ifstream::beg);
-	data = new char[size];
+	Vertex verticesData[4];
+	verticesData[0].pos = Vector3(-float(modelW) / 2, -float(modelH) / 2, 0.0f);
+	verticesData[1].pos = Vector3(float(modelW) / 2, -float(modelH) / 2, 0.0f);
+	verticesData[2].pos = Vector3(-float(modelW) / 2, float(modelH) / 2, 0.0f);
+	verticesData[3].pos = Vector3(float(modelW) / 2, float(modelH) / 2, 0.0f);
 
-	if (inFile.is_open())
-		inFile.read(data, size);
-
-	for (int i = 0; i < size; i++)
-	{
-		m_pVertices[i].pos.y = static_cast<unsigned char>(data[i]);
-	}
-	delete []data;
+	verticesData[0].uv = Vector2(0, float(textureH - spriteH) / textureH);
+	verticesData[1].uv = Vector2(float(spriteW) / textureW, float(textureH - spriteH) / textureH);
+	verticesData[2].uv = Vector2(0, float(textureH) / textureH);
+	verticesData[3].uv = Vector2(float(spriteW) / textureW, float(textureH) / textureH);
+	LoadModel(verticesData, 4);
 }
 
-/*This init function for sprite*/
-void Model::Init(Vertex* vertices, int numVertices)
+GLuint Model::GetVboID() const
 {
-	m_pVertices = vertices;
-	m_iNumVertices = numVertices;
-	//buffer object
-	glGenBuffers(1, &m_iVboId);
-	glBindBuffer(GL_ARRAY_BUFFER, m_iVboId);
-	glBufferData(GL_ARRAY_BUFFER, GetSizeVertices(), m_pVertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	return m_VboID;
+}
 
-	this->Clear();
-};
+GLuint Model::GetIboID() const
+{
+	return m_IboID;
+}
+
+int Model::GetModelWidth() const
+{
+	return m_iModelWidth;
+}
+
+int Model::GetModelHeight() const
+{
+	return m_iModelHeight;
+}

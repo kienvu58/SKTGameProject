@@ -1,0 +1,38 @@
+{
+	"animations":
+	[
+		{ "id": 1, "note": "goku_standing", "nStartFrames": 0, "frameIDs": [1] },
+		{ "id": 2, "note": "goku_movingForward", "nStartFrames": 0, "frameIDs": [2] },
+		{ "id": 3, "note": "goku_movingBackward", "nStartFrames": 0, "frameIDs": [3] },
+		{ "id": 4, "note": "goku_movingUp", "nStartFrames": 0, "frameIDs": [4] },
+		{ "id": 5, "note": "goku_movingDown", "nStartFrames": 0, "frameIDs": [5] },
+		{ "id": 6, "note": "goku_takingDamaged", "nStartFrames": 0, "frameIDs": [6] },
+		{ "id": 7, "note": "goku_falling", "nStartFrames": 0, "frameIDs": [7] },
+		{ "id": 8, "note": "goku_dead", "nStartFrames": 0, "frameIDs": [8] },
+		{ "id": 9, "note": "goku_firing", "nStartFrames": 0, "frameIDs": [9, 10, 11] },
+		{ "id": 10, "note": "goku_firingSpecial", "nStartFrames": 3, "frameIDs": [12, 13, 14, 15] },
+		{
+			"id": 11,
+			"note": "goku_firingUltimate",
+			"nStartFrames": 7,
+			"frameIDs": [16, 17, 18, 19, 20, 21, 22, 23, 24]
+		},
+		{ "id": 12, "note": "goku_charging", "nStartFrames": 2, "frameIDs":  [25, 26, 27]},
+		{ "id": 13, "note": "celljr_flying", "nStartFrames": 0, "frameIDs": [28] },
+		{ "id": 15, "note": "celljr_punching", "nStartFrames": 0, "frameIDs": [29] },
+		{ "id": 16, "note": "cell_standing", "nStartFrames": 0, "frameIDs": [30] },
+		{ "id": 17, "note": "cell_movingForward", "nStartFrames": 0, "frameIDs": [31] },
+		{ "id": 18, "note": "cell_movingBackward", "nStartFrames": 0, "frameIDs": [32] },
+		{ "id": 19, "note": "cell_movingUp", "nStartFrames": 0, "frameIDs": [33] },
+		{ "id": 20, "note": "cell_movingDown", "nStartFrames": 0, "frameIDs": [34] },
+		{ "id": 21, "note": "cell_firing", "nStartFrames": 0, "frameIDs": [35, 36] },
+		{ "id": 22, "note": "hit", "nStartFrames": 0, "frameIDs": [69, 70, 71, 72, 73, 74] },
+		{ "id": 23, "note": "explosion", "nStartFrames": 0, "frameIDs": [76, 77, 78, 79, 80] },
+		{ "id": 24, "note": "aura_charging", "nStartFrames": 2, "frameIDs": [40, 41, 42, 43, 44] },
+		{ "id": 25, "note": "trigger_effect", "nStartFrames": 0, "frameIDs": [65, 65] },
+		{ "id": 26, "note": "kame_hit_effect", "nStartFrames": 0, "frameIDs": [75, 75] },
+		{ "id": 27, "note": "kame_light_effect", "nStartFrames": 0, "frameIDs": [81, 81] },
+		{ "id": 28, "note": "Goku_barrier", "nStartFrames": 2, "frameIDs": [45, 46, 47] },
+		{ "id": 29, "note": "Barrier", "nStartFrames": 1, "frameIDs": [85, 86] }
+	]
+}

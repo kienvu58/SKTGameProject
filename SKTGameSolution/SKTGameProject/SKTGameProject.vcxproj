@@ -74,11 +74,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EGL.lib;GLESv2.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D.lib;EGL.lib;freetype265d.lib;GLESv2.lib;libEGL.lib;libGLESv2.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,9 +115,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GraphicsEngine\GraphicsEngine.vcxproj">
       <Project>{0d356957-7957-4924-8bfb-e1e1da360601}</Project>
     </ProjectReference>
@@ -126,8 +123,106 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\Resources\Data\RM.txt" />
-    <Text Include="..\Resources\Data\SM.txt" />
+    <ClCompile Include="Application_android.cpp" />
+    <ClCompile Include="CellOwnedStates.cpp" />
+    <ClCompile Include="EntityBarrier.cpp" />
+    <ClCompile Include="EntityBeamWave.cpp" />
+    <ClCompile Include="CellJuniorOwnedStates.cpp" />
+    <ClCompile Include="EntityBullet.cpp" />
+    <ClCompile Include="EntityCell.cpp" />
+    <ClCompile Include="EntityCellJunior.cpp" />
+    <ClCompile Include="GameOverState.cpp" />
+    <ClCompile Include="GamePauseState.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityEffect.cpp" />
+    <ClCompile Include="EntityLiving.cpp" />
+    <ClCompile Include="EntityMinion.cpp" />
+    <ClCompile Include="EntityPlayer.cpp" />
+    <ClCompile Include="EntityStatic.cpp" />
+    <ClCompile Include="FactoryEntity.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOptionState.cpp" />
+    <ClCompile Include="GamePlayState.cpp" />
+    <ClCompile Include="GameWelcomeState.cpp" />
+    <ClCompile Include="EntityKiBlast.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="MessageDispatcher.cpp" />
+    <ClCompile Include="MinionOwnedStates.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="PlayerOwnedStates.cpp" />
+    <ClCompile Include="RayCastMultipleCallback.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="PoolManager.cpp" />
+    <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="SteeringBehavior.cpp" />
+    <ClCompile Include="Telegram.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CellOwnedStates.h" />
+    <ClInclude Include="EntityBarrier.h" />
+    <ClInclude Include="EntityBeamWave.h" />
+    <ClInclude Include="CellJuniorOwnedStates.h" />
+    <ClInclude Include="EntityBullet.h" />
+    <ClInclude Include="EntityCell.h" />
+    <ClInclude Include="EntityCellJunior.h" />
+    <ClInclude Include="GameOverState.h" />
+    <ClInclude Include="GamePauseState.h" />
+    <ClInclude Include="ContactListener.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityEffect.h" />
+    <ClInclude Include="EntityLiving.h" />
+    <ClInclude Include="EntityMinion.h" />
+    <ClInclude Include="EntityPlayer.h" />
+    <ClInclude Include="EntityStatic.h" />
+    <ClInclude Include="EntityTypes.h" />
+    <ClInclude Include="FactoryEntity.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOptionState.h" />
+    <ClInclude Include="GamePlayState.h" />
+    <ClInclude Include="GameWelcomeState.h" />
+    <ClInclude Include="Definations.h" />
+    <ClInclude Include="EntityKiBlast.h" />
+    <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="MessageDispatcher.h" />
+    <ClInclude Include="MessageTypes.h" />
+    <ClInclude Include="MinionOwnedStates.h" />
+    <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="PlayerOwnedStates.h" />
+    <ClInclude Include="Pool.h" />
+    <ClInclude Include="PoolManager.h" />
+    <ClInclude Include="RayCastMultipleCallback.h" />
+    <ClInclude Include="SingletonClasses.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="Spawner.h" />
+    <ClInclude Include="SteeringBehavior.h" />
+    <ClInclude Include="Telegram.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Data\AM.json" />
+    <None Include="..\Resources\Data\FE.json" />
+    <None Include="..\Resources\Data\FM.json" />
+    <None Include="..\Resources\Data\GamePlayState.json" />
+    <None Include="..\Resources\Data\MainMenuState.json" />
+    <None Include="..\Resources\Data\RM.json" />
+    <None Include="..\Resources\Prototypes\Aura.json" />
+    <None Include="..\Resources\Prototypes\Barrier.json" />
+    <None Include="..\Resources\Prototypes\BarrierEffect.json" />
+    <None Include="..\Resources\Prototypes\BeamWaveHit.json" />
+    <None Include="..\Resources\Prototypes\Cell.json" />
+    <None Include="..\Resources\Prototypes\CellExplosion.json" />
+    <None Include="..\Resources\Prototypes\CellJr.json" />
+    <None Include="..\Resources\Prototypes\CellJrExplosion.json" />
+    <None Include="..\Resources\Prototypes\Goku.json" />
+    <None Include="..\Resources\Prototypes\GreenKiBlast.json" />
+    <None Include="..\Resources\Prototypes\Kamehameha.json" />
+    <None Include="..\Resources\Prototypes\KamehamehaLight.json" />
+    <None Include="..\Resources\Prototypes\KiBlastExplosion.json" />
+    <None Include="..\Resources\Prototypes\TriggerEffect.json" />
+    <None Include="..\Resources\Prototypes\TrueKamehameha.json" />
+    <None Include="..\Resources\Prototypes\YellowKiBlast.json" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

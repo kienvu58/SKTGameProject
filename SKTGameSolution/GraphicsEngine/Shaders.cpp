@@ -1,6 +1,6 @@
 #include "Shaders.h"
 
-int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
+int Shaders::Init(const char * fileVertexShader, const char * fileFragmentShader)
 {
 	vertexShader = esLoadShader(GL_VERTEX_SHADER, fileVertexShader);
 
@@ -22,7 +22,13 @@ int Shaders::Init(char * fileVertexShader, char * fileFragmentShader)
 	locationUniformMVP = glGetUniformLocation(program, "u_mvp");
 	locationUniformTex = glGetUniformLocation(program, "u_texture");
 	locationUniformTime = glGetUniformLocation(program, "u_time");
-
+	locationUniformDelta = glGetUniformLocation(program, "u_delta");
+	locationUniformTexIndexAnimation = glGetUniformLocation(program, "u_texIndex");
+	
+	locationUniformTexture = glGetUniformLocation(program, "u_s_texture");
+	locationAttributePosition = glGetAttribLocation(program, "a_position");
+	locationUniformColor = glGetUniformLocation(program, "u_color");
+	locationUniformAlpha = glGetUniformLocation(program, "u_alpha");
 	return 0;
 }
 

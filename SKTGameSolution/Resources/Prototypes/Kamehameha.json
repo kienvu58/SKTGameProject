@@ -1,0 +1,21 @@
+{
+	"attackDamage":  1000,
+	"speed": 24,
+	"nRaycasts": 5,
+	"thicknessInPixels": 32,
+	"hasAura": true,
+	"PIDs": 
+	{
+		"SpriteStartEffect": 10,
+		"HitEffect": 9
+	},
+	"graphics": 
+	{
+		"modelId": 4,
+		"frameStartId": 82,
+		"frameMidId": 83,
+		"frameEndId": 84,
+		"shaderId": 1,
+		"alpha": 1
+	}
+}

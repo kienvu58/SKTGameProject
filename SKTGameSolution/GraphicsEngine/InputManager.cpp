@@ -1,38 +1,14 @@
 #include "InputManager.h"
-#include "Globals.h"
 
-InputManager* InputManager::s_Instance = nullptr;
 
-Vector2 InputManager::GetCurrentMousePosition()
-{
-	return m_v2CurrentMousePos;
-}
-
-InputManager::InputManager(): m_iKeyPressed(0)
+InputManager::InputManager(): m_iKeyPressed(0),
+                              m_bIsMouseDown(false)
 {
 }
 
 
 InputManager::~InputManager()
 {
-}
-
-InputManager* InputManager::GetInstance()
-{
-	if (s_Instance == nullptr)
-	{
-		s_Instance = new InputManager();
-	}
-	return s_Instance;
-}
-
-void InputManager::DestroyInstance()
-{
-	if (s_Instance != nullptr)
-	{
-		delete s_Instance;
-		s_Instance = nullptr;
-	}
 }
 
 void InputManager::SetKeyEvent(int key, bool isPressed)
@@ -52,17 +28,32 @@ bool InputManager::IsPressed(int key) const
 	return m_iKeyPressed & key;
 }
 
-void InputManager::SetLastMousePosition(int x, int y)
+void InputManager::SetLastMousePosition(float x, float y)
 {
 	m_v2LastMousePos = Vector2(x, y);
 }
 
-void InputManager::SetCurrentMousePosition(int x, int y)
+void InputManager::SetCurrentMousePosition(float x, float y)
 {
 	m_v2CurrentMousePos = Vector2(x, y);
 }
 
-Vector2 InputManager::GetLastMousePosition()
+Vector2 InputManager::GetLastMousePosition() const
 {
 	return m_v2LastMousePos;
+}
+
+Vector2 InputManager::GetCurrentMousePosition() const
+{
+	return m_v2CurrentMousePos;
+}
+
+void InputManager::SetMouseDown(bool b)
+{
+	m_bIsMouseDown = b;
+}
+
+bool InputManager::IsMouseDown() const
+{
+	return m_bIsMouseDown;
 }

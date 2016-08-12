@@ -1,0 +1,10 @@
+{
+  "barrierEffectPID": 12,
+  "radiusInPixels": 64, 
+  "filter": 
+			{ 
+				"categoryBits": 8, 
+				"maskBits": [4, 16, 32], 
+				"note": "1: Wall, 2:Player, 4: Cell, 8: KiBlast, 16: CellJr, 32: Green KiBlast"
+			}
+}

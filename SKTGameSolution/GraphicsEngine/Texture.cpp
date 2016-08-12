@@ -1,26 +1,34 @@
 #include "Texture.h"
 #include "../Utilities/TGA.h"
-#include <iostream>
 
-Texture::Texture()
+Texture::Texture(): m_ID(0), m_TextureID(0)
 {
-	glGenTextures(1, &m_iTextureId);
+}
+
+Texture::Texture(int ID): m_ID(ID), m_TextureID(0)
+{
 }
 
 Texture::~Texture()
 {
 }
 
-void Texture::LoadTGAFile(char* filePath)
+GLuint Texture::GetTextureID() const
 {
-	glBindTexture(GL_TEXTURE_2D, m_iTextureId);
+	return m_TextureID;
+}
+
+void Texture::LoadTGAFile(const char* filePath)
+{
+	glGenTextures(1, &m_TextureID);
+	glBindTexture(GL_TEXTURE_2D, m_TextureID);
 	int width, height, bpp;
 	char* imageData = LoadTGA(filePath, &width, &height, &bpp);
 	GLenum internalFormat = (bpp == 24) ? GL_RGB : GL_RGBA;
 	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, internalFormat, GL_UNSIGNED_BYTE, imageData);
 	SetTextureParameter();
 	glBindTexture(GL_TEXTURE_2D, 0);
-	delete[] imageData;
+	if (imageData) delete[] imageData;
 }
 
 void Texture::SetTextureParameter()

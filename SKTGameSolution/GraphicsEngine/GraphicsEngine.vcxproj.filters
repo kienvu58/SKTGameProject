@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -33,13 +27,7 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shaders.h">
@@ -54,27 +42,36 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicalObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeTexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shaders.cpp">
@@ -86,5 +83,40 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicalObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Shaders\SpriteFS.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\SpriteVS.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\TextFS.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Shaders\TextVS.vs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

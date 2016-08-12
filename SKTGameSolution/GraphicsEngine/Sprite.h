@@ -1,11 +1,21 @@
 #pragma once
-#include "Object.h"
+#include "GraphicalObject.h"
 
-class Sprite : public Object
+class Frame;
+
+class Sprite : public GraphicalObject
 {
 public:
 	Sprite();
 	~Sprite();
-	void InitModel(float x, float y, float w, float h, float texW, float texH, Vector2 origin);
+	void Render() override;
+	void SetRenderInfo(Vector2 position, bool isReversed = false, Vector2 vec2Scale = Vector2(1, 1));
+	void SetIndex(int index);
+	void SetFrame(Frame* frame);
+	void SetOpacity(float alpha);
+
+private:
+	float m_fAlpha;
+	int m_Index;
 };
 

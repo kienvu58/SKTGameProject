@@ -1,0 +1,11 @@
+{
+	"animationId": 27,
+	"isLoop": true,
+	"autoScaling":  true,
+	"graphics": 
+	{
+		"modelId": 13,
+		"shaderId": 1,
+		"alpha": 0.4
+	}
+}

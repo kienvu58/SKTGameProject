@@ -1,7 +1,7 @@
 
-#include "stdafx.h"
 #include "Math.h"
 #include <math.h>
+#include <limits>
 
 //Vector2
 
@@ -19,12 +19,12 @@ Vector2 & Vector2::Normalize()
 	return *this;
 }
 
-Vector2 Vector2::operator + (Vector2 & vector)
+Vector2 Vector2::operator + (const Vector2 & vector)
 {
 	return Vector2(x + vector.x, y + vector.y);
 }
 
-Vector2 & Vector2::operator += (Vector2 & vector)
+Vector2 & Vector2::operator += (const Vector2 & vector)
 {
 	x += vector.x;
 	y += vector.y;
@@ -37,12 +37,12 @@ Vector2 Vector2::operator - ()
 	return Vector2(-x, -y);
 }
 
-Vector2 Vector2::operator - (Vector2 & vector)
+Vector2 Vector2::operator - (const Vector2 & vector)
 {
 	return Vector2(x - vector.x, y - vector.y);
 }
 
-Vector2 & Vector2::operator -= (Vector2 & vector)
+Vector2 & Vector2::operator -= (const Vector2 & vector)
 {
 	x -= vector.x;
 	y -= vector.y;
@@ -74,7 +74,7 @@ Vector2 & Vector2::operator /= (GLfloat k)
 	return operator *= (1.0f / k);
 }
 
-Vector2 & Vector2::operator = (Vector2 & vector)
+Vector2 & Vector2::operator = (const Vector2 & vector)
 {
 	x = vector.x;
 	y = vector.y;
@@ -87,19 +87,19 @@ GLfloat Vector2::operator [] (unsigned int idx)
 	return (&x)[idx];
 }
 
-Vector2 Vector2::Modulate(Vector2 & vector)
+Vector2 Vector2::Modulate(const Vector2 & vector)
 {
 	return Vector2(x * vector.x, y * vector.y);
 }
 
-GLfloat Vector2::Dot(Vector2 & vector)
+GLfloat Vector2::Dot(const Vector2 & vector)
 {
 	return x * vector.x + y * vector.y;
 }
 
 //Vector3
 
-GLfloat Vector3::Length()
+GLfloat Vector3::Length() const
 {
 	return sqrt(x*x + y*y + z*z);
 }
@@ -114,12 +114,13 @@ Vector3 & Vector3::Normalize()
 	return *this;
 }
 
-Vector3 Vector3::operator + (Vector3 & vector)
+
+Vector3 Vector3::operator + (const Vector3 & vector)
 {
 	return Vector3(x + vector.x, y + vector.y, z + vector.z);
 }
 
-Vector3 & Vector3::operator += (Vector3 & vector)
+Vector3 & Vector3::operator += (const Vector3 & vector)
 {
 	x += vector.x;
 	y += vector.y;
@@ -133,12 +134,12 @@ Vector3 Vector3::operator - ()
 	return Vector3(-x, -y, -z);
 }
 
-Vector3 Vector3::operator - (Vector3 & vector)
+Vector3 Vector3::operator - (const Vector3 & vector)
 {
 	return Vector3(x - vector.x, y - vector.y, z - vector.z);
 }
 
-Vector3 & Vector3::operator -= (Vector3 & vector)
+Vector3 & Vector3::operator -= (const Vector3 & vector)
 {
 	x -= vector.x;
 	y -= vector.y;
@@ -147,7 +148,7 @@ Vector3 & Vector3::operator -= (Vector3 & vector)
 	return *this;
 }
 
-Vector3 Vector3::operator * (GLfloat k)
+Vector3 Vector3::operator * (GLfloat k) const
 {
 	return Vector3(x * k, y * k, z * k);
 }
@@ -172,7 +173,7 @@ Vector3 & Vector3::operator /= (GLfloat k)
 	return operator *= (1.0f / k);
 }
 
-Vector3 & Vector3::operator = (Vector3 & vector)
+Vector3 & Vector3::operator = (const Vector3 & vector)
 {
 	x = vector.x;
 	y = vector.y;
@@ -186,17 +187,17 @@ GLfloat Vector3::operator [] (unsigned int idx)
 	return (&x)[idx];
 }
 
-Vector3 Vector3::Modulate(Vector3 & vector)
+Vector3 Vector3::Modulate(const Vector3 & vector)
 {
 	return Vector3(x * vector.x, y * vector.y, z * vector.z);
 }
 
-GLfloat Vector3::Dot(Vector3 & vector)
+GLfloat Vector3::Dot(const Vector3 & vector) const
 {
 	return x * vector.x + y * vector.y + z * vector.z;
 }
 
-Vector3 Vector3::Cross(Vector3 & vector)
+Vector3 Vector3::Cross(const Vector3 & vector) const
 {
 	return Vector3(y * vector.z -  z * vector.y, z * vector.x - x * vector.z, x * vector.y - y * vector.x);
 }
@@ -219,12 +220,12 @@ Vector4 & Vector4::Normalize()
 	return *this;
 }
 
-Vector4 Vector4::operator + (Vector4 & vector)
+Vector4 Vector4::operator + (const Vector4 & vector)
 {
 	return Vector4(x + vector.x, y + vector.y, z + vector.z, w + vector.w);
 }
 
-Vector4 & Vector4::operator += (Vector4 & vector)
+Vector4 & Vector4::operator += (const Vector4 & vector)
 {
 	x += vector.x;
 	y += vector.y;
@@ -239,12 +240,12 @@ Vector4 Vector4::operator - ()
 	return Vector4(-x, -y, -z, -w);
 }
 
-Vector4 Vector4::operator - (Vector4 & vector)
+Vector4 Vector4::operator - (const Vector4 & vector)
 {
 	return Vector4(x - vector.x, y - vector.y, z - vector.z, w - vector.w);
 }
 
-Vector4 & Vector4::operator -= (Vector4 & vector)
+Vector4 & Vector4::operator -= (const Vector4 & vector)
 {
 	x -= vector.x;
 	y -= vector.y;
@@ -280,7 +281,7 @@ Vector4 & Vector4::operator /= (GLfloat k)
 	return operator *= (1.0f / k);
 }
 
-Vector4 & Vector4::operator = (Vector4 & vector)
+Vector4 & Vector4::operator = (const Vector4 & vector)
 {
 	x = vector.x;
 	y = vector.y;
@@ -294,12 +295,12 @@ GLfloat Vector4::operator [] (unsigned int idx)
 	return (&x)[idx];
 }
 
-Vector4 Vector4::Modulate(Vector4 & vector)
+Vector4 Vector4::Modulate(const Vector4 & vector)
 {
 	return Vector4(x * vector.x, y * vector.y, z * vector.z, w * vector.w);
 }
 
-GLfloat Vector4::Dot(Vector4 & vector)
+GLfloat Vector4::Dot(const Vector4 & vector)
 {
 	return x * vector.x + y * vector.y + z * vector.z + w * vector.w;
 }
@@ -327,7 +328,7 @@ Matrix::Matrix(GLfloat val)
 	m[3][0] = val; m[3][1] = val; m[3][2] = val; m[3][3] = val;
 }
 
-Matrix::Matrix(Matrix & mat)
+Matrix::Matrix(const Matrix & mat)
 {
 	m[0][0] = mat.m[0][0]; m[0][1] = mat.m[0][1]; m[0][2] = mat.m[0][2]; m[0][3] = mat.m[0][3];
 	m[1][0] = mat.m[1][0]; m[1][1] = mat.m[1][1]; m[1][2] = mat.m[1][2]; m[1][3] = mat.m[1][3];
@@ -471,7 +472,7 @@ Matrix & Matrix::SetScale(GLfloat * pScale)
 	return *this;
 }
 
-Matrix & Matrix::SetScale(Vector3 & scaleVec)
+Matrix & Matrix::SetScale(const Vector3 & scaleVec)
 {
 	m[0][0] = scaleVec.x; m[0][1] = 0.0f;       m[0][2] = 0.0f;       m[0][3] = 0.0f;
 	m[1][0] = 0.0f;       m[1][1] = scaleVec.y; m[1][2] = 0.0f;       m[1][3] = 0.0f;
@@ -501,7 +502,7 @@ Matrix & Matrix::SetTranslation( GLfloat *pTrans)
 	return *this;
 }
 
-Matrix & Matrix::SetTranslation( Vector3 &vec )
+Matrix & Matrix::SetTranslation(const Vector3 &vec )
 {
 	m[0][0] =  1.0f; m[0][1] =  0.0f; m[0][2] =  0.0f; m[0][3] = 0.0f;
 	m[1][0] =  0.0f; m[1][1] =  1.0f; m[1][2] =  0.0f; m[1][3] = 0.0f;
@@ -566,7 +567,7 @@ Matrix& Matrix::SetOrthographic(GLfloat left, GLfloat right, GLfloat top, GLfloa
 	m[3][1] = -(top + bottom) / height;
 	m[3][2] = -nearPlane / depth;
 	m[3][3] = 1;
-	
+
 	return *this;
 }
 
@@ -614,7 +615,7 @@ Matrix & Matrix::operator -= (Matrix & mat)
 	return *this;
 }
 
-Matrix Matrix::operator * (Matrix & mat)
+Matrix Matrix::operator * (const Matrix & mat)
 {
 	Matrix res;
 	res.m[0][0] = m[0][0] * mat.m[0][0] + m[0][1] * mat.m[1][0] + m[0][2] * mat.m[2][0] + m[0][3] * mat.m[3][0];
@@ -658,7 +659,7 @@ Matrix & Matrix::operator *= (GLfloat k)
 }
 
 
-Vector4 Matrix::operator * (Vector4 & vec)
+Vector4 Matrix::operator * (const Vector4 & vec)
 {
 	Vector4 res;
 	res.x = vec.x * m[0][0] + vec.y * m[0][1] + vec.z * m[0][2] + vec.w * m[0][3];
@@ -669,7 +670,7 @@ Vector4 Matrix::operator * (Vector4 & vec)
 	return res;
 }
 
-Matrix & Matrix::operator = (Matrix & mat)
+Matrix & Matrix::operator = (const Matrix & mat)
 {
 	m[0][0] = mat.m[0][0]; m[0][1] = mat.m[0][1]; m[0][2] = mat.m[0][2]; m[0][3] = mat.m[0][3];
 	m[1][0] = mat.m[1][0]; m[1][1] = mat.m[1][1]; m[1][2] = mat.m[1][2]; m[1][3] = mat.m[1][3];

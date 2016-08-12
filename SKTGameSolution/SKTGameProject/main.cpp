@@ -1,54 +1,39 @@
-#include <Box2D/Box2d.h>
-#include "../Utilities/utilities.h"
-#include <iostream>
 #include <conio.h>
+#include "../Utilities/utilities.h"
 #include "../GraphicsEngine/Globals.h"
-#include "../GraphicsEngine/ResourceManager.h"
-#include "../GraphicsEngine/SceneManager.h"
-#include "../GraphicsEngine/InputManager.h"
+#include "SoundManager.h"
+#include "../Utilities/MemoryOperators.h"
+#include <cstdio>
+#include "SingletonClasses.h"
+
+extern int GameInit();
+extern void GameDraw();
+extern void GameUpdate(float);
+extern void OnKeyEvent(unsigned char, bool);
+extern void GameCleanUp();
+
 
 int Init(ESContext* esContext)
 {
-	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-	ResourceMgr->Init("../Resources/Data/RM.txt");
-	SceneMgr->Init("../Resources/Data/SM.txt");
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	return 0;
+	return GameInit();
 }
 
 void Draw(ESContext* esContext)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	SceneMgr->Draw();
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	GameDraw();
 	eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
 }
 
 void Update(ESContext* esContext, float deltaTime)
 {
-	if (deltaTime)
-	{
-		SceneMgr->Update(deltaTime);
-	}
+	GameUpdate(deltaTime);
 }
 
 void Key(ESContext* esContext, unsigned char key, bool isPressed)
 {
-	switch (key)
-	{
-	case 'A':
-		InputMgr->SetKeyEvent(KEY_A, isPressed);
-		break;
-	case 'W':
-		InputMgr->SetKeyEvent(KEY_W, isPressed);
-		break;
-	case 'S':
-		InputMgr->SetKeyEvent(KEY_S, isPressed);
-		break;
-	case 'D':
-		InputMgr->SetKeyEvent(KEY_D, isPressed);
-		break;
-	}
+	OnKeyEvent(key, isPressed);
 }
 
 void MouseMove(ESContext* ESContext, float x, float y)
@@ -60,13 +45,27 @@ void MouseDown(ESContext* esContext, float x, float y)
 {
 	InputMgr->SetCurrentMousePosition(x, y);
 	InputMgr->SetLastMousePosition(x, y);
+	InputMgr->SetMouseDown(true);
 }
+
+void MouseUp(ESContext* esContext, float x, float y)
+{
+	InputMgr->SetMouseDown(false);
+}
+//
+//void Mouse(ESContext* esContext, bool isClicked, float x, float y)
+//{
+//	//	if (isClicked)
+//	//	{
+//	//		InputMgr->SetCurrentMousePosition(x, y);
+//	//	}
+//	//	std::cout << isClicked << std::endl;
+//	//	std::cout << x << " " << y << std::endl;
+//}
 
 void CleanUp()
 {
-	InputMgr->DestroyInstance();
-	SceneMgr->DestroyInstance();
-	ResourceMgr->DestroyInstance();
+	GameCleanUp();
 }
 
 int main(int argc, char* argv[])
@@ -79,18 +78,24 @@ int main(int argc, char* argv[])
 
 	if (Init(&esContext) != 0)
 		return 0;
+//	MusicMainMenu->MusicPlay();
+
+
 	esRegisterDrawFunc(&esContext, Draw);
 	esRegisterUpdateFunc(&esContext, Update);
 	esRegisterKeyFunc(&esContext, Key);
 	esRegisterMouseMoveFunc(&esContext, MouseMove);
 	esRegisterMouseDownFunc(&esContext, MouseDown);
+	esRegisterMouseUpFunc(&esContext, MouseUp);
 	esMainLoop(&esContext);
 
 	//releasing OpenGL resources
 	CleanUp();
 
+	//#ifdef WIN32
 	//identifying memory leaks
 	MemoryDump();
+	//#endif
 
 	printf("Press any key...\n");
 	_getch();

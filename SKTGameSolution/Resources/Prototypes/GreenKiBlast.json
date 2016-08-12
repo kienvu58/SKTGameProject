@@ -1,0 +1,31 @@
+{
+	"attackDamage": 10,
+	"speed": 6,
+	"explosionPID": 4,
+	"triggerEffectPID": 7,
+	"graphics":  
+	{
+		"modelId": 4,
+		"frameId": 67,
+		"shaderId": 1
+	},
+	"physics":
+	{
+		"bodyDef":
+		{
+			"position": { "x": 10, "y": 0 }
+		},
+		"fixtureDef":
+		{
+			"boxShape": { "hx": 0.2, "hy": 0.1 },
+			"friction": 1,
+			"restitution": 0,
+			"filter": 
+			{ 
+				"categoryBits": 32, 
+				"maskBits": [2, 8], 
+				"note": "1: Wall, 2:Player, 4: Cell, 8: KiBlast, 16: CellJr, 32: Green KiBlast"
+			}
+		}
+	}
+}

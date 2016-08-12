@@ -1,30 +1,309 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{a6f5024c-0420-4669-817d-b23db4b9cc0d}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;json</Extensions>
+    </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <UniqueIdentifier>{f2dddeec-b09d-468a-8965-125445668d7d}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+      <UniqueIdentifier>{8e29af73-93c8-44f9-8a16-f056904b9917}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CellJuniorOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityCellJunior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityLiving.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityMinion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityStatic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOptionState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlayState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWelcomeState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageDispatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SteeringBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Telegram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PoolManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application_android.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePauseState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityKiBlast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityBeamWave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityCell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CellOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCastMultipleCallback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityBarrier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\Resources\Data\RM.txt">
+    <ClInclude Include="CellJuniorOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ContactListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityCellJunior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityLiving.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityMinion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityStatic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOptionState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWelcomeState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageDispatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonClasses.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SteeringBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Telegram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PoolManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Definations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePauseState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityKiBlast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityBeamWave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CellOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCastMultipleCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityBarrier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\Data\AM.json">
       <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="..\Resources\Data\SM.txt">
+    </None>
+    <None Include="..\Resources\Data\FM.json">
       <Filter>Resource Files</Filter>
-    </Text>
+    </None>
+    <None Include="..\Resources\Data\GamePlayState.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\MainMenuState.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\RM.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Data\FE.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Cell.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\CellJr.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Goku.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\GreenKiBlast.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Kamehameha.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\TrueKamehameha.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\YellowKiBlast.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ClassDiagram.cd" />
+    <None Include="..\Resources\Prototypes\CellExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\CellJrExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\KiBlastExplosion.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\TriggerEffect.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\BeamWaveHit.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\KamehamehaLight.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Aura.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\Barrier.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Resources\Prototypes\BarrierEffect.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
