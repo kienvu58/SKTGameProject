@@ -212,6 +212,7 @@
     <None Include="..\Resources\Prototypes\Goku.json" />
     <None Include="..\Resources\Prototypes\GreenKiBlast.json" />
     <None Include="..\Resources\Prototypes\Kamehameha.json" />
+    <None Include="..\Resources\Prototypes\KamehamehaLight.json" />
     <None Include="..\Resources\Prototypes\KiBlastExplosion.json" />
     <None Include="..\Resources\Prototypes\TriggerEffect.json" />
     <None Include="..\Resources\Prototypes\TrueKamehameha.json" />

@@ -62,7 +62,7 @@
 		{ "id": 78, "spriteSheetID": 2, "index": 13, "duration": 1, "note": "Explosion_2" },
 		{ "id": 79, "spriteSheetID": 2, "index": 14, "duration": 1, "note": "Explosion_3" },
 		{ "id": 80, "spriteSheetID": 2, "index": 15, "duration": 1, "note": "Explosion_4" },
-		{ "id": 81, "spriteSheetID": 2, "index": 16, "duration": 1, "note": "AuraKamehameha" },
+		{ "id": 81, "spriteSheetID": 2, "index": 16, "duration": 1, "note": "Kamehameha_Light_Effect" },
 		{ "id": 82, "spriteSheetID": 2, "index": 17, "duration": 1, "note": "Kamehameha_Start" },
 		{ "id": 83, "spriteSheetID": 2, "index": 18, "duration": 1, "note": "Kamehameha_Mid" },
 		{ "id": 84, "spriteSheetID": 2, "index": 19, "duration": 1, "note": "Kamehameha_End" },

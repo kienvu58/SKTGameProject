@@ -122,6 +122,16 @@
 			"textureH": 256
 		},
 		{
+			"id": 13,
+			"note": "KamehamehaLight",
+			"modelW": 144,
+			"modelH": 144,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
 			"id": 100,
 			"note": "BackgroundRunning",
 			"modelW": 1120,

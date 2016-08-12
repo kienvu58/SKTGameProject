@@ -6,7 +6,7 @@
 	"hasAura": true,
 	"PIDs": 
 	{
-		"SpirteStartEffect": 0,
+		"SpriteStartEffect": 10,
 		"HitEffect": 9
 	},
 	"graphics": 
@@ -16,6 +16,6 @@
 		"frameMidId": 83,
 		"frameEndId": 84,
 		"shaderId": 1,
-		"alpha": 0.9
+		"alpha": 0.95
 	}
 }

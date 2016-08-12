@@ -20,9 +20,15 @@ void EntityBeamWave::Render()
 {
 	if (m_bIsActive)
 	{
+		if (m_pSpriteStartEffect)
+			m_pSpriteStartEffect->Render();
 		m_SpriteMid.Render();
 		m_SpriteEnd.Render();
 		m_SpriteStart.Render();
+		for (auto hitEffect : m_vecHitEffects)
+		{
+			hitEffect->Render();
+		}
 	}
 }
 
@@ -40,6 +46,8 @@ void EntityBeamWave::DetectIntersections()
 		for (auto fixture : callbacks[i].fixtures)
 		{
 			auto entity = fixture->GetBody()->GetUserData();
+			auto position = fixture->GetBody()->GetPosition();
+			AddHitEffect(position);
 			if (fixture->GetFilterData().categoryBits == CATEGORY_GREEN_KIBLAST)
 			{
 				Dispatcher->DispatchMessageA(this, static_cast<EntityKiBlast*>(entity), MSG_EXPLODE, nullptr);
@@ -82,6 +90,13 @@ void EntityBeamWave::UpdateLength()
 	}
 }
 
+void EntityBeamWave::AddHitEffect(b2Vec2 position)
+{
+	auto hitEffect = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iHitEffectPID));
+	hitEffect->Start(position, this);
+	m_vecHitEffects.push_back(hitEffect);
+}
+
 void EntityBeamWave::Update()
 {
 	if (m_bIsActive)
@@ -89,6 +104,12 @@ void EntityBeamWave::Update()
 		UpdateLength();
 		UpdateGraphics();
 		DetectIntersections();
+		for (auto hitEffect : m_vecHitEffects)
+		{
+			hitEffect->Update();
+		}
+		if (m_pSpriteStartEffect)
+			m_pSpriteStartEffect->Update();
 	}
 }
 
@@ -111,6 +132,9 @@ void EntityBeamWave::Init(int prototypeId, const char* dataPath)
 	m_fThickness = MetersFromPixels(data["thicknessInPixels"].get<int>());
 	m_fAttackDamage = data["attackDamage"].get<float>();
 
+	m_iHitEffectPID = data["PIDs"]["HitEffect"].get<int>();
+	m_iSpriteStartEffectPID = data["PIDs"]["SpriteStartEffect"].get<int>();
+
 	auto pModel = ResourceMgr->GetModelById(modelId);
 	m_iSpriteWidth = pModel->GetModelWidth();
 
@@ -131,8 +155,7 @@ bool EntityBeamWave::HandleMessage(const Telegram& telegram)
 {
 	if (telegram.Message == MSG_CLEAN_UP)
 	{
-		auto effect = static_cast<EntityEffect*>(telegram.pSender);
-		CleanUpHitEffect(effect);
+		// will be cleaned up after beamwave is stopped
 		return true;
 	}
 	return false;
@@ -171,12 +194,6 @@ void EntityBeamWave::InitSpriteStart(int modelId, int frameId, int shaderId)
 	m_SpriteStart.SetShaders(ResourceMgr->GetShadersById(shaderId));
 }
 
-void EntityBeamWave::CleanUpHitEffect(EntityEffect* effect)
-{
-	PoolMgr->ReleaseEntity(effect);
-	RemoveFromVector<EntityEffect*>(m_vecHitEffects, effect);
-}
-
 void EntityBeamWave::Fire(b2Vec2 position, int direction)
 {
 	m_bIsActive = true;
@@ -188,9 +205,21 @@ void EntityBeamWave::Fire(b2Vec2 position, int direction)
 	m_SpriteStart.SetRenderInfo(GraphicsFromPhysics(position), isReversed);
 	m_vec2Pos = position;
 	m_iDirection = direction;
+	if (!m_pSpriteStartEffect)
+	{
+		m_pSpriteStartEffect = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iSpriteStartEffectPID));
+	}
+	auto effectPos = position - direction * MetersFromPixels(m_iSpriteWidth) / 3 * b2Vec2(1, 0);
+	m_pSpriteStartEffect->Start(effectPos, this);
 }
 
 void EntityBeamWave::Stop()
 {
 	m_bIsActive = false;
+	m_pSpriteStartEffect->Stop();
+	for (auto hitEffect : m_vecHitEffects)
+	{
+		PoolMgr->ReleaseEntity(hitEffect);
+	}
+	m_vecHitEffects.clear();
 }

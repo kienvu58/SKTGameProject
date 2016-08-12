@@ -64,6 +64,7 @@ void GamePlayState::Execute(Game* game)
 
 	PressButton(game);
 	HandlingCircleDirection(game);
+
 }
 
 void GamePlayState::Exit(Game* game)

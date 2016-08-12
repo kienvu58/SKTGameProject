@@ -16,7 +16,8 @@ EntityEffect::EntityEffect(const EntityEffect& other): m_Sprite(other.m_Sprite),
                                                        m_iLastFrameIndex(0),
                                                        m_fCurrentDelay(0),
                                                        m_iFrameCount(1),
-                                                       m_bIsLoop(false)
+                                                       m_bIsLoop(other.m_bIsLoop),
+                                                       m_bAutoScaling(other.m_bAutoScaling)
 {
 }
 
@@ -37,7 +38,18 @@ void EntityEffect::Update()
 {
 	if (IsActive())
 	{
-		Play();
+		if (m_bAutoScaling)
+		{
+			auto scale = (m_iCurrentFrameIndex) * 0.3 + 1;
+			m_Sprite.SetRenderInfo(m_vec2Position, false, Vector2(scale, scale));
+		}
+		UpdateSpriteFrame();
+		auto isAnimationPlayedOnce = m_iFrameCount >= m_animation->GetTotalFrames();
+		auto isEffectFinished = !m_bIsLoop && isAnimationPlayedOnce;
+		if (isEffectFinished)
+		{
+			Stop();
+		}
 	}
 	else
 	{
@@ -84,22 +96,11 @@ void EntityEffect::Stop()
 	m_bIsActive = false;
 }
 
-void EntityEffect::Play()
-{
-	UpdateSpriteFrame();
-	auto isAnimationPlayedOnce = m_iFrameCount >= m_animation->GetTotalFrames();
-	auto isEffectFinished = !m_bIsLoop && isAnimationPlayedOnce;
-	if (isEffectFinished)
-	{
-		Stop();
-	}
-}
-
 void EntityEffect::Start(b2Vec2 position, Entity* pOwner)
 {
 	m_bIsActive = true;
-	auto graphicsPosition = GraphicsFromPhysics(position);
-	m_Sprite.SetRenderInfo(graphicsPosition);
+	m_vec2Position = GraphicsFromPhysics(position);
+	m_Sprite.SetRenderInfo(m_vec2Position);
 	m_pOwner = pOwner;
 }
 
@@ -121,7 +122,8 @@ void EntityEffect::Init(int prototypeId, const char* dataPath)
 
 	m_animation = AnimationMgr->GetAnimationById(data["animationId"].get<int>());
 	m_bIsLoop = data["isLoop"].get<bool>();
-	
+	m_bAutoScaling = data["autoScaling"].get<bool>();
+
 	auto modelId = data["graphics"]["modelId"].get<int>();
 	auto shaderId = data["graphics"]["shaderId"].get<int>();
 	auto alpha = data["graphics"]["alpha"].get<float>();

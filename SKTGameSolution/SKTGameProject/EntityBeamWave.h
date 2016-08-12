@@ -25,7 +25,7 @@ public:
 
 	void UpdateGraphics();
 	void UpdateLength();
-	void CleanUpHitEffect(EntityEffect* effect);
+	void AddHitEffect(b2Vec2 position);
 	void Fire(b2Vec2 position, int direction) override;
 	void Stop();
 
