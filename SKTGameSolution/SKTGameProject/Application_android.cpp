@@ -89,6 +89,9 @@ void OnKeyEvent(unsigned char key, bool isPressed)
 	case 'L':
 		InputMgr->SetKeyEvent(KEY_L, isPressed);
 		break;
+	case 'I':
+		InputMgr->SetKeyEvent(KEY_I, isPressed);
+		break;
 	}
 }
 

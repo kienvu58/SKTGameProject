@@ -124,3 +124,17 @@ public:
 	void Render(EntityPlayer*) override;
 	bool OnMessage(EntityPlayer*, const Telegram&) override;
 };
+
+class PlayerChargingState :
+	public State<EntityPlayer>
+{
+public:
+	PlayerChargingState();
+	~PlayerChargingState();
+
+	void Enter(EntityPlayer*) override;
+	void Execute(EntityPlayer*) override;
+	void Exit(EntityPlayer*) override;
+	void Render(EntityPlayer*) override;
+	bool OnMessage(EntityPlayer*, const Telegram&) override;
+};

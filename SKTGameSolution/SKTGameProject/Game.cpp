@@ -43,6 +43,7 @@ void Game::CreateStateInstances()
 	PS_FiringUltimate::CreateInstance();
 	PS_TakingDamage::CreateInstance();
 	PS_FallToDead::CreateInstance();
+	PS_Charging::CreateInstance();
 
 	MS_Wandering::CreateInstance();
 	MS_Global::CreateInstance();
@@ -74,6 +75,7 @@ void Game::DestroyStateInstances()
 	PS_FiringUltimate::DestroyInstance();
 	PS_TakingDamage::DestroyInstance();
 	PS_FallToDead::DestroyInstance();
+	PS_Charging::DestroyInstance();
 
 	MS_Wandering::DestroyInstance();
 	MS_Global::DestroyInstance();
