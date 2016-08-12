@@ -1,0 +1,17 @@
+{
+	"data":
+	[
+		{
+			"minionId" 			 : 2,
+			"chanceWeights" 	 : 1,
+			"spawnWeights"  	 : 0.4,
+			"initNumOnTheScreen" : 5
+		},
+		{
+			"minionId" 			 : 69,
+			"chanceWeights" 	 : 0.9,
+			"spawnWeights"  	 : 0.4,
+			"initNumOnTheScreen" : 1
+		}
+	]
+}

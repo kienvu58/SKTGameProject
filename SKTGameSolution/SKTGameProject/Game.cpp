@@ -145,13 +145,4 @@ void Game::Reset()
 {
 	m_fPlayingTime = 0;
 	GS_GamePlay::GetInstance()->Reset();
-//	GS_GamePlay::DestroyInstance();
-//	PoolManagerSingleton::DestroyInstance();
-//	PhysicsManagerSingleton::DestroyInstance();
-
-//	PhysicsManagerSingleton::CreateInstance();
-//	PhysicsMgr->Init();
-//	PoolManagerSingleton::CreateInstance();
-//	GS_GamePlay::CreateInstance();
-//	GS_GamePlay::GetInstance()->Init("");
 }

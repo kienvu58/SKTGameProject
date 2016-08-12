@@ -213,6 +213,7 @@ void EntityPlayer::Reset()
 	m_fCurrentKi = m_fMaxKi;
 	m_fCurrentOverHeat = 0;
 	m_pStateMachine->SetCurrentState(PS_Standing::GetInstance());
+	m_pBody->SetTransform(b2Vec2(0, 0), 0);
 }
 
 float EntityPlayer::GetCurrentKi() const

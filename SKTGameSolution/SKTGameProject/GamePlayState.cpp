@@ -44,6 +44,10 @@ void GamePlayState::Execute(Game* game)
 
 	m_CircleWithDirections->Update();
 	m_Circle4Dash->Update();
+	m_Circle2Dash_J->Update();
+	m_Circle2Dash_K->Update();
+	m_Circle2Dash_L->Update();
+	m_Circle2Dash_I->Update();
 	RunningBackground(game);
 
 	m_Player->Update();
@@ -60,6 +64,7 @@ void GamePlayState::Execute(Game* game)
 
 	PressButton(game);
 	HandlingCircleDirection(game);
+	printf("%f | %f \n", InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
 }
 
 void GamePlayState::Exit(Game* game)
@@ -73,6 +78,10 @@ void GamePlayState::Render(Game* game)
 	m_Button_Pause->Render();
 	m_CircleWithDirections->Render();
 	m_Circle4Dash->Render();
+	m_Circle2Dash_J->Render();
+	m_Circle2Dash_K->Render();
+	m_Circle2Dash_L->Render();
+	m_Circle2Dash_I->Render();
 
 	std::string currentScore = std::to_string(m_iScore);
 
@@ -168,7 +177,23 @@ void GamePlayState::Init(const char* filePath)
 	m_Circle4Dash->InitSprite(102, 203, 1);
 	m_Circle4Dash->InitPosition(120, 520);
 
-	m_spawner.Init("File path");
+	m_Circle2Dash_J = new EntityStatic();
+	m_Circle2Dash_J->InitSprite(104, 204, 1);
+	m_Circle2Dash_J->InitPosition(1058, 570);
+
+	m_Circle2Dash_K = new EntityStatic();
+	m_Circle2Dash_K->InitSprite(104, 204, 1);
+	m_Circle2Dash_K->InitPosition(1008, 480);
+
+	m_Circle2Dash_L = new EntityStatic();
+	m_Circle2Dash_L->InitSprite(104, 204, 1);
+	m_Circle2Dash_L->InitPosition(1058, 390);
+
+	m_Circle2Dash_I = new EntityStatic();
+	m_Circle2Dash_I->InitSprite(104, 204, 1);
+	m_Circle2Dash_I->InitPosition(940, 570);
+
+	m_spawner.Init("Data/SPAWNER.json");
 
 	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
 	m_Player->Activate();
@@ -194,6 +219,10 @@ GamePlayState::~GamePlayState()
 	delete m_Background_Clone;
 	delete m_CircleWithDirections;
 	delete m_Circle4Dash;
+	delete m_Circle2Dash_J;
+	delete m_Circle2Dash_K;
+	delete m_Circle2Dash_L;
+	delete m_Circle2Dash_I;
 	
 }
 
@@ -249,6 +278,15 @@ int GamePlayState::GetNumberOfAllEntities()
 	return size;
 }
 
+void GamePlayState::ClearEntitiesOnTheScreen()
+{
+	for (auto pair : m_mapCurrentEntities)
+	{
+		pair.second.clear();
+	}
+	m_mapCurrentEntities.clear();
+}
+
 std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)
 {
 	auto pair = m_mapCurrentEntities.find(type);
@@ -273,4 +311,10 @@ void GamePlayState::Reset()
 {
 	m_iScore = 0;
 	m_Player->Reset();
+	ClearEntitiesOnTheScreen();
+}
+
+int GamePlayState::GetCurrentScore()
+{
+	return m_iScore;
 }

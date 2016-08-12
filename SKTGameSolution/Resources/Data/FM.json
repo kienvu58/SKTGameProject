@@ -89,8 +89,9 @@
 
 		{ "id": 202, "spriteSheetID": 102, "index": 0, "duration": 1, "note": "CircleDirection" },
 		{ "id": 203, "spriteSheetID": 102, "index": 1, "duration": 1, "note": "Circle4Direction" },
+		{ "id": 204, "spriteSheetID": 102, "index": 2, "duration": 1, "note": "Circle4Direction" },
 
-		{ "id": 204, "spriteSheetID": 4, "index": 10, "duration": 1, "note": "Button_NO" },
-		{ "id": 205, "spriteSheetID": 4, "index": 11, "duration": 1, "note": "Button_YES" }
+		{ "id": 205, "spriteSheetID": 4, "index": 10, "duration": 1, "note": "Button_NO" },
+		{ "id": 206, "spriteSheetID": 4, "index": 11, "duration": 1, "note": "Button_YES" }
 	]
 }

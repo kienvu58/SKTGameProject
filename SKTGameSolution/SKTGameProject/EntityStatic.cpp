@@ -52,7 +52,7 @@ Sprite& EntityStatic::GetSprite()
 	return m_Sprite;
 }
 
-bool EntityStatic::IsClicked(Vector2 mousePosition) const
+bool EntityStatic::IsClicked(Vector2 mousePosition)
 {
 	auto halfWidth = float(m_Sprite.GetModel()->GetModelWidth()) / 2;
 	auto halfHeight = float(m_Sprite.GetModel()->GetModelHeight()) / 2;

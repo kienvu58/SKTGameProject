@@ -1,5 +1,6 @@
 #pragma once
 #include <Common/FSM/State.h>
+#include "GamePlayState.h"
 #include "Game.h"
 #include "EntityStatic.h"
 class GameOverState : public State<Game>
@@ -20,4 +21,5 @@ private:
 	EntityStatic *m_Background;
 	EntityStatic *m_Button_Yes;
 	EntityStatic *m_Button_No;
+	GamePlayState *GPS;
 };

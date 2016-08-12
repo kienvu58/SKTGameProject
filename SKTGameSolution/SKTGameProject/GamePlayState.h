@@ -26,15 +26,20 @@ public:
 	void RemoveEntityFromTheScreen(Entity* entity);
 	int GetNumberOfEntitiesByPrototypeId(int prototypeId);
 	int GetNumberOfAllEntities();
+	void ClearEntitiesOnTheScreen();
 	std::vector<Entity*>* GetEntitiesByType(EntityType type);
 	EntityPlayer* GetPlayer() const;
 
 	void IncreaseScore(int amount);
 	void Reset();
+	int GetCurrentScore();
 private:
 	EntityStatic *m_CircleWithDirections;
 	EntityStatic *m_Circle4Dash;
-	EntityStatic *m_Circle2Dash;
+	EntityStatic *m_Circle2Dash_J;
+	EntityStatic *m_Circle2Dash_K;
+	EntityStatic *m_Circle2Dash_L;
+	EntityStatic *m_Circle2Dash_I;
 	Vector2 m_Circle4DashPos;
 	
 	EntityStatic* m_Background;
@@ -51,4 +56,5 @@ private:
 	Spawner m_spawner;
 
 	int m_iScore;
+	int m_TheBestScore;
 };
