@@ -29,6 +29,7 @@
 		{ "id": 22, "note": "hit", "nStartFrames": 0, "frameIDs": [69, 70, 71, 72, 73, 74] },
 		{ "id": 23, "note": "explosion", "nStartFrames": 0, "frameIDs": [76, 77, 78, 79, 80] },
 		{ "id": 24, "note": "aura_charging", "nStartFrames": 2, "frameIDs": [40, 41, 42, 43, 44] },
-		{ "id": 25, "note": "aura_charging", "nStartFrames": 0, "frameIDs": [65, 65] }
+		{ "id": 25, "note": "trigger_effect", "nStartFrames": 0, "frameIDs": [65, 65] },
+		{ "id": 26, "note": "kame_hit_effect", "nStartFrames": 0, "frameIDs": [75, 75] }
 	]
 }

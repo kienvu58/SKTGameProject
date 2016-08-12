@@ -213,19 +213,9 @@ void EntityLiving::Reset()
 
 bool EntityLiving::IsOutOfWall() const
 {
-	float padding = 2;
-	float wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
-	float wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
-	float boundryX = wallHalfWidth + padding;
-	float boundryY = wallHalfHeight + padding;
-	
-	b2Vec2 position = m_pBody->GetPosition();
-
-	if (-boundryX < position.x && position.x < boundryX + 3
-		&& -boundryY < position.y && position.y < boundryY)
-		return false;
-
-	return true;
+	auto position = GraphicsFromPhysics(m_pBody->GetPosition());
+	auto padding = (m_Sprite.GetModel()->GetModelWidth()) * 2;
+	return Globals::IsOutOfBoundary(position, padding);
 }
 
 void EntityLiving::TakeDamage(float amount)

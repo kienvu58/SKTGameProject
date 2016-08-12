@@ -186,18 +186,9 @@ void EntityKiBlast::SetSpeed(float speed)
 
 bool EntityKiBlast::IsOutOfWall() const
 {
-	float padding = 1;
-	auto wallHalfWidth = MetersFromPixels(Globals::screenWidth) / 2;
-	auto wallHalfHeight = MetersFromPixels(Globals::screenHeight) / 2;
-	auto boundaryX = wallHalfWidth + padding;
-	auto boundaryY = wallHalfHeight + padding;
-
-	b2Vec2 position = m_pBody->GetPosition();
-
-	auto outOfBoundaryX = abs(position.x) > boundaryX;
-	auto outOfBoundaryY = abs(position.y) > boundaryY;
-
-	return outOfBoundaryX || outOfBoundaryY;
+	auto position = GraphicsFromPhysics(m_pBody->GetPosition());
+	auto padding = m_Sprite.GetModel()->GetModelWidth();
+	return Globals::IsOutOfBoundary(position, padding);
 }
 
 b2Body* EntityKiBlast::GetBody() const

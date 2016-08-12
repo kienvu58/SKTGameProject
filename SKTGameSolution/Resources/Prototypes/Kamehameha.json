@@ -1,11 +1,13 @@
 {
+	"attackDamage":  100,
 	"speed": 12,
 	"nRaycasts": 5,
+	"thicknessInPixels": 32,
 	"hasAura": true,
 	"PIDs": 
 	{
 		"SpirteStartEffect": 0,
-		"HitEffect": 0
+		"HitEffect": 9
 	},
 	"graphics": 
 	{
@@ -13,6 +15,7 @@
 		"frameStartId": 82,
 		"frameMidId": 83,
 		"frameEndId": 84,
-		"shaderId": 1
+		"shaderId": 1,
+		"alpha": 0.9
 	}
 }

@@ -3,6 +3,10 @@
 #include "SingletonClasses.h"
 #include "../GraphicsEngine/Globals.h"
 
+#define SPECIAL_KI 30
+#define ULTIMATE_KI 60
+#define DECREASE_OVERHEAT 50
+
 /**
 *	PlayerGlobalState
 */
@@ -40,7 +44,7 @@ void PlayerGlobalState::Execute(EntityPlayer* entity)
 
 	if (entity->GetFSM()->CurrentState() != PS_Firing::GetInstance())
 	{
-		entity->DecreaseOverheatPerSecond(50);
+		entity->DecreaseOverheatPerSecond(DECREASE_OVERHEAT);
 	}
 }
 
@@ -82,28 +86,32 @@ void PlayerStandingState::Enter(EntityPlayer* entity)
 void PlayerStandingState::Execute(EntityPlayer* entity)
 {
 	b2Vec2 velocity = entity->GetBody()->GetLinearVelocity();
-	if (velocity.Length() > 0)
+	auto keyJ = InputMgr->IsPressed(KEY_J);
+	auto keyK = InputMgr->IsPressed(KEY_K);
+	auto keyL = InputMgr->IsPressed(KEY_L);
+	auto isMoving = velocity.Length() > 0;
+	auto isFiring = keyJ && !entity->IsOverheated();
+	auto isFiringSpecial = keyK && entity->GetCurrentKi() > SPECIAL_KI;
+	auto isFiringUltimate = keyL && entity->GetCurrentKi() > ULTIMATE_KI;
+
+	if (isMoving)
 	{
-		// change to PlayerMovingState
 		entity->GetFSM()->ChangeState(PS_Moving::GetInstance());
 	}
-	if (InputMgr->IsPressed(KEY_J) && !entity->IsOverheated())
+	if (isFiring)
 	{
-		// change to PlayerFiringState
 		entity->GetFSM()->ChangeState(PS_Firing::GetInstance());
 		MusicMgr->MusicPlay("SkillShot");
 		MusicMgr->MusicVolume("SkillShot", 50);
 	}
-	if (InputMgr->IsPressed(KEY_K))
+	if (isFiringSpecial)
 	{
-		// change to PlayerFiringSpecialState
 		entity->GetFSM()->ChangeState(PS_FiringSpecial::GetInstance());
 		MusicMgr->MusicPlay("SkillUlti_1");
 		MusicMgr->MusicVolume("SkillUlti_1", 50);
 	}
-	if (InputMgr->IsPressed(KEY_L))
+	if (isFiringUltimate)
 	{
-		// change to PlayerFiringUltimateState
 		entity->GetFSM()->ChangeState(PS_FiringUltimate::GetInstance());
 		MusicMgr->MusicPlay("SkillUlti_2");
 		MusicMgr->MusicVolume("SkillUlti_2", 50);
@@ -153,9 +161,12 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 	auto keyJ = InputMgr->IsPressed(KEY_J);
 	auto keyK = InputMgr->IsPressed(KEY_K);
 	auto keyL = InputMgr->IsPressed(KEY_L);
-	if (velocity.Length() == 0 || keyJ && !entity->IsOverheated() || keyK || keyL)
+	auto isStanding = velocity.Length() == 0;
+	auto isFiring = keyJ && !entity->IsOverheated();
+	auto isFiringSpecial = keyK && entity->GetCurrentKi() > SPECIAL_KI;
+	auto isFiringUltimate = keyL && entity->GetCurrentKi() > ULTIMATE_KI;
+	if (isStanding || isFiring || isFiringSpecial || isFiringUltimate)
 	{
-		// change to PlayerStandingState
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
 
@@ -222,7 +233,7 @@ void PlayerFiringState::Execute(EntityPlayer* entity)
 	if (entity->IsFrameChanged())
 	{
 		entity->Fire();
-		entity->IncreaseOverheat(5);
+		entity->IncreaseOverheat(entity->GetNormalSkillCost());
 	}
 
 	if (entity->IsOverheated() ||
@@ -260,7 +271,6 @@ PlayerFiringSpecialState::~PlayerFiringSpecialState()
 
 void PlayerFiringSpecialState::Enter(EntityPlayer* entity)
 {
-	m_fSpecialTime = 0.0f;
 }
 
 void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
@@ -274,18 +284,17 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 
 	if (currentFrameIndex >= startFiringFrameIndex)
 	{
-		m_fSpecialTime += Globals::deltaTime;
+		auto amount = Globals::deltaTime * entity->GetSpecialSkillCost();
+		entity->DecreaseKi(amount);
 	}
 
 	if (currentFrameIndex == startFiringFrameIndex && entity->IsFrameChanged())
 	{
 		entity->FireSpecial();
-		// Decrease Ki here
 	}
 
-	if (m_fSpecialTime >= entity->GetSpecialDuration())
+	if (!InputMgr->IsPressed(KEY_K) || entity->GetCurrentKi() <= 0)
 	{
-		// change to PlayerStandingState
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
 	}
 
@@ -308,7 +317,8 @@ bool PlayerFiringSpecialState::OnMessage(EntityPlayer*, const Telegram&)
 	return false;
 }
 
-PlayerFiringSpecialState::PlayerFiringSpecialState(): m_fSpecialTime(0) {
+PlayerFiringSpecialState::PlayerFiringSpecialState()
+{
 }
 
 
@@ -319,7 +329,6 @@ PlayerFiringSpecialState::PlayerFiringSpecialState(): m_fSpecialTime(0) {
 
 PlayerFiringUltimateState::~PlayerFiringUltimateState()
 {
-	m_fUltimateTime = 0.0f;
 }
 
 void PlayerFiringUltimateState::Enter(EntityPlayer* entity)
@@ -336,18 +345,13 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 	auto startFiringFrameIndex = firingUltimateAnimation->GetNStartFrame();
 	auto currentFrameIndex = entity->GetFrameCount();
 
-	if (currentFrameIndex >= startFiringFrameIndex)
-	{
-		m_fUltimateTime += Globals::deltaTime;
-	}
-
 	if (currentFrameIndex == startFiringFrameIndex && entity->IsFrameChanged())
 	{
 		entity->FireUltimate();
 		// Decrease Ki here
 	}
 
-	if (m_fUltimateTime >= entity->GetUltimateDuration())
+	if (1)
 	{
 		// change to PlayerStandingState
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
@@ -372,7 +376,8 @@ bool PlayerFiringUltimateState::OnMessage(EntityPlayer*, const Telegram&)
 	return false;
 }
 
-PlayerFiringUltimateState::PlayerFiringUltimateState(): m_fUltimateTime(0) {
+PlayerFiringUltimateState::PlayerFiringUltimateState()
+{
 }
 
 

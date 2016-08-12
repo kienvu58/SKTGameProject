@@ -88,6 +88,9 @@ void GamePlayState::Render(Game* game)
 	std::string currentHealth = "Health: ";
 	currentHealth.append(std::to_string(m_Player->GetCurrentHealth()));
 	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
+	std::string currentKi = "Ki: ";
+	currentKi.append(std::to_string(m_Player->GetCurrentKi()));
+	TextMgr->RenderString(currentKi.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 60.0f, 1, 1);
 
 	for (const auto& pair : m_mapCurrentEntities)
 	{

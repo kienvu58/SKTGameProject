@@ -119,6 +119,9 @@ void EntityPlayer::Init(int prototypeId, const char* dataPath)
 	m_fVisionFreq = data["visionFreq"].get<float>();
 	m_fSpecialDuration = data["skillDuration"]["special"].get<float>();
 	m_fUltimateDuration = data["skillDuration"]["ultimate"].get<float>();
+	m_fNormalCost = data["cost"]["normal"].get<float>();
+	m_fSpecialCost = data["cost"]["special"].get<float>();
+	m_fUltimateCost = data["cost"]["ultimate"].get<float>();
 
 	std::vector<Animation*> animations;
 	for (auto animationId : data["animationIds"])
@@ -148,7 +151,7 @@ void EntityPlayer::DetectMinions()
 	auto eye = m_pBody->GetPosition();
 	auto target = eye + m_fVisionRange * b2Vec2(cosf(angle), sinf(angle));
 	RayCastMultipleCallback callback;
-	callback.maskBits = CATEGORY_CELL_JUNIOR;
+	callback.maskBits = CATEGORY_CELLJUNIOR;
 	PhysicsMgr->GetWorld()->RayCast(&callback, eye, target);
 	for (auto fixture : callback.fixtures)
 	{
@@ -156,6 +159,12 @@ void EntityPlayer::DetectMinions()
 		auto position = m_pBody->GetPosition();
 		Dispatcher->DispatchMessageA(this, static_cast<EntityMinion*>(minion), MSG_MINION_INSIDE_VISION_RANGE, &position);
 	}
+}
+
+void EntityPlayer::DecreaseKi(float amount)
+{
+	m_fCurrentKi -= amount;
+	m_fCurrentKi = m_fCurrentKi >= 0.0f ? m_fCurrentKi : 0;
 }
 
 void EntityPlayer::Fire() const
@@ -172,7 +181,7 @@ void EntityPlayer::FireSpecial()
 	{
 		m_pSpecial = static_cast<EntityBeamWave*>(PoolMgr->GetEntityByPrototypeId(m_iSpecialPID));
 	}
-	auto position = m_pBody->GetPosition() + b2Vec2(1, 0);
+	auto position = m_pBody->GetPosition() + b2Vec2(0.5, 0.2);
 	m_pSpecial->Fire(position, 1);
 }
 
@@ -188,12 +197,14 @@ void EntityPlayer::FireUltimate()
 
 void EntityPlayer::StopSpecial() const
 {
-	m_pSpecial->Stop();
+	if (m_pSpecial)
+		m_pSpecial->Stop();
 }
 
 void EntityPlayer::StopUltimate() const
 {
-	m_pUltimate->Stop();
+	if (m_pUltimate)
+		m_pUltimate->Stop();
 }
 
 void EntityPlayer::Reset()
@@ -204,6 +215,11 @@ void EntityPlayer::Reset()
 	m_pStateMachine->SetCurrentState(PS_Standing::GetInstance());
 }
 
+float EntityPlayer::GetCurrentKi() const
+{
+	return m_fCurrentKi;
+}
+
 float EntityPlayer::GetUltimateDuration() const
 {
 	return m_fUltimateDuration;
@@ -212,4 +228,19 @@ float EntityPlayer::GetUltimateDuration() const
 float EntityPlayer::GetSpecialDuration() const
 {
 	return m_fSpecialDuration;
+}
+
+float EntityPlayer::GetNormalSkillCost() const
+{
+	return m_fNormalCost;
+}
+
+float EntityPlayer::GetSpecialSkillCost() const
+{
+	return m_fSpecialCost;
+}
+
+float EntityPlayer::GetUltimateSkillCost() const
+{
+	return m_fUltimateCost;
 }

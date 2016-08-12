@@ -1,0 +1,10 @@
+{
+	"animationId": 26,
+	"isLoop": false,
+	"graphics": 
+	{
+		"modelId": 12,
+		"shaderId": 1,
+		"alpha": 1
+	}
+}

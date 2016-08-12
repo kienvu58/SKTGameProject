@@ -3,6 +3,7 @@
 #include "../GraphicsEngine/Sprite.h"
 #include "EntityBullet.h"
 #include "EntityEffect.h"
+#include "RayCastMultipleCallback.h"
 
 class EntityBeamWave :
 	public EntityBullet
@@ -12,6 +13,7 @@ public:
 	~EntityBeamWave();
 
 	void Render() override;
+	void DetectIntersections();
 	void Update() override;
 	bool HandleMessage(const Telegram& telegram) override;
 	EntityType GetType() override;
@@ -22,6 +24,7 @@ public:
 	void InitSpriteStart(int modelId, int frameId, int shaderId);
 
 	void UpdateGraphics();
+	void UpdateLength();
 	void CleanUpHitEffect(EntityEffect* effect);
 	void Fire(b2Vec2 position, int direction) override;
 	void Stop();
@@ -34,8 +37,8 @@ private:
 	Sprite m_SpriteEnd;
 	Sprite m_SpriteMid;
 	Sprite m_SpriteStart;
-	int m_SpriteWidth;
-	int m_SpriteHeight;
+	int m_iSpriteWidth;
+	float m_fThickness;
 	bool m_bHasAura;
 
 	// PIDs

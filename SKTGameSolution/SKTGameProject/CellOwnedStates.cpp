@@ -61,7 +61,7 @@ void CellWanderingState::Execute(EntityCell* cell)
 	b2Vec2 eye = cell->GetBody()->GetPosition();
 	b2Vec2 target = eye + 2 * b2Vec2(cosf(angle), sinf(angle));
 	RayCastMultipleCallback callback;
-	callback.maskBits = CATEGORY_KI_BLAST;
+	callback.maskBits = CATEGORY_YELLOW_KIBLAST;
 	PhysicsMgr->GetWorld()->RayCast(&callback, eye, target);
 	if (callback.fixtures.size() > 0)
 	{

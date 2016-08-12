@@ -284,5 +284,8 @@
     <None Include="..\Resources\Prototypes\TriggerEffect.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Resources\Prototypes\BeamWaveHit.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

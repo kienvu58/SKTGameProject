@@ -80,9 +80,6 @@ public:
 	void Render(EntityPlayer* entity) override;
 
 	bool OnMessage(EntityPlayer*, const Telegram&) override;
-	
-private:
-	float m_fSpecialTime;
 };
 
 
@@ -99,9 +96,6 @@ public:
 	void Render(EntityPlayer* entity) override;
 
 	bool OnMessage(EntityPlayer*, const Telegram&) override;
-
-private:
-	float m_fUltimateTime;
 };
 
 class PlayerTakingDamageState : 

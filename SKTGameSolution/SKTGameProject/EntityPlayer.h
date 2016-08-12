@@ -41,6 +41,7 @@ public:
 	bool IsOnTheGround() const;
 	void DetectMinions();
 
+	void DecreaseKi(float amount);
 	void Fire() const;
 	void FireSpecial();
 	void FireUltimate();
@@ -51,7 +52,12 @@ public:
 	void StopSpecial() const;
 	void StopUltimate() const;
 
+	float GetNormalSkillCost() const;
+	float GetSpecialSkillCost() const;
+	float GetUltimateSkillCost() const;
+
 	void Reset() override;
+	float GetCurrentKi() const;
 private:
 	//player attributes
 	float m_fMaxKi;
@@ -70,6 +76,9 @@ private:
 
 	EntityBeamWave* m_pSpecial;
 	EntityBeamWave* m_pUltimate;
+	float m_fNormalCost;
+	float m_fSpecialCost;
+	float m_fUltimateCost;
 
 	//State info
 	StateMachine<EntityPlayer>* m_pStateMachine;
