@@ -1,5 +1,5 @@
 {
-    "prize": 100,
+    "prize": 5,
 	"attackDamage": 10,
 	"maxSpeed": 10,
 	"movementSpeed": 2,

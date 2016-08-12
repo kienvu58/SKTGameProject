@@ -2,6 +2,7 @@
 #include <fstream>
 #include "EntityCell.h"
 #include "SingletonClasses.h"
+#include "../GraphicsEngine/Globals.h"
 
 void EntityCell::InitStateMachine()
 {
@@ -18,6 +19,7 @@ EntityCell::EntityCell()
 	m_fAttackDamage = 10;
 	m_fCurrentHealth = 30;
 	m_fMaxHealth = 30;
+	m_fCurrentDodgingOverheat = 0;
 
 	InitStateMachine();
 }
@@ -111,6 +113,7 @@ void EntityCell::Reset()
 {
 	EntityMinion::Reset();
 	m_pStateMachine->ChangeState(CS_Wandering::GetInstance());
+	m_fCurrentDodgingOverheat = MIN_DODGING_OVERHEAT;
 }
 
 void EntityCell::Fire() const
@@ -119,4 +122,30 @@ void EntityCell::Fire() const
 	auto position = m_pBody->GetPosition() - b2Vec2(0.5f, 0.0f);
 	bullet->Fire(position, -1);
 	GS_GamePlay::GetInstance()->AddEntityToTheScreen(bullet);
+}
+
+
+void EntityCell::IncreaseDodgingOverHeat(float amount)
+{
+	m_fCurrentDodgingOverheat += amount;
+	if (m_fCurrentDodgingOverheat >= MAX_DODGING_OVERHEAT)
+	{
+		m_fCurrentDodgingOverheat = MAX_DODGING_OVERHEAT;
+		m_bIsDodgingOverheatd = true;
+	}
+}
+
+void EntityCell::DecreaseDodgingOverHeat(float amount)
+{
+	m_fCurrentDodgingOverheat -= Globals::deltaTime*amount;
+	if (m_fCurrentDodgingOverheat <= MIN_DODGING_OVERHEAT)
+	{
+		m_fCurrentDodgingOverheat = MIN_DODGING_OVERHEAT;
+		m_bIsDodgingOverheatd = false;
+	}
+}
+
+bool EntityCell::IsDodgingOverHeated() const
+{
+	return m_bIsDodgingOverheatd;
 }

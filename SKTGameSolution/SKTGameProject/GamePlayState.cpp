@@ -246,6 +246,15 @@ int GamePlayState::GetNumberOfAllEntities()
 	return size;
 }
 
+void GamePlayState::ClearEntitiesOnTheScreen()
+{
+	for (auto pair : m_mapCurrentEntities)
+	{
+		pair.second.clear();
+	}
+	m_mapCurrentEntities.clear();
+}
+
 std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)
 {
 	auto pair = m_mapCurrentEntities.find(type);
@@ -270,4 +279,5 @@ void GamePlayState::Reset()
 {
 	m_iScore = 0;
 	m_Player->Reset();
+	ClearEntitiesOnTheScreen();
 }
