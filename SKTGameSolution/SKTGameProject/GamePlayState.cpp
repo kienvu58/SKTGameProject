@@ -165,7 +165,7 @@ void GamePlayState::Init(const char* filePath)
 	m_Circle4Dash->InitSprite(102, 203, 1);
 	m_Circle4Dash->InitPosition(120, 520);
 
-	m_spawner.Init("File path");
+	m_spawner.Init("Data/SPAWNER.json");
 
 	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
 	m_Player->Activate();
