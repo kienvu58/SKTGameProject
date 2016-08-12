@@ -16,5 +16,7 @@ public:
 private:
 	static void KiBlastHitsMinion(EntityKiBlast* kiBlast, EntityMinion* minion);
 	static void MinionHitsPlayer(EntityMinion* minion, EntityPlayer* player);
+	static void KiBlastHitsPlayer(EntityKiBlast* kiBlast, EntityPlayer* player);
+	static void KiBlastHitsKiBlast(EntityKiBlast* kiBlast1, EntityKiBlast* kiBlast2);
 };
 

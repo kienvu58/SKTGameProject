@@ -1,9 +1,11 @@
 #pragma once
 #include "Entity.h"
 #include "../GraphicsEngine/Sprite.h"
+#include "EntityBullet.h"
+#include "EntityEffect.h"
 
 class EntityBeamWave :
-	public Entity
+	public EntityBullet
 {
 public:
 	EntityBeamWave();
@@ -15,25 +17,37 @@ public:
 	EntityType GetType() override;
 	Entity* Clone() override;
 
-	void InitSpriteHead(int modelId, int frameId, int shaderId);
-	void InitSpriteBody(int modelId, int frameId, int shaderId);
-	void InitSpriteTail(int modelId, int frameId, int shaderId);
+	void InitSpriteEnd(int modelId, int frameId, int shaderId);
+	void InitSpriteMid(int modelId, int frameId, int shaderId);
+	void InitSpriteStart(int modelId, int frameId, int shaderId);
 
-	void Fire(b2Vec2 position, int direction = 1);
+	void UpdateGraphics();
+	void CleanUpHitEffect(EntityEffect* effect);
+	void Fire(b2Vec2 position, int direction) override;
+	void Stop();
 
+	void Init(int prototypeId, const char* dataPath) override;
+	void Reset() override;
 private:
-	bool m_bIsActive;
 
 	// Graphics information
-	Sprite m_SpriteHead;
-	Sprite m_SpriteBody;
-	Sprite m_SpriteTail;
-	int m_iInitializedWidth;
+	Sprite m_SpriteEnd;
+	Sprite m_SpriteMid;
+	Sprite m_SpriteStart;
+	int m_SpriteWidth;
+	int m_SpriteHeight;
+	bool m_bHasAura;
+
+	// PIDs
+	int m_iSpriteStartEffectPID;
+	int m_iHitEffectPID;
+
+	EntityEffect* m_pSpriteStartEffect;
+	std::vector<EntityEffect*> m_vecHitEffects;
 
 	// Physics information
-	b2Vec2 m_vec2StartPosition;		
+	b2Vec2 m_vec2Pos;		
+	int m_iNRaycasts;
 	float m_fLength;
-	float m_fSpeed;
-	int m_iDirection;	// 1: left to right, -1: right to left
 };
 

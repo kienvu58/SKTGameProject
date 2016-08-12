@@ -97,7 +97,7 @@ void EntityKiBlast::InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtu
 void EntityKiBlast::Trigger() const
 {
 	auto triggerEffect = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iTriggerEffectPID));
-	auto effectPos = m_pBody->GetPosition() - b2Vec2(0.1f, 0);
+	auto effectPos = m_pBody->GetPosition();
 	triggerEffect->Start(effectPos, GameInstance);
 	GS_GamePlay::GetInstance()->AddEntityToTheScreen(triggerEffect);
 }
@@ -159,11 +159,12 @@ void EntityKiBlast::Init(int prototypeId, const char* dataPath)
 	m_b2FixtureDef.friction = fixtureData["friction"].get<float>();
 	m_b2FixtureDef.restitution = fixtureData["restitution"].get<float>();
 	m_b2FixtureDef.filter.categoryBits = fixtureData["filter"]["categoryBits"].get<int>();
+	m_b2FixtureDef.filter.maskBits = 0;
 	for (auto maskBits : fixtureData["filter"]["maskBits"])
 	{
+		int a = maskBits.get<int>();
 		m_b2FixtureDef.filter.maskBits |= maskBits.get<int>();
 	}
-
 	m_fAttackDamage = data["attackDamage"].get<float>();
 	m_fSpeed = data["speed"].get<float>();
 	m_iExplosionPID = data["explosionPID"].get<int>();

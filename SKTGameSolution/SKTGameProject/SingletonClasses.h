@@ -64,6 +64,7 @@ typedef Singleton<CellJuniorAttackingState> CJS_Attacking;
 typedef Singleton<CellGlobalState> CS_Global;
 typedef Singleton<CellWanderingState> CS_Wandering;
 typedef Singleton<CellAttackingState> CS_Attacking;
+typedef Singleton<CellDodgingState> CS_Dodging;
 
 // Game States
 typedef Singleton<GameWelcomeState> GS_Welcome;

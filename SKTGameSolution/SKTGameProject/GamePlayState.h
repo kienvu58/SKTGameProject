@@ -26,6 +26,7 @@ public:
 	void RemoveEntityFromTheScreen(Entity* entity);
 	int GetNumberOfEntitiesByPrototypeId(int prototypeId);
 	int GetNumberOfAllEntities();
+	void ClearEntitiesOnTheScreen();
 	std::vector<Entity*>* GetEntitiesByType(EntityType type);
 	EntityPlayer* GetPlayer() const;
 

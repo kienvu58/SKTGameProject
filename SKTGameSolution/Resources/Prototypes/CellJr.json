@@ -1,5 +1,5 @@
 {
-    "prize": 100,
+    "prize": 5,
 	"attackDamage": 10,
 	"maxSpeed": 10,
 	"movementSpeed": 2,
@@ -18,7 +18,12 @@
 			"boxShape": { "hx": 0.2, "hy": 0.25 },
 			"friction": 1,
 			"restitution": 0,
-			"filter": { "categoryBits": 16, "maskBits": [2, 8], "note": "1: Wall, 2:Player, 4:Minion, 8: KiBlast" }
+			"filter": 
+			{ 
+				"categoryBits": 16, 
+				"maskBits": [2, 8], 
+				"note": "1: Wall, 2:Player, 4: Cell, 8: KiBlast, 16: CellJr, 32: Green KiBlast"
+			}
 		}
 	}
 }

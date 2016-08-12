@@ -99,6 +99,11 @@ b2Vec2 SteeringBehavior::CalculatePrioritized()
 		force = Seek(m_vSeekTarget);
 		if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
 	}
+	if (On(flee))
+	{
+		force = Flee(m_vFleeTarget);
+		if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
+	}
 	if (On(wander))
 	{
 		force = Wander();
@@ -138,4 +143,16 @@ bool SteeringBehavior::AccumulateForce(b2Vec2& runningTotalForce, b2Vec2 forceTo
 		add *= magnitudeRemaining;
 		runningTotalForce += add;
 	}*/
+}
+
+void SteeringBehavior::SetFleeTarget(b2Vec2 target)
+{
+	m_vFleeTarget = target;
+}
+
+b2Vec2 SteeringBehavior::Flee(b2Vec2 target) const
+{
+	b2Vec2 currentPosition = m_pOwner->GetBody()->GetPosition();
+	b2Vec2 desiredVector = currentPosition - m_vFleeTarget;
+	return desiredVector;
 }

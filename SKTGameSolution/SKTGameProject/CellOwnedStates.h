@@ -46,3 +46,17 @@ public:
 
 	bool OnMessage(EntityCell*, const Telegram&) override;
 };
+
+class CellDodgingState : public State<EntityCell>
+{
+public:
+	CellDodgingState();
+	~CellDodgingState();
+
+	void Enter(EntityCell* Cell) override;
+	void Execute(EntityCell* Cell) override;
+	void Exit(EntityCell* Cell) override;
+	void Render(EntityCell* Cell) override;
+
+	bool OnMessage(EntityCell*, const Telegram&) override;
+};

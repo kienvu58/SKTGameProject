@@ -54,6 +54,7 @@ void Game::CreateStateInstances()
 	CS_Global::CreateInstance();
 	CS_Wandering::CreateInstance();
 	CS_Attacking::CreateInstance();
+	CS_Dodging::CreateInstance();
 }
 
 void Game::DestroyStateInstances()
@@ -84,6 +85,7 @@ void Game::DestroyStateInstances()
 	CS_Global::DestroyInstance();
 	CS_Wandering::DestroyInstance();
 	CS_Attacking::DestroyInstance();
+	CS_Dodging::DestroyInstance();
 }
 
 void Game::Update()
@@ -143,13 +145,4 @@ void Game::Reset()
 {
 	m_fPlayingTime = 0;
 	GS_GamePlay::GetInstance()->Reset();
-//	GS_GamePlay::DestroyInstance();
-//	PoolManagerSingleton::DestroyInstance();
-//	PhysicsManagerSingleton::DestroyInstance();
-
-//	PhysicsManagerSingleton::CreateInstance();
-//	PhysicsMgr->Init();
-//	PoolManagerSingleton::CreateInstance();
-//	GS_GamePlay::CreateInstance();
-//	GS_GamePlay::GetInstance()->Init("");
 }

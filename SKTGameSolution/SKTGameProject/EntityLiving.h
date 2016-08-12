@@ -47,6 +47,7 @@ public:
 	float GetCurrentOverheat() const;
 	void DecreaseOverheatPerSecond(float amount);
 	bool IsOverheated() const;
+	void SetOverheat(float value);
 
 	//Material
 	void Reset() override;

@@ -184,7 +184,7 @@ void GamePlayState::Init(const char* filePath)
 	m_Circle2Dash_L->InitSprite(104, 204, 1);
 	m_Circle2Dash_L->InitPosition(1058, 390);
 
-	m_spawner.Init("File path");
+	m_spawner.Init("Data/SPAWNER.json");
 
 	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
 	m_Player->Activate();
@@ -268,6 +268,15 @@ int GamePlayState::GetNumberOfAllEntities()
 	return size;
 }
 
+void GamePlayState::ClearEntitiesOnTheScreen()
+{
+	for (auto pair : m_mapCurrentEntities)
+	{
+		pair.second.clear();
+	}
+	m_mapCurrentEntities.clear();
+}
+
 std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)
 {
 	auto pair = m_mapCurrentEntities.find(type);
@@ -292,6 +301,7 @@ void GamePlayState::Reset()
 {
 	m_iScore = 0;
 	m_Player->Reset();
+	ClearEntitiesOnTheScreen();
 }
 
 int GamePlayState::GetCurrentScore()

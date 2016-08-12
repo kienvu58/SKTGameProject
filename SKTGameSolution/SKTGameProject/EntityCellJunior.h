@@ -2,6 +2,12 @@
 #include "EntityMinion.h"
 #include <Common/FSM/StateMachine.h>
 
+enum CellJrAnimationName
+{
+	CELLJR_WANDERING,
+	CELLJR_ATTACKING
+};
+
 class EntityCellJunior : public EntityMinion
 {
 public:

@@ -36,11 +36,11 @@ int GameInit()
 	PhysicsMgr->Init();
 	Factory->Init(FE_PATH);
 
-
 	// Init game
 	GameSingleton::CreateInstance();
 
 	GameInstance->GetFSM()->SetCurrentState(GS_MainMenu::GetInstance());
+
 	GameInstance->Init();
 
 	// Set OpenGl blending option

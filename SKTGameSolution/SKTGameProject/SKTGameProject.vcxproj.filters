@@ -271,6 +271,7 @@
     <None Include="..\Resources\Prototypes\YellowKiBlast.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
     <None Include="..\Resources\Prototypes\CellExplosion.json">
       <Filter>Resource Files</Filter>
     </None>

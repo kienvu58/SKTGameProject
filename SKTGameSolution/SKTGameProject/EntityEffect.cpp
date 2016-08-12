@@ -15,7 +15,7 @@ EntityEffect::EntityEffect(const EntityEffect& other): m_Sprite(other.m_Sprite),
                                                        m_iCurrentFrameIndex(0),
                                                        m_iLastFrameIndex(0),
                                                        m_fCurrentDelay(0),
-                                                       m_iFrameCount(0),
+                                                       m_iFrameCount(1),
                                                        m_bIsLoop(false)
 {
 }
@@ -108,7 +108,7 @@ void EntityEffect::ResetCurrentAnimationInfo()
 	m_iCurrentFrameIndex = 0;
 	m_iLastFrameIndex = 0;
 	m_fCurrentDelay = 0.0f;
-	m_iFrameCount = 0;
+	m_iFrameCount = 1;
 }
 
 void EntityEffect::Init(int prototypeId, const char* dataPath)
@@ -123,13 +123,13 @@ void EntityEffect::Init(int prototypeId, const char* dataPath)
 	m_bIsLoop = data["isLoop"].get<bool>();
 	
 	auto modelId = data["graphics"]["modelId"].get<int>();
-	auto spriteId = data["graphics"]["spriteId"].get<int>();
 	auto shaderId = data["graphics"]["shaderId"].get<int>();
 	auto alpha = data["graphics"]["alpha"].get<float>();
 	m_Sprite.SetModel(ResourceMgr->GetModelById(modelId));
-	m_Sprite.SetTexture(ResourceMgr->GetSpriteSheetById(spriteId));
 	m_Sprite.SetShaders(ResourceMgr->GetShadersById(shaderId));
 	m_Sprite.SetOpacity(alpha);
+	UpdateSpriteFrame();
+	ResetCurrentAnimationInfo();
 }
 
 void EntityEffect::Reset()
