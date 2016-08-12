@@ -97,7 +97,7 @@ void EntityKiBlast::InitBody(const b2BodyDef& bodyDef, const b2FixtureDef& fixtu
 void EntityKiBlast::Trigger() const
 {
 	auto triggerEffect = static_cast<EntityEffect*>(PoolMgr->GetEntityByPrototypeId(m_iTriggerEffectPID));
-	auto effectPos = m_pBody->GetPosition() - b2Vec2(0.1f, 0);
+	auto effectPos = m_pBody->GetPosition();
 	triggerEffect->Start(effectPos, GameInstance);
 	GS_GamePlay::GetInstance()->AddEntityToTheScreen(triggerEffect);
 }

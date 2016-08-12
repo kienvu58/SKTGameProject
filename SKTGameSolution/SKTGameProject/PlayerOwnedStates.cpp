@@ -1,6 +1,7 @@
 #include "PlayerOwnedStates.h"
 #include "../GraphicsEngine/InputManager.h"
 #include "SingletonClasses.h"
+#include "../GraphicsEngine/Globals.h"
 
 /**
 *	PlayerGlobalState
@@ -259,6 +260,7 @@ PlayerFiringSpecialState::~PlayerFiringSpecialState()
 
 void PlayerFiringSpecialState::Enter(EntityPlayer* entity)
 {
+	m_fSpecialTime = 0.0f;
 }
 
 void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
@@ -267,14 +269,21 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 	entity->GetBody()->SetLinearVelocity(b2Vec2(0, 0));
 
 	Animation* firingSpecialAnimation = entity->GetAnimation(FIRING_SPECIAL);
-	int currentFrame = entity->GetFrameCount() % firingSpecialAnimation->GetTotalFrames();
+	auto startFiringFrameIndex = firingSpecialAnimation->GetNStartFrame();
+	auto currentFrameIndex = entity->GetFrameCount();
 
-	if (currentFrame == 2 && entity->IsFrameChanged())
+	if (currentFrameIndex >= startFiringFrameIndex)
 	{
-		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.75, 0.15);
+		m_fSpecialTime += Globals::deltaTime;
 	}
 
-	if (!InputMgr->IsPressed(KEY_K) && firingSpecialAnimation->GetTotalFrames() <= entity->GetFrameCount())
+	if (currentFrameIndex == startFiringFrameIndex && entity->IsFrameChanged())
+	{
+		entity->FireSpecial();
+		// Decrease Ki here
+	}
+
+	if (m_fSpecialTime >= entity->GetSpecialDuration())
 	{
 		// change to PlayerStandingState
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
@@ -285,6 +294,7 @@ void PlayerFiringSpecialState::Execute(EntityPlayer* entity)
 
 void PlayerFiringSpecialState::Exit(EntityPlayer* entity)
 {
+	entity->StopSpecial();
 	entity->ResetCurrentAnimationInfo();
 }
 
@@ -298,8 +308,7 @@ bool PlayerFiringSpecialState::OnMessage(EntityPlayer*, const Telegram&)
 	return false;
 }
 
-PlayerFiringSpecialState::PlayerFiringSpecialState()
-{
+PlayerFiringSpecialState::PlayerFiringSpecialState(): m_fSpecialTime(0) {
 }
 
 
@@ -310,6 +319,7 @@ PlayerFiringSpecialState::PlayerFiringSpecialState()
 
 PlayerFiringUltimateState::~PlayerFiringUltimateState()
 {
+	m_fUltimateTime = 0.0f;
 }
 
 void PlayerFiringUltimateState::Enter(EntityPlayer* entity)
@@ -323,13 +333,21 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 
 	Animation* firingUltimateAnimation = entity->GetAnimation(FIRING_ULTIMATE);
 
-	int currentFrame = entity->GetFrameCount() % firingUltimateAnimation->GetTotalFrames();
+	auto startFiringFrameIndex = firingUltimateAnimation->GetNStartFrame();
+	auto currentFrameIndex = entity->GetFrameCount();
 
-	if (currentFrame == 7 && entity->IsFrameChanged())
+	if (currentFrameIndex >= startFiringFrameIndex)
 	{
-		b2Vec2 kamehamehaPosition = entity->GetBody()->GetPosition() + b2Vec2(0.1, 0);
+		m_fUltimateTime += Globals::deltaTime;
 	}
-	if (!InputMgr->IsPressed(KEY_L) && firingUltimateAnimation->GetTotalFrames() <= entity->GetFrameCount())
+
+	if (currentFrameIndex == startFiringFrameIndex && entity->IsFrameChanged())
+	{
+		entity->FireUltimate();
+		// Decrease Ki here
+	}
+
+	if (m_fUltimateTime >= entity->GetUltimateDuration())
 	{
 		// change to PlayerStandingState
 		entity->GetFSM()->ChangeState(PS_Standing::GetInstance());
@@ -340,6 +358,7 @@ void PlayerFiringUltimateState::Execute(EntityPlayer* entity)
 
 void PlayerFiringUltimateState::Exit(EntityPlayer* entity)
 {
+	entity->StopUltimate();
 	entity->ResetCurrentAnimationInfo();
 }
 
@@ -353,8 +372,7 @@ bool PlayerFiringUltimateState::OnMessage(EntityPlayer*, const Telegram&)
 	return false;
 }
 
-PlayerFiringUltimateState::PlayerFiringUltimateState()
-{
+PlayerFiringUltimateState::PlayerFiringUltimateState(): m_fUltimateTime(0) {
 }
 
 

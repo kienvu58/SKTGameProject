@@ -1,7 +1,7 @@
 #include <json.hpp>
 #include <fstream>
-#include "EntityPlayer.h"
 #include "SingletonClasses.h"
+#include "EntityPlayer.h"
 #include "../GraphicsEngine/Globals.h"
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
@@ -32,6 +32,8 @@ void EntityPlayer::Render()
 	if (IsActive())
 	{
 		m_Sprite.Render();
+		if (m_pSpecial)
+			m_pSpecial->Render();
 	}
 }
 
@@ -41,6 +43,8 @@ void EntityPlayer::Update()
 	{
 		EntityLiving::Update();
 		m_pStateMachine->Update();
+		if (m_pSpecial)
+			m_pSpecial->Update();
 	}
 }
 
@@ -113,6 +117,8 @@ void EntityPlayer::Init(int prototypeId, const char* dataPath)
 	m_fAttackDamage = data["attackDamage"].get<float>();
 	m_fVisionRange = data["visionRange"].get<float>();
 	m_fVisionFreq = data["visionFreq"].get<float>();
+	m_fSpecialDuration = data["skillDuration"]["special"].get<float>();
+	m_fUltimateDuration = data["skillDuration"]["ultimate"].get<float>();
 
 	std::vector<Animation*> animations;
 	for (auto animationId : data["animationIds"])
@@ -160,10 +166,50 @@ void EntityPlayer::Fire() const
 	GS_GamePlay::GetInstance()->AddEntityToTheScreen(bullet);
 }
 
+void EntityPlayer::FireSpecial()
+{
+	if (!m_pSpecial)
+	{
+		m_pSpecial = static_cast<EntityBeamWave*>(PoolMgr->GetEntityByPrototypeId(m_iSpecialPID));
+	}
+	auto position = m_pBody->GetPosition() + b2Vec2(1, 0);
+	m_pSpecial->Fire(position, 1);
+}
+
+void EntityPlayer::FireUltimate()
+{
+	if (!m_pUltimate)
+	{
+		m_pUltimate = static_cast<EntityBeamWave*>(PoolMgr->GetEntityByPrototypeId(m_iUltimatePID));
+	}
+	auto position = m_pBody->GetPosition();
+	m_pUltimate->Fire(position, 1);
+}
+
+void EntityPlayer::StopSpecial() const
+{
+	m_pSpecial->Stop();
+}
+
+void EntityPlayer::StopUltimate() const
+{
+	m_pUltimate->Stop();
+}
+
 void EntityPlayer::Reset()
 {
 	m_fCurrentHealth = m_fMaxHealth;
 	m_fCurrentKi = m_fMaxKi;
 	m_fCurrentOverHeat = 0;
 	m_pStateMachine->SetCurrentState(PS_Standing::GetInstance());
+}
+
+float EntityPlayer::GetUltimateDuration() const
+{
+	return m_fUltimateDuration;
+}
+
+float EntityPlayer::GetSpecialDuration() const
+{
+	return m_fSpecialDuration;
 }

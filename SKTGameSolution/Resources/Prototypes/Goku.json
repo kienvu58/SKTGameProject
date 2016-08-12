@@ -5,14 +5,19 @@
 	"maxKi": 100,
 	"maxSpeed": 3,
 	"movementSpeed": 3,
-	"maxHealth": 100,
+	"maxHealth": 1000,
 	"animationIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+	"skillDuration": 
+	{
+		"special": 2,
+		"ultimate": 3
+	},
 	"skillPIDs":
 	{
 		"normal": 3,
-		"special": 4,
-		"ultimate": 5,
-		"aura": 6
+		"special": 8,
+		"ultimate": 0,
+		"aura": 0
 	},
 	"graphics": {
 		"modelId": 1,

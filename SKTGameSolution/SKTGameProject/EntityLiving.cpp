@@ -16,7 +16,7 @@ EntityLiving::EntityLiving(): m_fCurrentHealth(50),
                               m_iCurrentFrameIndex(0),
                               m_iLastFrameIndex(0),
                               m_fCurrentDelay(0),
-                              m_iFrameCount(0),
+                              m_iFrameCount(1),
                               m_pBody(nullptr),
                               m_fMaxSpeed(10),
                               m_fMovementSpeed(3)
@@ -33,7 +33,7 @@ EntityLiving::EntityLiving(const EntityLiving& entityLiving): m_fCurrentHealth(e
                                                               m_iCurrentFrameIndex(0),
                                                               m_iLastFrameIndex(0),
                                                               m_fCurrentDelay(0),
-                                                              m_iFrameCount(0),
+                                                              m_iFrameCount(1),
                                                               m_fMaxSpeed(entityLiving.m_fMaxSpeed),
                                                               m_fMovementSpeed(entityLiving.m_fMovementSpeed),
                                                               m_b2PolygonShape(entityLiving.m_b2PolygonShape),
@@ -120,7 +120,7 @@ void EntityLiving::ResetCurrentAnimationInfo()
 	m_iCurrentFrameIndex = 0;
 	m_iLastFrameIndex = 0;
 	m_fCurrentDelay = 0.0f;
-	m_iFrameCount = 0;
+	m_iFrameCount = 1;
 }
 
 bool EntityLiving::IsFrameChanged() const
