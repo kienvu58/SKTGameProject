@@ -17,7 +17,7 @@ CellJuniorAttackingState::~CellJuniorAttackingState()
 
 void CellJuniorAttackingState::Enter(EntityCellJunior* celljunior)
 {
-	celljunior->ScaleVelocity(2.0);
+	celljunior->ScaleVelocity(1.9);
 	celljunior->GetSteering()->SeekOn();
 }
 

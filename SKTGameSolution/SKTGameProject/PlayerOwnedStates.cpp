@@ -184,25 +184,21 @@ void PlayerMovingState::Execute(EntityPlayer* entity)
 
 	if (velocity.x > 0)
 	{
-		// MOVING FORWARD
 		entity->UpdateSpriteFrame(entity->GetAnimation(MOVING_FORWARD));
 	}
 	if (velocity.x < 0)
 	{
-		// MOVING BACKWARD	
 		entity->UpdateSpriteFrame(entity->GetAnimation(MOVING_BACKWARD));
 	}
 	if (velocity.x == 0)
 	{
 		if (velocity.y > 0)
 		{
-			// MOVING UP
 			entity->UpdateSpriteFrame(entity->GetAnimation(MOVING_UP));
 		}
 
 		if (velocity.y < 0)
 		{
-			// MOVING DOWN
 			entity->UpdateSpriteFrame(entity->GetAnimation(MOVING_DOWN));
 		}
 	}
