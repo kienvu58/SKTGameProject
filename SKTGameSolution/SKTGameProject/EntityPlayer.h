@@ -1,6 +1,7 @@
 #pragma once
 #include <Common/FSM/StateMachine.h>
 #include "EntityLiving.h"
+#include "EntityBeamWave.h"
 
 enum AnimationName
 {
@@ -39,7 +40,16 @@ public:
 
 	bool IsOnTheGround() const;
 	void DetectMinions();
+
 	void Fire() const;
+	void FireSpecial();
+	void FireUltimate();
+
+	float GetUltimateDuration() const;
+	float GetSpecialDuration() const;
+	
+	void StopSpecial() const;
+	void StopUltimate() const;
 
 
 	void Reset() override;
@@ -55,6 +65,12 @@ private:
 	int m_iSpecialPID;
 	int m_iUltimatePID;
 	int m_iAuraPID;
+
+	float m_fSpecialDuration;
+	float m_fUltimateDuration;
+
+	EntityBeamWave* m_pSpecial;
+	EntityBeamWave* m_pUltimate;
 
 	//State info
 	StateMachine<EntityPlayer>* m_pStateMachine;

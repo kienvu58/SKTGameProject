@@ -1,0 +1,18 @@
+{
+	"speed": 12,
+	"nRaycasts": 5,
+	"hasAura": true,
+	"PIDs": 
+	{
+		"SpirteStartEffect": 0,
+		"HitEffect": 0
+	},
+	"graphics": 
+	{
+		"modelId": 4,
+		"frameStartId": 82,
+		"frameMidId": 83,
+		"frameEndId": 84,
+		"shaderId": 1
+	}
+}

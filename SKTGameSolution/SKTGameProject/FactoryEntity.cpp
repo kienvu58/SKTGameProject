@@ -42,6 +42,8 @@ void FactoryEntity::Init(const char* filePath)
 			entity = new EntityKiBlast();
 		if (entityType.compare("ENTITY_EFFECT") == 0)
 			entity = new EntityEffect();
+		if (entityType.compare("ENTITY_BEAMWAVE") == 0)
+			entity = new EntityBeamWave();
 
 		if (entity)
 		{

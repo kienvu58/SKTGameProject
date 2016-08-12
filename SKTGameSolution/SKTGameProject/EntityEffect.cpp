@@ -15,7 +15,7 @@ EntityEffect::EntityEffect(const EntityEffect& other): m_Sprite(other.m_Sprite),
                                                        m_iCurrentFrameIndex(0),
                                                        m_iLastFrameIndex(0),
                                                        m_fCurrentDelay(0),
-                                                       m_iFrameCount(0),
+                                                       m_iFrameCount(1),
                                                        m_bIsLoop(false)
 {
 }
@@ -108,7 +108,7 @@ void EntityEffect::ResetCurrentAnimationInfo()
 	m_iCurrentFrameIndex = 0;
 	m_iLastFrameIndex = 0;
 	m_fCurrentDelay = 0.0f;
-	m_iFrameCount = 0;
+	m_iFrameCount = 1;
 }
 
 void EntityEffect::Init(int prototypeId, const char* dataPath)

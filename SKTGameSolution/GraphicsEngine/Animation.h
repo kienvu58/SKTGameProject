@@ -12,6 +12,7 @@ public:
 	Frame* GetFrameByIndex(int index) const;
 	int GetNextFrameIndex(int currentFrame, float delay);
 	int GetTotalFrames() const;
+	int GetNStartFrame() const;
 private:
 	std::vector<Frame*> m_Frames;
 	int m_iTotalFrames;
