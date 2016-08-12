@@ -64,7 +64,6 @@ void GamePlayState::Execute(Game* game)
 
 	PressButton(game);
 	HandlingCircleDirection(game);
-	printf("%f | %f \n", InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
 }
 
 void GamePlayState::Exit(Game* game)
@@ -136,7 +135,6 @@ void GamePlayState::HandlingCircleDirection(Game * game)
 	{
 		if (InputMgr->IsMouseDown()) //if keep the mouse
 		{
-			std::cout << "B: " << sqrt(pow((InputMgr->GetCurrentMousePosition().x - 120), 2) + pow((InputMgr->GetCurrentMousePosition().y - 520), 2)) << std::endl;
 			if (sqrt(pow((InputMgr->GetCurrentMousePosition().x - 120), 2) + pow((InputMgr->GetCurrentMousePosition().y - 520), 2)) > 75)
 			{
 				Vector2 AC;
@@ -144,7 +142,6 @@ void GamePlayState::HandlingCircleDirection(Game * game)
 				AC.y = InputMgr->GetCurrentMousePosition().y - 520;
 				AC.Normalize();
 				AC *= 75;
-				std::cout << "Vector AC: x: " << AC.x + 120 << " y: " << AC.y + 520 << std::endl;
 				m_Circle4Dash->InitPosition(AC.x + 120, AC.y + 520);
 			}
 			else
@@ -280,11 +277,10 @@ int GamePlayState::GetNumberOfAllEntities()
 
 void GamePlayState::ClearEntitiesOnTheScreen()
 {
-	for (auto pair : m_mapCurrentEntities)
+	for (auto entity : PoolMgr->GetInUseEntities())
 	{
-		pair.second.clear();
+		RemoveEntityFromTheScreen(entity);
 	}
-	m_mapCurrentEntities.clear();
 }
 
 std::vector<Entity*>* GamePlayState::GetEntitiesByType(EntityType type)

@@ -14,12 +14,14 @@ public:
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
 	void Init(const char* filePath);
-
+	
+	void SetBestScore(int s);
+	int GetBestScore() const;
 
 	bool OnMessage(Game*, const Telegram&) override;
 private:
 	EntityStatic *m_Background;
 	EntityStatic *m_Button_Yes;
 	EntityStatic *m_Button_No;
-	GamePlayState *GPS;
+	int m_iBestScore;
 };
