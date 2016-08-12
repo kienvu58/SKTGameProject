@@ -44,6 +44,9 @@ void GamePlayState::Execute(Game* game)
 
 	m_CircleWithDirections->Update();
 	m_Circle4Dash->Update();
+	m_Circle2Dash_J->Update();
+	m_Circle2Dash_K->Render();
+	m_Circle2Dash_L->Render();
 	RunningBackground(game);
 
 	m_Player->Update();
@@ -60,6 +63,7 @@ void GamePlayState::Execute(Game* game)
 
 	PressButton(game);
 	HandlingCircleDirection(game);
+	printf("%f | %f \n", InputMgr->GetCurrentMousePosition().x, InputMgr->GetCurrentMousePosition().y);
 }
 
 void GamePlayState::Exit(Game* game)
@@ -73,6 +77,9 @@ void GamePlayState::Render(Game* game)
 	m_Button_Pause->Render();
 	m_CircleWithDirections->Render();
 	m_Circle4Dash->Render();
+	m_Circle2Dash_J->Render();
+	m_Circle2Dash_K->Render();
+	m_Circle2Dash_L->Render();
 
 	std::string currentScore = std::to_string(m_iScore);
 
@@ -165,6 +172,18 @@ void GamePlayState::Init(const char* filePath)
 	m_Circle4Dash->InitSprite(102, 203, 1);
 	m_Circle4Dash->InitPosition(120, 520);
 
+	m_Circle2Dash_J = new EntityStatic();
+	m_Circle2Dash_J->InitSprite(104, 204, 1);
+	m_Circle2Dash_J->InitPosition(1058, 570);
+
+	m_Circle2Dash_K = new EntityStatic();
+	m_Circle2Dash_K->InitSprite(104, 204, 1);
+	m_Circle2Dash_K->InitPosition(1008, 480);
+
+	m_Circle2Dash_L = new EntityStatic();
+	m_Circle2Dash_L->InitSprite(104, 204, 1);
+	m_Circle2Dash_L->InitPosition(1058, 390);
+
 	m_spawner.Init("File path");
 
 	m_Player = static_cast<EntityPlayer*>(Factory->GetPrototypeById(1));
@@ -191,6 +210,9 @@ GamePlayState::~GamePlayState()
 	delete m_Background_Clone;
 	delete m_CircleWithDirections;
 	delete m_Circle4Dash;
+	delete m_Circle2Dash_J;
+	delete m_Circle2Dash_K;
+	delete m_Circle2Dash_L;
 	
 }
 
@@ -270,4 +292,9 @@ void GamePlayState::Reset()
 {
 	m_iScore = 0;
 	m_Player->Reset();
+}
+
+int GamePlayState::GetCurrentScore()
+{
+	return m_iScore;
 }

@@ -143,7 +143,7 @@
 		},
 		{
 			"id": 102,
-			"note": "CircleWithDirections",
+			"note": "Circle4Directions",
 			"modelW": 120,
 			"modelH": 120,
 			"spriteW": 128,
@@ -160,6 +160,16 @@
 			"spriteH": 128,
 			"textureW": 512,
 			"textureH": 512
+		},
+			{
+			"id": 104,
+			"note": "Circle2Directions",
+			"modelW": 80,
+			"modelH": 80,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 256,
+			"textureH": 256
 		}
 
 	],

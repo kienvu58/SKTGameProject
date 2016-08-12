@@ -1,5 +1,6 @@
 #include "GameOverState.h"
 #include "SingletonClasses.h"
+#include "GamePlayState.h"
 
 GameOverState::GameOverState()
 {
@@ -44,6 +45,8 @@ void GameOverState::Execute(Game* game)
 	m_Button_Yes->Update();
 	m_Button_No->Update();
 	PressButton(game);
+	std::cout << "SCOR: " << GS_GamePlay::GetInstance()->GetCurrentScore() << std::endl;
+//	GPS->GetCurrentScore();
 }
 
 void GameOverState::Exit(Game* game)
@@ -63,11 +66,11 @@ void GameOverState::Init(const char* filePath)
 	m_Background->InitSprite(2, 102, 1);
 
 	m_Button_Yes = new EntityStatic();
-	m_Button_Yes->InitSprite(103, 205, 1);
+	m_Button_Yes->InitSprite(103, 206, 1);
 	m_Button_Yes->InitPosition(350, 350);
 
 	m_Button_No = new EntityStatic();
-	m_Button_No->InitSprite(103, 204, 1);
+	m_Button_No->InitSprite(103, 205, 1);
 	m_Button_No->InitPosition(750, 350);
 }
 
@@ -81,4 +84,5 @@ GameOverState::~GameOverState()
 	delete m_Background;
 	delete m_Button_Yes;
 	delete m_Button_No;
+	delete GPS;
 }
