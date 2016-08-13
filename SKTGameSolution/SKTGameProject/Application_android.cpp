@@ -14,11 +14,11 @@ float Globals::deltaTime = 0;
 int GameInit()
 {
 	// Create instance for each manager class
+	ResourceManagerSingleton::CreateInstance();
 	InputManagerSingleton::CreateInstance();
 	TextManagerSingleton::CreateInstance();
 	AnimationManagerSingleton::CreateInstance();
 	FrameManagerSingleton::CreateInstance();
-	ResourceManagerSingleton::CreateInstance();
 	PhysicsManagerSingleton::CreateInstance();
 	MusicManagerSingleton::CreateInstance();
 
@@ -29,8 +29,8 @@ int GameInit()
 	Game::CreateStateInstances();
 
 	// Initialize data for each manager
-	TextMgr->Init(FONT_PATH);
 	ResourceMgr->Init(RM_PATH);
+	TextMgr->Init(FONT_PATH);
 	FrameMgr->Init(FM_PATH);
 	AnimationMgr->Init(AM_PATH);
 	PhysicsMgr->Init();

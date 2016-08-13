@@ -246,11 +246,16 @@
 	],
 	"shaders":
 	[
-		{
-			"id": 1,
-			"vsPath": "Shaders/SpriteVS.vs",
-			"fsPath": "Shaders/SpriteFS.fs"
-		}
+    {
+      "id": 1,
+      "vsPath": "Shaders/SpriteVS.vs",
+      "fsPath": "Shaders/SpriteFS.fs"
+    },
+    {
+      "id": 2,
+      "vsPath": "Shaders/TextVS.vs",
+      "fsPath": "Shaders/TextFS.fs"
+    }
 	],
 	"sound":
 	[
