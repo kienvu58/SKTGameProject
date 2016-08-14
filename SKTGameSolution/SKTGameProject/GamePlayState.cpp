@@ -156,10 +156,10 @@ void GamePlayState::Init(const char* filePath)
 {
 	m_Background = new EntityStatic();
 	//m_Background->InitSprite(2, 106, 1);
-	m_Background->InitSprite(100, 200, 1);
+	m_Background->InitSprite(2, 200, 1);
 
 	m_Background_Clone = new EntityStatic();
-	m_Background_Clone->InitSprite(100, 201, 1);
+	m_Background_Clone->InitSprite(2, 201, 1);
 	m_Background_Clone->InitPosition(Globals::screenWidth + Globals::screenWidth / 2, Globals::screenHeight / 2);
 
 	m_Button_Pause = new EntityStatic();
@@ -310,7 +310,7 @@ void GamePlayState::Reset()
 	ClearEntitiesOnTheScreen();
 }
 
-int GamePlayState::GetCurrentScore()
+int GamePlayState::GetCurrentScore() const
 {
 	return m_iScore;
 }

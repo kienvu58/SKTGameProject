@@ -1,8 +1,8 @@
 #pragma once
-#include "../Utilities/utilities.h"
 #include <ft2build.h>"
 #include FT_FREETYPE_H
 #include "Shaders.h"
+#include "../Utilities/utilities.h"
 
 class TextManager
 {

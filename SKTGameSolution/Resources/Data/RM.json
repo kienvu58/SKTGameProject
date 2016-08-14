@@ -11,15 +11,25 @@
 			"textureW": 1024,
 			"textureH": 1024
 		},
+    {
+			"id": 4,
+			"note": "Sprite64",
+			"modelW": 64,
+			"modelH": 64,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
 		{
 			"id": 2,
 			"note": "Background",
 			"modelW": 1120,
 			"modelH": 630,
-			"spriteW": 1024,
-			"spriteH": 1024,
-			"textureW": 4096,
-			"textureH": 2048
+			"spriteW": 512,
+			"spriteH": 512,
+			"textureW": 2048,
+			"textureH": 1024
 		},
 		{
 			"id": 3,
@@ -30,16 +40,6 @@
 			"spriteH": 128,
 			"textureW": 512,
 			"textureH": 512
-		},
-		{
-			"id": 4,
-			"note": "Sprite64",
-			"modelW": 64,
-			"modelH": 64,
-			"spriteW": 64,
-			"spriteH": 64,
-			"textureW": 512,
-			"textureH": 256
 		},
 		{
 			"id": 5,
@@ -70,16 +70,6 @@
 			"spriteH": 128,
 			"textureW": 512,
 			"textureH": 512
-		},
-		{
-			"id": 8,
-			"note": "TrueKamehameha",
-			"modelW": 256,
-			"modelH": 256,
-			"spriteW": 128,
-			"spriteH": 128,
-			"textureW": 1024,
-			"textureH": 1024
 		},
 		{
 			"id": 9,
@@ -140,16 +130,6 @@
 			"spriteH": 64,
 			"textureW": 512,
 			"textureH": 256
-		},
-		{
-			"id": 100,
-			"note": "BackgroundRunning",
-			"modelW": 1120,
-			"modelH": 630,
-			"spriteW": 1024,
-			"spriteH": 1024,
-			"textureW": 1024,
-			"textureH": 1024
 		},
 		{
 			"id": 101,
@@ -256,11 +236,5 @@
       "vsPath": "Shaders/TextVS.vs",
       "fsPath": "Shaders/TextFS.fs"
     }
-	],
-	"sound":
-	[
-		{
-		
-		}
 	]
 }

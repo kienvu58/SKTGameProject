@@ -1,5 +1,6 @@
 #pragma once
-#include <../Utilities/Math.h>
+#include <../Utilities/utilities.h>
+
 class Globals
 {
 public:

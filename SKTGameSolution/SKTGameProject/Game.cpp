@@ -20,7 +20,7 @@ void Game::Init()
 {
 	GS_Welcome::GetInstance()->Init("");
 	GS_MainMenu::GetInstance()->Init("");
-	GS_GamePlay::GetInstance()->Init(GS_GAMEPLAY_PATH);
+	GS_GamePlay::GetInstance()->Init("");
 	GS_Option::GetInstance()->Init("");
 	GS_Pause::GetInstance()->Init("");
 	GS_GameOver::GetInstance()->Init("");

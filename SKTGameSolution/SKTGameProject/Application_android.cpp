@@ -6,7 +6,7 @@
 #include "Definations.h"
 
 #ifndef WIN32
-#include "jni_base.h"
+#include "../jni_base.h"
 #endif
 
 float Globals::deltaTime = 0;

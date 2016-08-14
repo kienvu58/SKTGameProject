@@ -1,0 +1,87 @@
+apply plugin: 'com.android.model.application'
+
+def lib_distribution_root = '../distribution'
+model {
+    repositories {
+        libs(PrebuiltLibraries) {
+            box2d {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("${lib_distribution_root}/box2d/${targetPlatform.getName()}/libbox2d.a")
+                }
+            }
+            freetype {
+                binaries.withType(StaticLibraryBinary) {
+                    staticLibraryFile = file("${lib_distribution_root}/freetype/${targetPlatform.getName()}/libfreetype2.a")
+                }
+            }
+//            sfmlmain {
+//                binaries.withType(StaticLibraryBinary){
+//                    staticLibraryFile = file("${lib_distribution_root}/sfml/${targetPlatform.getName()}/libsfml-main.a")
+//                }
+//            }
+//            sfmlaudio {
+//                binaries.withType(SharedLibraryBinary){
+//                    sharedLibraryFile = file("${lib_distribution_root}/sfml/${targetPlatform.getName()}/libsfml-audio.so")
+//                }
+//            }
+//            openal {
+//                binaries.withType(SharedLibraryBinary){
+//                    sharedLibraryFile = file("${lib_distribution_root}/sfml/${targetPlatform.getName()}/libopenal.so")
+//                }
+//            }
+        }
+    }
+    android {
+        compileSdkVersion 24
+        buildToolsVersion "24.0.1"
+
+        defaultConfig {
+            applicationId "com.kienvu.over9000"
+            minSdkVersion.apiLevel 16
+            targetSdkVersion.apiLevel 24
+            versionCode 1
+            versionName "1.0"
+        }
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles.add(file('proguard-rules.pro'))
+            }
+        }
+        ndk {
+            moduleName "native"
+            toolchain "clang"
+            stl = 'c++_static'
+            debuggable = true
+            cppFlags.addAll(["-frtti", "-fexceptions", "-std=c++11", "-Wall"])
+            cppFlags.add("-I" + file("../../SKTGameSolution/include").absolutePath)
+            ldLibs.addAll(['log', 'GLESv2'])
+            abiFilters.addAll(['x86', 'armeabi-v7a'])
+        }
+        sources {
+            main {
+                jni {
+                    source {
+                        srcDirs = ["../../SKTGameSolution/"]
+                        excludes.add("**/esUtil_win.cpp")
+                        excludes.add("**/main.cpp")
+                        excludes.add("**/MemoryManager.cpp")
+                        excludes.add("**/MemoryOperators.cpp")
+                        excludes.add("**/esUtil.cpp")
+                    }
+                    dependencies {
+                        library 'box2d' linkage 'static'
+                        library 'freetype' linkage 'static'
+//                    library 'sfmlmain' linkage 'static'
+//                    library 'sfmlaudio' linkage 'shared'
+//                    library 'openal' linkage 'shared'
+                    }
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}

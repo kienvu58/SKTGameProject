@@ -1,10 +1,10 @@
 #include <conio.h>
-#include "../Utilities/utilities.h"
 #include "../GraphicsEngine/Globals.h"
 #include "SoundManager.h"
 #include "../Utilities/MemoryOperators.h"
 #include <cstdio>
 #include "SingletonClasses.h"
+#include "../Utilities/utilities.h"
 
 extern int GameInit();
 extern void GameDraw();

@@ -1,8 +1,6 @@
 #include <windows.h>
 #include "esUtil.h"
 
-
-
 // Main window procedure
 LRESULT WINAPI ESWindowProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam ) 
 {

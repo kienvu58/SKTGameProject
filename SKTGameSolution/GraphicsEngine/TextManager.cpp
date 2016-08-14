@@ -18,11 +18,13 @@ int TextManager::Init(const char* fileName)
 	}
 
 	glGenTextures(1, &m_TextureId);
-
+	glBindTexture(GL_TEXTURE_2D, m_TextureId);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
 	glGenBuffers(1, &m_VboId);
-
-	
 
 	m_ftGlyphSlot = m_ftFace->glyph;
 
@@ -33,9 +35,6 @@ int TextManager::Init(const char* fileName)
 
 void TextManager::RenderString(const char* text, Vector4 color, float size, float x, float y, float scaleX, float scaleY) const
 {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	//Set font size
 	FT_Set_Pixel_Sizes(m_ftFace, 0, size);
 
@@ -45,11 +44,6 @@ void TextManager::RenderString(const char* text, Vector4 color, float size, floa
 	//init. use single texture object render all the glyphs
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_TextureId);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	//set up a vertex buffer object

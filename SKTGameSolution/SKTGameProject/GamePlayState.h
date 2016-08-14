@@ -32,7 +32,7 @@ public:
 
 	void IncreaseScore(int amount);
 	void Reset();
-	int GetCurrentScore();
+	int GetCurrentScore() const;
 private:
 	EntityStatic *m_CircleWithDirections;
 	EntityStatic *m_Circle4Dash;
