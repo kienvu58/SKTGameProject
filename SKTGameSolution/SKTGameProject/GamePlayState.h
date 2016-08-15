@@ -12,7 +12,7 @@ public:
 	GamePlayState();
 	~GamePlayState();
 	void Enter(Game* game) override;
-	void PressButton(Game* game);
+	void PressButton(Game* game) const;
 	void UpdateHpBar();
 	void UpdateKiBar();
 	void UpdateOverheatBar();

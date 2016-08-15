@@ -87,7 +87,7 @@ void PoolManager::ReleaseEntity(Entity* entity)
 	}
 }
 
-std::vector<Entity*> PoolManager::GetInUseEntities()
+std::vector<Entity*> PoolManager::GetInUseEntities() const
 {
 	return m_vInUse;
 }

@@ -8,7 +8,7 @@
 #include "../GraphicsEngine/HelperFunctions.h"
 #include "EntityKiBlast.h"
 
-GamePlayState::GamePlayState(): m_iScore(0)
+GamePlayState::GamePlayState(): m_Player(nullptr), m_iScore(0), m_TheBestScore(0)
 {
 	m_BackgroundPosition.x = Globals::screenWidth / 2;
 	m_BackgroundPosition.y = Globals::screenWidth + Globals::screenWidth / 2;
@@ -18,7 +18,7 @@ void GamePlayState::Enter(Game* game)
 {
 }
 
-void GamePlayState::PressButton(Game* game)
+void GamePlayState::PressButton(Game* game) const
 {
 	Vector2 lastMousePosition = InputMgr->GetLastMousePosition();
 	if (m_Button_Pause.IsClicked(lastMousePosition))

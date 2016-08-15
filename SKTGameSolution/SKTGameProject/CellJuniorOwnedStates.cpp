@@ -117,7 +117,6 @@ bool CellJuniorGlobalState::OnMessage(EntityCellJunior* minion, const Telegram& 
 	{
 		if (!minion->IsOverheated() && minion->GetFSM()->CurrentState() != CJS_Attacking::GetInstance())
 		{
-			auto playerPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 			minion->GetFSM()->ChangeState(CJS_Attacking::GetInstance());
 		}
 		return true;

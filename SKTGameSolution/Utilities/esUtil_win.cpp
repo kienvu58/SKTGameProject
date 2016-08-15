@@ -13,12 +13,12 @@ LRESULT WINAPI ESWindowProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
       case WM_PAINT:
          {
-            ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
+            ESContext *esContext = reinterpret_cast<ESContext*>(LONG_PTR(GetWindowLongPtr ( hWnd, GWL_USERDATA )));
             
             if ( esContext && esContext->drawFunc )
                esContext->drawFunc ( esContext );
             
-            ValidateRect( esContext->hWnd, NULL );
+            ValidateRect( esContext->hWnd, nullptr );
          }
          break;
 
@@ -28,51 +28,51 @@ LRESULT WINAPI ESWindowProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
       
 	  case WM_KEYDOWN:
 		  {
-			  ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
+			  ESContext *esContext = reinterpret_cast<ESContext*>(LONG_PTR(GetWindowLongPtr ( hWnd, GWL_USERDATA )));
 
 			  if ( esContext && esContext->keyFunc )
-				  esContext->keyFunc ( esContext, (unsigned char) wParam, true );
+				  esContext->keyFunc ( esContext, static_cast<unsigned char>(wParam), true );
 		  }
 		  break;
 
 	  case WM_KEYUP:
 		  {
-			  ESContext *esContext = (ESContext*)(LONG_PTR) GetWindowLongPtr ( hWnd, GWL_USERDATA );
+			  ESContext *esContext = reinterpret_cast<ESContext*>(LONG_PTR(GetWindowLongPtr ( hWnd, GWL_USERDATA )));
 
 			  if ( esContext && esContext->keyFunc )
-				  esContext->keyFunc ( esContext, (unsigned char) wParam, false );
+				  esContext->keyFunc ( esContext, static_cast<unsigned char>(wParam), false );
 		  }
 		  break;
 	  case WM_MOUSEMOVE:
 		  if (wParam & MK_LBUTTON)
 		  {
 			  POINTS      point;
-			  ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			  ESContext *esContext = reinterpret_cast<ESContext*>(LONG_PTR(GetWindowLongPtr(hWnd, GWL_USERDATA)));
 
 			  point = MAKEPOINTS(lParam);
 			  if (esContext && esContext->mouseMoveFunc)
-				  esContext->mouseMoveFunc(esContext, (float)point.x, (float)point.y);
+				  esContext->mouseMoveFunc(esContext, float(point.x), float(point.y));
 		  }
 		  break;
 	  case WM_LBUTTONDOWN:
 		  {
 			  POINTS      point;
-			  ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			  ESContext *esContext = reinterpret_cast<ESContext*>(LONG_PTR(GetWindowLongPtr(hWnd, GWL_USERDATA)));
 
 			  point = MAKEPOINTS(lParam);
 			  if (esContext && esContext->mouseDownFunc)
-				  esContext->mouseDownFunc(esContext, (float)point.x, (float)point.y);
+				  esContext->mouseDownFunc(esContext, float(point.x), float(point.y));
 		  }
 		  break;
 	  case WM_LBUTTONUP:
 	  {
 		  POINTS     point;
-		  ESContext *esContext = (ESContext*)(LONG_PTR)GetWindowLongPtr(hWnd, GWL_USERDATA);
+		  ESContext *esContext = reinterpret_cast<ESContext*>(LONG_PTR(GetWindowLongPtr(hWnd, GWL_USERDATA)));
 
 		  point = MAKEPOINTS(lParam);
 
 		  if (esContext && esContext->mouseUpFunc)
-			  esContext->mouseUpFunc(esContext, (float)point.x, (float)point.y);
+			  esContext->mouseUpFunc(esContext, float(point.x), float(point.y));
 	  }
 	  break;
 	  default: 
@@ -87,15 +87,15 @@ LRESULT WINAPI ESWindowProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 GLboolean WinCreate ( ESContext *esContext, const char *title )
 {
    WNDCLASS wndclass = {0}; 
-   DWORD    wStyle   = 0;
+   DWORD    wStyle;
    RECT     windowRect;
-   HINSTANCE hInstance = GetModuleHandle(NULL);
+   HINSTANCE hInstance = GetModuleHandle(nullptr);
 
 
    wndclass.style         = CS_OWNDC;
-   wndclass.lpfnWndProc   = (WNDPROC)ESWindowProc; 
+   wndclass.lpfnWndProc   = WNDPROC(ESWindowProc); 
    wndclass.hInstance     = hInstance; 
-   wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH); 
+   wndclass.hbrBackground = HBRUSH(GetStockObject(BLACK_BRUSH)); 
    wndclass.lpszClassName = "opengles2.0"; 
 
    if (!RegisterClass (&wndclass) ) 
@@ -127,9 +127,9 @@ GLboolean WinCreate ( ESContext *esContext, const char *title )
 
    // Set the ESContext* to the GWL_USERDATA so that it is available to the 
    // ESWindowProc
-   SetWindowLongPtr (  esContext->hWnd, GWL_USERDATA, (LONG) (LONG_PTR) esContext );
+   SetWindowLongPtr (  esContext->hWnd, GWL_USERDATA, LONG(LONG_PTR(esContext)) );
 
-   if ( esContext->hWnd == NULL )
+   if ( esContext->hWnd == nullptr )
       return GL_FALSE;
 
    ShowWindow ( esContext->hWnd, TRUE );
@@ -142,15 +142,15 @@ GLboolean WinCreate ( ESContext *esContext, const char *title )
 //      Start main windows loop
 void WinLoop ( ESContext *esContext )
 {
-   MSG msg = { 0 };
+   MSG msg = { nullptr };
    int done = 0;
    DWORD lastTime = GetTickCount();
    
    while (!done)
    {
-      int gotMsg = (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) != 0);
+      int gotMsg = (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) != 0);
       DWORD curTime = GetTickCount();
-      float deltaTime = (float)( curTime - lastTime ) / 1000.0f;
+      float deltaTime = float(curTime - lastTime) / 1000.0f;
       lastTime = curTime;
 
       if ( gotMsg )
@@ -169,7 +169,7 @@ void WinLoop ( ESContext *esContext )
          SendMessage( esContext->hWnd, WM_PAINT, 0, 0 );
 
       // Call update function if registered
-      if ( esContext->updateFunc != NULL )
+      if ( esContext->updateFunc != nullptr )
          esContext->updateFunc ( esContext, deltaTime );
    }
 }

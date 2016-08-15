@@ -12,7 +12,6 @@ public:
 	void Add(entity_type* entity);
 	entity_type* GetEntity();
 	void ReleaseEntity(entity_type* entity);
-	void CleanUp(entity_type* entity);
 private:
 	std::vector<entity_type*> m_vAvailable;
 	std::vector<entity_type*> m_vInUse;
@@ -85,11 +84,5 @@ void Pool<entity_type>::ReleaseEntity(entity_type* entity)
 		std::swap(*it, m_vInUse.back());
 		m_vInUse.pop_back();
 	}
-}
-
-template <class entity_type>
-void Pool<entity_type>::CleanUp(entity_type* entity)
-{
-	//clean the entity befor add to available
 }
 

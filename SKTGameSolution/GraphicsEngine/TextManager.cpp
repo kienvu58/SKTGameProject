@@ -102,7 +102,7 @@ void TextManager::RenderString(const char* text, Vector4 color, float size, floa
 }
 
 
-TextManager::TextManager()
+TextManager::TextManager(): m_pShaders(nullptr), m_ftLibrary(nullptr), m_ftFace(nullptr), m_ftGlyphSlot(nullptr), m_VboId(0), m_TextureId(0)
 {
 }
 

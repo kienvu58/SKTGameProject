@@ -1,7 +1,5 @@
 #include "SoundManager.h"
 #include "../include/SFML/Audio.hpp"
-#include <SFML/Audio/Music.hpp>
-#include <map>
 
 SoundManager::SoundManager()
 {
@@ -19,7 +17,7 @@ SoundManager::~SoundManager()
 
 int SoundManager::InitMusic(char *type, char *fileName)
 {
-//
+
 //	music.insert(std::pair<char*, sf::Music*>("MainMenu", m_MainMenuMusic));
 //	music.insert(std::pair<char*, sf::Music*>("GamePlay", m_GamePlayMusic));
 //	music.insert(std::pair<char*, sf::Music*>("SkillUlti_1", m_SkillUlti_1));
@@ -28,6 +26,7 @@ int SoundManager::InitMusic(char *type, char *fileName)
 //	music.insert(std::pair<char*, sf::Music*>("GokuDead", m_GokuDead));
 //	if (!music[type]->openFromFile(fileName))
 		return 0;
+//	return 1;
 }
 
 int SoundManager::MusicPlay(char *type)

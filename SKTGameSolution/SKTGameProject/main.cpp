@@ -61,16 +61,6 @@ void MouseUp(ESContext* esContext, float x, float y)
 	InputMgr->SetKeyEvent(KEY_L, false);
 	InputMgr->SetKeyEvent(KEY_I, false);
 }
-//
-//void Mouse(ESContext* esContext, bool isClicked, float x, float y)
-//{
-//	//	if (isClicked)
-//	//	{
-//	//		InputMgr->SetCurrentMousePosition(x, y);
-//	//	}
-//	//	std::cout << isClicked << std::endl;
-//	//	std::cout << x << " " << y << std::endl;
-//}
 
 void CleanUp()
 {

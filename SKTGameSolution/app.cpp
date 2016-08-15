@@ -7,7 +7,7 @@
 static JavaVM* cached_jvm;
 
 extern int GameInit();
-extern void GameResize(int w, int h);
+extern void GameSetScaleFactor(int w, int h);
 extern void GameDraw();
 extern void GameUpdate(float);
 extern void OnKeyEvent(unsigned char, bool);
@@ -22,7 +22,7 @@ void appInit()
 
 void appResize(int w, int h)
 {
-//    GameResize(w, h);
+    GameSetScaleFactor(w, h);
 }
 
 void appUpdate()

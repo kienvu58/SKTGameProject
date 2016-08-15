@@ -6,7 +6,7 @@
 #include <Box2D/Dynamics/b2Body.h>
 #include <Box2D/Dynamics/b2Fixture.h>
 
-PhysicsManager::PhysicsManager()
+PhysicsManager::PhysicsManager(): m_World(nullptr), m_pContactListener(nullptr)
 {
 }
 

@@ -7,7 +7,7 @@
 #include "RayCastMultipleCallback.h"
 
 
-EntityBeamWave::EntityBeamWave(): m_iSpriteWidth(0), m_fThickness(0), m_fLength(0)
+EntityBeamWave::EntityBeamWave(): m_iSpriteWidth(0), m_fThickness(0), m_bHasAura(false), m_iSpriteStartEffectPID(0), m_iHitEffectPID(0), m_pSpriteStartEffect(nullptr), m_iNRaycasts(0), m_fLength(0)
 {
 }
 

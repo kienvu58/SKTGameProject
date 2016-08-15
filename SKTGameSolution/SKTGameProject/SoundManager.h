@@ -7,9 +7,7 @@ class SoundManager
 public:
 	SoundManager();
 	~SoundManager();
-//	sf::Music MainMenuMusic;
-//	sf::Music GamePlayMusic;
-//	sf::Music Skill;
+
 	std::map<char*, sf::Music*> music;
 //	sf::Music* m_MainMenuMusic = new sf::Music();
 //	sf::Music* m_GamePlayMusic = new sf::Music();

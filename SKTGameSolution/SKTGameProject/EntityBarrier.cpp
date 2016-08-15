@@ -4,7 +4,7 @@
 #include "SingletonClasses.h"
 
 
-EntityBarrier::EntityBarrier()
+EntityBarrier::EntityBarrier(): m_pBody(nullptr), m_pBarrierEffect(nullptr), m_iBarrierEffectPID(0)
 {
 }
 

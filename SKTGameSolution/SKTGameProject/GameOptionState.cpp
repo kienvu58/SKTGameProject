@@ -3,7 +3,7 @@
 #include "SingletonClasses.h"
 #include "SoundManager.h"
 
-GameOptionState::GameOptionState()
+GameOptionState::GameOptionState(): m_Background(nullptr), m_Button_V(nullptr), m_Button_X(nullptr), m_MusicBarGreen(nullptr), m_MusicBarBlack(nullptr)
 {
 }
 

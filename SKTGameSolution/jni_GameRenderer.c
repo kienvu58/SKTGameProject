@@ -1,4 +1,5 @@
 #include "jni_base.h"
+#include "app.h"
 
 
 // Call to initialize the graphics state

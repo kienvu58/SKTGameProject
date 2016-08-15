@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 
 /**
@@ -85,5 +86,7 @@ public class Game extends Activity {
         //nativeOnKeyUp(keyCode);
         return true;
     }
+
+
 }
 

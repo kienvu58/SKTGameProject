@@ -19,23 +19,23 @@ public:
 	Vector2(const Vector2 & vector) : x(vector.x), y(vector.y) {}
 
 	//Vector's operations
-	GLfloat Length();
+	GLfloat Length() const;
 	Vector2 & Normalize();
-	Vector2 operator + (const Vector2 & vector);
+	Vector2 operator + (const Vector2 & vector) const;
 	Vector2 & operator += (const Vector2 & vector);
-	Vector2 operator - ();
-	Vector2 operator - (const Vector2 & vector);
+	Vector2 operator - () const;
+	Vector2 operator - (const Vector2 & vector) const;
 	Vector2 & operator -= (const Vector2 & vector);
-	Vector2 operator * (GLfloat k);
+	Vector2 operator * (GLfloat k) const;
 	Vector2 & operator *= (GLfloat k);
-	Vector2 operator / (GLfloat k);
+	Vector2 operator / (GLfloat k) const;
 	Vector2 & operator /= (GLfloat k);
 	Vector2 & operator = (const Vector2 & vector);
-	Vector2 Modulate(const Vector2 & vector);
-	GLfloat Dot(const Vector2 & vector);
+	Vector2 Modulate(const Vector2 & vector) const;
+	GLfloat Dot(const Vector2 & vector) const;
 
 	//access to elements
-	GLfloat operator [] (unsigned int idx);
+	GLfloat operator [] (unsigned int idx) const;
 
 	//data members
 	GLfloat x;
@@ -56,28 +56,28 @@ public:
 	//Vector's operations
 	GLfloat Length() const;
 	Vector3 & Normalize();
-	Vector3 operator + (const Vector3 & vector);
+	Vector3 operator + (const Vector3 & vector) const;
 	Vector3 & operator += (const Vector3 & vector);
-	Vector3 operator - ();
-	Vector3 operator - (const Vector3 & vector);
+	Vector3 operator - () const;
+	Vector3 operator - (const Vector3 & vector) const;
 	Vector3 & operator -= (const Vector3 & vector);
 	Vector3 operator * (GLfloat k) const;
 	Vector3 & operator *= (GLfloat k);
-	Vector3 operator / (GLfloat k);
+	Vector3 operator / (GLfloat k) const;
 	Vector3 & operator /= (GLfloat k);
 	Vector3 & operator = (const Vector3 & vector);
-	Vector3 Modulate(const Vector3 & vector);
+	Vector3 Modulate(const Vector3 & vector) const;
 	GLfloat Dot(const Vector3 & vector) const;
 	Vector3 Cross(const Vector3 & vector) const;
 
 	// implement a more precise Vector3 ==, in fact of coordinates are made of float values.
-	bool SameDirectionWith(const Vector3& other);
+	static bool SameDirectionWith(const Vector3& other);
 	bool operator== (const Vector3& other) const {return x == other.x && y == other.y && z == other.z;}
 	bool operator!= (const Vector3& other) const {return x != other.x || y != other.y || z != other.z;}
 	bool operator < (const Vector3& other) const {return x != other.x ? x < other.x : y != other.y ? y < other.y : z < other.z;}
 
 	//access to elements
-	GLfloat operator [] (unsigned int idx);
+	GLfloat operator [] (unsigned int idx) const;
 
 	// data members
 	GLfloat x;
@@ -112,26 +112,26 @@ public:
 	Vector4(const Vector4 & vector) : x(vector.x), y(vector.y), z(vector.z), w(vector.w) {}
 
 	//Vector's operations
-	GLfloat Length();
+	GLfloat Length() const;
 	Vector4 & Normalize();
-	Vector4 operator + (const Vector4 & vector);
+	Vector4 operator + (const Vector4 & vector) const;
 	Vector4 & operator += (const Vector4 & vector);
-	Vector4 operator - ();
-	Vector4 operator - (const Vector4 & vector);
+	Vector4 operator - () const;
+	Vector4 operator - (const Vector4 & vector) const;
 	Vector4 & operator -= (const Vector4 & vector);
-	Vector4 operator * (GLfloat k);
+	Vector4 operator * (GLfloat k) const;
 	Vector4 & operator *= (GLfloat k);
-	Vector4 operator / (GLfloat k);
+	Vector4 operator / (GLfloat k) const;
 	Vector4 & operator /= (GLfloat k);
 	Vector4 & operator = (const Vector4 & vector);
-	Vector4 Modulate(const Vector4 & vector);
-	GLfloat Dot(const Vector4 & vector);
+	Vector4 Modulate(const Vector4 & vector) const;
+	GLfloat Dot(const Vector4 & vector) const;
 
 	//matrix multiplication
-	Vector4 operator * ( Matrix & m );
+	Vector4 operator * ( Matrix & m ) const;
 
 	//access to elements
-	GLfloat operator [] (unsigned int idx);
+	GLfloat operator [] (unsigned int idx) const;
 
 	//data members
 	GLfloat x;
@@ -174,13 +174,13 @@ public:
 
 	Matrix Transpose();
 
-	Matrix operator + (Matrix & mat);
+	Matrix operator + (Matrix & mat) const;
 	Matrix & operator += (Matrix & mat);
-	Matrix operator - (Matrix & mat);
+	Matrix operator - (Matrix & mat) const;
 	Matrix &operator -= (Matrix & mat);
 
-	Matrix operator * (const Matrix & mat);
-	Matrix operator * (GLfloat k);
+	Matrix operator * (const Matrix & mat) const;
+	Matrix operator * (GLfloat k) const;
 	Matrix & operator *= (GLfloat k);
 
 	Vector4 operator * (const Vector4 & vec);
