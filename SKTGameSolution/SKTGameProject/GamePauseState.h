@@ -10,7 +10,7 @@ public:
 	~GamePauseState();
 
 	void Enter(Game* game) override;
-	void PressButton(Game* game);
+	void PressButton(Game* game) const;
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
 	void Render(Game* game) override;

@@ -22,7 +22,7 @@ class GameGLSurfaceView extends GLSurfaceView
         int type = -1;
         int x    = (int) e.getX(0);
         int y    = (int) e.getY(0);
-        int id   = (int) e.getPointerId(0);
+        int id   = e.getPointerId(0);
 
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:

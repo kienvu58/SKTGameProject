@@ -5,7 +5,14 @@
 #include "SingletonClasses.h"
 
 
-EntityEffect::EntityEffect()
+EntityEffect::EntityEffect(): m_pOwner(nullptr),
+                              m_animation(nullptr),
+                              m_iCurrentFrameIndex(0),
+                              m_iLastFrameIndex(0),
+                              m_fCurrentDelay(0),
+                              m_iFrameCount(1),
+                              m_bIsLoop(false),
+                              m_bAutoScaling(false)
 {
 }
 

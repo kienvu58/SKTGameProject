@@ -1,7 +1,7 @@
 #include "GraphicalObject.h"
 
 
-GraphicalObject::GraphicalObject(): m_pModel(nullptr), m_pTexture(nullptr)
+GraphicalObject::GraphicalObject(): m_pModel(nullptr), m_pTexture(nullptr), m_pShaders(nullptr)
 {
 }
 

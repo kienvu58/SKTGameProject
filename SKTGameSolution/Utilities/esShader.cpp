@@ -21,7 +21,7 @@ GLuint ESUTIL_API esLoadShader(GLenum type, const char* filename)
 
 	// Load the shader source
 	FILE* pf;
-	if ((pf = fopen(filename, "rb")) == 0)
+	if ((pf = fopen(filename, "rb")) == nullptr)
 		return 0;
 	fseek(pf, 0, SEEK_END);
 	long size = ftell(pf);
@@ -32,7 +32,7 @@ GLuint ESUTIL_API esLoadShader(GLenum type, const char* filename)
 	shaderSrc[size] = 0;
 	fclose(pf);
 
-	glShaderSource(shader, 1, (const char **)&shaderSrc, NULL);
+	glShaderSource(shader, 1, const_cast<const char **>(&shaderSrc), nullptr);
 	delete [] shaderSrc;
 
 	// Compile the shader
@@ -52,7 +52,7 @@ GLuint ESUTIL_API esLoadShader(GLenum type, const char* filename)
 			char* infoLog = new char [infoLen];
 
 
-			glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
+			glGetShaderInfoLog(shader, infoLen, nullptr, infoLog);
 #ifdef WIN32
 			esLogMessage("Error compiling shader:\n%s\n", infoLog);
 #endif       
@@ -104,12 +104,12 @@ GLuint ESUTIL_API esLoadProgram(GLuint vertexShader, GLuint fragmentShader)
 			char* infoLog = new char[sizeof(char) * infoLen];
 
 
-			glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
+			glGetProgramInfoLog(programObject, infoLen, nullptr, infoLog);
 #ifdef WIN32
 			esLogMessage("Error compiling shader:\n%s\n", infoLog);
 #endif
 
-			delete infoLog;
+			delete[] infoLog;
 		}
 
 		glDeleteProgram(programObject);

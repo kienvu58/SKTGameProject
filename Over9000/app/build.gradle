@@ -50,6 +50,7 @@ model {
         }
         ndk {
             moduleName "native"
+            platformVersion "16"
             toolchain "clang"
             stl = 'c++_static'
             debuggable = true
@@ -72,9 +73,9 @@ model {
                     dependencies {
                         library 'box2d' linkage 'static'
                         library 'freetype' linkage 'static'
-//                    library 'sfmlmain' linkage 'static'
-//                    library 'sfmlaudio' linkage 'shared'
-//                    library 'openal' linkage 'shared'
+//                        library 'sfmlmain' linkage 'static'
+//                        library 'sfmlaudio' linkage 'shared'
+//                        library 'openal' linkage 'shared'
                     }
                 }
             }

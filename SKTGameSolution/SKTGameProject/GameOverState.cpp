@@ -5,7 +5,7 @@
 #include "GamePlayState.h"
 #include "Definations.h"
 
-GameOverState::GameOverState()
+GameOverState::GameOverState(): m_Background(nullptr), m_Button_Yes(nullptr), m_Button_No(nullptr), m_iBestScore(0)
 {
 }
 

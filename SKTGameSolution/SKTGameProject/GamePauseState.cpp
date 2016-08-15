@@ -2,7 +2,7 @@
 #include "GamePlayState.h"
 #include "SingletonClasses.h"
 
-GamePauseState::GamePauseState()
+GamePauseState::GamePauseState(): m_Background(nullptr), m_Button_Resume(nullptr), m_Button_Quit(nullptr)
 {
 }
 
@@ -18,7 +18,7 @@ void GamePauseState::Enter(Game* game)
 {
 }
 
-void GamePauseState::PressButton(Game* game)
+void GamePauseState::PressButton(Game* game) const
 {
 	Vector2 lastMousePosition = InputMgr->GetLastMousePosition();
 	if (m_Button_Resume->IsClicked(lastMousePosition))

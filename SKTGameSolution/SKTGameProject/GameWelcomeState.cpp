@@ -1,8 +1,7 @@
 #include "GameWelcomeState.h"
 #include "SingletonClasses.h"
 
-GameWelcomeState::GameWelcomeState()
-{
+GameWelcomeState::GameWelcomeState(): m_Background(nullptr) {
 }
 
 void GameWelcomeState::Enter(Game* game)

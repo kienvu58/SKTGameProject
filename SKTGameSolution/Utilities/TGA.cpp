@@ -116,8 +116,8 @@ char* LoadTGA(const char* szFileName, int* width, int* height, int* bpp)
 {
 	FILE* f;
 
-	if ((f = fopen(szFileName, "rb")) == 0)
-		return NULL;
+	if ((f = fopen(szFileName, "rb")) == nullptr)
+		return nullptr;
 
 	TGA_HEADER header;
 	fread(&header, sizeof(header), 1, f);
@@ -129,13 +129,13 @@ char* LoadTGA(const char* szFileName, int* width, int* height, int* bpp)
 	if (header.imagetype != IT_COMPRESSED && header.imagetype != IT_UNCOMPRESSED)
 	{
 		fclose(f);
-		return NULL;
+		return nullptr;
 	}
 
 	if (header.bits != 24 && header.bits != 32)
 	{
 		fclose(f);
-		return NULL;
+		return nullptr;
 	}
 
 	int bufferSize = fileLen - sizeof(header) - header.identsize;

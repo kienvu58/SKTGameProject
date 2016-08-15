@@ -5,7 +5,7 @@
 #include "SoundManager.h"
 
 extern void GameCleanUp();
-MainMenuState::MainMenuState()
+MainMenuState::MainMenuState(): m_Background(nullptr), m_Button_PlayGame(nullptr), m_Button_Option(nullptr), m_Button_Exit(nullptr)
 {
 }
 
@@ -23,7 +23,7 @@ void MainMenuState::Enter(Game* game)
 {
 }
 
-void MainMenuState::PressButton(Game* game)
+void MainMenuState::PressButton(Game* game) const
 {
 	if (game->GetFSM()->CurrentState() == GS_MainMenu::GetInstance())
 	{

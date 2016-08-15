@@ -10,6 +10,9 @@ public:
 	static const int animationTime = 8;
 	static float deltaTime;
 
+	static float scaleX;
+	static float scaleY;
+
 	static bool IsOutOfBoundary(Vector2 position, float padding)
 	{
 		auto wallHalfWidth = float(Globals::screenWidth) / 2;

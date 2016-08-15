@@ -35,7 +35,7 @@ EGLBoolean CreateEGLContext(EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
 	}
 
 	// Get configs
-	if (!eglGetConfigs(display, NULL, 0, &numConfigs))
+	if (!eglGetConfigs(display, nullptr, 0, &numConfigs))
 	{
 		return EGL_FALSE;
 	}
@@ -47,7 +47,7 @@ EGLBoolean CreateEGLContext(EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
 	}
 
 	// Create a surface
-	surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)hWnd, NULL);
+	surface = eglCreateWindowSurface(display, config, EGLNativeWindowType(hWnd), nullptr);
 	if (surface == EGL_NO_SURFACE)
 	{
 		return EGL_FALSE;
@@ -79,7 +79,7 @@ EGLBoolean CreateEGLContext(EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
 
 void ESUTIL_API esInitContext(ESContext* esContext)
 {
-	if (esContext != NULL)
+	if (esContext != nullptr)
 	{
 		memset(esContext, 0, sizeof( ESContext));
 	}
@@ -111,7 +111,7 @@ GLboolean ESUTIL_API esCreateWindow(ESContext* esContext, const char* title, GLi
 			EGL_NONE
 		};
 
-	if (esContext == NULL)
+	if (esContext == nullptr)
 	{
 		return GL_FALSE;
 	}

@@ -2,11 +2,11 @@
 #include "Vertex.h"
 
 
-Model::Model(): m_ID(0), m_VboID(0), m_IboID(0)
+Model::Model(): m_iModelWidth(0), m_iModelHeight(0), m_ID(0), m_VboID(0), m_IboID(0)
 {
 }
 
-Model::Model(int ID): m_ID(ID), m_VboID(0), m_IboID(0)
+Model::Model(int ID): m_iModelWidth(0), m_iModelHeight(0), m_ID(ID), m_VboID(0), m_IboID(0)
 {
 }
 

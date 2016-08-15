@@ -2,14 +2,11 @@
 #include "../Utilities/utilities.h"
 #include "../GraphicsEngine/Globals.h"
 #include "SingletonClasses.h"
-#include "../GraphicsEngine/HelperFunctions.h"
 #include "Definations.h"
 
-#ifndef WIN32
-#include "../jni_base.h"
-#endif
-
 float Globals::deltaTime = 0;
+float Globals::scaleX = 1;
+float Globals::scaleY = 1;
 
 int GameInit()
 {
@@ -117,38 +114,30 @@ void GameCleanUp()
 	GameSingleton::DestroyInstance();
 }
 
+void GameSetScaleFactor(int width, int height)
+{
+    Globals::scaleX = float(Globals::screenWidth) / width;
+    Globals::scaleY = float(Globals::screenHeight) / height;
+}
+
 void OnTouchEvent(int type, int x, int y, int id)
 {
 	static const int TOUCH_ACTION_UP = 0;
 	static const int TOUCH_ACTION_DOWN = 1;
 	static const int TOUCH_ACTION_MOVE = 2;
 
-//	WORD movementMask(0);
-//	WORD rotationMask(0);
+    int mouseX = int(x * Globals::scaleX);
+    int mouseY = int(y * Globals::scaleY);
 
-	static Vector2 basePoint;
-	Vector2 currentPoint(0, 0);
-
+	if (type == TOUCH_ACTION_MOVE) {
+		InputMgr->SetCurrentMousePosition(mouseX, mouseY);
+	}
+	if (type == TOUCH_ACTION_UP) {
+		InputMgr->SetMouseDown(false);
+	}
 	if (type == TOUCH_ACTION_DOWN) {
-		basePoint = Vector2(x, y);
-		currentPoint = basePoint;
-	}
-	else if (type == TOUCH_ACTION_MOVE) {
-		int dx = x - basePoint.x;
-		int dy = y - basePoint.y;
-
-		if (abs(dx) > abs(dy)) {
-//			movementMask = dx > 0 ? MOVE_LEFT : MOVE_RIGHT;
-		}
-		else {
-//			movementMask = dy > 0 ? MOVE_BACKWARD : MOVE_FORWARD;
-		}
-
-//		GetSceneManager()->SetMovementMask(movementMask);
-//		GetSceneManager()->SetRotationMask(rotationMask);
-
-	}
-	else { //TOUCH_ACTION_UP
-//		movementMask = 0;
+		InputMgr->SetCurrentMousePosition(mouseX, mouseY);
+		InputMgr->SetLastMousePosition(mouseX, mouseY);
+		InputMgr->SetMouseDown(true);
 	}
 }

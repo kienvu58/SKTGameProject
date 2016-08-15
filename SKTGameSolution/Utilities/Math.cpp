@@ -5,7 +5,7 @@
 
 //Vector2
 
-GLfloat Vector2::Length()
+GLfloat Vector2::Length() const
 {
 	return sqrt(x*x + y*y);
 }
@@ -19,7 +19,7 @@ Vector2 & Vector2::Normalize()
 	return *this;
 }
 
-Vector2 Vector2::operator + (const Vector2 & vector)
+Vector2 Vector2::operator + (const Vector2 & vector) const
 {
 	return Vector2(x + vector.x, y + vector.y);
 }
@@ -32,12 +32,12 @@ Vector2 & Vector2::operator += (const Vector2 & vector)
 	return *this;
 }
 
-Vector2 Vector2::operator - ()
+Vector2 Vector2::operator - () const
 {
 	return Vector2(-x, -y);
 }
 
-Vector2 Vector2::operator - (const Vector2 & vector)
+Vector2 Vector2::operator - (const Vector2 & vector) const
 {
 	return Vector2(x - vector.x, y - vector.y);
 }
@@ -50,7 +50,7 @@ Vector2 & Vector2::operator -= (const Vector2 & vector)
 	return *this;
 }
 
-Vector2 Vector2::operator * (GLfloat k)
+Vector2 Vector2::operator * (GLfloat k) const
 {
 	return Vector2(x * k, y * k);
 }
@@ -63,7 +63,7 @@ Vector2 & Vector2::operator *= (GLfloat k)
 	return *this;
 }
 
-Vector2 Vector2::operator / (GLfloat k)
+Vector2 Vector2::operator / (GLfloat k) const
 {
 	GLfloat kInv = 1.0f / k;
 	return Vector2(x * kInv, y * kInv);
@@ -82,17 +82,17 @@ Vector2 & Vector2::operator = (const Vector2 & vector)
 	return *this;
 }
 
-GLfloat Vector2::operator [] (unsigned int idx)
+GLfloat Vector2::operator [] (unsigned int idx) const
 {
 	return (&x)[idx];
 }
 
-Vector2 Vector2::Modulate(const Vector2 & vector)
+Vector2 Vector2::Modulate(const Vector2 & vector) const
 {
 	return Vector2(x * vector.x, y * vector.y);
 }
 
-GLfloat Vector2::Dot(const Vector2 & vector)
+GLfloat Vector2::Dot(const Vector2 & vector) const
 {
 	return x * vector.x + y * vector.y;
 }
@@ -115,7 +115,7 @@ Vector3 & Vector3::Normalize()
 }
 
 
-Vector3 Vector3::operator + (const Vector3 & vector)
+Vector3 Vector3::operator + (const Vector3 & vector) const
 {
 	return Vector3(x + vector.x, y + vector.y, z + vector.z);
 }
@@ -129,12 +129,12 @@ Vector3 & Vector3::operator += (const Vector3 & vector)
 	return *this;
 }
 
-Vector3 Vector3::operator - ()
+Vector3 Vector3::operator - () const
 {
 	return Vector3(-x, -y, -z);
 }
 
-Vector3 Vector3::operator - (const Vector3 & vector)
+Vector3 Vector3::operator - (const Vector3 & vector) const
 {
 	return Vector3(x - vector.x, y - vector.y, z - vector.z);
 }
@@ -162,7 +162,7 @@ Vector3 & Vector3::operator *= (GLfloat k)
 	return *this;
 }
 
-Vector3 Vector3::operator / (GLfloat k)
+Vector3 Vector3::operator / (GLfloat k) const
 {
 	GLfloat kInv = 1.0f / k;
 	return Vector3(x * kInv, y * kInv, z * kInv);
@@ -182,12 +182,12 @@ Vector3 & Vector3::operator = (const Vector3 & vector)
 	return *this;
 }
 
-GLfloat Vector3::operator [] (unsigned int idx)
+GLfloat Vector3::operator [] (unsigned int idx) const
 {
 	return (&x)[idx];
 }
 
-Vector3 Vector3::Modulate(const Vector3 & vector)
+Vector3 Vector3::Modulate(const Vector3 & vector) const
 {
 	return Vector3(x * vector.x, y * vector.y, z * vector.z);
 }
@@ -202,9 +202,14 @@ Vector3 Vector3::Cross(const Vector3 & vector) const
 	return Vector3(y * vector.z -  z * vector.y, z * vector.x - x * vector.z, x * vector.y - y * vector.x);
 }
 
+bool Vector3::SameDirectionWith(const Vector3& other)
+{
+	return false;
+}
+
 //Vector4
 
-GLfloat Vector4::Length()
+GLfloat Vector4::Length() const
 {
 	return sqrt(x*x + y*y + z*z + w*w);
 }
@@ -220,7 +225,7 @@ Vector4 & Vector4::Normalize()
 	return *this;
 }
 
-Vector4 Vector4::operator + (const Vector4 & vector)
+Vector4 Vector4::operator + (const Vector4 & vector) const
 {
 	return Vector4(x + vector.x, y + vector.y, z + vector.z, w + vector.w);
 }
@@ -235,12 +240,12 @@ Vector4 & Vector4::operator += (const Vector4 & vector)
 	return *this;
 }
 
-Vector4 Vector4::operator - ()
+Vector4 Vector4::operator - () const
 {
 	return Vector4(-x, -y, -z, -w);
 }
 
-Vector4 Vector4::operator - (const Vector4 & vector)
+Vector4 Vector4::operator - (const Vector4 & vector) const
 {
 	return Vector4(x - vector.x, y - vector.y, z - vector.z, w - vector.w);
 }
@@ -255,7 +260,7 @@ Vector4 & Vector4::operator -= (const Vector4 & vector)
 	return *this;
 }
 
-Vector4 Vector4::operator * (GLfloat k)
+Vector4 Vector4::operator * (GLfloat k) const
 {
 	return Vector4(x * k, y * k, z * k, w * k);
 }
@@ -270,7 +275,7 @@ Vector4 & Vector4::operator *= (GLfloat k)
 	return *this;
 }
 
-Vector4 Vector4::operator / (GLfloat k)
+Vector4 Vector4::operator / (GLfloat k) const
 {
 	GLfloat kInv = 1.0f / k;
 	return Vector4(x * kInv, y * kInv, z * kInv, w * kInv);
@@ -290,23 +295,23 @@ Vector4 & Vector4::operator = (const Vector4 & vector)
 	return *this;
 }
 
-GLfloat Vector4::operator [] (unsigned int idx)
+GLfloat Vector4::operator [] (unsigned int idx) const
 {
 	return (&x)[idx];
 }
 
-Vector4 Vector4::Modulate(const Vector4 & vector)
+Vector4 Vector4::Modulate(const Vector4 & vector) const
 {
 	return Vector4(x * vector.x, y * vector.y, z * vector.z, w * vector.w);
 }
 
-GLfloat Vector4::Dot(const Vector4 & vector)
+GLfloat Vector4::Dot(const Vector4 & vector) const
 {
 	return x * vector.x + y * vector.y + z * vector.z + w * vector.w;
 }
 
 
-Vector4 Vector4::operator * ( Matrix & m )
+Vector4 Vector4::operator * ( Matrix & m ) const
 {
 	Vector4 res;
 	res.x = x * m.m[0][0] + y * m.m[1][0] + z * m.m[2][0] + w * m.m[3][0];
@@ -581,7 +586,7 @@ Matrix Matrix::Transpose()
 	return res;
 }
 
-Matrix Matrix::operator + (Matrix & mat)
+Matrix Matrix::operator + (Matrix & mat) const
 {
 	Matrix res( *this );
 	res += mat;
@@ -598,7 +603,7 @@ Matrix & Matrix::operator += (Matrix & mat)
 	return *this;
 }
 
-Matrix Matrix::operator - (Matrix & mat)
+Matrix Matrix::operator - (Matrix & mat) const
 {
 	Matrix res( *this );
 	res -= mat;
@@ -615,7 +620,7 @@ Matrix & Matrix::operator -= (Matrix & mat)
 	return *this;
 }
 
-Matrix Matrix::operator * (const Matrix & mat)
+Matrix Matrix::operator * (const Matrix & mat) const
 {
 	Matrix res;
 	res.m[0][0] = m[0][0] * mat.m[0][0] + m[0][1] * mat.m[1][0] + m[0][2] * mat.m[2][0] + m[0][3] * mat.m[3][0];
@@ -641,7 +646,7 @@ Matrix Matrix::operator * (const Matrix & mat)
 	return res;
 }
 
-Matrix Matrix::operator * (GLfloat k)
+Matrix Matrix::operator * (GLfloat k) const
 {
 	Matrix mat( *this );
 	mat *= k;

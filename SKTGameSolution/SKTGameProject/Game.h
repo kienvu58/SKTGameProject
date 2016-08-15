@@ -8,7 +8,7 @@ public:
 	Game();
 	~Game();
 
-	void Init();
+	static void Init();
 	static void CreateStateInstances();
 	static void DestroyStateInstances();
 	void Update() override;
@@ -24,7 +24,7 @@ public:
 	float GetPlayingTime() const;
 	void UpdateDifficulty(int currentScore);
 	float GetDifficulty() const;
-	void Reset();
+	void Reset() override;
 private:
 	StateMachine<Game>* m_pStateMachine;
 	float m_fPlayingTime;

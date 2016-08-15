@@ -4,10 +4,9 @@
 #include "GameWelcomeState.h"
 #include "GameOptionState.h"
 #include "SingletonClasses.h"
-#include "Definations.h"
 
 Game::Game(): m_pStateMachine(new StateMachine<Game>(this)),
-              m_fPlayingTime(0)
+              m_fPlayingTime(0), m_fDifficulty(0)
 {
 }
 

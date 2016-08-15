@@ -2,7 +2,8 @@
 #include <iostream>
 
 
-Entity::Entity(): m_iPrototypeId(0) {
+Entity::Entity(): m_iPrototypeId(0), m_bIsActive(false)
+{
 }
 
 Entity::~Entity()
