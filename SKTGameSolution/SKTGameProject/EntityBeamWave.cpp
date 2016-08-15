@@ -65,7 +65,8 @@ void EntityBeamWave::DetectIntersections()
 void EntityBeamWave::UpdateGraphics()
 {
 	auto scaleMidX = PixelsFromMeters(m_fLength) / m_iSpriteWidth;
-	auto randScale = 0.9 + Globals::deltaTime * 9;
+	auto factor = int(Globals::deltaTime * 1000) % 5;
+	auto randScale = 0.9 + 0.1 * factor;
 	auto endPhysicsPosition = m_vec2Pos + m_iDirection * m_fLength * b2Vec2(1, 0);
 	auto midPhysicsPosition = m_vec2Pos + m_iDirection * m_fLength / 2 * b2Vec2(1, 0);
 	auto isReversed = m_iDirection == -1;
