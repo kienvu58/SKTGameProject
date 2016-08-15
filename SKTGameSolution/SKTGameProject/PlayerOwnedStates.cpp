@@ -4,7 +4,7 @@
 #include "../GraphicsEngine/Globals.h"
 
 #define SPECIAL_KI 30
-#define ULTIMATE_KI 60
+#define ULTIMATE_KI 30
 #define DECREASE_OVERHEAT 50
 
 /**

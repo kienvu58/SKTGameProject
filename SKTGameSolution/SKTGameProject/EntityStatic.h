@@ -20,9 +20,10 @@ public:
 	Sprite& GetSprite();
 
 	bool IsClicked(Vector2 mousePosition) const;
-
+	Vector2 GetWorldPosition() const;
 private:
 	Sprite m_Sprite;
-	Vector2 m_Position;
+	Vector2 m_ScreenPosition;
+	Vector2 m_WorldPosition;
 };
 

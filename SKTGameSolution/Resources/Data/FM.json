@@ -96,6 +96,13 @@
 		{ "id": 204, "spriteSheetID": 102, "index": 2, "duration": 1, "note": "Circle4Direction" },
 
 		{ "id": 205, "spriteSheetID": 4, "index": 10, "duration": 1, "note": "Button_NO" },
-		{ "id": 206, "spriteSheetID": 4, "index": 11, "duration": 1, "note": "Button_YES" }
+		{ "id": 206, "spriteSheetID": 4, "index": 11, "duration": 1, "note": "Button_YES" },
+
+		{ "id": 210, "spriteSheetID": 5, "index": 0, "duration": 1, "note": "Blue" },
+		{ "id": 211, "spriteSheetID": 5, "index": 1, "duration": 1, "note": "Green" },
+		{ "id": 212, "spriteSheetID": 5, "index": 2, "duration": 1, "note": "Red" },
+		{ "id": 213, "spriteSheetID": 5, "index": 3, "duration": 1, "note": "Outline" },
+
+		{ "id": 9000, "spriteSheetID": 9000, "index": 0, "duration": 1, "note": "GokuAvatar" }
 	]
 }

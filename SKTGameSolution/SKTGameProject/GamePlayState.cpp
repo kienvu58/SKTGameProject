@@ -8,11 +8,12 @@
 #include "../GraphicsEngine/HelperFunctions.h"
 #include "EntityKiBlast.h"
 
-GamePlayState::GamePlayState(): m_iScore(0) 
+GamePlayState::GamePlayState(): m_iScore(0)
 {
 	m_BackgroundPosition.x = Globals::screenWidth / 2;
 	m_BackgroundPosition.y = Globals::screenWidth + Globals::screenWidth / 2;
 }
+
 void GamePlayState::Enter(Game* game)
 {
 }
@@ -20,7 +21,7 @@ void GamePlayState::Enter(Game* game)
 void GamePlayState::PressButton(Game* game)
 {
 	Vector2 lastMousePosition = InputMgr->GetLastMousePosition();
-	if (m_Button_Pause->IsClicked(lastMousePosition))
+	if (m_Button_Pause.IsClicked(lastMousePosition))
 	{
 		InputMgr->SetLastMousePosition(0, 0);
 		//GamePause
@@ -31,21 +32,10 @@ void GamePlayState::PressButton(Game* game)
 }
 
 
-
 void GamePlayState::Execute(Game* game)
 {
 	srand(time(nullptr));
 	PhysicsMgr->Update();
-	m_Button_Pause->Update();
-	m_Background->Update();
-	m_Background_Clone->Update();
-
-	m_CircleWithDirections->Update();
-	m_Circle4Dash->Update();
-	m_Circle2Dash_J->Update();
-	m_Circle2Dash_K->Update();
-	m_Circle2Dash_L->Update();
-	m_Circle2Dash_I->Update();
 	RunningBackground(game);
 
 	m_Player->Update();
@@ -63,6 +53,9 @@ void GamePlayState::Execute(Game* game)
 	PressButton(game);
 	HandlingCircleDirection(game);
 
+	UpdateHpBar();
+	UpdateKiBar();
+	UpdateOverheatBar();
 }
 
 void GamePlayState::Exit(Game* game)
@@ -71,33 +64,42 @@ void GamePlayState::Exit(Game* game)
 
 void GamePlayState::Render(Game* game)
 {
-	m_Background->Render();
-	m_Background_Clone->Render();
-	m_Button_Pause->Render();
-	m_CircleWithDirections->Render();
-	m_Circle4Dash->Render();
-	m_Circle2Dash_J->Render();
-	m_Circle2Dash_K->Render();
-	m_Circle2Dash_L->Render();
-	m_Circle2Dash_I->Render();
+	m_Background.Render();
+	m_Background_Clone.Render();
+	m_Button_Pause.Render();
+	m_CircleWithDirections.Render();
+	m_Circle4Dash.Render();
+	m_Circle2Dash_J.Render();
+	m_Circle2Dash_K.Render();
+	m_Circle2Dash_L.Render();
+	m_Circle2Dash_I.Render();
+
+	m_HpBar.Render();
+	m_HpOutline.Render();
+	m_KiBar.Render();
+	m_KiOutline.Render();
+	m_OverheatBar.Render();
+	m_OverheatOutline.Render();
+
+	m_Avatar.Render();
 
 	std::string currentScore = std::to_string(m_iScore);
 
 	std::string scoreText = "Score: ";
 	scoreText.append(currentScore);
-	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0, 0, 1, 1);
-	std::string playingTimeText = std::to_string(game->GetPlayingTime());
-	playingTimeText.append(" s");
-	TextMgr->RenderString(playingTimeText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 200.0f, 0, 1, 1);
-	std::string difficultyText = "Difficulty: ";
-	difficultyText.append(std::to_string(game->GetDifficulty()));
-	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
-	std::string currentHealth = "Health: ";
-	currentHealth.append(std::to_string(m_Player->GetCurrentHealth()));
-	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
-	std::string currentKi = "Ki: ";
-	currentKi.append(std::to_string(m_Player->GetCurrentKi()));
-	TextMgr->RenderString(currentKi.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 60.0f, 1, 1);
+	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 1, 0, 1), 60.0f, 450, 10, 1, 1);
+//	std::string playingTimeText = std::to_string(game->GetPlayingTime());
+//	playingTimeText.append(" s");
+//	TextMgr->RenderString(playingTimeText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 200.0f, 0, 1, 1);
+//	std::string difficultyText = "Difficulty: ";
+//	difficultyText.append(std::to_string(game->GetDifficulty()));
+//	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
+//	std::string currentHealth = "Health: ";
+//	currentHealth.append(std::to_string(m_Player->GetCurrentHealth()));
+//	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
+//	std::string currentKi = "Ki: ";
+//	currentKi.append(std::to_string(m_Player->GetCurrentKi()));
+//	TextMgr->RenderString(currentKi.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 60.0f, 1, 1);
 
 	for (const auto& pair : m_mapCurrentEntities)
 	{
@@ -110,7 +112,7 @@ void GamePlayState::Render(Game* game)
 	m_Player->Render();
 }
 
-void GamePlayState::RunningBackground(Game * game)
+void GamePlayState::RunningBackground(Game* game)
 {
 	if (m_BackgroundPosition.x == -Globals::screenWidth / 2)
 	{
@@ -120,16 +122,16 @@ void GamePlayState::RunningBackground(Game * game)
 	{
 		m_BackgroundPosition.y = Globals::screenWidth + Globals::screenWidth / 2;
 	}
-	m_Background->InitPosition(m_BackgroundPosition.x--, Globals::screenHeight / 2);
-	m_Background_Clone->InitPosition(m_BackgroundPosition.y--, Globals::screenHeight / 2);
+	m_Background.InitPosition(m_BackgroundPosition.x--, Globals::screenHeight / 2);
+	m_Background_Clone.InitPosition(m_BackgroundPosition.y--, Globals::screenHeight / 2);
 }
 
-void GamePlayState::HandlingCircleDirection(Game * game)
+void GamePlayState::HandlingCircleDirection(Game* game)
 {
 	m_Circle4DashPos.x = InputMgr->GetCurrentMousePosition().x;
 	m_Circle4DashPos.y = InputMgr->GetCurrentMousePosition().y;
 	//A is circle direction position. C is point mouse position.
-	if (InputMgr->GetLastMousePosition().x >= 120 - 60 && InputMgr->GetLastMousePosition().x <= 120 + 60	//Check collision mouse and circle directions.
+	if (InputMgr->GetLastMousePosition().x >= 120 - 60 && InputMgr->GetLastMousePosition().x <= 120 + 60 //Check collision mouse and circle directions.
 		&& InputMgr->GetLastMousePosition().y >= 520 - 60 && InputMgr->GetLastMousePosition().y <= 520 + 60)
 	{
 		if (InputMgr->IsMouseDown()) //if keep the mouse
@@ -141,53 +143,63 @@ void GamePlayState::HandlingCircleDirection(Game * game)
 				AC.y = InputMgr->GetCurrentMousePosition().y - 520;
 				AC.Normalize();
 				AC *= 75;
-				m_Circle4Dash->InitPosition(AC.x + 120, AC.y + 520);
+				m_Circle4Dash.InitPosition(AC.x + 120, AC.y + 520);
 			}
 			else
-				m_Circle4Dash->InitPosition(m_Circle4DashPos.x, m_Circle4DashPos.y);
+				m_Circle4Dash.InitPosition(m_Circle4DashPos.x, m_Circle4DashPos.y);
 		}
 		else
-			m_Circle4Dash->InitPosition(120, 520);
+			m_Circle4Dash.InitPosition(120, 520);
 	}
 }
 
 void GamePlayState::Init(const char* filePath)
 {
-	m_Background = new EntityStatic();
-	//m_Background->InitSprite(2, 106, 1);
-	m_Background->InitSprite(2, 200, 1);
+	// Bars InitSprite
+	m_HpBar.InitSprite(200, 212, 1);
+	m_KiBar.InitSprite(200, 210, 1);
+	m_OverheatBar.InitSprite(200, 211, 1);
+	m_HpOutline.InitSprite(200, 213, 1);
+	m_KiOutline.InitSprite(200, 213, 1);
+	m_OverheatOutline.InitSprite(200, 213, 1);
 
-	m_Background_Clone = new EntityStatic();
-	m_Background_Clone->InitSprite(2, 201, 1);
-	m_Background_Clone->InitPosition(Globals::screenWidth + Globals::screenWidth / 2, Globals::screenHeight / 2);
+	// Bars InitPosition
+	auto barX = 250;
+	m_HpBar.InitPosition(barX, 25);
+	m_HpOutline.InitPosition(barX, 25);
+	m_KiBar.InitPosition(barX, 50);
+	m_KiOutline.InitPosition(barX, 50);
+	m_OverheatBar.InitPosition(barX, 75);
+	m_OverheatOutline.InitPosition(barX, 75);
 
-	m_Button_Pause = new EntityStatic();
-	m_Button_Pause->InitSprite(5, 115, 1);
-	m_Button_Pause->InitPosition(1090, 30);
+	m_Avatar.InitSprite(9000, 9000, 1);
+	m_Avatar.InitPosition(50, 50);
 
-	m_CircleWithDirections = new EntityStatic();
-	m_CircleWithDirections->InitSprite(101, 202, 1);
-	m_CircleWithDirections->InitPosition(120, 520);
+	m_Background.InitSprite(2, 200, 1);
 
-	m_Circle4Dash = new EntityStatic();
-	m_Circle4Dash->InitSprite(102, 203, 1);
-	m_Circle4Dash->InitPosition(120, 520);
+	m_Background_Clone.InitSprite(2, 201, 1);
+	m_Background_Clone.InitPosition(Globals::screenWidth + Globals::screenWidth / 2, Globals::screenHeight / 2);
 
-	m_Circle2Dash_J = new EntityStatic();
-	m_Circle2Dash_J->InitSprite(104, 204, 1);
-	m_Circle2Dash_J->InitPosition(1058, 570);
+	m_Button_Pause.InitSprite(5, 115, 1);
+	m_Button_Pause.InitPosition(1090, 30);
 
-	m_Circle2Dash_K = new EntityStatic();
-	m_Circle2Dash_K->InitSprite(104, 204, 1);
-	m_Circle2Dash_K->InitPosition(1008, 480);
+	m_CircleWithDirections.InitSprite(101, 202, 1);
+	m_CircleWithDirections.InitPosition(120, 520);
 
-	m_Circle2Dash_L = new EntityStatic();
-	m_Circle2Dash_L->InitSprite(104, 204, 1);
-	m_Circle2Dash_L->InitPosition(1058, 390);
+	m_Circle4Dash.InitSprite(102, 203, 1);
+	m_Circle4Dash.InitPosition(120, 520);
 
-	m_Circle2Dash_I = new EntityStatic();
-	m_Circle2Dash_I->InitSprite(104, 204, 1);
-	m_Circle2Dash_I->InitPosition(940, 570);
+	m_Circle2Dash_J.InitSprite(104, 204, 1);
+	m_Circle2Dash_J.InitPosition(1058, 570);
+
+	m_Circle2Dash_K.InitSprite(104, 204, 1);
+	m_Circle2Dash_K.InitPosition(1008, 480);
+
+	m_Circle2Dash_L.InitSprite(104, 204, 1);
+	m_Circle2Dash_L.InitPosition(1058, 390);
+
+	m_Circle2Dash_I.InitSprite(104, 204, 1);
+	m_Circle2Dash_I.InitPosition(940, 570);
 
 	m_spawner.Init("Data/SPAWNER.json");
 
@@ -210,16 +222,6 @@ bool GamePlayState::OnMessage(Game* game, const Telegram& telegram)
 
 GamePlayState::~GamePlayState()
 {
-	delete m_Button_Pause;
-	delete m_Background;
-	delete m_Background_Clone;
-	delete m_CircleWithDirections;
-	delete m_Circle4Dash;
-	delete m_Circle2Dash_J;
-	delete m_Circle2Dash_K;
-	delete m_Circle2Dash_L;
-	delete m_Circle2Dash_I;
-	
 }
 
 void GamePlayState::AddEntityToTheScreen(Entity* entity)
@@ -312,4 +314,41 @@ void GamePlayState::Reset()
 int GamePlayState::GetCurrentScore() const
 {
 	return m_iScore;
+}
+
+
+void GamePlayState::UpdateHpBar()
+{
+	float scaleFactor = m_Player->GetCurrentHealth() / m_Player->GetMaxHealth();
+	float translateFactor = (1 - scaleFactor) / 2 * m_HpBar.GetSprite().GetModel()->GetModelWidth();
+
+	Vector2 scaleVector = Vector2(scaleFactor, 1);
+	Vector2 translateVector = Vector2(-translateFactor, 0);
+	Vector2 currentPosition = m_HpBar.GetWorldPosition();
+
+	m_HpBar.GetSprite().SetRenderInfo(currentPosition + translateVector, false, scaleVector);
+}
+
+void GamePlayState::UpdateKiBar()
+{
+	float scaleFactor = m_Player->GetCurrentKi() / m_Player->GetMaxKi();
+	float translateFactor = (1 - scaleFactor) / 2 * m_KiBar.GetSprite().GetModel()->GetModelWidth();
+
+	Vector2 scaleVector = Vector2(scaleFactor, 1);
+	Vector2 translateVector = Vector2(-translateFactor, 0);
+	Vector2 currentPosition = m_KiBar.GetWorldPosition();
+
+	m_KiBar.GetSprite().SetRenderInfo(currentPosition + translateVector, false, scaleVector);
+}
+
+void GamePlayState::UpdateOverheatBar()
+{
+	float scaleFactor = m_Player->GetCurrentOverheat() / MAX_OVERHEAT;
+	float translateFactor = (1 - scaleFactor) / 2 * m_OverheatBar.GetSprite().GetModel()->GetModelWidth();
+
+	Vector2 scaleVector = Vector2(scaleFactor, 1);
+	Vector2 translateVector = Vector2(-translateFactor, 0);
+	Vector2 currentPosition = m_OverheatBar.GetWorldPosition();
+
+	m_OverheatBar.GetSprite().SetRenderInfo(currentPosition + translateVector, false, scaleVector);
 }

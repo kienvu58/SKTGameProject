@@ -76,6 +76,7 @@ void EntityBeamWave::UpdateGraphics()
 
 
 	auto endGraphicsPosition =
+
 		GraphicsFromPhysics(endPhysicsPosition) - Vector2(1, 0) * m_iDirection * m_iSpriteWidth / 2;
 	m_SpriteEnd.SetRenderInfo(endGraphicsPosition, isReversed, Vector2(1, 1) * randScale);
 

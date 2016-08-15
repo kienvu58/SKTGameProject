@@ -57,6 +57,7 @@ public:
 
 	void Reset() override;
 	float GetCurrentKi() const;
+	float GetMaxKi() const;
 
 	void InCreaseCantDieTime(float amount);
 	void DeCreaseCantDieTime(float amnout);

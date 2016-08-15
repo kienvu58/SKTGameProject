@@ -231,6 +231,11 @@ float EntityPlayer::GetCurrentKi() const
 	return m_fCurrentKi;
 }
 
+float EntityPlayer::GetMaxKi() const
+{
+	return m_fMaxKi;
+}
+
 void EntityPlayer::StopCharging() const
 {
 	if (m_pAura)

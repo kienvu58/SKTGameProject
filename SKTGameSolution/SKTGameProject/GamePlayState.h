@@ -13,6 +13,9 @@ public:
 	~GamePlayState();
 	void Enter(Game* game) override;
 	void PressButton(Game* game);
+	void UpdateHpBar();
+	void UpdateKiBar();
+	void UpdateOverheatBar();
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
 	void Render(Game* game) override;
@@ -34,19 +37,29 @@ public:
 	void Reset();
 	int GetCurrentScore() const;
 private:
-	EntityStatic *m_CircleWithDirections;
-	EntityStatic *m_Circle4Dash;
-	EntityStatic *m_Circle2Dash_J;
-	EntityStatic *m_Circle2Dash_K;
-	EntityStatic *m_Circle2Dash_L;
-	EntityStatic *m_Circle2Dash_I;
+	EntityStatic m_CircleWithDirections;
+	EntityStatic m_Circle4Dash;
+	EntityStatic m_Circle2Dash_J;
+	EntityStatic m_Circle2Dash_K;
+	EntityStatic m_Circle2Dash_L;
+	EntityStatic m_Circle2Dash_I;
 	Vector2 m_Circle4DashPos;
 	
-	EntityStatic* m_Background;
-	EntityStatic* m_Background_Clone;
-	EntityStatic* m_Button_Pause;
+	EntityStatic m_Background;
+	EntityStatic m_Background_Clone;
+	EntityStatic m_Button_Pause;
 	Vector2 m_BackgroundPosition;
 	
+	// Bars
+	EntityStatic m_HpBar;
+	EntityStatic m_KiBar;
+	EntityStatic m_OverheatBar;
+	EntityStatic m_HpOutline;
+	EntityStatic m_KiOutline;
+	EntityStatic m_OverheatOutline;
+
+	EntityStatic m_Avatar;
+
 	EntityPlayer* m_Player;
 	
 	// map to store minion by protypeId

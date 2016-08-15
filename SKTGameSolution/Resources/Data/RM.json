@@ -170,8 +170,27 @@
 			"spriteH": 128,
 			"textureW": 256,
 			"textureH": 256
+		},
+		{
+			"id": 200,
+			"note": "Bar",
+			"modelW": 300,
+			"modelH": 20,
+			"spriteW": 256,
+			"spriteH": 256,
+			"textureW": 512,
+			"textureH": 512
+		},
+		{
+			"id": 9000,
+			"note": "GokuAvatar",
+			"modelW": 80,
+			"modelH": 80,
+			"spriteW": 256,
+			"spriteH": 256,
+			"textureW": 256,
+			"textureH": 256
 		}
-
 	],
 	"spriteSheets":
 	[
@@ -194,9 +213,9 @@
 			"nColumns": 4
 		},
 		{
-			"id": 9,
-			"path": "Textures/MusicBar.tga",
-			"nRows": 1,
+			"id": 5,
+			"path": "Textures/Bars.tga",
+			"nRows": 2,
 			"nColumns": 2
 		},
 		{
@@ -243,6 +262,12 @@
 		{
 			"id": 207,
 			"path": "Textures/BackgroundRunning_1.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 9000,
+			"path": "Textures/SSGoku.tga",
 			"nRows": 1,
 			"nColumns": 1
 		}

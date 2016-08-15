@@ -4,7 +4,7 @@
 #include <Singleton.hpp>
 #include "MessageDispatcher.h"
 #include "SingletonClasses.h"
-#include <iostream>
+#define SCALE_VELOCITY 2.0f
 
 /*Attacking State*/
 CellJuniorAttackingState::CellJuniorAttackingState()
@@ -17,7 +17,7 @@ CellJuniorAttackingState::~CellJuniorAttackingState()
 
 void CellJuniorAttackingState::Enter(EntityCellJunior* celljunior)
 {
-	celljunior->ScaleVelocity(1.9);
+	celljunior->ScaleVelocity(SCALE_VELOCITY);
 	celljunior->GetSteering()->SeekOn();
 }
 

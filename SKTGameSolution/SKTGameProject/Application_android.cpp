@@ -66,6 +66,7 @@ void GameUpdate(float deltaTime)
 
 void OnKeyEvent(unsigned char key, bool isPressed)
 {
+#ifdef WIN32
 	switch (key)
 	{
 	case 'A':
@@ -93,6 +94,7 @@ void OnKeyEvent(unsigned char key, bool isPressed)
 		InputMgr->SetKeyEvent(KEY_I, isPressed);
 		break;
 	}
+#endif
 }
 
 void GameCleanUp()
