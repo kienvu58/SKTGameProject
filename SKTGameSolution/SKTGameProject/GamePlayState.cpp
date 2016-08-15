@@ -29,6 +29,30 @@ void GamePlayState::PressButton(Game* game)
 		//		printf("GamePause\n");
 		game->GetFSM()->ChangeState(GS_Pause::GetInstance());
 	}
+
+	if (InputMgr->IsMouseDown())
+	{
+		Vector2 currentMousePosition = InputMgr->GetCurrentMousePosition();
+		if (m_Circle2Dash_J.IsClicked(currentMousePosition))
+		{
+			InputMgr->SetKeyEvent(KEY_J, true);
+		}
+
+		if (m_Circle2Dash_K.IsClicked(currentMousePosition))
+		{
+			InputMgr->SetKeyEvent(KEY_K, true);
+		}
+
+		if (m_Circle2Dash_L.IsClicked(currentMousePosition))
+		{
+			InputMgr->SetKeyEvent(KEY_L, true);
+		}
+
+		if (m_Circle2Dash_I.IsClicked(currentMousePosition))
+		{
+			InputMgr->SetKeyEvent(KEY_I, true);
+		}
+	}
 }
 
 
@@ -88,18 +112,18 @@ void GamePlayState::Render(Game* game)
 	std::string scoreText = "Score: ";
 	scoreText.append(currentScore);
 	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 1, 0, 1), 60.0f, 450, 10, 1, 1);
-//	std::string playingTimeText = std::to_string(game->GetPlayingTime());
-//	playingTimeText.append(" s");
-//	TextMgr->RenderString(playingTimeText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 200.0f, 0, 1, 1);
-//	std::string difficultyText = "Difficulty: ";
-//	difficultyText.append(std::to_string(game->GetDifficulty()));
-//	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
-//	std::string currentHealth = "Health: ";
-//	currentHealth.append(std::to_string(m_Player->GetCurrentHealth()));
-//	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
-//	std::string currentKi = "Ki: ";
-//	currentKi.append(std::to_string(m_Player->GetCurrentKi()));
-//	TextMgr->RenderString(currentKi.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 60.0f, 1, 1);
+	//	std::string playingTimeText = std::to_string(game->GetPlayingTime());
+	//	playingTimeText.append(" s");
+	//	TextMgr->RenderString(playingTimeText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 200.0f, 0, 1, 1);
+	//	std::string difficultyText = "Difficulty: ";
+	//	difficultyText.append(std::to_string(game->GetDifficulty()));
+	//	TextMgr->RenderString(difficultyText.c_str(), Vector4(1, 0, 0, 1), 60.0f, 500.0f, 0, 1, 1);
+	//	std::string currentHealth = "Health: ";
+	//	currentHealth.append(std::to_string(m_Player->GetCurrentHealth()));
+	//	TextMgr->RenderString(currentHealth.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 30.0f, 1, 1);
+	//	std::string currentKi = "Ki: ";
+	//	currentKi.append(std::to_string(m_Player->GetCurrentKi()));
+	//	TextMgr->RenderString(currentKi.c_str(), Vector4(1, 0, 0, 1), 60.0f, 0.0f, 60.0f, 1, 1);
 
 	for (const auto& pair : m_mapCurrentEntities)
 	{
@@ -128,28 +152,40 @@ void GamePlayState::RunningBackground(Game* game)
 
 void GamePlayState::HandlingCircleDirection(Game* game)
 {
-	m_Circle4DashPos.x = InputMgr->GetCurrentMousePosition().x;
-	m_Circle4DashPos.y = InputMgr->GetCurrentMousePosition().y;
-	//A is circle direction position. C is point mouse position.
-	if (InputMgr->GetLastMousePosition().x >= 120 - 60 && InputMgr->GetLastMousePosition().x <= 120 + 60 //Check collision mouse and circle directions.
-		&& InputMgr->GetLastMousePosition().y >= 520 - 60 && InputMgr->GetLastMousePosition().y <= 520 + 60)
+	if (InputMgr->IsMouseDown())
 	{
-		if (InputMgr->IsMouseDown()) //if keep the mouse
+		//check if inside circle.
+		float margin = 100;
+		Vector2 currentMousePosition = InputMgr->GetCurrentMousePosition();
+		Vector2 direction = currentMousePosition - m_CircleWithDirections.GetScreenPosition();
+		float radius = m_CircleWithDirections.GetSprite().GetModel()->GetModelWidth() / 2 + margin;
+		if (direction.Length() < radius && direction.Length() > 0)
 		{
-			if (sqrt(pow((InputMgr->GetCurrentMousePosition().x - 120), 2) + pow((InputMgr->GetCurrentMousePosition().y - 520), 2)) > 75)
+			float boundryRadius = m_CircleWithDirections.GetSprite().GetModel()->GetModelWidth() / 2;
+			if (direction.Length() > boundryRadius)
 			{
-				Vector2 AC;
-				AC.x = InputMgr->GetCurrentMousePosition().x - 120;
-				AC.y = InputMgr->GetCurrentMousePosition().y - 520;
-				AC.Normalize();
-				AC *= 75;
-				m_Circle4Dash.InitPosition(AC.x + 120, AC.y + 520);
+				direction.Normalize();
+				direction *= boundryRadius;
 			}
-			else
-				m_Circle4Dash.InitPosition(m_Circle4DashPos.x, m_Circle4DashPos.y);
+			Vector2 newPosition = m_CircleWithDirections.GetScreenPosition() + direction;
+			//				m_Circle4Dash.GetSprite().SetRenderInfo(newPosition, false);
+			m_Circle4Dash.InitPosition(newPosition.x, newPosition.y);
+
+			float sensitivity = 20;
+			bool right = direction.x > sensitivity;
+			bool left = direction.x < -sensitivity;
+			bool down = direction.y > sensitivity;
+			bool up = direction.y < -sensitivity;
+
+			InputMgr->SetKeyEvent(KEY_D, right);
+			InputMgr->SetKeyEvent(KEY_A, left);
+			InputMgr->SetKeyEvent(KEY_W, up);
+			InputMgr->SetKeyEvent(KEY_S, down);
 		}
-		else
-			m_Circle4Dash.InitPosition(120, 520);
+	}
+	else
+	{
+		m_Circle4Dash.GetSprite().SetRenderInfo(m_CircleWithDirections.GetWorldPosition(), false);
 	}
 }
 
@@ -181,13 +217,13 @@ void GamePlayState::Init(const char* filePath)
 	m_Background_Clone.InitPosition(Globals::screenWidth + Globals::screenWidth / 2, Globals::screenHeight / 2);
 
 	m_Button_Pause.InitSprite(5, 115, 1);
-	m_Button_Pause.InitPosition(1090, 30);
+	m_Button_Pause.InitPosition(1080, 40);
 
 	m_CircleWithDirections.InitSprite(101, 202, 1);
-	m_CircleWithDirections.InitPosition(120, 520);
+	m_CircleWithDirections.InitPosition(150, 480);
 
 	m_Circle4Dash.InitSprite(102, 203, 1);
-	m_Circle4Dash.InitPosition(120, 520);
+	m_Circle4Dash.InitPosition(150, 480);
 
 	m_Circle2Dash_J.InitSprite(104, 204, 1);
 	m_Circle2Dash_J.InitPosition(1058, 570);
