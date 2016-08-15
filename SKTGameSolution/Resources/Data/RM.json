@@ -44,8 +44,8 @@
 		{
 			"id": 5,
 			"note": "ButtonMini",
-			"modelW": 42,
-			"modelH": 42,
+			"modelW": 60,
+			"modelH": 60,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 512,
@@ -134,8 +134,8 @@
 		{
 			"id": 101,
 			"note": "CircleWithDirections",
-			"modelW": 150,
-			"modelH": 150,
+			"modelW": 210,
+			"modelH": 210,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 256,
@@ -144,8 +144,8 @@
 		{
 			"id": 102,
 			"note": "Circle4Directions",
-			"modelW": 120,
-			"modelH": 120,
+			"modelW": 140,
+			"modelH": 140,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 256,
@@ -164,8 +164,8 @@
 			{
 			"id": 104,
 			"note": "Circle2Directions",
-			"modelW": 80,
-			"modelH": 80,
+			"modelW": 100,
+			"modelH": 100,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 256,

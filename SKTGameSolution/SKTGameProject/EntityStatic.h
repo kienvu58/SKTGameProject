@@ -21,6 +21,7 @@ public:
 
 	bool IsClicked(Vector2 mousePosition) const;
 	Vector2 GetWorldPosition() const;
+	Vector2 GetScreenPosition() const;
 private:
 	Sprite m_Sprite;
 	Vector2 m_ScreenPosition;

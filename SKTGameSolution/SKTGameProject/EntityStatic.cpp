@@ -77,6 +77,11 @@ Vector2 EntityStatic::GetWorldPosition() const
 	return m_WorldPosition;
 }
 
+Vector2 EntityStatic::GetScreenPosition() const
+{
+	return m_ScreenPosition;
+}
+
 EntityStatic::~EntityStatic()
 {
 }
