@@ -13,13 +13,14 @@ void GameOptionState::Enter(Game* game)
 
 void GameOptionState::PressButton(Game* game)
 {
+		Vector2 lastMousePosition = InputMgr->GetLastMousePosition();
 	if (game->GetFSM()->CurrentState() == GS_Option::GetInstance())
 	{
 		//		printf("GameOptionState\n");
-		if (InputMgr->GetLastMousePosition().x >= (460 - 40) && InputMgr->GetLastMousePosition().x <= (460 + 40)
-			&& InputMgr->GetLastMousePosition().y >= (320 - 25) && InputMgr->GetLastMousePosition().y <= (320 + 25))
+		if (m_Button_X->IsClicked(lastMousePosition))
 		{
 			//			printf("X\n");
+			InputMgr->SetLastMousePosition(0, 0);
 			MusicMgr->MusicVolume("GamePlay", 50);
 			MusicMgr->MusicStop("GamePlay");
 			m_MusicBarBlack->InitPosition(460, 230);
@@ -27,23 +28,17 @@ void GameOptionState::PressButton(Game* game)
 			game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
 			MusicMgr->MusicPlay("MainMenu");
 		}
-		if (InputMgr->GetLastMousePosition().x >= (280 - 40) && InputMgr->GetLastMousePosition().x <= (280 + 40)
-			&& InputMgr->GetLastMousePosition().y >= (320 - 25) && InputMgr->GetLastMousePosition().y <= (320 + 25))
+		if (m_Button_V->IsClicked(lastMousePosition))
 		{
 			//			printf("V\n");
-			MusicMgr->MusicStop("GamePlay");
 			InputMgr->SetLastMousePosition(0, 0);
+			MusicMgr->MusicStop("GamePlay");
 			game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
 			MusicMgr->MusicPlay("MainMenu");
 		}
 
 		//Press Volume Bar
-		if (InputMgr->GetCurrentMousePosition().x >= (460 - 100 + 5) && InputMgr->GetCurrentMousePosition().x <= (460 + 100 - 5)
-			&& InputMgr->GetCurrentMousePosition().y >= (230 - 12.5 + 5) && InputMgr->GetCurrentMousePosition().y <= (230 + 12.5 - 5)
-			||
-			InputMgr->GetLastMousePosition().x >= (460 - 100 + 5) && InputMgr->GetLastMousePosition().x <= (460 + 100 - 5)
-			&& InputMgr->GetLastMousePosition().y >= (230 - 12.5 + 5) && InputMgr->GetLastMousePosition().y <= (230 + 12.5 - 5)
-			)
+		if (m_MusicBarGreen->IsClicked(lastMousePosition))
 		{
 			MusicBarBlack.x = InputMgr->GetCurrentMousePosition().x;
 			if (InputMgr->GetCurrentMousePosition().x <= 460 - 100 + 5)

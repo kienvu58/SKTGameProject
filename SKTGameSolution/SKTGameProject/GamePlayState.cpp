@@ -19,8 +19,8 @@ void GamePlayState::Enter(Game* game)
 
 void GamePlayState::PressButton(Game* game)
 {
-	if (InputMgr->GetLastMousePosition().x >= 1069.0f && InputMgr->GetLastMousePosition().x <= 1111.0f
-		&& InputMgr->GetLastMousePosition().y >= 9.0f && InputMgr->GetLastMousePosition().y <= 51.0f)
+	Vector2 lastMousePosition = InputMgr->GetLastMousePosition();
+	if (m_Button_Pause->IsClicked(lastMousePosition))
 	{
 		InputMgr->SetLastMousePosition(0, 0);
 		//GamePause
@@ -28,7 +28,6 @@ void GamePlayState::PressButton(Game* game)
 		//		printf("GamePause\n");
 		game->GetFSM()->ChangeState(GS_Pause::GetInstance());
 	}
-	m_Button_Pause->IsClicked(InputMgr->GetLastMousePosition());
 }
 
 

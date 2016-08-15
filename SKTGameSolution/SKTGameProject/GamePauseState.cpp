@@ -20,10 +20,11 @@ void GamePauseState::Enter(Game* game)
 
 void GamePauseState::PressButton(Game* game)
 {
-	if (InputMgr->GetLastMousePosition().x >= 765.0f && InputMgr->GetLastMousePosition().x <= 895.0f
-		&& InputMgr->GetLastMousePosition().y >= 147.0f && InputMgr->GetLastMousePosition().y <= 177.0f)
+	Vector2 lastMousePosition = InputMgr->GetLastMousePosition();
+	if (m_Button_Resume->IsClicked(lastMousePosition))
 	{
 		//Resum
+		InputMgr->SetLastMousePosition(0, 0);
 		game->GetFSM()->ChangeState(GS_GamePlay::GetInstance());
 		MusicMgr->MusicPlay("GamePlay");
 		MusicMgr->MusicLoop("GamePlay");
@@ -36,8 +37,7 @@ void GamePauseState::PressButton(Game* game)
 //		MusicMgr->MusicLoop("MainMenu");
 //	}
 
-	if (InputMgr->GetLastMousePosition().x >= 785.0f && InputMgr->GetLastMousePosition().x <= 915.0f
-		&& InputMgr->GetLastMousePosition().y >= 195.0f && InputMgr->GetLastMousePosition().y <= 225.0f)
+	if (m_Button_Quit->IsClicked(lastMousePosition))
 	{
 		//Quit (back main menu)
 //		GameInstance->DestroyStateInstances();
@@ -46,8 +46,8 @@ void GamePauseState::PressButton(Game* game)
 //		GameSingleton::CreateInstance();
 //
 //		GameInstance->CreateStateInstances();
+		InputMgr->SetLastMousePosition(0, 0);
 		GameInstance->Reset();
-
 		GameInstance->GetFSM()->SetCurrentState(GS_MainMenu::GetInstance());
 //		GameInstance->Init();
 	}

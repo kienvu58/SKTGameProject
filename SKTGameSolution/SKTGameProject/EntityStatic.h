@@ -19,7 +19,7 @@ public:
 	void InitPosition(int x, int y);
 	Sprite& GetSprite();
 
-	bool IsClicked(Vector2 mousePosition);
+	bool IsClicked(Vector2 mousePosition) const;
 
 private:
 	Sprite m_Sprite;

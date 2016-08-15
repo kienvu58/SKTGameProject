@@ -244,9 +244,6 @@
     <None Include="..\Resources\Data\FM.json">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\Resources\Data\GamePlayState.json">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\Resources\Data\MainMenuState.json">
       <Filter>Resource Files</Filter>
     </None>

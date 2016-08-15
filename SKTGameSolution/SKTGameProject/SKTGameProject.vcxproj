@@ -203,7 +203,6 @@
     <None Include="..\Resources\Data\AM.json" />
     <None Include="..\Resources\Data\FE.json" />
     <None Include="..\Resources\Data\FM.json" />
-    <None Include="..\Resources\Data\GamePlayState.json" />
     <None Include="..\Resources\Data\MainMenuState.json" />
     <None Include="..\Resources\Data\RM.json" />
     <None Include="..\Resources\Prototypes\Aura.json" />

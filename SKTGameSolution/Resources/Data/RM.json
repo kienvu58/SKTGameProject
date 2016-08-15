@@ -26,9 +26,9 @@
 			"note": "Background",
 			"modelW": 1120,
 			"modelH": 630,
-			"spriteW": 512,
-			"spriteH": 512,
-			"textureW": 2048,
+			"spriteW": 1024,
+			"spriteH": 1024,
+			"textureW": 1024,
 			"textureH": 1024
 		},
 		{
@@ -188,12 +188,6 @@
 			"nColumns": 8
 		},
 		{
-			"id": 3,
-			"path": "Textures/Backgrounds.tga",
-			"nRows": 2,
-			"nColumns": 4
-		},
-		{
 			"id": 4,
 			"path": "Textures/GameButtons.tga",
 			"nRows": 4,
@@ -206,22 +200,51 @@
 			"nColumns": 2
 		},
 		{
-			"id": 100,
-			"path": "Textures/Background1.tga",
-			"nRows": 1,
-			"nColumns": 1
-		},
-		{
-			"id": 101,
-			"path": "Textures/Background2.tga",
-			"nRows": 1,
-			"nColumns": 1
-		},
-		{
 			"id": 102,
 			"path": "Textures/PhoneButtons.tga",
 			"nRows": 2,
 			"nColumns": 2
+		},{
+			"id": 201,
+			"path": "Textures/GameWelcomeBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 202,
+			"path": "Textures/MainMenuBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 203,
+			"path": "Textures/GameDeadBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 204,
+			"path": "Textures/GameOptionBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 205,
+			"path": "Textures/GamePauseBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 206,
+			"path": "Textures/BackgroundRunning_0.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 207,
+			"path": "Textures/BackgroundRunning_1.tga",
+			"nRows": 1,
+			"nColumns": 1
 		}
 	],
 	"shaders":
