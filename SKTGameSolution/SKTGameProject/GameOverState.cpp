@@ -100,11 +100,11 @@ void GameOverState::Init(const char* filePath)
 
 	m_Button_Yes = new EntityStatic();
 	m_Button_Yes->InitSprite(103, 206, 1);
-	m_Button_Yes->InitPosition(350, 350);
+	m_Button_Yes->SetScreenPosition(350, 350);
 
 	m_Button_No = new EntityStatic();
 	m_Button_No->InitSprite(103, 205, 1);
-	m_Button_No->InitPosition(750, 350);
+	m_Button_No->SetScreenPosition(750, 350);
 }
 
 bool GameOverState::OnMessage(Game*, const Telegram&)

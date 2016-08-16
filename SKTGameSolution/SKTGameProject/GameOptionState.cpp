@@ -23,7 +23,7 @@ void GameOptionState::PressButton(Game* game)
 			InputMgr->SetLastMousePosition(0, 0);
 			MusicMgr->MusicVolume("GamePlay", 50);
 			MusicMgr->MusicStop("GamePlay");
-			m_MusicBarBlack->InitPosition(460, 230);
+			m_MusicBarBlack->SetScreenPosition(460, 230);
 
 			game->GetFSM()->ChangeState(GS_MainMenu::GetInstance());
 			MusicMgr->MusicPlay("MainMenu");
@@ -43,19 +43,19 @@ void GameOptionState::PressButton(Game* game)
 			MusicBarBlack.x = InputMgr->GetCurrentMousePosition().x;
 			if (InputMgr->GetCurrentMousePosition().x <= 460 - 100 + 5)
 			{
-				m_MusicBarBlack->InitPosition(365, MusicBarBlack.y);
+				m_MusicBarBlack->SetScreenPosition(365, MusicBarBlack.y);
 				MusicMgr->MusicVolume("GamePlay", 0);
 				MusicMgr->MusicVolume("MainMenu", 0);
 			}
 			else if (InputMgr->GetCurrentMousePosition().x >= 460 + 100 - 5)
 			{
-				m_MusicBarBlack->InitPosition(555, MusicBarBlack.y);
+				m_MusicBarBlack->SetScreenPosition(555, MusicBarBlack.y);
 				MusicMgr->MusicVolume("GamePlay", 100);
 				MusicMgr->MusicVolume("MainMenu", 100);
 			}
 			else
 			{
-				m_MusicBarBlack->InitPosition(MusicBarBlack.x, MusicBarBlack.y);
+				m_MusicBarBlack->SetScreenPosition(MusicBarBlack.x, MusicBarBlack.y);
 				//printf("a: %f \n", 100-(565- MusicBarBlack.x)/2);
 				MusicMgr->MusicVolume("GamePlay", 100 - (555 - MusicBarBlack.x) / 2);
 				MusicMgr->MusicVolume("MainMenu", 100 - (555 - MusicBarBlack.x) / 2);
@@ -95,19 +95,19 @@ void GameOptionState::Init(const char* filePath)
 
 	m_Button_V = new EntityStatic();
 	m_Button_V->InitSprite(9, 111, 1);
-	m_Button_V->InitPosition(280, 320);
+	m_Button_V->SetScreenPosition(280, 320);
 
 	m_Button_X = new EntityStatic();
 	m_Button_X->InitSprite(9, 112, 1);
-	m_Button_X->InitPosition(460, 320);
+	m_Button_X->SetScreenPosition(460, 320);
 
 	m_MusicBarGreen = new EntityStatic();
 	m_MusicBarGreen->InitSprite(10, 121, 1);
-	m_MusicBarGreen->InitPosition(460, 230);
+	m_MusicBarGreen->SetScreenPosition(460, 230);
 
 	m_MusicBarBlack = new EntityStatic();
 	m_MusicBarBlack->InitSprite(11, 122, 1);
-	m_MusicBarBlack->InitPosition(460, 230);
+	m_MusicBarBlack->SetScreenPosition(460, 230);
 
 	MusicBarBlack.x = 460;
 	MusicBarBlack.y = 230;

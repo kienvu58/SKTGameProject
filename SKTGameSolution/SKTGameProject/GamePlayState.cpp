@@ -58,7 +58,7 @@ void GamePlayState::PressButton(Game* game) const
 
 void GamePlayState::Execute(Game* game)
 {
-	srand(time(nullptr));
+	srand((unsigned int) time(nullptr));
 	PhysicsMgr->Update();
 	RunningBackground(game);
 
@@ -146,8 +146,8 @@ void GamePlayState::RunningBackground(Game* game)
 	{
 		m_BackgroundPosition.y = Globals::screenWidth + Globals::screenWidth / 2;
 	}
-	m_Background.InitPosition(m_BackgroundPosition.x--, Globals::screenHeight / 2);
-	m_Background_Clone.InitPosition(m_BackgroundPosition.y--, Globals::screenHeight / 2);
+	m_Background.SetScreenPosition(m_BackgroundPosition.x--, Globals::screenHeight / 2);
+	m_Background_Clone.SetScreenPosition(m_BackgroundPosition.y--, Globals::screenHeight / 2);
 }
 
 void GamePlayState::HandlingCircleDirection(Game* game)
@@ -158,24 +158,26 @@ void GamePlayState::HandlingCircleDirection(Game* game)
 		float margin = 100;
 		Vector2 currentMousePosition = InputMgr->GetCurrentMousePosition();
 		Vector2 direction = currentMousePosition - m_CircleWithDirections.GetScreenPosition();
-		float radius = m_CircleWithDirections.GetSprite().GetModel()->GetModelWidth() / 2 + margin;
-		if (direction.Length() < radius && direction.Length() > 0)
+		float boundaryRadius = m_CircleWithDirections.GetSprite().GetModel()->GetModelWidth() / 2 + margin;
+		float sensitivity = 20;
+		if (direction.Length() < boundaryRadius && direction.Length() > sensitivity)
 		{
-			float boundryRadius = m_CircleWithDirections.GetSprite().GetModel()->GetModelWidth() / 2;
-			if (direction.Length() > boundryRadius)
+			float radius = m_CircleWithDirections.GetSprite().GetModel()->GetModelWidth() / 2;
+			if (direction.Length() > radius)
 			{
 				direction.Normalize();
-				direction *= boundryRadius;
+				direction *= radius;
 			}
 			Vector2 newPosition = m_CircleWithDirections.GetScreenPosition() + direction;
-			//				m_Circle4Dash.GetSprite().SetRenderInfo(newPosition, false);
-			m_Circle4Dash.InitPosition(newPosition.x, newPosition.y);
+			m_Circle4Dash.SetScreenPosition(int(newPosition.x), int(newPosition.y));
 
-			float sensitivity = 20;
-			bool right = direction.x > sensitivity;
-			bool left = direction.x < -sensitivity;
-			bool down = direction.y > sensitivity;
-			bool up = direction.y < -sensitivity;
+			float haftAreaSize = tanf(Radians(22.5));
+			direction.Normalize();
+
+			bool right = direction.x > haftAreaSize;
+			bool left = direction.x < -haftAreaSize;
+			bool down = direction.y > haftAreaSize;
+			bool up = direction.y < -haftAreaSize;
 
 			InputMgr->SetKeyEvent(KEY_D, right);
 			InputMgr->SetKeyEvent(KEY_A, left);
@@ -201,41 +203,42 @@ void GamePlayState::Init(const char* filePath)
 
 	// Bars InitPosition
 	auto barX = 250;
-	m_HpBar.InitPosition(barX, 25);
-	m_HpOutline.InitPosition(barX, 25);
-	m_KiBar.InitPosition(barX, 50);
-	m_KiOutline.InitPosition(barX, 50);
-	m_OverheatBar.InitPosition(barX, 75);
-	m_OverheatOutline.InitPosition(barX, 75);
+	m_HpBar.SetScreenPosition(barX, 25);
+	m_HpOutline.SetScreenPosition(barX, 25);
+	m_KiBar.SetScreenPosition(barX, 50);
+	m_KiOutline.SetScreenPosition(barX, 50);
+	m_OverheatBar.SetScreenPosition(barX, 75);
+	m_OverheatOutline.SetScreenPosition(barX, 75);
 
 	m_Avatar.InitSprite(9000, 9000, 1);
-	m_Avatar.InitPosition(50, 50);
+	m_Avatar.SetScreenPosition(50, 50);
 
 	m_Background.InitSprite(2, 200, 1);
 
 	m_Background_Clone.InitSprite(2, 201, 1);
-	m_Background_Clone.InitPosition(Globals::screenWidth + Globals::screenWidth / 2, Globals::screenHeight / 2);
+	m_Background_Clone.SetScreenPosition(Globals::screenWidth + Globals::screenWidth / 2,
+										 Globals::screenHeight / 2);
 
 	m_Button_Pause.InitSprite(5, 115, 1);
-	m_Button_Pause.InitPosition(1080, 40);
+	m_Button_Pause.SetScreenPosition(1080, 40);
 
 	m_CircleWithDirections.InitSprite(101, 202, 1);
-	m_CircleWithDirections.InitPosition(150, 480);
+	m_CircleWithDirections.SetScreenPosition(150, 480);
 
 	m_Circle4Dash.InitSprite(102, 203, 1);
-	m_Circle4Dash.InitPosition(150, 480);
+	m_Circle4Dash.SetScreenPosition(150, 480);
 
 	m_Circle2Dash_J.InitSprite(104, 204, 1);
-	m_Circle2Dash_J.InitPosition(1058, 570);
+	m_Circle2Dash_J.SetScreenPosition(1058, 570);
 
 	m_Circle2Dash_K.InitSprite(104, 204, 1);
-	m_Circle2Dash_K.InitPosition(1008, 480);
+	m_Circle2Dash_K.SetScreenPosition(1008, 480);
 
 	m_Circle2Dash_L.InitSprite(104, 204, 1);
-	m_Circle2Dash_L.InitPosition(1058, 390);
+	m_Circle2Dash_L.SetScreenPosition(1058, 390);
 
 	m_Circle2Dash_I.InitSprite(104, 204, 1);
-	m_Circle2Dash_I.InitPosition(940, 570);
+	m_Circle2Dash_I.SetScreenPosition(940, 570);
 
 	m_spawner.Init("Data/SPAWNER.json");
 

@@ -25,7 +25,7 @@ void InputManager::SetKeyEvent(int key, bool isPressed)
 
 bool InputManager::IsPressed(int key) const
 {
-	return m_iKeyPressed & key;
+	return (bool) (m_iKeyPressed & key);
 }
 
 void InputManager::SetLastMousePosition(float x, float y)
@@ -56,4 +56,9 @@ void InputManager::SetMouseDown(bool b)
 bool InputManager::IsMouseDown() const
 {
 	return m_bIsMouseDown;
+}
+
+void InputManager::ResetKeys()
+{
+	m_iKeyPressed = 0;
 }

@@ -144,8 +144,8 @@
 		{
 			"id": 102,
 			"note": "Circle4Directions",
-			"modelW": 140,
-			"modelH": 140,
+			"modelW": 170,
+			"modelH": 170,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 256,

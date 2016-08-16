@@ -81,11 +81,11 @@ void GamePauseState::Init(const char* filePath)
 
 	m_Button_Resume = new EntityStatic();
 	m_Button_Resume->InitSprite(6, 113, 1);
-	m_Button_Resume->InitPosition(830, 162);
+	m_Button_Resume->SetScreenPosition(830, 162);
 
 	m_Button_Quit = new EntityStatic();
 	m_Button_Quit->InitSprite(7, 114, 1);
-	m_Button_Quit->InitPosition(830, 210);
+	m_Button_Quit->SetScreenPosition(830, 210);
 }
 
 bool GamePauseState::OnMessage(Game*, const Telegram&)

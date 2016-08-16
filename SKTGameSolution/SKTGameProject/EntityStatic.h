@@ -16,7 +16,7 @@ public:
 	Entity* Clone() override;
 
 	void InitSprite(int modelId, int frameId, int shaderId);
-	void InitPosition(int x, int y);
+	void SetScreenPosition(int x, int y);
 	Sprite& GetSprite();
 
 	bool IsClicked(Vector2 mousePosition) const;

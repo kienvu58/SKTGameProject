@@ -38,7 +38,7 @@ void EntityStatic::InitSprite(int modelId, int frameId, int shaderId)
 	m_Sprite.SetFrame(FrameMgr->GetFrameById(frameId));
 }
 
-void EntityStatic::InitPosition(int x, int y)
+void EntityStatic::SetScreenPosition(int x, int y)
 {
 	m_ScreenPosition.x = x;
 	m_ScreenPosition.y = y;
