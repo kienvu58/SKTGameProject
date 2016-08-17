@@ -18,9 +18,12 @@ public:
 	void UpdateOverheatBar();
 	void Execute(Game* game) override;
 	void Exit(Game* game) override;
+	void RenderText() const;
+	void RenderVirtualGamePad();
 	void Render(Game* game) override;
-	void RunningBackground(Game* game);
-	void HandlingCircleDirection(Game* game);
+	void MoveBackground();
+	void HandleVirtualGamePad();
+	void InitVirtualGamePad();
 	void Init(const char* filePath);
 
 	bool OnMessage(Game*, const Telegram&) override;
@@ -37,6 +40,7 @@ public:
 	void Reset();
 	int GetCurrentScore() const;
 private:
+#ifndef WIN32
 	EntityStatic m_CircleWithDirections;
 	EntityStatic m_Circle4Dash;
 	EntityStatic m_Circle2Dash_J;
@@ -48,6 +52,7 @@ private:
 	EntityStatic m_ImageAura;
 	EntityStatic m_ImageBarrier;
 	Vector2 m_Circle4DashPos;
+#endif
 	
 	EntityStatic m_Background;
 	EntityStatic m_Background_Clone;

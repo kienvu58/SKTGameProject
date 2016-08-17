@@ -7,6 +7,10 @@ public:
 	static const int screenWidth = 16*70;
 	static const int screenHeight = 9*70;
 
+	static const int TOUCH_ACTION_UP = 0;
+	static const int TOUCH_ACTION_DOWN = 1;
+	static const int TOUCH_ACTION_MOVE = 2;
+
 	static const int animationTime = 8;
 	static float deltaTime;
 

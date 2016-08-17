@@ -20,6 +20,8 @@ extern void GameCleanUp();
 
 extern void OnTouchEvent(int, int, int, int);
 
+extern void ClearTouchEvents();
+
 void appInit() {
 
     GameInit();
@@ -50,6 +52,10 @@ void appDestroy() {
 void appOnTouch(int type, int x, int y, int id) {
     LOGI("Touch at [x:%d, y:%d] [id: %d] [type: %d]", x, y, id, type);
     OnTouchEvent(type, x, y, id);
+}
+
+void appClearTouchEvents() {
+    ClearTouchEvents();
 }
 
 void appOnKeyDown(int keyCode) {

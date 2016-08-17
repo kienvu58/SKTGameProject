@@ -50,3 +50,9 @@ JNIEXPORT void JNI_FUNCTION(GameGLSurfaceView_nativeOnTouch)( JNIEnv*  env, jobj
 {
 	appOnTouch( a, x, y, id);
 }
+
+JNIEXPORT void JNI_FUNCTION(GameGLSurfaceView_nativeClearTouchEvents)(JNIEnv *env, jobject instance) {
+
+    // TODO
+    appClearTouchEvents();
+}

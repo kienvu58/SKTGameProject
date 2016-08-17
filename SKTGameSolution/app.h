@@ -13,6 +13,7 @@ void appDestroy();
 void appUpdate();
 
 void appOnTouch( int flag, int x, int y, int id);
+void appClearTouchEvents();
 void appOnKeyDown( int keyCode );
 
 void appOnKeyUp( int keyCode );

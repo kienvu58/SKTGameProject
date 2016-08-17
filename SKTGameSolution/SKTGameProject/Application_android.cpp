@@ -122,31 +122,25 @@ void GameSetScaleFactor(int width, int height)
 
 void OnTouchEvent(int type, int x, int y, int id)
 {
-	static const int TOUCH_ACTION_UP = 0;
-	static const int TOUCH_ACTION_DOWN = 1;
-	static const int TOUCH_ACTION_MOVE = 2;
-
     int mouseX = int(x * Globals::scaleX);
     int mouseY = int(y * Globals::scaleY);
 
-	if (type == TOUCH_ACTION_MOVE) {
+	InputMgr->AddTouchEvent(id, type, mouseX, mouseY);
+
+	if (type == Globals::TOUCH_ACTION_MOVE) {
 		InputMgr->SetCurrentMousePosition(mouseX, mouseY);
 	}
-	if (type == TOUCH_ACTION_UP) {
+	if (type == Globals::TOUCH_ACTION_UP) {
 		InputMgr->SetMouseDown(false);
-        InputMgr->SetKeyEvent(KEY_D, false);
-        InputMgr->SetKeyEvent(KEY_A, false);
-        InputMgr->SetKeyEvent(KEY_W, false);
-        InputMgr->SetKeyEvent(KEY_S, false);
-
-        InputMgr->SetKeyEvent(KEY_J, false);
-        InputMgr->SetKeyEvent(KEY_K, false);
-        InputMgr->SetKeyEvent(KEY_L, false);
-        InputMgr->SetKeyEvent(KEY_I, false);
 	}
-	if (type == TOUCH_ACTION_DOWN) {
+	if (type == Globals::TOUCH_ACTION_DOWN) {
 		InputMgr->SetCurrentMousePosition(mouseX, mouseY);
 		InputMgr->SetLastMousePosition(mouseX, mouseY);
 		InputMgr->SetMouseDown(true);
 	}
+}
+
+void ClearTouchEvents()
+{
+	InputMgr->ClearTouchEvents();
 }

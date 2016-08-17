@@ -51,7 +51,6 @@ void MouseDown(ESContext* esContext, float x, float y)
 void MouseUp(ESContext* esContext, float x, float y)
 {
 	InputMgr->SetMouseDown(false);
-	InputMgr->ResetKeys();
 }
 
 void CleanUp()

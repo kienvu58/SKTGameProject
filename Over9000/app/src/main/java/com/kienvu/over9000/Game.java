@@ -14,7 +14,7 @@ import android.view.KeyEvent;
  */
 public class Game extends Activity {
     private GLSurfaceView mGLView = null;
-    private SoundManager mSoundManager = null;
+//    private SoundManager mSoundManager = null;
 
     private native void nativeInit();
     //private native void nativeOnKeyDown( int keyCode);
@@ -32,7 +32,7 @@ public class Game extends Activity {
         setContentView(mGLView);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        mSoundManager = new SoundManager(this);
+//        mSoundManager = new SoundManager(this);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Game extends Activity {
         super.onPause();
 
         mGLView.onPause();
-        mSoundManager.pauseMusic();
+//        mSoundManager.pauseMusic();
     }
 
     @Override
@@ -50,13 +50,13 @@ public class Game extends Activity {
         super.onResume();
 
         mGLView.onResume();
-        mSoundManager.resumeMusic();
+//        mSoundManager.resumeMusic();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mSoundManager.stopMusic();
+//        mSoundManager.stopMusic();
     }
 
     public void Exit() {
