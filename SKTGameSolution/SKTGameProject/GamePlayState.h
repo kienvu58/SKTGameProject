@@ -43,6 +43,10 @@ private:
 	EntityStatic m_Circle2Dash_K;
 	EntityStatic m_Circle2Dash_L;
 	EntityStatic m_Circle2Dash_I;
+	EntityStatic m_ImageKiBlast;
+	EntityStatic m_ImageKamehameha;
+	EntityStatic m_ImageAura;
+	EntityStatic m_ImageBarrier;
 	Vector2 m_Circle4DashPos;
 	
 	EntityStatic m_Background;

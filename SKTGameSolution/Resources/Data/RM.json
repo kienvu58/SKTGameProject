@@ -182,6 +182,26 @@
 			"textureH": 512
 		},
 		{
+			"id": 201,
+			"note": "ImageButtonSprite128",
+			"modelW": 64,
+			"modelH": 64,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 1024,
+			"textureH": 1024
+		},
+		{
+			"id": 202,
+			"note": "ImageButtonSprite64",
+			"modelW": 64,
+			"modelH": 64,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
 			"id": 9000,
 			"note": "GokuAvatar",
 			"modelW": 80,

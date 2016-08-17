@@ -47,6 +47,11 @@ void EntityStatic::SetScreenPosition(int x, int y)
 	m_Sprite.SetRenderInfo(m_WorldPosition);
 }
 
+void EntityStatic::SetScreenPosition(Vector2 screenPosition)
+{
+	SetScreenPosition(screenPosition.x, screenPosition.y);
+}
+
 Sprite& EntityStatic::GetSprite()
 {
 	return m_Sprite;

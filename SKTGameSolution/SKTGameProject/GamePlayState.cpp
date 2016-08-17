@@ -98,6 +98,11 @@ void GamePlayState::Render(Game* game)
 	m_Circle2Dash_L.Render();
 	m_Circle2Dash_I.Render();
 
+	m_ImageAura.Render();
+	m_ImageBarrier.Render();
+	m_ImageKamehameha.Render();
+	m_ImageKiBlast.Render();
+
 	m_HpBar.Render();
 	m_HpOutline.Render();
 	m_KiBar.Render();
@@ -228,17 +233,38 @@ void GamePlayState::Init(const char* filePath)
 	m_Circle4Dash.InitSprite(102, 203, 1);
 	m_Circle4Dash.SetScreenPosition(150, 480);
 
+	Vector2 keyJPos(1058, 570);
+	Vector2 keyKPos(1008, 480);
+	Vector2 keyLPos(1058, 390);
+	Vector2 keyIPos(940, 570);
+
 	m_Circle2Dash_J.InitSprite(104, 204, 1);
-	m_Circle2Dash_J.SetScreenPosition(1058, 570);
+	m_Circle2Dash_J.SetScreenPosition(keyJPos);
 
 	m_Circle2Dash_K.InitSprite(104, 204, 1);
-	m_Circle2Dash_K.SetScreenPosition(1008, 480);
+	m_Circle2Dash_K.SetScreenPosition(keyKPos);
 
 	m_Circle2Dash_L.InitSprite(104, 204, 1);
-	m_Circle2Dash_L.SetScreenPosition(1058, 390);
+	m_Circle2Dash_L.SetScreenPosition(keyLPos);
 
 	m_Circle2Dash_I.InitSprite(104, 204, 1);
-	m_Circle2Dash_I.SetScreenPosition(940, 570);
+	m_Circle2Dash_I.SetScreenPosition(keyIPos);
+
+	m_ImageKiBlast.InitSprite(202, 66, 1);
+	m_ImageKamehameha.InitSprite(202, 84, 1);
+	m_ImageBarrier.InitSprite(202, 86, 1);
+	m_ImageAura.InitSprite(201, 44, 1);
+
+	m_ImageKiBlast.SetScreenPosition(keyJPos);
+	m_ImageKamehameha.SetScreenPosition(keyKPos + Vector2(5, 0));
+	m_ImageBarrier.SetScreenPosition(keyLPos);
+	m_ImageAura.SetScreenPosition(keyIPos);
+
+	float alpha = 0.5;
+	m_ImageAura.GetSprite().SetOpacity(alpha);
+	m_ImageBarrier.GetSprite().SetOpacity(alpha);
+	m_ImageKamehameha.GetSprite().SetOpacity(alpha);
+	m_ImageKiBlast.GetSprite().SetOpacity(alpha);
 
 	m_spawner.Init("Data/SPAWNER.json");
 

@@ -17,6 +17,7 @@ public:
 
 	void InitSprite(int modelId, int frameId, int shaderId);
 	void SetScreenPosition(int x, int y);
+	void SetScreenPosition(Vector2 screenPosition);
 	Sprite& GetSprite();
 
 	bool IsClicked(Vector2 mousePosition) const;
