@@ -4,7 +4,7 @@
 #include <Singleton.hpp>
 #include "MessageDispatcher.h"
 #include "SingletonClasses.h"
-#include <iostream>
+#define SCALE_VELOCITY 2.0f
 
 /*Attacking State*/
 CellJuniorAttackingState::CellJuniorAttackingState()
@@ -17,7 +17,7 @@ CellJuniorAttackingState::~CellJuniorAttackingState()
 
 void CellJuniorAttackingState::Enter(EntityCellJunior* celljunior)
 {
-	celljunior->ScaleVelocity(1.9);
+	celljunior->ScaleVelocity(SCALE_VELOCITY);
 	celljunior->GetSteering()->SeekOn();
 }
 
@@ -117,7 +117,6 @@ bool CellJuniorGlobalState::OnMessage(EntityCellJunior* minion, const Telegram& 
 	{
 		if (!minion->IsOverheated() && minion->GetFSM()->CurrentState() != CJS_Attacking::GetInstance())
 		{
-			auto playerPosition = DereferenceToType<b2Vec2>(telegram.ExtraInfo);
 			minion->GetFSM()->ChangeState(CJS_Attacking::GetInstance());
 		}
 		return true;

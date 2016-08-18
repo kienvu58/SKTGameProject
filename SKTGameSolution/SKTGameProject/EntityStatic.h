@@ -16,13 +16,16 @@ public:
 	Entity* Clone() override;
 
 	void InitSprite(int modelId, int frameId, int shaderId);
-	void InitPosition(int x, int y);
+	void SetScreenPosition(int x, int y);
+	void SetScreenPosition(Vector2 screenPosition);
 	Sprite& GetSprite();
 
-	bool IsClicked(Vector2 mousePosition);
-
+	bool IsClicked(Vector2 mousePosition) const;
+	Vector2 GetWorldPosition() const;
+	Vector2 GetScreenPosition() const;
 private:
 	Sprite m_Sprite;
-	Vector2 m_Position;
+	Vector2 m_ScreenPosition;
+	Vector2 m_WorldPosition;
 };
 

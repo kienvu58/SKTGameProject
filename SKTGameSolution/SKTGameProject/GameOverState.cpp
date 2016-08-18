@@ -5,30 +5,40 @@
 #include "GamePlayState.h"
 #include "Definations.h"
 
-GameOverState::GameOverState()
+GameOverState::GameOverState(): m_Background(nullptr), m_Button_Yes(nullptr), m_Button_No(nullptr), m_iBestScore(0)
 {
 }
 
 void GameOverState::Enter(Game* game)
 {
 	auto dataPath = std::string(DATA_PATH);
-	dataPath.append("BEST_SCORE.json");
+	dataPath.append("BEST_SCORE.txt");
 	std::ifstream scoreFile(dataPath.c_str());
-	std::ofstream outFile(dataPath.c_str());
+	std::ofstream outFile;
+
+	float currentScore = GS_GamePlay::GetInstance()->GetCurrentScore();
+	float bestScore = 0;
 
 	if (scoreFile.is_open())
 	{
-		float bestScore;
+		
 		scoreFile >> bestScore;
-		float currentScore = GS_GamePlay::GetInstance()->GetCurrentScore();
+		scoreFile.close();
 		if (currentScore > bestScore)
 		{
-			outFile << currentScore;
-			SetBestScore(currentScore);
+			bestScore = currentScore;
+			outFile.open(dataPath.c_str());
+			outFile << bestScore;
+			outFile.close();
 		}
+		SetBestScore(bestScore);
+	}else
+	{
+		outFile.open(dataPath.c_str());
+		outFile << currentScore;
+		outFile.close();
+		SetBestScore(currentScore);
 	}
-	scoreFile.close();
-	outFile.close();
 }
 
 void GameOverState::PressButton(Game * game)
@@ -80,7 +90,7 @@ void GameOverState::Render(Game* game)
 
 	std::string scoreText = "Best Score: ";
 	scoreText.append(std::to_string(GetBestScore()));
-	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 0, 0, 1), 100.0f, 0, 0, 1, 1);
+	TextMgr->RenderString(scoreText.c_str(), Vector4(1, 1, 0, 1), 100.0f, 0, 0, 1, 1);
 }
 
 void GameOverState::Init(const char* filePath)
@@ -90,11 +100,11 @@ void GameOverState::Init(const char* filePath)
 
 	m_Button_Yes = new EntityStatic();
 	m_Button_Yes->InitSprite(103, 206, 1);
-	m_Button_Yes->InitPosition(350, 350);
+	m_Button_Yes->SetScreenPosition(350, 350);
 
 	m_Button_No = new EntityStatic();
 	m_Button_No->InitSprite(103, 205, 1);
-	m_Button_No->InitPosition(750, 350);
+	m_Button_No->SetScreenPosition(750, 350);
 }
 
 bool GameOverState::OnMessage(Game*, const Telegram&)

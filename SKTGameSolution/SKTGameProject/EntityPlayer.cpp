@@ -10,8 +10,10 @@
 
 
 EntityPlayer::EntityPlayer(): m_fMaxKi(0),
-                              m_fCurrentKi(0),
+                              m_fCurrentKi(0), m_fVisionRange(0), m_fVisionFreq(0),
                               m_iNormalPID(0), m_iSpecialPID(0), m_iUltimatePID(0), m_iAuraPID(0),
+                              m_pAura(nullptr), m_pSpecial(nullptr), m_pUltimate(nullptr), m_fNormalCost(0),
+                              m_fSpecialCost(0), m_fUltimateCost(0),
                               m_pStateMachine(new StateMachine<EntityPlayer>(this))
 {
 	m_fCurrentHealth = 100000;
@@ -229,6 +231,11 @@ void EntityPlayer::Reset()
 float EntityPlayer::GetCurrentKi() const
 {
 	return m_fCurrentKi;
+}
+
+float EntityPlayer::GetMaxKi() const
+{
+	return m_fMaxKi;
 }
 
 void EntityPlayer::StopCharging() const

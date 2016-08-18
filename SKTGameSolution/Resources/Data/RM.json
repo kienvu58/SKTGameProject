@@ -11,6 +11,16 @@
 			"textureW": 1024,
 			"textureH": 1024
 		},
+    {
+			"id": 4,
+			"note": "Sprite64",
+			"modelW": 64,
+			"modelH": 64,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
 		{
 			"id": 2,
 			"note": "Background",
@@ -18,8 +28,8 @@
 			"modelH": 630,
 			"spriteW": 1024,
 			"spriteH": 1024,
-			"textureW": 4096,
-			"textureH": 2048
+			"textureW": 1024,
+			"textureH": 1024
 		},
 		{
 			"id": 3,
@@ -32,20 +42,10 @@
 			"textureH": 512
 		},
 		{
-			"id": 4,
-			"note": "Sprite64",
-			"modelW": 64,
-			"modelH": 64,
-			"spriteW": 64,
-			"spriteH": 64,
-			"textureW": 512,
-			"textureH": 256
-		},
-		{
 			"id": 5,
 			"note": "ButtonMini",
-			"modelW": 42,
-			"modelH": 42,
+			"modelW": 60,
+			"modelH": 60,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 512,
@@ -70,16 +70,6 @@
 			"spriteH": 128,
 			"textureW": 512,
 			"textureH": 512
-		},
-		{
-			"id": 8,
-			"note": "TrueKamehameha",
-			"modelW": 256,
-			"modelH": 256,
-			"spriteW": 128,
-			"spriteH": 128,
-			"textureW": 1024,
-			"textureH": 1024
 		},
 		{
 			"id": 9,
@@ -142,20 +132,10 @@
 			"textureH": 256
 		},
 		{
-			"id": 100,
-			"note": "BackgroundRunning",
-			"modelW": 1120,
-			"modelH": 630,
-			"spriteW": 1024,
-			"spriteH": 1024,
-			"textureW": 1024,
-			"textureH": 1024
-		},
-		{
 			"id": 101,
 			"note": "CircleWithDirections",
-			"modelW": 150,
-			"modelH": 150,
+			"modelW": 210,
+			"modelH": 210,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 256,
@@ -164,8 +144,8 @@
 		{
 			"id": 102,
 			"note": "Circle4Directions",
-			"modelW": 120,
-			"modelH": 120,
+			"modelW": 170,
+			"modelH": 170,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 256,
@@ -184,14 +164,53 @@
 			{
 			"id": 104,
 			"note": "Circle2Directions",
-			"modelW": 80,
-			"modelH": 80,
+			"modelW": 100,
+			"modelH": 100,
 			"spriteW": 128,
 			"spriteH": 128,
 			"textureW": 256,
 			"textureH": 256
+		},
+		{
+			"id": 200,
+			"note": "Bar",
+			"modelW": 300,
+			"modelH": 20,
+			"spriteW": 256,
+			"spriteH": 256,
+			"textureW": 512,
+			"textureH": 512
+		},
+		{
+			"id": 201,
+			"note": "ImageButtonSprite128",
+			"modelW": 64,
+			"modelH": 64,
+			"spriteW": 128,
+			"spriteH": 128,
+			"textureW": 1024,
+			"textureH": 1024
+		},
+		{
+			"id": 202,
+			"note": "ImageButtonSprite64",
+			"modelW": 64,
+			"modelH": 64,
+			"spriteW": 64,
+			"spriteH": 64,
+			"textureW": 512,
+			"textureH": 256
+		},
+		{
+			"id": 9000,
+			"note": "GokuAvatar",
+			"modelW": 80,
+			"modelH": 80,
+			"spriteW": 256,
+			"spriteH": 256,
+			"textureW": 256,
+			"textureH": 256
 		}
-
 	],
 	"spriteSheets":
 	[
@@ -208,54 +227,82 @@
 			"nColumns": 8
 		},
 		{
-			"id": 3,
-			"path": "Textures/Backgrounds.tga",
-			"nRows": 2,
-			"nColumns": 4
-		},
-		{
 			"id": 4,
 			"path": "Textures/GameButtons.tga",
 			"nRows": 4,
 			"nColumns": 4
 		},
 		{
-			"id": 9,
-			"path": "Textures/MusicBar.tga",
-			"nRows": 1,
+			"id": 5,
+			"path": "Textures/Bars.tga",
+			"nRows": 2,
 			"nColumns": 2
-		},
-		{
-			"id": 100,
-			"path": "Textures/Background1.tga",
-			"nRows": 1,
-			"nColumns": 1
-		},
-		{
-			"id": 101,
-			"path": "Textures/Background2.tga",
-			"nRows": 1,
-			"nColumns": 1
 		},
 		{
 			"id": 102,
 			"path": "Textures/PhoneButtons.tga",
 			"nRows": 2,
 			"nColumns": 2
+		},{
+			"id": 201,
+			"path": "Textures/GameWelcomeBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 202,
+			"path": "Textures/MainMenuBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 203,
+			"path": "Textures/GameDeadBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 204,
+			"path": "Textures/GameOptionBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 205,
+			"path": "Textures/GamePauseBackground.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 206,
+			"path": "Textures/BackgroundRunning_0.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 207,
+			"path": "Textures/BackgroundRunning_1.tga",
+			"nRows": 1,
+			"nColumns": 1
+		},
+		{
+			"id": 9000,
+			"path": "Textures/SSGoku.tga",
+			"nRows": 1,
+			"nColumns": 1
 		}
 	],
 	"shaders":
 	[
-		{
-			"id": 1,
-			"vsPath": "Shaders/SpriteVS.vs",
-			"fsPath": "Shaders/SpriteFS.fs"
-		}
-	],
-	"sound":
-	[
-		{
-		
-		}
+    {
+      "id": 1,
+      "vsPath": "Shaders/SpriteVS.vs",
+      "fsPath": "Shaders/SpriteFS.fs"
+    },
+    {
+      "id": 2,
+      "vsPath": "Shaders/TextVS.vs",
+      "fsPath": "Shaders/TextFS.fs"
+    }
 	]
 }

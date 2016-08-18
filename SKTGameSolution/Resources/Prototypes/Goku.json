@@ -2,7 +2,7 @@
     "visionRange": 4,
     "visionFreq": 10,
 	"attackDamage": 10,
-	"maxKi": 10000,
+	"maxKi": 200,
 	"maxSpeed": 10,
 	"movementSpeed": 5,
 	"maxHealth": 100,

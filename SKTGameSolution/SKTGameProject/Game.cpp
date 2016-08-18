@@ -4,10 +4,9 @@
 #include "GameWelcomeState.h"
 #include "GameOptionState.h"
 #include "SingletonClasses.h"
-#include "Definations.h"
 
 Game::Game(): m_pStateMachine(new StateMachine<Game>(this)),
-              m_fPlayingTime(0)
+              m_fPlayingTime(0), m_fDifficulty(0)
 {
 }
 
@@ -20,7 +19,7 @@ void Game::Init()
 {
 	GS_Welcome::GetInstance()->Init("");
 	GS_MainMenu::GetInstance()->Init("");
-	GS_GamePlay::GetInstance()->Init(GS_GAMEPLAY_PATH);
+	GS_GamePlay::GetInstance()->Init("");
 	GS_Option::GetInstance()->Init("");
 	GS_Pause::GetInstance()->Init("");
 	GS_GameOver::GetInstance()->Init("");

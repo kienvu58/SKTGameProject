@@ -9,7 +9,7 @@
 #include "EntityEffect.h"
 
 
-EntityKiBlast::EntityKiBlast(): m_pBody(nullptr), m_iExplosionPID(0)
+EntityKiBlast::EntityKiBlast(): m_pBody(nullptr), m_iExplosionPID(0), m_iTriggerEffectPID(0)
 {
 }
 
@@ -22,7 +22,7 @@ EntityKiBlast::EntityKiBlast(const EntityKiBlast& other) : m_Sprite(other.m_Spri
 {
 	m_fSpeed = other.m_fSpeed;
 	m_fAttackDamage = other.m_fAttackDamage;
-	m_iPrototypeId = other.m_iPrototypeId;
+	m_iPrototypeId = other.m_iPrototypeId; 
 	InitBody(m_b2BodyDef, m_b2FixtureDef);
 	m_pBody->SetUserData(this);
 }

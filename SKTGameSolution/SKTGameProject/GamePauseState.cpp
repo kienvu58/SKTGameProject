@@ -1,11 +1,8 @@
 #include "GamePauseState.h"
-#include "GameWelcomeState.h"
-#include <Windows.h>
 #include "GamePlayState.h"
 #include "SingletonClasses.h"
-#include "SoundManager.h"
 
-GamePauseState::GamePauseState()
+GamePauseState::GamePauseState(): m_Background(nullptr), m_Button_Resume(nullptr), m_Button_Quit(nullptr)
 {
 }
 
@@ -21,12 +18,13 @@ void GamePauseState::Enter(Game* game)
 {
 }
 
-void GamePauseState::PressButton(Game* game)
+void GamePauseState::PressButton(Game* game) const
 {
-	if (InputMgr->GetLastMousePosition().x >= 765.0f && InputMgr->GetLastMousePosition().x <= 895.0f
-		&& InputMgr->GetLastMousePosition().y >= 147.0f && InputMgr->GetLastMousePosition().y <= 177.0f)
+	Vector2 lastMousePosition = InputMgr->GetLastMousePosition();
+	if (m_Button_Resume->IsClicked(lastMousePosition))
 	{
 		//Resum
+		InputMgr->SetLastMousePosition(0, 0);
 		game->GetFSM()->ChangeState(GS_GamePlay::GetInstance());
 		MusicMgr->MusicPlay("GamePlay");
 		MusicMgr->MusicLoop("GamePlay");
@@ -39,8 +37,7 @@ void GamePauseState::PressButton(Game* game)
 //		MusicMgr->MusicLoop("MainMenu");
 //	}
 
-	if (InputMgr->GetLastMousePosition().x >= 785.0f && InputMgr->GetLastMousePosition().x <= 915.0f
-		&& InputMgr->GetLastMousePosition().y >= 195.0f && InputMgr->GetLastMousePosition().y <= 225.0f)
+	if (m_Button_Quit->IsClicked(lastMousePosition))
 	{
 		//Quit (back main menu)
 //		GameInstance->DestroyStateInstances();
@@ -49,8 +46,8 @@ void GamePauseState::PressButton(Game* game)
 //		GameSingleton::CreateInstance();
 //
 //		GameInstance->CreateStateInstances();
+		InputMgr->SetLastMousePosition(0, 0);
 		GameInstance->Reset();
-
 		GameInstance->GetFSM()->SetCurrentState(GS_MainMenu::GetInstance());
 //		GameInstance->Init();
 	}
@@ -84,11 +81,11 @@ void GamePauseState::Init(const char* filePath)
 
 	m_Button_Resume = new EntityStatic();
 	m_Button_Resume->InitSprite(6, 113, 1);
-	m_Button_Resume->InitPosition(830, 162);
+	m_Button_Resume->SetScreenPosition(830, 162);
 
 	m_Button_Quit = new EntityStatic();
 	m_Button_Quit->InitSprite(7, 114, 1);
-	m_Button_Quit->InitPosition(830, 210);
+	m_Button_Quit->SetScreenPosition(830, 210);
 }
 
 bool GamePauseState::OnMessage(Game*, const Telegram&)

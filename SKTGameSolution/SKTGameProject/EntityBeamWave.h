@@ -4,6 +4,7 @@
 #include "EntityBullet.h"
 #include "EntityEffect.h"
 #include "RayCastMultipleCallback.h"
+#include <Box2D/Common/b2Math.h>
 
 class EntityBeamWave :
 	public EntityBullet

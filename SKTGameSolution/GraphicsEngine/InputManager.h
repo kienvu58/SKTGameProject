@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include "../Utilities/utilities.h"
 
 #define KEY_A (1 << 0)
@@ -25,10 +26,16 @@ public:
 	bool IsMouseDown() const;
 	Vector2 GetLastMousePosition() const;
 	Vector2 GetCurrentMousePosition() const;
+	void ResetKeys();
+	void AddTouchEvent(int pointerId, int actionType, int pointerX, int pointerY);
+	Vector2 GetPointerPosition(int pointerId) const;
+	const std::map<int, Vector2>* GetTouchEvents() const;
+	void ClearTouchEvents();
 private:
 	int m_iKeyPressed;
 	bool m_bIsMouseDown;
 	Vector2 m_v2LastMousePos;
 	Vector2 m_v2CurrentMousePos;
-};
 
+	std::map<int, Vector2> m_TouchEvents;
+};

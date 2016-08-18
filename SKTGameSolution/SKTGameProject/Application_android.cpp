@@ -2,23 +2,20 @@
 #include "../Utilities/utilities.h"
 #include "../GraphicsEngine/Globals.h"
 #include "SingletonClasses.h"
-#include "../GraphicsEngine/HelperFunctions.h"
 #include "Definations.h"
 
-#ifndef WIN32
-#include "jni_base.h"
-#endif
-
 float Globals::deltaTime = 0;
+float Globals::scaleX = 1;
+float Globals::scaleY = 1;
 
 int GameInit()
 {
 	// Create instance for each manager class
+	ResourceManagerSingleton::CreateInstance();
 	InputManagerSingleton::CreateInstance();
 	TextManagerSingleton::CreateInstance();
 	AnimationManagerSingleton::CreateInstance();
 	FrameManagerSingleton::CreateInstance();
-	ResourceManagerSingleton::CreateInstance();
 	PhysicsManagerSingleton::CreateInstance();
 	MusicManagerSingleton::CreateInstance();
 
@@ -29,8 +26,8 @@ int GameInit()
 	Game::CreateStateInstances();
 
 	// Initialize data for each manager
-	TextMgr->Init(FONT_PATH);
 	ResourceMgr->Init(RM_PATH);
+	TextMgr->Init(FONT_PATH);
 	FrameMgr->Init(FM_PATH);
 	AnimationMgr->Init(AM_PATH);
 	PhysicsMgr->Init();
@@ -66,6 +63,7 @@ void GameUpdate(float deltaTime)
 
 void OnKeyEvent(unsigned char key, bool isPressed)
 {
+#ifdef WIN32
 	switch (key)
 	{
 	case 'A':
@@ -93,6 +91,7 @@ void OnKeyEvent(unsigned char key, bool isPressed)
 		InputMgr->SetKeyEvent(KEY_I, isPressed);
 		break;
 	}
+#endif
 }
 
 void GameCleanUp()
@@ -115,38 +114,33 @@ void GameCleanUp()
 	GameSingleton::DestroyInstance();
 }
 
+void GameSetScaleFactor(int width, int height)
+{
+    Globals::scaleX = float(Globals::screenWidth) / width;
+    Globals::scaleY = float(Globals::screenHeight) / height;
+}
+
 void OnTouchEvent(int type, int x, int y, int id)
 {
-	static const int TOUCH_ACTION_UP = 0;
-	static const int TOUCH_ACTION_DOWN = 1;
-	static const int TOUCH_ACTION_MOVE = 2;
+    int mouseX = int(x * Globals::scaleX);
+    int mouseY = int(y * Globals::scaleY);
 
-//	WORD movementMask(0);
-//	WORD rotationMask(0);
+	InputMgr->AddTouchEvent(id, type, mouseX, mouseY);
 
-	static Vector2 basePoint;
-	Vector2 currentPoint(0, 0);
-
-	if (type == TOUCH_ACTION_DOWN) {
-		basePoint = Vector2(x, y);
-		currentPoint = basePoint;
+	if (type == Globals::TOUCH_ACTION_MOVE) {
+		InputMgr->SetCurrentMousePosition(mouseX, mouseY);
 	}
-	else if (type == TOUCH_ACTION_MOVE) {
-		int dx = x - basePoint.x;
-		int dy = y - basePoint.y;
-
-		if (abs(dx) > abs(dy)) {
-//			movementMask = dx > 0 ? MOVE_LEFT : MOVE_RIGHT;
-		}
-		else {
-//			movementMask = dy > 0 ? MOVE_BACKWARD : MOVE_FORWARD;
-		}
-
-//		GetSceneManager()->SetMovementMask(movementMask);
-//		GetSceneManager()->SetRotationMask(rotationMask);
-
+	if (type == Globals::TOUCH_ACTION_UP) {
+		InputMgr->SetMouseDown(false);
 	}
-	else { //TOUCH_ACTION_UP
-//		movementMask = 0;
+	if (type == Globals::TOUCH_ACTION_DOWN) {
+		InputMgr->SetCurrentMousePosition(mouseX, mouseY);
+		InputMgr->SetLastMousePosition(mouseX, mouseY);
+		InputMgr->SetMouseDown(true);
 	}
+}
+
+void ClearTouchEvents()
+{
+	InputMgr->ClearTouchEvents();
 }

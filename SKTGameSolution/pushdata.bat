@@ -1,3 +1,3 @@
 @echo off
-call adb push Resources /sdcard/Resources
+call adb push Resources /sdcard/
 pause

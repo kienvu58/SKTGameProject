@@ -28,7 +28,7 @@ void * MemoryManager::Alloc(unsigned int noBytes, char * fileName, unsigned int 
 	m_dataBuffers[m_noBuffers].line = line;
 	m_dataBuffers[m_noBuffers].length = noBytes;
 
-	char * temp = (char *) m_dataBuffers[m_noBuffers].pAddress;
+	char * temp = static_cast<char *>(m_dataBuffers[m_noBuffers].pAddress);
 	temp += noBytes;
 	memcpy(temp, &CHECK_CODE, 4);
 
@@ -41,7 +41,7 @@ void MemoryManager::Free(void * pAddress)
 	//memory overrun checking
 		SanityCheck();
 	// deletion of Null pointer
-		if(pAddress == NULL)
+		if(pAddress == nullptr)
 		{
 			Error("Null pointer deletion\n");
 			return;
@@ -69,7 +69,7 @@ void MemoryManager::Free(void * pAddress)
 	#endif
 }
 
-void MemoryManager::Dump()
+void MemoryManager::Dump() const
 {
 	unsigned long noTotalBytes = 0;
 
@@ -77,7 +77,7 @@ void MemoryManager::Dump()
 
 	for(unsigned int i = 0; i < m_noBuffers; i++)
 	{
-		esLogMessage("%4d. 0x%08X: %d bytes(%s: %d)\n", i, (unsigned long)m_dataBuffers[i].pAddress, m_dataBuffers[i].length, 
+		esLogMessage("%4d. 0x%08X: %d bytes(%s: %d)\n", i, reinterpret_cast<unsigned long>(m_dataBuffers[i].pAddress), m_dataBuffers[i].length, 
 			m_dataBuffers[i].fileName, m_dataBuffers[i].line);
 		noTotalBytes += m_dataBuffers[i].length;
 	}
@@ -85,7 +85,7 @@ void MemoryManager::Dump()
 	esLogMessage("Total: %d buffers, %d bytes\n", m_noBuffers, noTotalBytes);
 }
 
-void MemoryManager::SanityCheck(bool bShowStats)
+void MemoryManager::SanityCheck(bool bShowStats) const
 {
 	if (bShowStats)
 		esLogMessage("Sanity check start...\n");
@@ -93,11 +93,11 @@ void MemoryManager::SanityCheck(bool bShowStats)
 	int count = 0;
 	for(unsigned int i = 0; i < m_noBuffers; i++)
 	{
-		char * temp = (char *) m_dataBuffers[i].pAddress;
+		char * temp = static_cast<char *>(m_dataBuffers[i].pAddress);
 		temp += m_dataBuffers[i].length;
 		if(memcmp(temp, &CHECK_CODE, 4) != 0)
 		{
-			esLogMessage("memory corruption at 0x%08X: %d bytes(%s: %d)\n", (unsigned long)m_dataBuffers[i].pAddress, m_dataBuffers[i].length, 
+			esLogMessage("memory corruption at 0x%08X: %d bytes(%s: %d)\n", reinterpret_cast<unsigned long>(m_dataBuffers[i].pAddress), m_dataBuffers[i].length, 
 				m_dataBuffers[i].fileName, m_dataBuffers[i].line);
 			count++;
 		}
@@ -118,7 +118,7 @@ void MemoryManager::SanityCheck(bool bShowStats)
 void MemoryManager::Error(char * szMessage)
 {
 	esLogMessage(szMessage);
-	switch (MessageBoxA(NULL,szMessage,"Memory Error", MB_ABORTRETRYIGNORE | MB_ICONERROR))
+	switch (MessageBoxA(nullptr,szMessage,"Memory Error", MB_ABORTRETRYIGNORE | MB_ICONERROR))
 	{
 	case IDABORT:
 		exit(-1);

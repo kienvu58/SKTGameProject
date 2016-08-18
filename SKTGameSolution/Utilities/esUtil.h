@@ -129,6 +129,16 @@ void ESUTIL_API esRegisterMouseFunc ( ESContext *esContext,
 //
 void ESUTIL_API esLogMessage ( const char *formatStr, ... );
 
+void ESUTIL_API esRegisterMouseMoveFunc(ESContext *esContext,
+	void (ESCALLBACK *mouseMoveFunc) (ESContext*, float, float));
+
+void ESUTIL_API esRegisterMouseDownFunc(ESContext *esContext,
+	void (ESCALLBACK *mouseDownFunc) (ESContext*, float, float));
+
+void ESUTIL_API esRegisterMouseUpFunc(ESContext *esContext,
+	void (ESCALLBACK *mouseUpFunc) (ESContext*, float, float));
+#endif //WIN32
+
 //
 ///
 /// \brief Load a shader, check for compile errors, print error messages to output log
@@ -136,7 +146,6 @@ void ESUTIL_API esLogMessage ( const char *formatStr, ... );
 /// \param shaderSrc Shader source string
 /// \return A new shader object on success, 0 on failure
 //
-#endif //WIN32
 
 GLuint ESUTIL_API esLoadShader ( GLenum type, const char * filename);
 
@@ -150,14 +159,7 @@ GLuint ESUTIL_API esLoadShader ( GLenum type, const char * filename);
 //
 GLuint ESUTIL_API esLoadProgram ( GLuint vertexShader, GLuint fragmentShader );
 
-void ESUTIL_API esRegisterMouseMoveFunc(ESContext *esContext,
-	void (ESCALLBACK *mouseMoveFunc) (ESContext*, float, float));
 
-void ESUTIL_API esRegisterMouseDownFunc(ESContext *esContext,
-	void (ESCALLBACK *mouseDownFunc) (ESContext*, float, float));
-
-void ESUTIL_API esRegisterMouseUpFunc(ESContext *esContext,
-	void (ESCALLBACK *mouseUpFunc) (ESContext*, float, float));
 
 
 

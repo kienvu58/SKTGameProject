@@ -25,9 +25,9 @@ public:
 	static MemoryManager * GetInstance() {return &ms_Instance;}
 	void * Alloc(unsigned int noBytes, char * fileName, unsigned int line);
 	void Free(void * pAddress);
-	void Dump();
-	void SanityCheck(bool bShowStats = false);
-	void Error(char * szMessage);
+	void Dump() const;
+	void SanityCheck(bool bShowStats = false) const;
+	static void Error(char * szMessage);
 };
 
 
